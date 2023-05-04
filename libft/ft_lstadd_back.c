@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/03 15:50:26 by jlecorne         ###   ########.fr       */
+/*   Created: 2023/04/17 16:11:46 by jlecorne          #+#    #+#             */
+/*   Updated: 2023/04/18 17:06:18 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# ifndef LIBFT
-#  define LIBFT "../libft/libft.h"
-# endif
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*t;
 
-# include LIBFT
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-
-#endif
+	if (*lst)
+	{
+		t = ft_lstlast(*lst);
+		t->next = &*new;
+	}
+	else
+		*lst = new;
+}

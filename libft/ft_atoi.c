@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/03 15:50:26 by jlecorne         ###   ########.fr       */
+/*   Created: 2022/11/09 18:16:35 by jlecorne          #+#    #+#             */
+/*   Updated: 2022/11/12 12:31:02 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# ifndef LIBFT
-#  define LIBFT "../libft/libft.h"
-# endif
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	j;
+	int	r;
 
-# include LIBFT
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-
-#endif
+	i = 0;
+	j = 1;
+	r = 0;
+	while (str[i] == ' ' || str[i] == '\r' || str[i] == '\f'
+		|| str[i] == '\t' || str[i] == '\v' || str[i] == '\n')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			j = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		r = (r * 10) + (str[i] - '0');
+		i++;
+	}
+	return (r * j);
+}
