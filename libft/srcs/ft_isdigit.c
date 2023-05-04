@@ -1,17 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:58:10 by jlecorne         ###   ########.fr       */
+/*   Created: 2022/11/02 11:33:48 by jlecorne          #+#    #+#             */
+/*   Updated: 2023/05/04 20:35:22 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libft.h"
 
-int main(void)
+int	ft_isdigit(int c)
 {
+	if ((c >= '0' && c <= '9'))
+		return (1);
+	return (0);
 }
