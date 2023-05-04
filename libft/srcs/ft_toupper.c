@@ -1,17 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:58:10 by jlecorne         ###   ########.fr       */
+/*   Created: 2022/11/08 17:31:28 by jlecorne          #+#    #+#             */
+/*   Updated: 2023/05/04 20:34:46 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libft.h"
 
-int main(void)
+int	ft_toupper(int c)
 {
+	if (c >= 97 && c <= 122)
+		return (c - 32);
+	else
+		return (c);
 }

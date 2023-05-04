@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:58:10 by jlecorne         ###   ########.fr       */
+/*   Created: 2022/11/15 18:35:17 by jlecorne          #+#    #+#             */
+/*   Updated: 2023/05/04 20:35:08 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libft.h"
 
-int main(void)
+void	ft_putchar_fd(char c, int fd)
 {
+	write(fd, &c, 1);
 }
