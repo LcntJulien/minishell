@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 11:15:03 by jlecorne          #+#    #+#             */
-/*   Updated: 2022/11/10 17:53:44 by jlecorne         ###   ########.fr       */
+/*   Created: 2022/11/11 11:57:03 by jmathieu          #+#    #+#             */
+/*   Updated: 2022/11/22 11:08:47 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,16 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		i;
-	int		j;
-	int		len;
-	char	*p;
+	size_t	i;
+	char	*s;
 
-	i = 0;
-	j = 0;
-	len = (ft_strlen(s1) + ft_strlen(s2) + 1);
-	p = malloc(sizeof(char) * len);
-	if (!p)
-		return (0);
-	while (s1[i])
-	{
-		p[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		p[i + j] = s2[j];
-		j++;
-	}
-	p[i + j] = '\0';
-	return (p);
+	if (!s1 || !s2)
+		return (NULL);
+	i = ft_strlen(s1) + ft_strlen(s2);
+	s = ft_calloc((i + 1), sizeof(char));
+	if (s == NULL)
+		return (NULL);
+	ft_strlcpy(s, s1, ft_strlen(s1) + 1);
+	ft_strlcpy(s + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	return (s);
 }

@@ -3,20 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 11:44:49 by jlecorne          #+#    #+#             */
-/*   Updated: 2022/11/18 14:48:23 by jlecorne         ###   ########.fr       */
+/*   Created: 2022/11/11 11:59:31 by jmathieu          #+#    #+#             */
+/*   Updated: 2022/11/15 12:20:50 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	checkset(char c, const char *set)
+static int	ft_isset(char s, char const *set)
 {
-	while (*set)
+	int	i;
+
+	i = 0;
+	while (set[i])
 	{
-		if (c == *set++)
+		if (set[i] != s)
+			i++;
+		else
 			return (1);
 	}
 	return (0);
@@ -24,21 +29,21 @@ static int	checkset(char c, const char *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int		i;
-	int		j;
-	char	*p;
+	int		start;
+	int		end;
+	char	*s;
 
-	i = 0;
-	j = ft_strlen(s1);
-	if (s1 != 0)
-	{
-		while (*(s1 + i) && checkset(*(s1 + i), set))
-			i++;
-		if (i == j)
-			return (p = ft_strdup(""));
-		while (checkset(*(s1 + j - 1), set) && *(s1 + j - 1))
-			j--;
-		return (p = ft_substr(s1, i, (j - i)));
-	}
-	return (0);
+	start = 0;
+	if (!s1 || !set)
+		return (NULL);
+	end = ft_strlen(s1);
+	while (s1[start] && ft_isset(s1[start], set) != 0)
+		start++;
+	while (start != end && ft_isset(s1[end - 1], set) != 0)
+		end--;
+	s = ft_calloc(sizeof(char), (end - start + 1));
+	if (s == NULL)
+		return (NULL);
+	ft_strlcpy(s, &s1[start], (end - start + 1));
+	return (s);
 }

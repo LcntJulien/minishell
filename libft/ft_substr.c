@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 09:47:21 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/04/18 13:12:24 by jlecorne         ###   ########.fr       */
+/*   Created: 2022/11/11 11:59:46 by jmathieu          #+#    #+#             */
+/*   Updated: 2022/11/11 11:59:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,23 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	char	*p;
-	int		size;
+	char	*ptr;
+	size_t	t;
 
-	i = 0;
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	if (len < ft_strlen(s + start))
-		size = len;
-	else
-		size = ft_strlen(s + start);
-	p = malloc(sizeof(char) * (size + 1));
-	if (!p)
-		return (NULL);
-	while (*(s + start) && i < len)
+	if (s == 0 || start >= ft_strlen(s))
+		return ((char *)ft_calloc(1, sizeof(char)));
+	if (ft_strlen(s + start) < len)
 	{
-		*(char *)(p + i) = *(char *)(s + start);
-		start++;
-		i++;
+		ptr = ft_calloc(ft_strlen(s + start) + 1, sizeof(char));
+		t = (ft_strlen(s + start) + 1);
 	}
-	p[i] = '\0';
-	return (p);
+	else
+	{
+		ptr = ft_calloc(len + 1, sizeof(char));
+		t = (len + 1);
+	}
+	if (ptr == NULL)
+		return (NULL);
+	ft_strlcpy(ptr, &s[start], t);
+	return (ptr);
 }
