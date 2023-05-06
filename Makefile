@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/03 15:44:30 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/05/06 12:27:30 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CC		= gcc
 
 LIBFT 	= ./libft/libft.a
 
-HEADERS	= ./include/ $(LIBFT)
+HEADERS	= ./include/ $(LIBFT) -lreadline
 
 FLAGS	= -Wall -Wextra -Werror
 
