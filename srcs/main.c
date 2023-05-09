@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/06 15:43:24 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:51:22 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 int	main(void)
 {
 	t_shell	mini;
+	char	*excmd;
 
-	char	*excmd = "exit";
-	while (1)
+	excmd = "exit";
+	mini.in = dup(STDIN_FILENO);
+	mini.out = dup(STDOUT_FILENO);
+	mini.rtn = 0;
+	mini.exit = 0;
+	while (mini.exit == 0)
 	{
 		mini.input = readline("minishell $ ");
 		if (ft_strncmp(excmd, mini.input, ft_strlen(mini.input)) == 0)
-			break;
-		if (mini.input)
-			printf("%s\n", mini.input);
+			mini.exit = 1;
 	}
 	free(mini.input);
 	return (0);
