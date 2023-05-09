@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/06 15:42:35 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:53:01 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,33 @@
 typedef struct s_shell
 {
 	char	*input;
-	int		inf;
-	int		outf;
+	int		in;
+	int		out;
 	int		rtn;
 	int		pid;
+	int		exit;
 }			t_shell;
 
+typedef struct s_token
+{
+	char	*s;
+	int		type;
+	t_token	*prev;
+	t_token	*next;
+}			t_token;
+
 # include LIBFT
+# include <dirent.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 #endif
