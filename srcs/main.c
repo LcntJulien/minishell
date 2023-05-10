@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_shell	mini;
 	char	*excmd;
