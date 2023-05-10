@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/03 15:44:30 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/05/10 12:36:04 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CC		= gcc
 
 LIBFT 	= ./libft/libft.a
 
-HEADERS	= ./include/ $(LIBFT)
+HEADERS	= ./include/ $(LIBFT) -I /bin/
 
 FLAGS	= -Wall -Wextra -Werror
 
@@ -31,7 +31,7 @@ OBJS	= $(SRCS:.c=.o)
 all		: $(NAME)
 
 $(NAME)	: $(OBJS) $(LIBFT)
-	$(CC) $(FLAGS) $(OBJS) -I $(HEADERS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -I $(HEADERS) -lreadline -o $(NAME)
 	@echo "-- program created"
 
 clean 	:
