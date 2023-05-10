@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:libft/ft_strtrim.c
 /*   Created: 2022/11/11 11:59:31 by jmathieu          #+#    #+#             */
-/*   Updated: 2022/11/15 12:20:50 by jmathieu         ###   ########.fr       */
-=======
-/*   Created: 2022/11/10 11:44:49 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:34:53 by jlecorne         ###   ########.fr       */
->>>>>>> 2b58f5164b3ad6f5d88891129d3346018f6abe44:libft/srcs/ft_strtrim.c
+/*   Updated: 2023/05/10 14:44:51 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

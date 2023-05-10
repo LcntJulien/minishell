@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:libft/ft_strjoin.c
 /*   Created: 2022/11/11 11:57:03 by jmathieu          #+#    #+#             */
-/*   Updated: 2022/11/22 11:08:47 by jmathieu         ###   ########.fr       */
-=======
-/*   Created: 2022/11/10 11:15:03 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:34:59 by jlecorne         ###   ########.fr       */
->>>>>>> 2b58f5164b3ad6f5d88891129d3346018f6abe44:libft/srcs/ft_strjoin.c
+/*   Updated: 2023/05/10 14:43:51 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

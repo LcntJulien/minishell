@@ -6,16 +6,17 @@
 #    By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/10 14:42:43 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/05/10 15:53:51 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 PFXS	= srcs/
 
-PFXB	= builtin/
+PFXB	= $(PFXS)builtin/
 
-SRCS	= $(PFXS)main.c		\
-		$(PFXS)parsing/input.c
+SRCS	= $(PFXS)main.c			\
+		$(PFXS)parsing/input.c	\
+		$(PFXB)echo.c			
 			
 NAME	= minishell
 
@@ -23,11 +24,11 @@ CC		= gcc
 
 LIBFT 	= libft/libft.a
 
-# HEADERS	= -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
-HEADERS = -I libft/include -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
+HEADERS	= -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+# HEADERS = -I libft/include -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
-# LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
-LIBS = $(LIBFT) -lreadline -L"/opt/homebrew/Cellar/readline/8.2.1/lib"
+LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
+# LIBS = $(LIBFT) -lreadline -L"/opt/homebrew/Cellar/readline/8.2.1/lib"
 
 CFLAGS	= -Wall -Wextra -Werror
 
@@ -36,7 +37,7 @@ OBJS	= $(SRCS:.c=.o)
 all		: $(NAME)
 
 .c.o	:
-	$(CC) $(CFLAGS) $(HEADERS) $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
 
 $(NAME)	: lib $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
@@ -53,7 +54,7 @@ fclean 	: fclib clean
 re 		: fclean all
 
 debug 	: fclean $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) -o $(NAME) -fsanitize=address
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) -fsanitize=address
 
 lib		:
 	@$(MAKE) -sC libft

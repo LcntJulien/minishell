@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:libft/ft_strlcat.c
 /*   Created: 2022/11/11 11:57:14 by jmathieu          #+#    #+#             */
-/*   Updated: 2022/11/22 10:57:41 by jmathieu         ###   ########.fr       */
-=======
-/*   Created: 2022/11/04 18:55:11 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:34:59 by jlecorne         ###   ########.fr       */
->>>>>>> 2b58f5164b3ad6f5d88891129d3346018f6abe44:libft/srcs/ft_strlcat.c
+/*   Updated: 2023/05/10 14:44:11 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

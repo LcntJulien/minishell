@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:libft/ft_striteri.c
 /*   Created: 2022/11/11 11:56:53 by jmathieu          #+#    #+#             */
-/*   Updated: 2022/11/22 11:57:48 by jmathieu         ###   ########.fr       */
-=======
-/*   Created: 2022/11/15 18:25:37 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:35:00 by jlecorne         ###   ########.fr       */
->>>>>>> 2b58f5164b3ad6f5d88891129d3346018f6abe44:libft/srcs/ft_striteri.c
+/*   Updated: 2023/05/10 14:45:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
