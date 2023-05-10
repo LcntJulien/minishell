@@ -6,7 +6,7 @@
 #    By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/10 12:36:04 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/05/10 14:42:43 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,46 +14,57 @@ PFXS	= srcs/
 
 PFXB	= builtin/
 
-SRCS	= $(PFXS)main.c
+SRCS	= $(PFXS)main.c		\
+		$(PFXS)parsing/input.c
 			
 NAME	= minishell
 
 CC		= gcc
 
-LIBFT 	= ./libft/libft.a
+LIBFT 	= libft/libft.a
 
-HEADERS	= ./include/ $(LIBFT) -I /bin/
+# HEADERS	= -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+HEADERS = -I libft/include -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
-FLAGS	= -Wall -Wextra -Werror
+# LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
+LIBS = $(LIBFT) -lreadline -L"/opt/homebrew/Cellar/readline/8.2.1/lib"
+
+CFLAGS	= -Wall -Wextra -Werror
 
 OBJS	= $(SRCS:.c=.o)
 
 all		: $(NAME)
 
-$(NAME)	: $(OBJS) $(LIBFT)
-	$(CC) $(FLAGS) $(OBJS) -I $(HEADERS) -lreadline -o $(NAME)
+.c.o	:
+	$(CC) $(CFLAGS) $(HEADERS) $< -o $(<:.c=.o)
+
+$(NAME)	: lib $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 	@echo "-- program created"
 
-clean 	:
+clean 	: clib
 	@rm -f $(OBJS)
 	@echo "-- all objects deleted"
 
-fclean 	: clean
+fclean 	: fclib clean
 	@rm -f $(NAME)
 	@echo "-- program deleted"
 
 re 		: fclean all
 
 debug 	: fclean $(OBJS) $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJS) -I $(HEADERS) -o $(NAME) -fsanitize=address
+	@$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) -o $(NAME) -fsanitize=address
 
 lib		:
-	@make -sC ./libft
+	@$(MAKE) -sC libft
 
 clib	:
-	@make fclean -sC ./libft
+	@$(MAKE) clean -sC libft
+
+fclib	:
+	@$(MAKE) fclean -sC libft
 
 rlib	:
-	@make re -sC ./libft
+	@$(MAKE) re -sC libft
 
 .PHONY	: all, clean, fclean, re, debug, lib, clib, rlib

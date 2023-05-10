@@ -6,30 +6,29 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/10 12:14:30 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:42:32 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int ac, char **av)
+int	main(void)
 {
-	char	*line;
-	(void)ac;
-	(void)av;
+	t_shell	mini;
+	char	*excmd;
 
-	line = readline("> ");
-	
-	//while ((line = readline("> ")) != NULL)
-	//{
-        //if (strcmp(line, "exit") == 0)
-		//{
-            //free(line);
-            //break;
-        //}
-        //printf("You entered: %s\n", line);
-        //add_history(line);
-        //free(line);
-    //}
+	excmd = "exit";
+	mini.in = dup(STDIN_FILENO);
+	mini.out = dup(STDOUT_FILENO);
+	mini.rtn = 0;
+	mini.exit = 0;
+	while (mini.exit == 0)
+	{
+		mini.input = readline("minishell $ ");
+		if (ft_strncmp(excmd, mini.input, ft_strlen(mini.input)) == 0)
+			mini.exit = 1;
+		parse(&mini);
+	}
+	free(mini.input);
 	return (0);
 }
