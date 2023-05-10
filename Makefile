@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/10 14:14:47 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/05/10 15:39:09 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,20 +14,20 @@ PFXS	= srcs/
 
 PFXB	= builtin/
 
-SRCS	= $(PFXS)main.c		\
+SRCS	= $(PFXS)main.c			\
 		$(PFXS)parsing/input.c
 			
 NAME	= minishell
 
 CC		= gcc
 
-LIBFT 	= libft/libft.a
+LIBFT 	= -lft -L ./libft
 
 # HEADERS	= -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
-HEADERS = -I libft/include -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
+HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
 # LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
-LIBS = $(LIBFT) -lreadline -L"/opt/homebrew/Cellar/readline/8.2.1/lib"
+LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
 
 CFLAGS	= -Wall -Wextra -Werror
 
@@ -35,8 +35,7 @@ OBJS	= $(SRCS:.c=.o)
 
 all		: $(NAME)
 
-.c.o	:
-	$(CC) $(CFLAGS) $(HEADERS) $< -o $(<:.c=.o)
+.c.o	: $(CC) $(CFLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
 
 $(NAME)	: lib $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
@@ -67,4 +66,4 @@ fclib	:
 rlib	:
 	@$(MAKE) re -sC libft
 
-.PHONY	: all, clean, fclean, re, debug, lib, clib, rlib
+.PHONY	: all, clean, fclean, re, debug, lib, clib, fclib, rlib
