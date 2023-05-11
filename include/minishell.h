@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:55:50 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:29:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,40 @@
 # endif
 
 # include LIBFT
+# include <curses.h>
+# include <dirent.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
-# include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/ioctl.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include <unistd.h>
+
+typedef struct s_shell
+{
+	char			*input;
+	int				in;
+	int				out;
+	int				rtn;
+	int				pid;
+	int				exit;
+}					t_shell;
+
+typedef struct s_token
+{
+	char			*s;
+	int				type;
+	struct s_token	*prev;
+	struct s_token	*next;
+}					t_token;
+
+void				parse(t_shell *mini);
 
 #endif
