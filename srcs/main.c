@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/10 15:40:57 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:49:48 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 	mini.exit = 0;
 	while (mini.exit == 0)
 	{
-		mini.input = readline("minishell $ ");
+		mini.input = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		if (ft_strncmp(excmd, mini.input, ft_strlen(mini.input)) == 0)
 			mini.exit = 1;
 		parse(&mini);
