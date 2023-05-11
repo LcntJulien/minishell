@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/11 15:53:26 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:55:20 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,9 @@ static void	startshell(t_shell *mini)
 
 static void	args(int argc, char **argv)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
+	(void)argv;
 	if (argc < 1)
 		exit (0);
-	if (argc > 1)
-	{
-		while (argv[i])
-		{
-			if (argv[i][j] == ' ' || argv[i][j] == '\t')
-				j++;
-			else
-				exit (0);
-		}
-	}
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -6,7 +6,7 @@
 #    By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/11 14:29:59 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/05/11 17:31:27 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,13 @@ PFXB	= $(PFXS)builtin/
 
 SRCS	= $(PFXS)main.c			\
 		$(PFXS)parsing/input.c	\
+		$(PFXB)cd.c				\
 		$(PFXB)echo.c			\
-		$(PFXB)env.c			
-
+		$(PFXB)env.c			\
+		$(PFXB)exit.c			\
+		$(PFXB)export.c			\
+		$(PFXB)pwd.c			\
+		$(PFXB)unset.c
 			
 NAME	= minishell
 
