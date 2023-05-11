@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:17:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/11 13:47:02 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/05/11 13:31:15 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/05/11 14:48:00 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../include/minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_env(t_shell *mini, char **envp)
 {
-	t_list	*elem;
+	char	*var;
+	int	 	i;
+	int		j;
 
-	if (lst)
+	i = 0;
+	j = 0;
+	if (!envp)
+		exit (0);	
+	while (envp[i])
 	{
-		while (*lst)
-		{
-			elem = (*lst)->next;
-			ft_lstdelone(*lst, del);
-			*lst = elem;
-		}
-		*lst = NULL;
+		printf("%s\n", envp[i]);
+		i++;
 	}
+	mini->envi = calloc(sizeof(char *), (i + 1));
+	while (envp[j] <= envp[i])
+	{
+		var = ft_strdup(envp[j]);
+		j++;
+		free(var);
+	}		
 }

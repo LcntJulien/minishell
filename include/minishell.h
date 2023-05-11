@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/10 15:01:44 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:28:30 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 typedef struct s_shell
 {
 	char			*input;
+	char			**envi;
 	int				in;
 	int				out;
 	int				rtn;
@@ -48,6 +49,16 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+/*	SRC	*/
+
+/*	BUILTIN	*/
+
+/* echo */
+
+/* env */
+void	ft_env(t_shell *mini, char **envp);
+
+/*	PARSING	*/
 void	parse(t_shell *mini);
 
 #endif
