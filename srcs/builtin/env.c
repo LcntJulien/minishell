@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:31:15 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/11 14:48:00 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:51:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,11 @@ void	ft_env(t_shell *mini, char **envp)
 	if (!envp)
 		exit (0);	
 	while (envp[i])
-	{
-		printf("%s\n", envp[i]);
 		i++;
-	}
-	mini->envi = calloc(sizeof(char *), (i + 1));
+	mini->env = calloc(sizeof(char *), (i + 1));
 	while (envp[j] <= envp[i])
 	{
-		var = ft_strdup(envp[j]);
+		mini->env[j] = ft_strdup(envp[j]);
 		j++;
-		free(var);
 	}		
 }

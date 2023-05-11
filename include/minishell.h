@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/11 14:28:30 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:50:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 typedef struct s_shell
 {
 	char			*input;
-	char			**envi;
+	char			**env;
 	int				in;
 	int				out;
 	int				rtn;
