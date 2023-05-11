@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/11 14:49:41 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:53:26 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,27 @@ static void	startshell(t_shell *mini)
 	mini->exit = 0;
 }
 
+static void	args(int argc, char **argv)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if (argc < 1)
+		exit (0);
+	if (argc > 1)
+	{
+		while (argv[i])
+		{
+			if (argv[i][j] == ' ' || argv[i][j] == '\t')
+				j++;
+			else
+				exit (0);
+		}
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	mini;
@@ -27,8 +48,7 @@ int	main(int argc, char **argv, char **envp)
 
 	
 	excmd = "exit";
-	(void)argc;
-	(void)argv;
+	args(argc, argv);
 	startshell(&mini);
 	ft_env(&mini, envp);
 	while (mini.exit == 0)
