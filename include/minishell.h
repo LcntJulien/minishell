@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/11 14:50:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/13 11:39:52 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ typedef struct s_token
 /* echo */
 
 /* env */
-void	ft_env(t_shell *mini, char **envp);
+void	copy_env(t_shell *mini, char **envp);
+void	env(t_shell *mini, char **tab);
 
 /*	PARSING	*/
 void	parse(t_shell *mini);

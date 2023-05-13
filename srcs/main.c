@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/11 17:55:20 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/13 11:21:44 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 	excmd = "exit";
 	args(argc, argv);
 	startshell(&mini);
-	ft_env(&mini, envp);
+	copy_env(&mini, envp);
 	while (mini.exit == 0)
 	{
 		mini.input = readline("minishell $ ");
