@@ -18,13 +18,17 @@ static void	startshell(t_shell *mini)
 	mini->out = dup(STDOUT_FILENO);
 	mini->rtn = 0;
 	mini->exit = 0;
+	copy_env(&mini, envp);
 }
 
 static void	args(int argc, char **argv)
 {
 	(void)argv;
-	if (argc < 1)
+	if (argc < 1 || argc > 1)
+	{
+		perror("Launch without any arguments");
 		exit (0);
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -36,7 +40,6 @@ int	main(int argc, char **argv, char **envp)
 	excmd = "exit";
 	args(argc, argv);
 	startshell(&mini);
-	copy_env(&mini, envp);
 	while (mini.exit == 0)
 	{
 		mini.input = readline("minishell $ ");
