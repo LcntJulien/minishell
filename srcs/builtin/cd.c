@@ -3,11 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:18:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/11 17:19:44 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:12:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	cd(char *path)
+{
+	if (chdir(path) == -1)
+		perror("Invalid path");
+	else
+	{
+
+	}
+}
