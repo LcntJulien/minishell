@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/15 16:54:50 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:07:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	startshell(t_shell *mini, char **env)
 	mini->rtn = 0;
 	mini->exit = 0;
 	copy_env(mini, env);
+	find_pwd(mini);
 }
 
 static void	args(int ac, char **av)
@@ -37,7 +38,7 @@ int	main(int ac, char **av, char **env)
 	char	*excmd;
 
 	
-	excmd = "exit";
+	excmd = "exit"; // a supprimer
 	args(ac, av);
 	startshell(&mini, env);
 	while (mini.exit == 0)
