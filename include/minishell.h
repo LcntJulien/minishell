@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/13 11:39:52 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:22:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 typedef struct s_shell
 {
 	char			*input;
+	char			*pwd;
+	char			*oldpwd;
 	char			**env;
 	int				in;
 	int				out;
@@ -56,10 +58,13 @@ typedef struct s_token
 /* echo */
 
 /* env */
-void	copy_env(t_shell *mini, char **envp);
 void	env(t_shell *mini, char **tab);
 
 /*	PARSING	*/
 void	parse(t_shell *mini);
+
+/*	UTILS	*/
+void	copy_env(t_shell *mini, char **env);
+void	find_pwd(t_shell *mini);
 
 #endif
