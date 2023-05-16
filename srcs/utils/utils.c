@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:58:00 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/15 17:34:32 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:32:53 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	copy_env(t_shell *mini, char **env)
 		var = ft_strdup(env[i]);
 		mini->env[i] = var;
 	}
-	mini->env[i] = '\0';
+	mini->env[i] = "\0";
 }
 
 void	find_pwd(t_shell *mini)
@@ -46,4 +46,20 @@ void	find_pwd(t_shell *mini)
 			mini->oldpwd = ft_substr(mini->env[i], 7,
 					ft_strlen(mini->env[i]) - 7);
 	}
+}
+
+char	*format_string(char *str)
+{
+	int	i;
+	char *newstr;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			
+		}
+	}
+	return (newstr);
 }

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/16 10:44:00 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:02:35 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ typedef struct s_token
 void	b_env(t_shell *mini, char **tab);
 
 /*	export	*/
-void	b_export(t_shell *mini)
+void	b_export(t_shell *mini, char *str);
 
 /*	pwd	*/
-void	b_wd(t_shell *mini)
+void	b_wd(t_shell *mini);
 
 /*	PARSING	*/
 void	parse(t_shell *mini);
@@ -72,5 +72,6 @@ void	parse(t_shell *mini);
 /*	UTILS	*/
 void	copy_env(t_shell *mini, char **env);
 void	find_pwd(t_shell *mini);
+char	*format_string(char *str);
 
 #endif
