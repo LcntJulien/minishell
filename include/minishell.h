@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/16 13:02:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:54:43 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ void	b_export(t_shell *mini, char *str);
 
 /*	pwd	*/
 void	b_wd(t_shell *mini);
+
+/*	unset	*/
+void	b_unset(t_shell *mini);
 
 /*	PARSING	*/
 void	parse(t_shell *mini);
