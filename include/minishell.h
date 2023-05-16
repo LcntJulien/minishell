@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/15 22:07:03 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:44:00 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,13 @@ typedef struct s_token
 /* echo */
 
 /* env */
-void	env(t_shell *mini, char **tab);
+void	b_env(t_shell *mini, char **tab);
+
+/*	export	*/
+void	b_export(t_shell *mini)
+
+/*	pwd	*/
+void	b_wd(t_shell *mini)
 
 /*	PARSING	*/
 void	parse(t_shell *mini);

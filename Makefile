@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/15 17:33:41 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/05/16 10:45:33 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ PFXT	= $(PFXS)utils/
 
 SRCS	= $(PFXS)main.c			\
 		$(PFXS)parsing/input.c	\
-		$(PFXB)cd.c				\
-		$(PFXB)echo.c			\
-		$(PFXB)env.c			\
-		$(PFXB)exit.c			\
-		$(PFXB)export.c			\
-		$(PFXB)pwd.c			\
-		$(PFXB)unset.c			\
+		$(PFXB)b_cd.c			\
+		$(PFXB)b_echo.c			\
+		$(PFXB)b_env.c			\
+		$(PFXB)b_exit.c			\
+		$(PFXB)b_export.c		\
+		$(PFXB)b_pwd.c			\
+		$(PFXB)b_unset.c		\
 		$(PFXT)utils.c	
 			
 NAME	= minishell
