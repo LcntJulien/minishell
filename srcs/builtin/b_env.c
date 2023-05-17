@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 17:07:59 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/17 16:59:08 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/05/17 17:15:45 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/05/17 17:15:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/minishell.h"
 

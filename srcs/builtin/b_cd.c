@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 17:18:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/15 22:07:53 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/05/17 17:16:06 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/05/17 17:16:07 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,6 @@ void	cd(char *path)
 	{
 
 	}
+	// gerer la mise a jour de env lorsque le path change: OLDPWD a integre en fin d'environnement
+	
 }
