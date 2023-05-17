@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:07:59 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/15 17:12:50 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:59:08 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,7 @@ void	env(t_shell *mini, char **tab)
 {
 	int	i;
 
-	if (tab[0])
-	{
-		mini->rtn = 1;
-		return ;
-	}	
-	else
-	{
-		i = -1;
-		while (mini->env[++i])
-			printf("%s\n", mini->env[i]);		
-	}	
+	i = -1;
+	while (mini->env[++i])
+		printf("%s\n", mini->env[i]);		
 }
