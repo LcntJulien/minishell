@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/16 14:54:43 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:44:15 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_shell
 	int				rtn;
 	int				pid;
 	int				exit;
+	t_token			*token;
 }					t_shell;
 
 typedef struct s_token
@@ -55,18 +56,21 @@ typedef struct s_token
 
 /*	BUILTIN	*/
 
-/* echo */
+/* b_cd */
 
-/* env */
+/* b_echo */
+void	b_echo(t_shell *mini);
+
+/* b_env */
 void	b_env(t_shell *mini, char **tab);
 
-/*	export	*/
+/*	b_export	*/
 void	b_export(t_shell *mini, char *str);
 
-/*	pwd	*/
+/*	b_pwd	*/
 void	b_wd(t_shell *mini);
 
-/*	unset	*/
+/*	b_unset	*/
 void	b_unset(t_shell *mini);
 
 /*	PARSING	*/
