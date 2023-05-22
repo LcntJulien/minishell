@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/22 19:44:44 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:46:51 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int					quote_state(char *line, int idx);
 int					is_sep(char *line, int i);
 void				*get_tokens(char *line);
 void				space(char *line, int *i);
+void				listfree(t_token *token);
 
 #endif
