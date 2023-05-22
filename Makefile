@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/10 15:39:09 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/05/17 13:46:41 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ PFXS	= srcs/
 PFXB	= builtin/
 
 SRCS	= $(PFXS)main.c			\
-		$(PFXS)parsing/input.c
+		$(PFXS)parsing/input.c	\
+		$(PFXS)parsing/utils.c	\
+		$(PFXS)parsing/token.c
 			
 NAME	= minishell
 
