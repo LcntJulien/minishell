@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/10 15:29:59 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:44:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@
 # include <termios.h>
 # include <unistd.h>
 
-typedef struct s_shell
-{
-	char			*input;
-	int				in;
-	int				out;
-	int				rtn;
-	int				pid;
-	int				exit;
-}					t_shell;
-
 typedef struct s_token
 {
 	char			*s;
@@ -52,6 +42,21 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_shell
+{
+	t_token			*token;
+	char			*line;
+	int				in;
+	int				out;
+	int				rtn;
+	int				pid;
+	int				exit;
+}					t_shell;
+
 void				parse(t_shell *mini);
+int					quote_state(char *line, int idx);
+int					is_sep(char *line, int i);
+void				*get_tokens(char *line);
+void				space(char *line, int *i);
 
 #endif
