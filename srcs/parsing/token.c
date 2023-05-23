@@ -6,11 +6,33 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/22 19:43:59 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:41:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	tk_type(t_token *token)
+{
+	if (token->prev == NULL || token->prev->type >= HEREDOC)
+		token->type = CMD;
+	else if (token->s[0] == '$')
+		token->type = VAR;
+	else if (ft_strncmp(token->s, "<", ft_strlen(token->s)) == 0)
+		token->type = INPUT;
+	else if (ft_strncmp(token->s, ">", ft_strlen(token->s)) == 0)
+		token->type = OUTPUT;
+	else if (token->s[0] == '\''|| token->s[0] == '\"')
+		token->type = STRING;
+	else if (ft_strncmp(token->s, ">>", ft_strlen(token->s)) == 0)
+		token->type = APPEND;
+	else if (ft_strncmp(token->s, "<<", ft_strlen(token->s)) == 0)
+		token->type = HEREDOC;
+	else if (ft_strncmp(token->s, "|", ft_strlen(token->s)) == 0)
+		token->type = PIPE;
+	else
+		token->type = ARG;
+}
 
 int	str_alloc(char *line, int *i)
 {
@@ -70,6 +92,7 @@ void	*get_tokens(char *line)
 		token->prev = prev;
 		if (prev)
 			prev->next = token;
+		tk_type(token);
 		prev = token;
 		space(line, &i);
 	}
