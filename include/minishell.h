@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/22 19:46:51 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:06:56 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 # ifndef LIBFT
 #  define LIBFT "../libft/include/libft.h"
 # endif
+
+# define CMD 0
+# define ARG 1
+# define VAR 2
+# define INPUT 3
+# define OUTPUT 4
+# define STRING 5
+# define APPEND 6
+# define HEREDOC 7
+# define PIPE 8
 
 # include LIBFT
 # include <curses.h>
