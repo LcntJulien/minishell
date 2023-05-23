@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/12 13:44:58 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:07:09 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 # ifndef LIBFT
 #  define LIBFT "../libft/include/libft.h"
 # endif
+
+# define CMD 0
+# define ARG 1
+# define VAR 2
+# define INPUT 3
+# define OUTPUT 4
+# define STRING 5
+# define APPEND 6
+# define HEREDOC 7
+# define PIPE 8
 
 # include LIBFT
 # include <curses.h>
@@ -34,17 +44,6 @@
 # include <termios.h>
 # include <unistd.h>
 
-typedef struct s_shell
-{
-	char			*input;
-	char			**env;
-	int				in;
-	int				out;
-	int				rtn;
-	int				pid;
-	int				exit;
-}					t_shell;
-
 typedef struct s_token
 {
 	char			*s;
@@ -53,16 +52,23 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-/*	SRC	*/
+typedef struct s_shell
+{
+	t_token			*token;
+	char			*line;
+	int				in;
+	int				out;
+	int				rtn;
+	int				pid;
+	int				exit;
+}					t_shell;
 
-/*	BUILTIN	*/
-
-/* echo */
-
-/* env */
+void				parse(t_shell *mini);
+int					quote_state(char *line, int idx);
+int					is_sep(char *line, int i);
+void				*get_tokens(char *line);
+void				space(char *line, int *i);
+void				listfree(t_token *token);
 void	ft_env(t_shell *mini, char **envp);
-
-/*	PARSING	*/
-void	parse(t_shell *mini);
 
 #endif
