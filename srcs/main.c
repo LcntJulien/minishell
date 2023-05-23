@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/23 21:22:56 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:23:22 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	sigint_handler(int sig)
 	exit(0);
 }
 
-static void	startshell(t_shell *mini)
-{
-	mini->in = dup(STDIN_FILENO);
-	mini->out = dup(STDOUT_FILENO);
-	mini->rtn = 0;
-	mini->exit = 0;
-}
+// static void	startshell(t_shell *mini)
+// {
+// 	mini->in = dup(STDIN_FILENO);
+// 	mini->out = dup(STDOUT_FILENO);
+// 	mini->rtn = 0;
+// 	mini->exit = 0;
+// }
 
 static void	args(int argc, char **argv)
 {
