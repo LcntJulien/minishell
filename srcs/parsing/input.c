@@ -77,17 +77,7 @@ void	parse(t_shell *mini)
 {
 	t_token	*token;
 	char	*line;
-	char	*tab[9];
 
-	tab[0] = "CMD";
-	tab[1] = "ARG";
-	tab[2] = "VAR";
-	tab[3] = "INPUT";
-	tab[4] = "OUTPUT";
-	tab[5] = "STRING";
-	tab[6] = "APPEND";
-	tab[7] = "HEREDOC";
-	tab[8] = "PIPE";
 	if (!mini->line[0])
 		return ;
 	else if (line_check(mini))
@@ -97,12 +87,5 @@ void	parse(t_shell *mini)
 		line[0] = (char)(-line[0]);
 	mini->token = get_tokens(line);
 	token = mini->token;
-	while (token != NULL)
-	{
-		ft_putstr_fd(token->s, 1);
-		ft_putstr_fd(" --> ", 1);
-		ft_putendl_fd(tab[token->type], 1);
-		token = token->next;
-	}
 	free(line);
 }
