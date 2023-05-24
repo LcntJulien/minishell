@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:15:31 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/17 17:15:32 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:51:01 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	pwd(t_shell *mini)
 {
-	char *path;
+	char	*path;
 
 	path = getcwd(NULL, 0);
-	if (path =! NULL)
+	if (path != NULL)
 		printf("%s\n", path);
-	else
-		perror("");
+	return ;
 }

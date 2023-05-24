@@ -6,9 +6,13 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/17 17:16:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:34:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+void	b_exit(t_shell *mini)
+{
+	return ;
+}

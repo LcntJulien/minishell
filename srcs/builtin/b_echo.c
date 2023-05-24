@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/17 17:16:21 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:33:40 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,5 @@
 
 void	b_echo(t_shell *mini)
 {
-	if (mini->token->next->s == "-n" && mini->token->next->next->s)
-	{
-		
-		
-	}
-	else 
-	{
-		fork();
-		
-	}
+	return ;
 }

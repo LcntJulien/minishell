@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/17 17:16:34 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:48:15 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,23 @@
 
 static void	newtab(t_shell *mini, int choice, char **cpy)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (mini->env[i])
-		i++;	
+		i++;
 	if (choice == 1)
 		cpy = calloc((i + 2), sizeof(char *));
 	else
 		cpy = calloc((i + 1), sizeof(char *));
-	if (!cpy)	
-	{
-		//gerer les leaks suppression tableaux etc...
-		// et changer la sortie d'erreur et message.
+	if (!cpy)
 		exit (0);
-	}
 }
 
 static void	replace_var(t_shell *mini, char *str, int i, char **cpy)
 {
-	int	j;
-	char *var;
+	int		j;
+	char	*var;
 
 	j = 0;
 	newtab(mini, 0, cpy);
@@ -44,13 +40,13 @@ static void	replace_var(t_shell *mini, char *str, int i, char **cpy)
 		cpy[j] = var;
 		j++;
 	}
-	var = ft_strdup(str);	
+	var = ft_strdup(str);
 	cpy[j] = var;
 	while (mini->env[++j])
 	{
 		var = ft_strdup(mini->env[j]);
 		cpy[j] = var;
-	} 
+	}
 	cpy[j] = "\0";
 	j = -1;
 	while (cpy[++j])
@@ -60,8 +56,8 @@ static void	replace_var(t_shell *mini, char *str, int i, char **cpy)
 
 void static	add_var(t_shell *mini, char *str, char **cpy)
 {
-	int	j;
-	char *var;
+	int		j;
+	char	*var;
 
 	j = -1;
 	newtab(mini, 1, cpy);
@@ -69,10 +65,10 @@ void static	add_var(t_shell *mini, char *str, char **cpy)
 	{
 		var = ft_strdup(mini->env[j]);
 		cpy[j] = var;
-	} 
-	var = ft_strdup(str);	
+	}
+	var = ft_strdup(str);
 	cpy[j] = var;
-	cpy[++j] = "\0";	
+	cpy[++j] = "\0";
 	j = -1;
 	while (cpy[++j])
 		mini->env[j] = cpy[j];

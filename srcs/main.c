@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/16 12:36:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:29:00 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	main(int ac, char **av, char **env)
 	t_shell	mini;
 	char	*excmd;
 
-	
-	excmd = "exit"; // a supprimer
+	excmd = "exit";
 	args(ac, av);
 	startshell(&mini, env);
 	while (mini.exit == 0)

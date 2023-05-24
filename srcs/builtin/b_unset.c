@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/17 17:16:41 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:51:13 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	b_unset(t_shell *mini)
 {
-
+	return ;
 }
