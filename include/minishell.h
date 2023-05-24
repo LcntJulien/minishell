@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/24 14:53:32 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:15:10 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,15 @@ typedef struct s_shell
 {
 	char			*input;
 	char			**env;
-	char			*pwd;
-	char			*oldpwd;
-	int				in;
-	int				out;
-	int				rtn;
-	int				pid;
-	int				exit;
-	t_token			*token;
+	char			**line;
 }					t_shell;
 
-typedef struct s_token
+typedef struct s_cmd
 {
-	char			*s;
-	int				type;
-	struct s_token	*prev;
-	struct s_token	*next;
-}					t_token;
+	
+	int				fd_in;
+	int				fd_out;
+}					t_cmd;
 
 /*	SRC	*/
 
@@ -77,8 +69,12 @@ void	b_unset(t_shell *mini);
 void	parse(t_shell *mini);
 
 /*	UTILS	*/
+
+/* utils */
 void	copy_env(t_shell *mini, char **env);
-void	find_pwd(t_shell *mini);
 char	*format_string(char *str);
+
+/* ft_exit */
+void	ft_exit(t_shell *mini, int i);
 
 #endif

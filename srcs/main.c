@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/24 14:29:00 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:22:37 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	startshell(t_shell *mini, char **env)
 {
-	mini->in = dup(STDIN_FILENO);
-	mini->out = dup(STDOUT_FILENO);
-	mini->rtn = 0;
-	mini->exit = 0;
+	//mini->in = dup(STDIN_FILENO);
+	//mini->out = dup(STDOUT_FILENO);
+	//mini->rtn = 0;
+	//mini->exit = 0;
 	copy_env(mini, env);
 	find_pwd(mini);
 }
@@ -35,17 +35,13 @@ static void	args(int ac, char **av)
 int	main(int ac, char **av, char **env)
 {
 	t_shell	mini;
-	char	*excmd;
 
-	excmd = "exit";
 	args(ac, av);
 	startshell(&mini, env);
-	while (mini.exit == 0)
+	while (1)
 	{
-		mini.input = readline("minishell $ ");
-		if (ft_strncmp(excmd, mini.input, ft_strlen(mini.input)) == 0)
-			mini.exit = 1;
-		parse(&mini);
+		mini.input = readline("Minishell > ");
+		divide_args(&mini);
 	}
 	free(mini.input);
 	return (0);
