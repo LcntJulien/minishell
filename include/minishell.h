@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/23 21:07:09 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/24 20:10:21 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 # define CMD 0
 # define ARG 1
 # define VAR 2
-# define INPUT 3
-# define OUTPUT 4
-# define STRING 5
-# define APPEND 6
-# define HEREDOC 7
-# define PIPE 8
+# define PIPE 3
+# define STRING 4
+# define INPUT 5
+# define OUTPUT 6
+# define APPEND 7
+# define HEREDOC 8
 
 # include LIBFT
 # include <curses.h>
