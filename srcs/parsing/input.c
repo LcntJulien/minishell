@@ -75,7 +75,7 @@ int	line_check(t_shell *mini)
 
 void	parse(t_shell *mini)
 {
-	t_token	*token;
+	// t_token	*token;
 	char	*line;
 
 	if (!mini->line[0])
@@ -86,6 +86,5 @@ void	parse(t_shell *mini)
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	mini->token = get_tokens(line);
-	token = mini->token;
 	free(line);
 }
