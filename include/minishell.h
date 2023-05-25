@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/25 12:17:10 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:31:52 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void				ft_env(t_shell *mini, char **envp);
 
 /* utils */
 void				copy_env(t_shell *mini, char **env);
-char				*format_string(char *str);
 
 /* ft_exit */
 void				ft_exit(t_shell *mini, int i);
