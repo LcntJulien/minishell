@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/25 14:19:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:55:52 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,23 @@ void static	add_var(t_shell *mini, char *s, char **cpy)
 
 void	b_export(t_shell *mini)
 {
+	t_token	*list;
 	int		i;
 	int		len;
 	char	**cpy;
-	char	*strf;
-	
+	char	*sf;
+
 	i = -1;
 	len = 0;
 	cpy = NULL;
-	while (mini->token->s[++i] != '=')
- 		len++;
 	i = -1;
-	strf = format_string(mini->token->s);
 	while (mini->env[++i])
 	{
  		if (!strncmp(mini->env[i], mini->token->s, len - 1))
  		{
- 			replace_var(mini, strf, i, cpy);
+ 			replace_var(mini, sf, i, cpy);
  			return ;
  		}
 	}
-	add_var(mini, strf, cpy);
+	add_var(mini, sf, cpy);
 }
