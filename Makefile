@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/25 12:18:18 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/05/25 12:18:23 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXS)parsing/utils.c	\
 		$(PFXS)parsing/token.c	\
 		$(PFXB)b_echo.c			\
-		$(PFXB)b_env.c\
+		$(PFXB)b_env.c			\
 		$(PFXB)b_exit.c			\
 		$(PFXB)b_export.c		\
 		$(PFXB)b_pwd.c			\
