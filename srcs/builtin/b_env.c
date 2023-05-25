@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:15:45 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/24 14:34:21 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:29:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	env(t_shell *mini, char **tab)
+void	env(t_shell *mini)
 {
 	int	i;
 
