@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/24 20:10:51 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:22:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,21 @@ void	sigint_handler(int sig)
 // 	mini->out = dup(STDOUT_FILENO);
 // 	mini->rtn = 0;
 // 	mini->exit = 0;
+// copy_env(mini, env);
+	// find_pwd(mini);
 // }
 
 static void	args(int argc, char **argv)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	if (argc < 1)
-		exit (0);
-	if (argc > 1)
+	(void)av;
+	if (ac < 1 || ac > 1)
 	{
-		while (argv[i])
-		{
-			if (argv[i][j] == ' ' || argv[i][j] == '\t')
-				j++;
-			else
-				exit (0);
-		}
+		printf("Launch without any arguments\n");
+		exit(0);
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(int ac, char **av, char **env)
 {
 	t_shell	mini;
 

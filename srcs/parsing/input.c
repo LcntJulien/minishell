@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 15:37:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/16 17:09:42 by jlecorne         ###   ########.fr       */
+/*   Created: 2023/05/10 15:52:33 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/05/24 17:23:40 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,3 +88,4 @@ void	parse(t_shell *mini)
 	mini->token = get_tokens(line);
 	free(line);
 }
+

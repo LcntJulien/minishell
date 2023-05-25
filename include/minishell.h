@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/24 20:10:21 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:14:35 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # include <termios.h>
 # include <unistd.h>
 
-typedef struct s_token
+typedef struct s_cmd
 {
 	char			*s;
 	int				type;
@@ -63,6 +63,24 @@ typedef struct s_shell
 	int				exit;
 }					t_shell;
 
+/*	BUILTIN	*/
+
+/* b_cd */
+
+/* b_echo */
+void	b_echo(t_shell *mini);
+
+/* b_env */
+void	b_env(t_shell *mini, char **tab);
+
+/*	b_export	*/
+void	b_export(t_shell *mini, char *str);
+
+/*	b_pwd	*/
+void	b_wd(t_shell *mini);
+
+/*	b_unset	*/
+void	b_unset(t_shell *mini);
 void				parse(t_shell *mini);
 int					quote_state(char *line, int idx);
 int					is_sep(char *line, int i);
@@ -70,5 +88,17 @@ void				*get_tokens(char *line);
 void				space(char *line, int *i);
 void				listfree(t_token *token);
 void	ft_env(t_shell *mini, char **envp);
+
+/*	PARSING	*/
+void	parse(t_shell *mini);
+
+/*	UTILS	*/
+
+/* utils */
+void	copy_env(t_shell *mini, char **env);
+char	*format_string(char *str);
+
+/* ft_exit */
+void	ft_exit(t_shell *mini, int i);
 
 #endif

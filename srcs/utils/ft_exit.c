@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 18:32:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/11 17:48:41 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/05/24 16:19:20 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../include/minishell.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	ft_exit(t_shell *mini, int i)
 {
-	void	*p;
+	int	j;
 
-	p = malloc(size * count);
-	if (!p)
-		return (NULL);
-	ft_bzero(p, count * size);
-	return (p);
+	j = -1;
+	if (i == 0)
+	{
+		while (mini->env[++i])
+			free(mini->env[i]);
+		printf("Trouble splitting arguments !\n");
+		exit(0);
+	}
 }
