@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/24 15:27:16 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:30:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,4 @@ void	copy_env(t_shell *mini, char **env)
 		mini->env[i] = var;
 	}
 	mini->env[i] = "\0";
-}
-
-
-char	*format_string(char *str)
-{
-	int		i;
-	char	*newstr;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			printf("test");
-		}
-	}
-	return (newstr);
 }

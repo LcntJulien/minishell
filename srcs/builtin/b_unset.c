@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/24 14:51:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:30:03 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	b_unset(t_shell *mini)
-{
-	return ;
-}
+// void	b_unset(t_shell *mini)
+// {
+// 	return ;
+// }
