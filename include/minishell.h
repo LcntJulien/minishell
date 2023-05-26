@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/25 14:17:15 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:46:43 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_shell
 void				b_echo(t_shell *mini);
 
 /* b_env */
-void				b_env(t_shell *mini, char **tab);
+void				b_env(t_shell *mini);
 
 /*	b_export	*/
 void				b_export(t_shell *mini);
