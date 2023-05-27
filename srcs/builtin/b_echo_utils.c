@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_env.c                                            :+:      :+:    :+:   */
+/*   b_echo_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 17:15:45 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/27 11:25:13 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/05/27 11:17:43 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/05/27 12:31:45 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	b_env(t_shell *mini)
+void	b_print_arg(char *str, int q, t_shell *mini)
 {
-	int	i;
-	
+	int i;
+
 	i = -1;
-	while (mini->env[++i])
+	if (q == 0)
 	{
-		if (!strncmp(mini->env[i], "OLDPWD=", 7))
-			break ;
-		else
-			printf("%s\n", mini->env[i]);
+		while (str[++i])
+		{
+			if (str[i] == '$' && is_variable(str, i + 1, mini))
+
+			else
+				ft_putchar_fd(str[i], 1);
+		}
 	}
 }
