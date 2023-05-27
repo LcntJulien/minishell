@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/27 11:57:56 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:45:47 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,21 @@ static void	echo_no_redir_with_opt(t_token *list)
 
 static void	echo_no_redir_without_opt(t_shell *mini)
 {
-	int		q;
+	int	q;
+	int	r;
 
 	q = 0;
 	while (mini->token)
 	{
 		q = inside_quotes(mini->token->s);
 		if (q == 0)
-			b_print_arg(mini->token->s, 1);
+			r = without_quote_print(mini->token->s, mini);
 		else if (q == 1)
-			b_print_arg(mini->token->s, 1);
+			r = with_squote_print(mini->token->s, mini);
 		else if (q == 2)
-			b_print_arg(mini->token->s, 2);
+			r = with_dquote_print(mini->token->s, mini);
 		mini->token = mini->token->next;
-		if (mini->token)
+		if (mini->token && r != 0)
 			printf(" ");
 	}
 }
@@ -79,16 +80,16 @@ void	b_echo(t_shell *mini)
 
 	i = 0;
 	list = mini->token;
-	if (!nb_args_no_redir(list, &i))
-	{
-		printf("\n");
-		return ;
-	}
-	else
-	{
-		list = list->next;
+	if (nb_args_no_redir(list, &i))
 		define_echo_args(mini);
-	}
+
+	/* si on a besoin d'ecrire le retour avant de sortir*/
+	//else
+	//{
+		//printf("\n");
+		//return ;
+	//}
+
 	/* est-ce qu'il faut free ici ou plus en amont ?*/
 	return ;
 }
