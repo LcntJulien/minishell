@@ -87,6 +87,6 @@ void	parse(t_shell *mini)
 		line[0] = (char)(-line[0]);
 	mini->token = get_tokens(line);
 	// token = mini->token;
-	free(line);
+	//free(line);
 }
 

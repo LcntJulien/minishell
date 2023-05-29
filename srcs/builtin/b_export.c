@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/25 16:55:52 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/29 08:13:33 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	replace_var(t_shell *mini, char *s, int i, char **cpy)
 	mini->env[j] = "\0";
 	}
 
-void static	add_var(t_shell *mini, char *s, char **cpy)
+static void	add_var(t_shell *mini, char *s, char **cpy)
 {
 	int		j;
 	char	*var;
@@ -77,7 +77,6 @@ void static	add_var(t_shell *mini, char *s, char **cpy)
 
 void	b_export(t_shell *mini)
 {
-	t_token	*list;
 	int		i;
 	int		len;
 	char	**cpy;
@@ -86,6 +85,7 @@ void	b_export(t_shell *mini)
 	i = -1;
 	len = 0;
 	cpy = NULL;
+	sf = NULL;
 	i = -1;
 	while (mini->env[++i])
 	{

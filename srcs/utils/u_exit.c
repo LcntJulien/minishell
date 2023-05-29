@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils+.c                                           :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 15:27:30 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/24 15:30:03 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/05/29 08:20:02 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	find_pwd(t_shell *mini)
-{
-	int	i;
+#include "../../include/minishell.h"
 
-	i = -1;
-	while (mini->env[++i])
+void	ft_exit(t_shell *mini, int i)
+{
+	int j;
+
+	j = -1;
+	if (i == 0)
 	{
-		if (!ft_strncmp(mini->env[i], "PWD=", 4))
-			mini->pwd = ft_substr(mini->env[i], 4,
-					ft_strlen(mini->env[i]) - 4);
-		if (!ft_strncmp(mini->env[i], "OLDPWD=", 7))
-			mini->oldpwd = ft_substr(mini->env[i], 7,
-					ft_strlen(mini->env[i]) - 7);
+		printf("Environnement cannot be loaded !\n");
+		exit(0);
+	}
+	if (i == 1)
+	{
+		while (mini->env[++j])
+			free(mini->env[j]);
+		free(mini->env);
+		printf("Test !!!!!!!\n");
 	}
 }

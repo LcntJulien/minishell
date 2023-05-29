@@ -6,14 +6,17 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/27 17:39:41 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/29 08:26:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	nb_args_no_redir(t_token *list, int i)
+int	nb_args_no_redir(t_token *list)
 {
+	int i;
+
+	i = 0;
 	while (list->next->s)
 	{
 		i++;
@@ -37,19 +40,20 @@ int	inside_quotes(char *str)
 		else
 			return (1);
 	}
-	else if (str[i] == "\"")
+	else if (str[i] == '\"')
 	{
 		while (str[i])
 			i++;
 		i--;
-		if (str[i] != "\"")
+		if (str[i] != '\"')
 			return (0);
 		else
 			return (2);
 	}
+	return (0);
 }
 
-static char	*define_word(char *str, int i, t_shell *mini)
+char	*define_word(char *str, int i, t_shell *mini)
 {
 	int 	j;
 	int		k;
@@ -82,10 +86,10 @@ int	is_variable(char *str, int i, t_shell *mini, int *len)
 
 	j = 0;
 	new_w = define_word(str, i + 1, mini);
-	len = ft_strlen(new_w);
+	*len = ft_strlen(new_w);
 	while (mini->env[j])
 	{
-		i = ft_strncmp(new_w, mini->env[j], len);
+		i = ft_strncmp(new_w, mini->env[j], (size_t)len);
 		if (i == 0)
 			break ;
 		else

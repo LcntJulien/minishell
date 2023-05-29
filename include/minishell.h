@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/26 16:46:43 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/29 08:38:13 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,26 @@ typedef struct s_shell
 
 /*	BUILTIN	*/
 
+/* b_process */
+void				b_process(t_shell *mini);
+
+/* b_utils */
+int					nb_args_no_redir(t_token *list);
+int					inside_quotes(char *str);
+char				*define_word(char *str, int i, t_shell *mini);
+int					is_variable(char *str, int i, t_shell *mini, int *len);
+
 /* b_cd */
+void				b_cd(char *path);
 
 /* b_echo */
 void				b_echo(t_shell *mini);
+
+/* b_echo_utils */
+int					print_variable(t_shell *mini, int i);
+bool				without_quote_print(char *str, t_shell *mini);
+bool				with_squote_print(char *str, t_shell *mini);
+bool				with_dquote_print(char *str, t_shell *mini);
 
 /* b_env */
 void				b_env(t_shell *mini);
