@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/29 08:11:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:23:50 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	echo_no_redir_without_opt(t_shell *mini)
 	int	r;
 
 	q = 0;
+	mini->token = mini->token->next;
 	while (mini->token)
 	{
 		q = inside_quotes(mini->token->s);
@@ -61,7 +62,7 @@ static void	define_echo_args(t_shell *mini)
 	int		i;
 
 	i = 0;
-	opt = mini->token;
+	opt = mini->token->next;
 	while (opt && search_options(opt->s))
 	{
 		i++;

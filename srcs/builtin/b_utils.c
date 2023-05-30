@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/29 08:26:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:19:14 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	nb_args_no_redir(t_token *list)
 	int i;
 
 	i = 0;
-	while (list->next->s)
+	while (list->next)
 	{
 		i++;
 		list = list->next;

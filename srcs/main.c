@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/29 08:38:34 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:27:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,25 @@ static void	startshell(t_shell *mini, char	**env)
 	mini->out = dup(STDOUT_FILENO);
 	mini->rtn = 0;
 	mini->exit = 0;
-	// copy_env(mini, env);
-	// find_pwd(mini);
+	copy_env(mini, env);
 }
 
-// static void	args(int ac, char **av)
-// {
-// 	(void)av;
-// 	if (ac < 1 || ac > 1)
-// 	{
-// 		printf("Launch without any arguments\n");
-// 		exit(0);
-// 	}
-// }
+static void	args(int ac, char **av)
+{
+	(void)av;
+	if (ac < 1 || ac > 1)
+	{
+		printf("Launch without any arguments\n");
+		exit(0);
+	}
+}
 
 int	main(int ac, char **av, char **env)
 {
-	(void)ac;
-	(void)av;
-	(void)env;
 	t_shell	mini;
 
-	// args(ac, av);
+	args(ac, av);
 	startshell(&mini, env);
-	// ft_env(&mini, env);
 
 	mini.rtn = 0;
 	mini.exit = 0;
@@ -60,6 +55,14 @@ int	main(int ac, char **av, char **env)
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		parse(&mini);
 		b_process(&mini);
+		t_shell	test;
+		test = mini;
+		while (test.token)
+		{
+			printf("arg = %s type = %d\n", test.token->s, test.token->type);
+			test.token = test.token->next;
+		}
+		printf("\n");
 	}
 	listfree(mini.token);
 	return (0);

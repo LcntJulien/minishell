@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/29 08:38:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/30 09:40:05 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void				b_wd(t_shell *mini);
 
 /*	b_unset	*/
 void				b_unset(t_shell *mini);
-void				ft_env(t_shell *mini, char **envp);
 
 /* utils */
 void				copy_env(t_shell *mini, char **env);
