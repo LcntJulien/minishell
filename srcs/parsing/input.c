@@ -45,7 +45,7 @@ char	*parse_line(t_shell *mini)
 		if (quote_state(mini->line, i) != 2 && mini->line[i] == '$' && i
 			&& mini->line[i - 1] != '\\')
 			nl[j++] = (char)(-mini->line[i++]);
-		else if (quote_state(mini->line, i) == 0 && is_sep(mini->line, i))
+		if (quote_state(mini->line, i) == 0 && is_sep(mini->line, i))
 		{
 			nl[j++] = ' ';
 			nl[j++] = mini->line[i++];
@@ -75,7 +75,6 @@ int	line_check(t_shell *mini)
 
 void	parse(t_shell *mini)
 {
-	// t_token	*token;
 	char	*line;
 
 	if (!mini->line[0])
@@ -86,7 +85,5 @@ void	parse(t_shell *mini)
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	mini->token = get_tokens(line);
-	// token = mini->token;
-	//free(line);
+	free(line);
 }
-

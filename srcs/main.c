@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/30 10:27:17 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:50:45 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	args(int ac, char **av)
 int	main(int ac, char **av, char **env)
 {
 	t_shell	mini;
+	t_shell	test;
 
 	args(ac, av);
 	startshell(&mini, env);
@@ -55,7 +56,6 @@ int	main(int ac, char **av, char **env)
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		parse(&mini);
 		b_process(&mini);
-		t_shell	test;
 		test = mini;
 		while (test.token)
 		{
