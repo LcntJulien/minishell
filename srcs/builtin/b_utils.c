@@ -6,11 +6,25 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/30 10:19:14 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:23:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	tab_lines(char **tab)
+{
+	int i;
+
+	i = 0;
+	if (tab)
+	{
+		while (tab[i])
+			i++;
+		return (i);
+	}
+	return (0);
+}
 
 int	nb_args_no_redir(t_token *list)
 {
