@@ -75,22 +75,33 @@
 	//mini->env[j] = "\0";
 //}
 
-int	search_(mini->env)
-{
-	
-}
-
 void print_listed_env(t_shell *mini)
 {
 	int		i;
+	int		j;
 	int		line;
-	i = 0;
+	char	**exp;
+
+	i = 1;
 	line = tab_lines(mini->env);
-	while (mini->env[i])
+	exp = malloc(sizeof(char *) * (line + 1));
+	if (!exp)
+		ft_exit(1);
+    while (i < line)
 	{
-		
-		ft_strcmp()
-	}
+        j = i;
+        while (j <= line)
+		{
+			if (strcmp(arr[j - 1], arr[j]) > 0)
+			{
+				swap(&arr[j - 1], &arr[j]);
+				j = 1;
+			}
+            else
+				j++;
+        }
+        i++;
+    }
 }
 
 void	b_export(t_shell *mini)
