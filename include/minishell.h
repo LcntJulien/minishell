@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/03 09:40:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:14:29 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_shell
 void				b_process(t_shell *mini);
 
 /* b_utils */
-int					tab_lines(char **tab);
 int					nb_args_no_redir(t_token *list);
 int					inside_quotes(char *str);
 char				*define_word(char *str, int i, t_shell *mini);
@@ -94,18 +93,29 @@ void				b_env(t_shell *mini);
 /*	b_export	*/
 void				b_export(t_shell *mini);
 
+/*	b_export_simple	*/
+void				print_listed_env(t_shell *mini);
+
+/*	b_export_plus	*/
+void				b_export_arg(t_shell *mini);
+
 /*	b_pwd	*/
 void				b_wd(t_shell *mini);
 
 /*	b_unset	*/
 void				b_unset(t_shell *mini);
 
-/* utils */
+/*	UTILS	*/
+
+/* u_env_utils */
+int					tab_lines(char **tab);
 void				copy_env(t_shell *mini, char **env);
+
+/* u_utils */
 char				*var_name(char *str);
 char				*var_content(char *str);
 
-/* ft_exit */
+/* u_exit */
 void				ft_exit(t_shell *mini, int i);
 
 /* PARSING */
