@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/03 23:13:52 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/04 10:27:41 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	print_export(char **exp)
 			return (0);
 		content = var_content(exp[i]);
 		if (content == 0)
-			printf("declare -x %s", name);
+			printf("declare -x %s\n", name);
 		else
 			printf("declare -x %s\"%s\"\n", name, content);
 	}

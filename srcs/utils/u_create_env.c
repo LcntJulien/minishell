@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_env_utils.c                                      :+:      :+:    :+:   */
+/*   u_create_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/03 22:46:36 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/04 10:03:02 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	oldpwd_status(t_shell *mini, int i, int flag)
+void	oldpwd_status(t_shell *mini, int i, int flag, int c)
 {
-	if (flag == 1)
-		mini->env[i] = NULL;
+	if (c == 0)
+	{
+		if (flag == 1)
+			mini->env[i] = NULL;
+		else
+		{
+			mini->env[i] = "OLPWD";
+			mini->env[++i] = NULL;
+		}
+	}
 	else
 	{
-		mini->env[i] = "OLPWD";
-		mini->env[++i] = NULL;
+		if (flag == 1)
+			return ;
+		else
+			mini->env[i] = "OLPWD";
 	}
 }
 
-static int	check_oldpwd(char **env)
+int	check_oldpwd(char **env)
 {
 	int i;
 	int	flag;
@@ -61,6 +71,7 @@ void	copy_env(t_shell *mini, char **env)
 	int		lines;
 	char	*var;
 
+	i = -1;
 	if (!env)
 		ft_exit(mini, 0);
 	flag = check_oldpwd(env);
@@ -71,11 +82,10 @@ void	copy_env(t_shell *mini, char **env)
 		mini->env = ft_calloc((lines + 2), sizeof(char *));
 	if (!mini->env)
 		ft_exit(mini, 0);
-	i = -1;
 	while (env[++i])
 	{
 		var = ft_strdup(env[i]);
 		mini->env[i] = var;
 	}
-	oldpwd_status(mini, i, flag);
+	oldpwd_status(mini, i, flag, 0);
 }

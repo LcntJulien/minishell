@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/03 23:14:29 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/04 11:25:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char				*define_word(char *str, int i, t_shell *mini);
 int					is_variable(char *str, int i, t_shell *mini, int *len);
 
 /* b_cd */
-void				b_cd(char *path);
+void				b_cd(t_shell*mini);
 
 /* b_echo */
 void				b_echo(t_shell *mini);
@@ -88,6 +88,7 @@ bool				with_squote_print(char *str, t_shell *mini);
 bool				with_dquote_print(char *str, t_shell *mini);
 
 /* b_env */
+char				**renew_env(t_shell *mini, int lines, int nb_args);
 void				b_env(t_shell *mini);
 
 /*	b_export	*/
@@ -107,7 +108,9 @@ void				b_unset(t_shell *mini);
 
 /*	UTILS	*/
 
-/* u_env_utils */
+/* u_create_env */
+void				oldpwd_status(t_shell *mini, int i, int flag, int c);
+int					check_oldpwd(char **env);
 int					tab_lines(char **tab);
 void				copy_env(t_shell *mini, char **env);
 
