@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/05 19:21:19 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:16:35 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	**sub_var_env(t_shell *mini, int lines, t_token *sub)
 		ft_exit(mini, 1);
 	while (lines > 0)
 	{
-		// PROBLEME HERE !!!!
 		if (ft_strncmp(mini->env[i], sub->s, ft_strlen(mini->env[i])))
 			tmp[i] = ft_strdup(mini->env[i]);
 		else
