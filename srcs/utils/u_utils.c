@@ -6,11 +6,26 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/03 22:11:41 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/05 09:23:46 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	check_nb_args(t_shell *mini, int i)
+{
+	t_token	*tmp;
+	int		nb;
+
+	nb = 0;
+	tmp = mini->token;
+	while (tmp->next && tmp->next->type == i)
+	{
+		nb++;
+		tmp = tmp->next;
+	}
+	return (nb);
+}
 
 char	*var_name(char *str)
 {

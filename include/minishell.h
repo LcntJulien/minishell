@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/04 11:25:56 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/05 09:27:13 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,13 @@ char				**renew_env(t_shell *mini, int lines, int nb_args);
 void				b_env(t_shell *mini);
 
 /*	b_export	*/
+void				b_export_arg(t_shell *mini);
 void				b_export(t_shell *mini);
 
 /*	b_export_simple	*/
 void				print_listed_env(t_shell *mini);
 
-/*	b_export_plus	*/
-void				b_export_arg(t_shell *mini);
+/*	b_export_arg	*/
 
 /*	b_pwd	*/
 void				b_wd(t_shell *mini);
@@ -115,6 +115,7 @@ int					tab_lines(char **tab);
 void				copy_env(t_shell *mini, char **env);
 
 /* u_utils */
+int					check_nb_args(t_shell *mini, int i);
 char				*var_name(char *str);
 char				*var_content(char *str);
 
