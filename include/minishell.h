@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/05 09:27:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:57:15 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,11 @@ bool				with_squote_print(char *str, t_shell *mini);
 bool				with_dquote_print(char *str, t_shell *mini);
 
 /* b_env */
-char				**renew_env(t_shell *mini, int lines, int nb_args);
+char				**renew_env(t_shell *mini, int lines, t_token *tmp);
 void				b_env(t_shell *mini);
 
 /*	b_export	*/
+int					check_existing_args(t_shell *mini, char *s);
 void				b_export_arg(t_shell *mini);
 void				b_export(t_shell *mini);
 
@@ -99,6 +100,8 @@ void				b_export(t_shell *mini);
 void				print_listed_env(t_shell *mini);
 
 /*	b_export_arg	*/
+char				**add_var_env(t_shell *mini, int lines, t_token *new);
+char				**sub_var_env(t_shell *mini, int lines, t_token *sub);
 
 /*	b_pwd	*/
 void				b_wd(t_shell *mini);
