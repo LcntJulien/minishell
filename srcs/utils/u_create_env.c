@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/04 10:03:02 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:22:02 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,11 @@ int	check_oldpwd(char **env)
 int	tab_lines(char **tab)
 {
 	int i;
-	int	lines;
 
 	i = 0;
-	lines = 0;
 	while (tab[i])
-	{
-		if (ft_strchr(tab[i], '=') != NULL)
-			lines++;
 		i++;
-	}
-	return (lines);
+	return (i);
 }
 
 void	copy_env(t_shell *mini, char **env)

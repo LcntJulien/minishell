@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/05 14:46:46 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:46:16 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,14 @@ char	*var_name(char *str)
 	{
 		while (str[i] && str[i] != '=')
 			i++;
-		s = malloc(sizeof(char) * (i + 1));
+		s = calloc(sizeof(char), (i + 1));
 		if (!s)
 			return (0);
-		while(str[j] && j <= i)
+		while(str[j] && j < i)
 		{
 			s[j] = str[j]; 
 			j++;
 		}
-		s[j] = '\0';
 		return (s);
 	}
 	return (0);
@@ -67,15 +66,14 @@ char	*var_content(char *str)
 		i++;
 	i++;
 	if (i == len)
-		return (0);
-	s = malloc(sizeof(char) * (len - i + 1));
+		return (NULL);
+	s = calloc(sizeof(char), (len - i + 1));
 	if (!s)
 		return (0);
 	while(str[i] && i < len)
 	{
-		s[j] = str[i++]; 
+		s[j] = str[i++];
 		j++;
 	}
-	s[j] = '\0';
 	return (s);
 }

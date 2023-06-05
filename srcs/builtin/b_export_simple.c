@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/04 10:27:41 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:48:45 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	copy_tab(t_shell *mini, char **exp)
 	i = -1;
 	while (mini->env[++i])
 		exp[i] = ft_strdup(mini->env[i]);
-	exp[i] = NULL;
 }
 
 static int	print_export(char **exp)
@@ -72,10 +71,10 @@ static int	print_export(char **exp)
 		if (!name)
 			return (0);
 		content = var_content(exp[i]);
-		if (content == 0)
+		if (content[0] == 0)
 			printf("declare -x %s\n", name);
 		else
-			printf("declare -x %s\"%s\"\n", name, content);
+			printf("declare -x %s=\"%s\"\n", name, content);
 	}
 	return (1);
 }
@@ -86,7 +85,6 @@ void print_listed_env(t_shell *mini)
 	int		lines;
 	char	**exp;
 
-	i = -1;
 	lines = tab_lines(mini->env);
 	if (!lines)
 		ft_exit(mini, 1);
@@ -94,7 +92,6 @@ void print_listed_env(t_shell *mini)
 	if (!exp)
 		ft_exit(mini, 1);
 	copy_tab(mini, exp);
-	i = -1;
 	sort_in_tab(exp, lines);
 	if (!print_export(exp))
 		ft_exit(mini, 1);
