@@ -15,15 +15,19 @@
 char	**sub_var_env(t_shell *mini, int lines, t_token *sub)
 {
 	int		i;
+	int		j;
 	char	**tmp;
 
 	i = 0;
+	j = 0;
 	tmp = ft_calloc((lines + 1), sizeof(char *));
 	if (!tmp)
 		ft_exit(mini, 1);
 	while (i < lines)
 	{
-		if (ft_strncmp(mini->env[i], sub->s, ft_strlen(mini->env[i])))
+		while (mini->env[i][j] != '=')
+			j++;
+		if (ft_strncmp(var_name(mini->env[i]), var_name(sub->s), j))
 			tmp[i] = ft_strdup(mini->env[i]);
 		else
 			tmp[i] = ft_strdup(sub->s);
