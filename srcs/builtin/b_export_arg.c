@@ -14,20 +14,17 @@
 
 char	**sub_var_env(t_shell *mini, int lines, t_token *sub)
 {
-	int		i;
 	char	**tmp;
 
-	i = 0;
 	tmp = ft_calloc((lines + 1), sizeof(char *));
 	if (!tmp)
 		ft_exit(mini, 1);
 	while (lines > 0)
 	{
-		if (ft_strncmp(mini->env[i], sub->s, ft_strlen(mini->env[i])))
-			tmp[i] = ft_strdup(mini->env[i]);
+		if (ft_strncmp(mini->env[lines], sub->s, ft_strlen(mini->env[lines])))
+			tmp[lines] = ft_strdup(mini->env[lines]);
 		else
-			tmp[i] = ft_strdup(sub->s);
-		i++;
+			tmp[lines] = ft_strdup(sub->s);
 		lines--;
 	}
 	return (tmp);
