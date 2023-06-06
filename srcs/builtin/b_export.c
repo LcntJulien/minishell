@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 19:34:58 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:03:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ void	b_export(t_shell *mini)
 		nb_args = check_nb_args(mini, 1);
 		list = list->next;
 		b_export_args(mini, list, nb_args);
-		free(list);
 	}
 }
