@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/22 19:46:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:55:45 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,6 @@ int	quote_state(char *line, int idx)
 	return (quote);
 }
 
-int	is_sep(char *line, int i)
-{
-	if (i > 0 && line[i - 1] == '\\' && ft_strchr("<>|", line[i]))
-		return (0);
-	else if (ft_strchr("<>|", line[i]) && quote_state(line, i) == 0)
-		return (1);
-	else
-		return (0);
-}
-
 void	space(char *line, int *i)
 {
 	while ((line[*i] == ' ' || line[*i] == '\t') || (line[*i] == '\r'
@@ -53,21 +43,63 @@ void	space(char *line, int *i)
 		(*i)++;
 }
 
-void	listfree(t_token *token)
+void	listfree(t_token *tk)
 {
 	t_token	*tmp;
 
 	tmp = NULL;
-	while (token->next != NULL)
-		token = token->next;
-	while (token->prev != NULL)
+	while (tk->next != NULL)
+		tk = tk->next;
+	while (tk->prev != NULL)
 	{
-		tmp = token;
+		tmp = tk;
 		free(tmp->s);
 		free(tmp);
 		tmp = NULL;
-		token = token->prev;
+		tk = tk->prev;
 	}
-	free(token);
-	token = NULL;
+	free(tk);
+	tk = NULL;
 }
+
+void	clean_tokens(t_token *tk)
+{
+	char	*cpy;
+
+	while (tk)
+	{
+		if ((tk->type == CMD || tk->type == OPTION || tk->type == BUILTIN)
+			&& (tk->s[0] == '\'' || tk->s[0] == '\"'))
+		{
+			cpy = ft_strdup(tk->s);
+			free(tk->s);
+			tk->s = NULL;
+			tk->s = ft_substr(cpy, 1, ft_strlen(cpy) - 2);
+		}
+		tk = tk->next;
+	}
+}
+
+// void	convert_var(t_token *tk, t_shell *mini)
+// {
+// 	char	*cpy;
+// 	int		i;
+
+// 	cpy = ft_substr(tk->s, 1, ft_strlen(tk->s) - 1);
+// 	free(tk->s);
+// 	tk->s = NULL;
+// 	i = 0;
+// 	while (mini->env[i])
+// 	{
+// 		if (ft_strncmp(cpy, mini->env[i], ft_strlen(cpy)) == 0)
+// 		{
+// 			cpy = ft_substr(mini->env[i], ft_strlen(cpy) + 1,
+// ft_strlen(mini->env[i])
+// 					- ft_strlen(cpy) + 1);
+// 			tk->s = cpy;
+// 			break ;
+// 		}
+// 		i++;
+// 	}
+// 	free(cpy);
+// }
