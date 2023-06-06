@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/17 13:46:41 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/06/06 18:00:09 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ PFXB	= builtin/
 SRCS	= $(PFXS)main.c			\
 		$(PFXS)parsing/input.c	\
 		$(PFXS)parsing/utils.c	\
-		$(PFXS)parsing/token.c
+		$(PFXS)parsing/token.c	\
+		$(PFXS)parsing/type.c
 			
 NAME	= minishell
 
@@ -53,8 +54,8 @@ fclean 	: fclib clean
 
 re 		: fclean all
 
-debug 	: fclean $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) -o $(NAME) -fsanitize=address
+debug 	: fclean lib $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) -fsanitize=address
 
 lib		:
 	@$(MAKE) -sC libft
