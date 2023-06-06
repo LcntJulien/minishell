@@ -6,11 +6,16 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 08:21:49 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 08:50:28 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static char	*test()
+{
+
+}
 
 char	**sub_var_env(t_shell *mini, int lines, t_token *sub)
 {
@@ -32,10 +37,7 @@ char	**sub_var_env(t_shell *mini, int lines, t_token *sub)
 		else
 			tmp[i] = ft_strdup(sub->s);
 		if (!tmp[i])
-		{
-			free(sub);
-			ft_exit(mini, 1);
-		}
+			ft_exit_plus(mini, sub, 0);
 		i++;
 	}
 	return (tmp);
