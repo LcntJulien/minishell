@@ -12,13 +12,16 @@
 
 #include "../../include/minishell.h"
 
-static void	swap_string(char **exp, int i, int j)
+static int	swap_string(char **exp, int i, int j)
 {
 	char	*tmp;
 
 	tmp = exp[i];
 	exp[i] = ft_strdup(exp[j]);
 	exp[j] = ft_strdup(tmp);
+	if (!exp[i] || !exp[j]);
+		return (0);
+	return (1);
 }
 
 static void	sort_in_tab(char **exp, int lines)
@@ -39,7 +42,8 @@ static void	sort_in_tab(char **exp, int lines)
 				len = ft_strlen(exp[j]);
 			if (ft_strncmp(exp[i], exp[j], len) > 0)
 			{
-				swap_string(exp, i, j);
+				if (!swap_string(exp, i, j))
+					return (0);
 				i = 0;
 			}
             else
@@ -47,6 +51,7 @@ static void	sort_in_tab(char **exp, int lines)
         }
         j++;
     }
+	return (1);
 }
 
 static void	copy_tab(t_shell *mini, char **exp)
