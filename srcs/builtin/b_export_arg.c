@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/05 22:35:30 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 08:21:49 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ char	**sub_var_env(t_shell *mini, int lines, t_token *sub)
 			tmp[i] = ft_strdup(mini->env[i]);
 		else
 			tmp[i] = ft_strdup(sub->s);
+		if (!tmp[i])
+		{
+			free(sub);
+			ft_exit(mini, 1);
+		}
 		i++;
 	}
 	return (tmp);
@@ -49,6 +54,11 @@ char	**add_var_env(t_shell *mini, int lines, t_token *new)
 	while (mini->env[i])
 	{
 		tmp[i] = ft_strdup(mini->env[i]);
+		if (!tmp[i])
+		{
+			free(new);
+			ft_exit(mini, 1);
+		}
 		i++;
 	}
 	tmp[i] = ft_strdup(new->s);
