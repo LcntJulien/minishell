@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/05 17:06:43 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 08:13:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_shell
 void				b_process(t_shell *mini);
 
 /* b_utils */
+int					max_len(int s1, int s2);
 int					nb_args_no_redir(t_token *list);
 int					inside_quotes(char *str);
 char				*define_word(char *str, int i, t_shell *mini);

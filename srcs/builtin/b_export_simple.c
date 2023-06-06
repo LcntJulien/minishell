@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 07:58:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 08:09:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ static int	sort_in_tab(char **exp, int lines)
         i = 0;
         while (i < j)
 		{
-			if (ft_strlen(exp[i]) >= ft_strlen(exp[j]))
-				len = ft_strlen(exp[i]);
-			else
-				len = ft_strlen(exp[j]);
+			len = max_len(ft_strlen(exp[i]), ft_strlen(exp[j]));
 			if (ft_strncmp(exp[i], exp[j], len) > 0)
 			{
 				if (!swap_string(exp, i, j))

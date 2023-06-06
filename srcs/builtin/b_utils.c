@@ -6,11 +6,19 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 07:58:51 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 08:13:14 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	max_len(int s1, int s2)
+{
+	if (s1 > s2)
+		return (s1);
+	else
+		return (s2);
+}
 
 int	nb_args_no_redir(t_token *list)
 {

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/05 19:53:50 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 08:15:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	b_export_args(t_shell *mini)
 		lines = tab_lines(mini->env);
 		if (!alpha_num_underscore(list->s))
 			printf("minishell: export: `%s': not a valid identifier\n", list->s);
-		if (!check_existing_args(mini, list->s))
+		else if (!check_existing_args(mini, list->s))
 			mini->env = add_var_env(mini, lines + 1, list);
 		else
 			mini->env = sub_var_env(mini, lines, list);
