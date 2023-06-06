@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/06 08:13:54 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 08:52:01 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ char				*var_name(char *str);
 char				*var_content(char *str);
 
 /* u_exit */
+void				ft_exit_plus(t_shell *mini, t_token *token, int i);
 void				ft_exit(t_shell *mini, int i);
 
 /* PARSING */
