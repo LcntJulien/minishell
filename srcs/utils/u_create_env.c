@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 16:55:01 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:20:14 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ void	copy_env(t_shell *mini, char **env)
 	i = -1;
 	while (env[++i])
 	{
-		var = ft_strdup(env[i]);
+		if (!ft_strncmp(env[i], "_=", 2))
+			var = ft_strdup("_=env");
+		else
+			var = ft_strdup(env[i]);
 		mini->env[i] = var;
 	}
 	oldpwd_status(mini, i, flag);
