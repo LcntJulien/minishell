@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 09:12:23 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:51:07 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	**sub_var_env(t_shell *mini, int lines, t_token *sub)
 {
 	int		i;
-	int		j;
 	char	**tmp;
 
 	i = 0;
@@ -24,13 +23,16 @@ char	**sub_var_env(t_shell *mini, int lines, t_token *sub)
 		ft_exit(mini, 1);
 	while (i < lines)
 	{
-		j = 0;
-		while (mini->env[i][j] != '=')
-			j++;
-		if (ft_strncmp(var_name(mini->env[i]), var_name(sub->s), j))
-			tmp[i] = mini->env[i];
+		if (!ft_strncmp(var_name(mini->env[i]), var_name(sub->s), ft_strlen(sub->s)))
+		{
+			if ((is_there_an_equal(mini->env[i]) && is_there_an_equal(sub->s))
+				|| (!is_there_an_equal(mini->env[i]) && is_there_an_equal(sub->s)))
+				tmp[i] = ft_strdup(sub->s);
+			else
+				tmp[i] = mini->env[i];
+		}
 		else
-			tmp[i] = ft_strdup(sub->s);
+			tmp[i] = mini->env[i];
 		i++;
 	}
 	return (tmp);

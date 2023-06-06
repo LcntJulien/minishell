@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 08:09:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:28:06 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,13 @@ static int	sort_in_tab(char **exp, int lines)
 	return (1);
 }
 
-static int	copy_tab(t_shell *mini, char **exp)
+static void	copy_tab(t_shell *mini, char **exp)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (mini->env[++i])
-	{
-		exp[i] = ft_strdup(mini->env[i]);
-		if (!exp[i])
-			return (0);
-	}
-	return (1);
+		exp[i] = mini->env[i];
 }
 
 static int	print_export(char **exp)
@@ -78,7 +73,7 @@ static int	print_export(char **exp)
 		if (!name)
 			return (0);
 		content = var_content(exp[i]);
-		if (content[0] == 0)
+		if (!is_there_an_equal(exp[i]))
 			printf("declare -x %s\n", name);
 		else
 			printf("declare -x %s=\"%s\"\n", name, content);
@@ -98,8 +93,8 @@ void print_listed_env(t_shell *mini)
 	exp = ft_calloc((lines + 1), sizeof(char *));
 	if (!exp)
 		ft_exit(mini, 1);
-	if (!copy_tab(mini, exp) || !sort_in_tab(exp, lines)
-		|| !print_export(exp))
+	copy_tab(mini, exp);
+	if (!sort_in_tab(exp, lines) || !print_export(exp))
 		ft_exit(mini, 1);
 	i = -1;
 	while (exp[++i])

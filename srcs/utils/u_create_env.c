@@ -6,34 +6,24 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/05 17:22:02 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:55:01 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	oldpwd_status(t_shell *mini, int i, int flag, int c)
+static void	oldpwd_status(t_shell *mini, int i, int flag)
 {
-	if (c == 0)
-	{
-		if (flag == 1)
-			mini->env[i] = NULL;
-		else
-		{
-			mini->env[i] = "OLPWD";
-			mini->env[++i] = NULL;
-		}
-	}
+	if (flag == 1)
+		mini->env[i] = NULL;
 	else
 	{
-		if (flag == 1)
-			return ;
-		else
-			mini->env[i] = "OLPWD";
+		mini->env[i] = "OLPWD";
+		mini->env[++i] = NULL;
 	}
 }
 
-int	check_oldpwd(char **env)
+static int	check_oldpwd(char **env)
 {
 	int i;
 	int	flag;
@@ -48,16 +38,6 @@ int	check_oldpwd(char **env)
 	return (flag);
 }
 
-int	tab_lines(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
 void	copy_env(t_shell *mini, char **env)
 {
 	int		i;
@@ -65,7 +45,6 @@ void	copy_env(t_shell *mini, char **env)
 	int		lines;
 	char	*var;
 
-	i = -1;
 	if (!env)
 		ft_exit(mini, 0);
 	flag = check_oldpwd(env);
@@ -76,10 +55,11 @@ void	copy_env(t_shell *mini, char **env)
 		mini->env = ft_calloc((lines + 2), sizeof(char *));
 	if (!mini->env)
 		ft_exit(mini, 0);
+	i = -1;
 	while (env[++i])
 	{
 		var = ft_strdup(env[i]);
 		mini->env[i] = var;
 	}
-	oldpwd_status(mini, i, flag, 0);
+	oldpwd_status(mini, i, flag);
 }

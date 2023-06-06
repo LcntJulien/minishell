@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 08:50:00 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:11:52 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ char	*var_name(char *str)
 	{
 		while (str[i] && str[i] != '=')
 			i++;
-		if (str[i] == '=')
-			i--;
 		s = calloc(sizeof(char), (i + 1));
 		if (!s)
 			return (0);
@@ -66,9 +64,8 @@ char	*var_content(char *str)
 	len = ft_strlen(str);
 	while (str[i] && str[i] != '=')
 		i++;
-	i++;
-	if (i == len)
-		return (0);
+	if (str[i] == '=')
+		i++;
 	s = calloc(sizeof(char), (len - i + 1));
 	if (!s)
 		return (0);
