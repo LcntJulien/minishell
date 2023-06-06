@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/05/25 12:18:23 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/06/06 18:10:17 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,8 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXB)b_cd.c			\
 		$(PFXS)parsing/utils.c	\
 		$(PFXS)parsing/token.c	\
-		$(PFXB)b_echo.c			\
-		$(PFXB)b_env.c			\
-		$(PFXB)b_exit.c			\
-		$(PFXB)b_export.c		\
-		$(PFXB)b_pwd.c			\
-		$(PFXB)b_unset.c		\
-		$(PFXT)utils.c				
+		$(PFXS)parsing/type.c
+			
 NAME	= minishell
 
 CC		= gcc
@@ -63,7 +58,7 @@ fclean 	: fclib clean
 
 re 		: fclean all
 
-debug 	: fclean $(OBJS) $(LIBFT)
+debug 	: fclean lib $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) -fsanitize=address
 
 lib		:
