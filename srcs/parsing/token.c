@@ -6,44 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/24 19:53:08 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:54:24 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/*
-A noter pour tk_type():
- -- après echo, si plusieurs ARG se suivent sans qu'il n'y ai de STRING, ils
- 	doivent être interprétés comme STRING -> postprocess à ajouter dans minishell()
- -- après une redirection un ARG est propablement un FILE -> postprocess à ajouter
-	dans minishell() ou parse()
- -- les bonus necessiteront d'ajouet aux WC (wildcards) type
- -- une déclration de variable sera reconnue comme CMD -> postprocess à ajouter
-	dans minishell() ou parse()
-*/
-void	tk_type(t_token *token)
-{
-	if (token->s[0] == '$')
-		token->type = VAR;
-	else if (token->s[0] == '\'' || token->s[0] == '\"')
-		token->type = STRING;
-	else if (ft_strncmp(token->s, "|", ft_strlen(token->s)) == 0)
-		token->type = PIPE;
-	else if (ft_strncmp(token->s, "<", ft_strlen(token->s)) == 0)
-		token->type = INPUT;
-	else if (ft_strncmp(token->s, ">", ft_strlen(token->s)) == 0)
-		token->type = OUTPUT;
-	else if (ft_strncmp(token->s, ">>", ft_strlen(token->s)) == 0)
-		token->type = APPEND;
-	else if (ft_strncmp(token->s, "<<", ft_strlen(token->s)) == 0)
-		token->type = HEREDOC;
-	else if (token->prev == NULL || token->prev->type == PIPE
-			|| (token->prev->prev && token->prev->prev->type >= INPUT))
-		token->type = CMD;
-	else
-		token->type = ARG;
-}
 
 int	str_alloc(char *line, int *i)
 {
