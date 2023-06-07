@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 10:15:33 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:07:28 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	b_echo(t_shell *mini)
 	t_token	*list;
 	int		nb_args;
 
+	nb_args = 0;
 	if (!mini->token->next)
 	{
 		mini->rtn = 1;
