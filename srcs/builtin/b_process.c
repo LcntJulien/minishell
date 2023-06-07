@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:53:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 16:07:52 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:01:36 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	b_process(t_shell *mini)
 	/* Voir pour la sortie si on peut pas l'ajouter */
 	//if (mini->token->redir == 0)
 	//{
-		if (mini->token && !ft_strncmp(mini->token->s, "echo", 4))
-			b_echo(mini);
-		else if (mini->token && !ft_strncmp(mini->token->s, "cd", 2))
+		// if (mini->token && !ft_strncmp(mini->token->s, "echo", 4))
+		// 	b_echo(mini);
+		/*else*/ if (mini->token && !ft_strncmp(mini->token->s, "cd", 2))
 			b_cd(mini);
 		//else if (mini->token && !ft_strncmp(mini->token->s, "pwd", 3))
 			//b_pwd(mini);
