@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 18:28:06 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:26:34 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,18 @@ static int	print_export(char **exp)
 		if (!name)
 			return (0);
 		content = var_content(exp[i]);
-		if (!is_there_an_equal(exp[i]))
+		if (name[0] == '_' && name[1] == '=')
+			i++;
+		else if (!is_there_an_equal(exp[i]))
+		{
 			printf("declare -x %s\n", name);
+			i++;
+		}
 		else
+		{
 			printf("declare -x %s=\"%s\"\n", name, content);
+			i++;
+		}
 	}
 	return (1);
 }
@@ -96,6 +104,7 @@ void print_listed_env(t_shell *mini)
 	copy_tab(mini, exp);
 	if (!sort_in_tab(exp, lines) || !print_export(exp))
 		ft_exit(mini, 1);
+	mini->rtn = 1;
 	i = -1;
 	while (exp[++i])
 	{

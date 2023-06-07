@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 17:45:41 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:19:39 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,47 +43,6 @@ int	max_len(int s1, int s2)
 		return (s1);
 	else
 		return (s2);
-}
-
-int	nb_args_no_redir(t_token *list)
-{
-	int i;
-
-	i = 0;
-	while (list->next)
-	{
-		i++;
-		list = list->next;
-	}
-	return (i);
-}
-
-int	inside_quotes(char *str)
-{
-	int i;
-
-	i = 0;
-	if (str[i] == '\'')
-	{
-		while (str[i])
-			i++;
-		i--;
-		if (str[i] != '\'')
-			return (0);
-		else
-			return (1);
-	}
-	else if (str[i] == '\"')
-	{
-		while (str[i])
-			i++;
-		i--;
-		if (str[i] != '\"')
-			return (0);
-		else
-			return (2);
-	}
-	return (0);
 }
 
 char	*define_word(char *str, int i, t_shell *mini)

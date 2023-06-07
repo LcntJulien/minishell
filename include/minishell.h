@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/06 17:46:22 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:19:36 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void				b_process(t_shell *mini);
 int					tab_lines(char **tab);
 int					is_there_an_equal(char *s);
 int					max_len(int s1, int s2);
-int					nb_args_no_redir(t_token *list);
-int					inside_quotes(char *str);
 char				*define_word(char *str, int i, t_shell *mini);
 int					is_variable(char *str, int i, t_shell *mini, int *len);
 
