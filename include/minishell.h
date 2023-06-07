@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 10:19:36 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:48:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,19 @@
 #  define LIBFT "../libft/include/libft.h"
 # endif
 
-# define CMD		0
-# define ARG		1
-# define VAR		2
-# define PIPE		3
-# define STRING		4
-# define INPUT		5
-# define OUTPUT		6
-# define APPEND		7
-# define HEREDOC	8
+# define CMD 0
+# define ARG 1
+# define VAR 2
+
+# define OPTION 3
+# define BUILTIN 4
+# define DECLAVAR 5
+
+# define PIPE 6
+# define INPUT 7
+# define OUTPUT 8
+# define APPEND 9
+# define HEREDOC 10
 
 # include LIBFT
 # include <curses.h>
@@ -132,5 +136,8 @@ int					is_sep(char *line, int i);
 void				*get_tokens(char *line);
 void				space(char *line, int *i);
 void				listfree(t_token *token);
+void				post_tk_type(t_token *tk, t_shell *mini);
+void				clean_tokens(t_token *tk);
+void				tk_type(t_token *token);
 
 #endif

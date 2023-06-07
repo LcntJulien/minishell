@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/04 09:14:06 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/06/07 15:54:35 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXP)input.c			\
 		$(PFXP)utils.c			\
 		$(PFXP)token.c			\
+		$(PFXP)type.c			\
 		$(PFXB)b_process.c		\
 		$(PFXB)b_utils.c		\
 		$(PFXB)b_cd.c			\
@@ -72,7 +73,7 @@ fclean 	: fclib clean
 
 re 		: fclean all
 
-debug 	: fclean $(OBJS) $(LIBFT)
+debug 	: fclean lib $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) -fsanitize=address
 
 lib		:
