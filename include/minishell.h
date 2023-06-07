@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/06 18:09:38 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:10:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void				copy_env(t_shell *mini, char **env);
 void				ft_exit(t_shell *mini, int i);
 
 /* PARSING */
-
 void				parse(t_shell *mini);
 int					quote_state(char *line, int idx);
 int					is_sep(char *line, int i);
@@ -105,5 +104,6 @@ void				listfree(t_token *token);
 void				post_tk_type(t_token *tk, t_shell *mini);
 void				clean_tokens(t_token *tk);
 void				tk_type(t_token *token);
+void				convert_var(t_token *tk, t_shell *mini);
 
 #endif
