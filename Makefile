@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/07 15:48:46 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/06/07 15:54:35 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXP)input.c			\
 		$(PFXP)utils.c			\
 		$(PFXP)token.c			\
+		$(PFXP)type.c			\
 		$(PFXB)b_process.c		\
 		$(PFXB)b_utils.c		\
 		$(PFXB)b_cd.c			\
