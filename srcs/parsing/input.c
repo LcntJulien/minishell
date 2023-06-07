@@ -29,7 +29,10 @@ void	display_tokens(t_token *token)
 	tab[10] = "HEREDOC";
 	while (token)
 	{
-		fprintf(stdout, "%s --> %s\n", token->s, tab[token->type]);
+		if (token->s != NULL)
+			fprintf(stdout, "%s --> %s\n", token->s, tab[token->type]);
+		else
+			fprintf(stdout, "|VIDE| --> %s\n", tab[token->type]);
 		token = token->next;
 	}
 }
@@ -106,7 +109,7 @@ void	parse(t_shell *mini)
 	token = mini->token;
 	while (token)
 	{
-		if (token->type <= ARG)
+		if (token->type <= VAR)
 			post_tk_type(token, mini);
 		token = token->next;
 	}
@@ -115,4 +118,3 @@ void	parse(t_shell *mini)
 	display_tokens(token);
 	free(line);
 }
-
