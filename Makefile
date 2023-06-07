@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/06 18:10:17 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/06/07 15:54:35 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,28 +14,43 @@ PFXS	= srcs/
 
 PFXB	= $(PFXS)builtin/
 
-PFXT	= $(PFXS)utils/
+PFXU	= $(PFXS)utils/
+
+PFXP	= $(PFXS)parsing/
 
 SRCS	= $(PFXS)main.c			\
-		$(PFXS)parsing/input.c	\
+		$(PFXP)input.c			\
+		$(PFXP)utils.c			\
+		$(PFXP)token.c			\
+		$(PFXP)type.c			\
+		$(PFXB)b_process.c		\
+		$(PFXB)b_utils.c		\
 		$(PFXB)b_cd.c			\
-		$(PFXS)parsing/utils.c	\
-		$(PFXS)parsing/token.c	\
-		$(PFXS)parsing/type.c
-			
+		$(PFXB)b_echo.c			\
+		$(PFXB)b_echo_utils.c	\
+		$(PFXB)b_env.c			\
+		$(PFXB)b_exit.c			\
+		$(PFXB)b_export.c		\
+		$(PFXB)b_export_simple.c\
+		$(PFXB)b_export_arg.c	\
+		$(PFXB)b_pwd.c			\
+		$(PFXB)b_unset.c		\
+		$(PFXU)u_create_env.c	\
+		$(PFXU)u_utils.c		\
+		$(PFXU)u_exit.c
 NAME	= minishell
 
 CC		= gcc
 
 LIBFT 	= -lft -L ./libft
 
-# HEADERS	= -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+#HEADERS	= -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
 HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
-# LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
+#LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
 LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -ggdb3
 
 OBJS	= $(SRCS:.c=.o)
 

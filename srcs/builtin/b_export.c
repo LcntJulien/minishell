@@ -3,99 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/25 12:34:40 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:03:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
-// static void	newtab(t_shell *mini, int choice, char **cpy)
-// {
-// 	int	i;
+int	check_existing_args(t_shell *mini, char *s)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (mini->env[i])
-// 		i++;
-// 	if (choice == 1)
-// 		cpy = calloc((i + 2), sizeof(char *));
-// 	else
-// 		cpy = calloc((i + 1), sizeof(char *));
-// 	if (!cpy)
-// 		exit (0);
-// }
+	i = 0;
+	while (mini->env[i])
+	{
+		if (ft_strncmp(mini->env[i], var_name(s), ft_strlen(var_name(s))))
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
 
-// static void	replace_var(t_shell *mini, char *str, int i, char **cpy)
-// {
-// 	int		j;
-// 	char	*var;
+static int	alpha_num_underscore(char *s)
+{
+	int	i;
 
-// 	j = 0;
-// 	newtab(mini, 0, cpy);
-// 	while (mini->env[j] && j < i)
-// 	{
-// 		var = ft_strdup(mini->env[j]);
-// 		cpy[j] = var;
-// 		j++;
-// 	}
-// 	var = ft_strdup(str);
-// 	cpy[j] = var;
-// 	while (mini->env[++j])
-// 	{
-// 		var = ft_strdup(mini->env[j]);
-// 		cpy[j] = var;
-// 	}
-// 	cpy[j] = "\0";
-// 	j = -1;
-// 	while (cpy[++j])
-// 		mini->env[j] = cpy[j];
-// 	mini->env[j] = "\0";
-// }
+	i = 0;
+	while (s[i])
+	{
+		if(s[0] == '=')
+			return (0);
+		else if(s[0] == '_' && s[1] == '=')
+			return (2);
+		else if (ft_isalnum(s[i]) || s[i] == '_')
+			i++;
+		else if (s[i] == '=')
+			break ;
+		else
+			return (0);
+	}
+	if (s[i] == '=' || !s[i])
+		return (1);
+	return (0);
+}
 
-// void static	add_var(t_shell *mini, char *str, char **cpy)
-// {
-// 	int		j;
-// 	char	*var;
+void	b_export_args(t_shell *mini, t_token *list, int nb_args)
+{
+	int		lines;
+	while (nb_args > 0)
+	{
+		lines = tab_lines(mini->env);
+		if (!alpha_num_underscore(list->s))
+		{
+			mini->rtn = 1;
+			printf("minishell: export: `%s': not a valid identifier\n", list->s);
+		}
+		else if (alpha_num_underscore(list->s) == 2)
+		{	
+			mini->rtn = 0;
+			break ;
+		}
+		else if (!check_existing_args(mini, list->s))
+			mini->env = add_var_env(mini, lines + 1, list);
+		else
+			mini->env = sub_var_env(mini, lines, list);
+		list = list->next;
+		nb_args--;
+	}
+}
 
-// 	j = -1;
-// 	newtab(mini, 1, cpy);
-// 	while (mini->env[++j])
-// 	{
-// 		var = ft_strdup(mini->env[j]);
-// 		cpy[j] = var;
-// 	}
-// 	var = ft_strdup(str);
-// 	cpy[j] = var;
-// 	cpy[++j] = "\0";
-// 	j = -1;
-// 	while (cpy[++j])
-// 		mini->env[j] = cpy[j];
-// 	mini->env[j] = "\0";
-// }
+void	b_export(t_shell *mini)
+{
+	t_token	*list;
+	int		nb_args;
 
-// void	b_export(t_shell *mini, char *str)
-// {
-// 	int		i;
-// 	int		len;
-// 	char	**cpy;
-// 	char	*strf;
-
-// 	i = -1;
-// 	len = 0;
-// 	cpy = NULL;
-// 	while (str[++i] != '=')
-// 		len++;
-// 	i = -1;
-// 	strf = format_string(str);
-// 	while (mini->env[++i])
-// 	{
-// 		if (!strncmp(mini->env[i], str, len - 1))
-// 		{
-// 			replace_var(mini, strf, i, cpy);
-// 			return ;
-// 		}
-// 	}
-// 	add_var(mini, strf, cpy);
-// }
+	if (!mini->token->next || !check_nb_args(mini, 1))
+		print_listed_env(mini);
+	else
+	{
+		list = mini->token;
+		nb_args = check_nb_args(mini, 1);
+		list = list->next;
+		b_export_args(mini, list, nb_args);
+	}
+}
