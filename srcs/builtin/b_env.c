@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	b_env(t_shell *mini)
 {
 	int	i;

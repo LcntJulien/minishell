@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 15:48:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:45:42 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ char				*define_word(char *str, int i, t_shell *mini);
 int					is_variable(char *str, int i, t_shell *mini, int *len);
 
 /* b_cd */
-void				b_cd(t_shell*mini);
+void				b_cd(t_shell*mini, t_token *list);
 
 /* b_echo */
-void				b_echo(t_shell *mini);
+void				b_echo(t_shell *mini, t_token *list);
 
 /* b_echo_utils */
 int					print_variable(t_shell *mini, int i);
@@ -99,14 +99,14 @@ void				b_env(t_shell *mini);
 /*	b_export	*/
 int					check_existing_args(t_shell *mini, char *s);
 void				b_export_args(t_shell *mini, t_token *list, int nb_args);
-void				b_export(t_shell *mini);
+void				b_export(t_shell *mini, t_token *list);
 
 /*	b_export_simple	*/
 void				print_listed_env(t_shell *mini);
 
 /*	b_export_arg	*/
 char				**add_var_env(t_shell *mini, int lines, t_token *new);
-char				**sub_var_env(t_shell *mini, int lines, t_token *sub);
+void				sub_var_env(t_shell *mini, int lines, t_token *sub);
 
 /*	b_pwd	*/
 void				b_wd(t_shell *mini);

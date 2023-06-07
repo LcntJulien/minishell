@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 20:03:56 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:46:03 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,14 @@ void	b_export_args(t_shell *mini, t_token *list, int nb_args)
 		else if (!check_existing_args(mini, list->s))
 			mini->env = add_var_env(mini, lines + 1, list);
 		else
-			mini->env = sub_var_env(mini, lines, list);
+			sub_var_env(mini, lines, list);
 		list = list->next;
 		nb_args--;
 	}
 }
 
-void	b_export(t_shell *mini)
+void	b_export(t_shell *mini, t_token *list)
 {
-	t_token	*list;
 	int		nb_args;
 
 	if (!mini->token->next || !check_nb_args(mini, 1))

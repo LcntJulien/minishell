@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 16:08:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:48:36 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	b_echo(t_shell *mini)
+void	b_echo(t_shell *mini, t_token *list)
 {
-	t_token	*list;
 	int		nb_args;
 
 	nb_args = 0;

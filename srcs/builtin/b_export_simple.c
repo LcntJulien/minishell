@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 10:26:34 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/07 20:23:25 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,16 @@ static int	print_export(char **exp)
 	char	*name;
 	char	*content;
 
-	i = -1;
-	while (exp[++i])
+	i = 0;
+	while (exp[i])
 	{	
+		if (!ft_strncmp(exp[i], "_=env", 5))
+			i++;
 		name = var_name(exp[i]);
 		if (!name)
 			return (0);
 		content = var_content(exp[i]);
-		if (name[0] == '_' && name[1] == '=')
-			i++;
-		else if (!is_there_an_equal(exp[i]))
+		if (!is_there_an_equal(exp[i]))
 		{
 			printf("declare -x %s\n", name);
 			i++;
