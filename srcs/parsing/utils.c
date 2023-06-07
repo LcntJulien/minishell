@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 17:00:29 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:37:49 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,16 @@ void	convert_var(t_token *tk, t_shell *mini)
 		{
 			if (ft_strncmp(cpy, mini->env[i], ft_strlen(cpy)) == 0)
 			{
-				cpy = ft_substr(mini->env[i], (ft_strlen(tk->s) + 2),
-						ft_strlen(mini->env[i]) - (ft_strlen(tk->s) + 1));
+				cpy = ft_substr(mini->env[i], ft_strlen(tk->s),
+						ft_strlen(mini->env[i]) - ft_strlen(tk->s));
 				free(tk->s);
 				tk->s = NULL;
-				tk->s = cpy;
+				tk->s = ft_strdup(cpy);
 				free(cpy);
-				return	;
+				return ;
 			}
 			i++;
 		}
 	}
 	free(cpy);
-	free(tk->s);
-	tk->s = NULL;
 }

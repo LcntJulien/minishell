@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 16:59:30 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:51:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@
 # define CMD 0
 # define ARG 1
 # define VAR 2
-
 # define OPTION 3
 # define BUILTIN 4
 # define DECLAVAR 5
-
 # define PIPE 6
 # define INPUT 7
 # define OUTPUT 8
@@ -68,7 +66,9 @@ typedef struct s_shell
 	int				exit;
 }					t_shell;
 
-/*	BUILTIN	*/
+/*
+BUILTIN
+*/
 
 /* b_process */
 void				b_process(t_shell *mini);
@@ -128,16 +128,27 @@ char				*var_content(char *str);
 void				ft_exit_plus(t_shell *mini, t_token *token, int i);
 void				ft_exit(t_shell *mini, int i);
 
-/* PARSING */
+
+/*
+PARSING
+*/
+
+/* input.c */
 void				parse(t_shell *mini);
-int					quote_state(char *line, int idx);
-int					is_sep(char *line, int i);
+
+/* token.c */
 void				*get_tokens(char *line);
+
+/* type.c */
+int					is_sep(char *line, int i);
+void				post_tk_type(t_token *tk, t_shell *mini);
+void				tk_type(t_token *token);
+
+/* utils.c */
+int					quote_state(char *line, int idx);
 void				space(char *line, int *i);
 void				listfree(t_token *token);
-void				post_tk_type(t_token *tk, t_shell *mini);
 void				clean_tokens(t_token *tk);
-void				tk_type(t_token *token);
 void				convert_var(t_token *tk, t_shell *mini);
 
 #endif
