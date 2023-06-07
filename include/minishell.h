@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 17:51:50 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:53:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char				*define_word(char *str, int i, t_shell *mini);
 int					is_variable(char *str, int i, t_shell *mini, int *len);
 
 /* b_cd */
-void				b_cd(t_shell*mini);
+void				b_cd(t_shell *mini);
 
 /* b_echo */
 void				b_echo(t_shell *mini);
@@ -127,7 +127,6 @@ char				*var_content(char *str);
 /* u_exit */
 void				ft_exit_plus(t_shell *mini, t_token *token, int i);
 void				ft_exit(t_shell *mini, int i);
-
 
 /*
 PARSING
