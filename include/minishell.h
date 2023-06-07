@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/06 18:09:38 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:48:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,28 +70,62 @@ typedef struct s_shell
 
 /*	BUILTIN	*/
 
+/* b_process */
+void				b_process(t_shell *mini);
+
+/* b_utils */
+int					tab_lines(char **tab);
+int					is_there_an_equal(char *s);
+int					max_len(int s1, int s2);
+char				*define_word(char *str, int i, t_shell *mini);
+int					is_variable(char *str, int i, t_shell *mini, int *len);
+
 /* b_cd */
+void				b_cd(t_shell*mini);
 
 /* b_echo */
 void				b_echo(t_shell *mini);
 
+/* b_echo_utils */
+int					print_variable(t_shell *mini, int i);
+bool				without_quote_print(char *str, t_shell *mini);
+bool				with_squote_print(char *str, t_shell *mini);
+bool				with_dquote_print(char *str, t_shell *mini);
+
 /* b_env */
-void				b_env(t_shell *mini, char **tab);
+char				**renew_env(t_shell *mini, int lines, t_token *tmp);
+void				b_env(t_shell *mini);
 
 /*	b_export	*/
-void				b_export(t_shell *mini, char *str);
+int					check_existing_args(t_shell *mini, char *s);
+void				b_export_args(t_shell *mini, t_token *list, int nb_args);
+void				b_export(t_shell *mini);
+
+/*	b_export_simple	*/
+void				print_listed_env(t_shell *mini);
+
+/*	b_export_arg	*/
+char				**add_var_env(t_shell *mini, int lines, t_token *new);
+char				**sub_var_env(t_shell *mini, int lines, t_token *sub);
 
 /*	b_pwd	*/
 void				b_wd(t_shell *mini);
 
 /*	b_unset	*/
 void				b_unset(t_shell *mini);
-void				ft_env(t_shell *mini, char **envp);
 
-/* utils */
+/*	UTILS	*/
+
+/* u_create_env */
 void				copy_env(t_shell *mini, char **env);
 
-/* ft_exit */
+/* u_utils */
+int					check_nb_args(t_shell *mini, int i);
+char				*var_name(char *str);
+char				*var_content(char *str);
+
+/* u_exit */
+void				ft_exit_plus(t_shell *mini, t_token *token, int i);
 void				ft_exit(t_shell *mini, int i);
 
 /* PARSING */

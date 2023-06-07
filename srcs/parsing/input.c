@@ -115,4 +115,3 @@ void	parse(t_shell *mini)
 	display_tokens(token);
 	free(line);
 }
-
