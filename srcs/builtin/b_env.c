@@ -24,4 +24,5 @@ void	b_env(t_shell *mini)
 		if (is_there_an_equal(mini->env[i]))
 			printf("%s\n", mini->env[i]);
 	}
+	printf("Lines = %d\n", i);
 }

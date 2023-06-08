@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 19:46:03 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 11:25:42 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_existing_args(t_shell *mini, char *s)
 	i = 0;
 	while (mini->env[i])
 	{
-		if (ft_strncmp(mini->env[i], var_name(s), ft_strlen(var_name(s))))
+		if (ft_strncmp(mini->env[i], var_name(mini, s), ft_strlen(var_name(mini, s))))
 			i++;
 		else
 			return (1);

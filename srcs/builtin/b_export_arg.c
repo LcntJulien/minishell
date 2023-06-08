@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 19:59:42 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 11:26:41 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ void	sub_var_env(t_shell *mini, int lines, t_token *sub)
 	i = 0;
 	while (i < lines)
 	{
-		if (!ft_strncmp(var_name(mini->env[i]), var_name(sub->s), ft_strlen(sub->s)))
+		if (!ft_strncmp(var_name(mini, mini->env[i]), var_name(mini, sub->s),
+			ft_strlen(sub->s)))
 		{
 			if ((is_there_an_equal(mini->env[i]) && is_there_an_equal(sub->s))
 				|| (!is_there_an_equal(mini->env[i]) && is_there_an_equal(sub->s)))
 			{
-				mini->env[i] = ft_strdup(sub->s);
+				mini->env[i] = sub->s;
 				if (!mini->env[i])
 					ft_exit_plus(mini, sub, 0);
 			}

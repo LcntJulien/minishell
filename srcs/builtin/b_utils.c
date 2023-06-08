@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 10:19:39 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:36:37 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	is_there_an_equal(char *s)
 
 int	max_len(int s1, int s2)
 {
-	if (s1 > s2)
+	if (s1 >= s2)
 		return (s1);
 	else
 		return (s2);

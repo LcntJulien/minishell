@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/08 08:58:40 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:22:30 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,15 @@ static void print_export(t_shell *mini, char **exp)
 	char	*name;
 	char	*content;
 
-	i = 0;
-	while (exp[i])
+	i=-1;
+	while (exp[++i])
 	{	
-		if (!ft_strncmp(exp[i], "_=env", 5))
-			i++;
 		name = var_name(mini, exp[i]);
 		content = var_content(mini, exp[i]);
 		if (!is_there_an_equal(exp[i]))
-		{
 			printf("declare -x %s\n", name);
-			i++;
-		}
 		else
-		{
 			printf("declare -x %s=\"%s\"\n", name, content);
-			i++;
-		}
 		free_var_export(name, content);
 	}
 }
@@ -74,13 +66,23 @@ static void	sort_in_tab(char **exp, int lines)
     }
 }
 
-static void	copy_tab(t_shell *mini, char **exp)
+static void	copy_tab(t_shell *mini, char **exp, int lines)
 {
 	int	i;
+	int	j;
 
-	i = -1;
-	while (mini->env[++i])
-		exp[i] = mini->env[i];
+	i = 0;
+	j = 0;
+	while (i < lines)
+	{
+		if (ft_strncmp(mini->env[i], "_=env", 5))
+		{
+			exp[j] = mini->env[i];
+			j++;
+		}
+		i++;
+	}
+	exp[j] = 0;
 }
 
 void print_listed_env(t_shell *mini)
@@ -88,13 +90,14 @@ void print_listed_env(t_shell *mini)
 	int		lines;
 	char	**exp;
 
-	lines = tab_lines(mini->env);
+	lines = tab_lines(mini->env) - 1;
+	printf("Lines = %d\n", lines);
 	if (!lines)
 		ft_exit(mini, 1);
 	exp = ft_calloc((lines + 1), sizeof(char *));
 	if (!exp)
 		ft_exit(mini, 1);
-	copy_tab(mini, exp);
+	copy_tab(mini, exp, lines);
 	sort_in_tab(exp, lines);
 	print_export(mini, exp);
 	mini->rtn = 1;

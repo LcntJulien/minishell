@@ -21,8 +21,8 @@ static void	modify_pwd(t_shell *mini, t_token *list)
 	{
 		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
 		{
-			printf("%s\n", var_content(mini->env[i]));
-			mini->env[i] = ft_strjoin("OLDPWD=", var_content(mini->env[i]));
+			printf("%s\n", var_content(mini, mini->env[i]));
+			mini->env[i] = ft_strjoin("OLDPWD=", var_content(mini, mini->env[i]));
 			break ;
 		}
 		else
