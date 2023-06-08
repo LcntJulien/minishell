@@ -39,12 +39,21 @@ void	display_tokens(t_token *token)
 
 int	line_check(t_shell *mini)
 {
-	if (quote_state(mini->line, ft_strlen(mini->line)))
+	t_token	*tk;
+
+	tk = mini->token;
+	while (tk)
 	{
-		ft_putendl_fd("minishell: syntax error: open quote", 2);
-		mini->rtn = 2;
-		free(mini->line);
-		return (1);
+		if (quote_state(tk->s, ft_strlen(tk->s)))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(tk->s, 2);
+			ft_putendl_fd(": command not found", 2);
+			mini->rtn = 2;
+			free(mini->line);
+			return (1);
+		}
+		tk = tk->next;
 	}
 	return (0);
 }
@@ -91,7 +100,6 @@ char	*parse_line(t_shell *mini)
 			nl[j++] = mini->line[i++];
 	}
 	nl[j] = '\0';
-	free(mini->line);
 	return (nl);
 }
 
@@ -101,8 +109,6 @@ void	parse(t_shell *mini)
 	char	*line;
 
 	if (!mini->line[0])
-		return ;
-	else if (line_check(mini))
 		return ;
 	line = parse_line(mini);
 	mini->token = get_tokens(line);
@@ -114,6 +120,10 @@ void	parse(t_shell *mini)
 		token = token->next;
 	}
 	token = mini->token;
+	if (line_check(mini))
+		return ;
 	clean_tokens(token);
+	display_tokens(token);
 	free(line);
+	free(mini->line);
 }
