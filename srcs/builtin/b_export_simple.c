@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/08 15:22:30 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:34:03 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,20 @@ static void print_export(t_shell *mini, char **exp)
 	char	*name;
 	char	*content;
 
-	i=-1;
-	while (exp[++i])
+	i = 0;
+	while (exp[i])
 	{	
-		name = var_name(mini, exp[i]);
-		content = var_content(mini, exp[i]);
-		if (!is_there_an_equal(exp[i]))
-			printf("declare -x %s\n", name);
-		else
-			printf("declare -x %s=\"%s\"\n", name, content);
-		free_var_export(name, content);
+		if (ft_strncmp(mini->env[i], "_=env", 5))
+		{
+			name = var_name(mini, exp[i]);
+			content = var_content(mini, exp[i]);
+			if (!is_there_an_equal(exp[i]))
+				printf("declare -x %s\n", name);
+			else
+				printf("declare -x %s=\"%s\"\n", name, content);
+			free_var_export(name, content);
+		}
+		i++;
 	}
 }
 
@@ -66,23 +70,16 @@ static void	sort_in_tab(char **exp, int lines)
     }
 }
 
-static void	copy_tab(t_shell *mini, char **exp, int lines)
+static void	copy_tab(t_shell *mini, char **exp)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (i < lines)
+	while (mini->env[i])
 	{
-		if (ft_strncmp(mini->env[i], "_=env", 5))
-		{
-			exp[j] = mini->env[i];
-			j++;
-		}
+		exp[i]= mini->env[i];
 		i++;
 	}
-	exp[j] = 0;
 }
 
 void print_listed_env(t_shell *mini)
@@ -90,14 +87,13 @@ void print_listed_env(t_shell *mini)
 	int		lines;
 	char	**exp;
 
-	lines = tab_lines(mini->env) - 1;
-	printf("Lines = %d\n", lines);
+	lines = tab_lines(mini->env);
 	if (!lines)
 		ft_exit(mini, 1);
 	exp = ft_calloc((lines + 1), sizeof(char *));
 	if (!exp)
 		ft_exit(mini, 1);
-	copy_tab(mini, exp, lines);
+	copy_tab(mini, exp);
 	sort_in_tab(exp, lines);
 	print_export(mini, exp);
 	mini->rtn = 1;
