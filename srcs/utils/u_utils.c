@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 18:32:00 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 08:58:42 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_nb_args(t_shell *mini, int i)
 	return (nb);
 }
 
-char	*var_name(char *str)
+char	*var_name(t_shell *mini, char *str)
 {
 	int		i;
 	int		j;
@@ -41,7 +41,7 @@ char	*var_name(char *str)
 			i++;
 		s = calloc(sizeof(char), (i + 1));
 		if (!s)
-			return (0);
+			ft_exit(mini, 0);
 		while(str[j] && j < i)
 		{
 			s[j] = str[j]; 
@@ -52,7 +52,7 @@ char	*var_name(char *str)
 	return (0);
 }
 
-char	*var_content(char *str)
+char	*var_content(t_shell *mini, char *str)
 {
 	int		i;
 	int		j;
@@ -61,18 +61,22 @@ char	*var_content(char *str)
 	
 	i = 0;
 	j = 0;
-	len = ft_strlen(str);
-	while (str[i] && str[i] != '=')
-		i++;
-	if (str[i] == '=')
-		i++;
-	s = calloc(sizeof(char), (len - i + 1));
-	if (!s)
-		return (0);
-	while(str[i] && i < len)
+	if (*str)
 	{
-		s[j] = str[i++];
-		j++;
+		len = ft_strlen(str);
+		while (str[i] && str[i] != '=')
+			i++;
+		if (str[i] == '=')
+			i++;
+		s = calloc(sizeof(char), (len - i + 1));
+		if (!s)
+			ft_exit(mini, 0);
+		while(str[i] && i < len)
+		{
+			s[j] = str[i++];
+			j++;
+		}
+		return (s);
 	}
-	return (s);
+	return (0);
 }

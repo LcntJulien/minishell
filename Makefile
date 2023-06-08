@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/07 15:54:35 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/06/08 08:50:02 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXB)b_export.c		\
 		$(PFXB)b_export_simple.c\
 		$(PFXB)b_export_arg.c	\
+		$(PFXB)b_free.c			\
 		$(PFXB)b_pwd.c			\
 		$(PFXB)b_unset.c		\
 		$(PFXU)u_create_env.c	\
