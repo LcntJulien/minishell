@@ -123,7 +123,7 @@ void	parse(t_shell *mini)
 	if (line_check(mini))
 		return ;
 	clean_tokens(token);
-	display_tokens(token);
+	// display_tokens(token);
 	free(line);
 	free(mini->line);
 }
