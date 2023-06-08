@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 14:07:15 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/05/04 20:34:57 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:40:51 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ size_t	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (s)
+	{
+		while (s[i])
+			i++;
+		return (i);
+	}
+	return (0);
 }
