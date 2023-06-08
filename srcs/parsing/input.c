@@ -12,47 +12,29 @@
 
 #include "../../include/minishell.h"
 
-void	display_tokens(t_token *token)
+int	parse_err_msg(t_shell *mini, t_token *tk, int status)
 {
-	char	*tab[11];
+	char	*tab[255];
 
-	tab[0] = "CMD";
-	tab[1] = "ARG";
-	tab[2] = "VAR";
-	tab[3] = "OPTION";
-	tab[4] = "BUILTIN";
-	tab[5] = "DECLAVAR";
-	tab[6] = "PIPE";
-	tab[7] = "INPUT";
-	tab[8] = "OUTPUT";
-	tab[9] = "APPEND";
-	tab[10] = "HEREDOC";
-	while (token)
-	{
-		if (token->s != NULL)
-			fprintf(stdout, "%s --> %s\n", token->s, tab[token->type]);
-		else
-			fprintf(stdout, "|VIDE| --> %s\n", tab[token->type]);
-		token = token->next;
-	}
+	tab[2] = "; unexpected token";
+	tab[127] = "; command not found";
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(tk->s, 2);
+	ft_putendl_fd(tab[status], 2);
+	mini->rtn = status;
+	free(mini->line);
+	return (1);
 }
 
-int	line_check(t_shell *mini)
+int	parse_err(t_shell *mini, t_token *tk)
 {
-	t_token	*tk;
-
-	tk = mini->token;
 	while (tk)
 	{
-		if (quote_state(tk->s, ft_strlen(tk->s)))
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(tk->s, 2);
-			ft_putendl_fd(": command not found", 2);
-			mini->rtn = 2;
-			free(mini->line);
-			return (1);
-		}
+		if (quote_state(tk->s, ft_strlen(tk->s)) || (tk->type == VAR
+					&& (!tk->prev || tk->prev->type == PIPE)))
+			return (parse_err_msg(mini, tk, 127));
+		else if (tk->type == PIPE && !tk->next)
+			return (parse_err_msg(mini, tk, 2));
 		tk = tk->next;
 	}
 	return (0);
@@ -120,7 +102,7 @@ void	parse(t_shell *mini)
 		token = token->next;
 	}
 	token = mini->token;
-	if (line_check(mini))
+	if (parse_err(mini, token))
 		return ;
 	clean_tokens(token);
 	// display_tokens(token);
