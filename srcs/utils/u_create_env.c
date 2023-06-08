@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 20:20:14 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 07:52:50 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 static void	oldpwd_status(t_shell *mini, int i, int flag)
 {
-	if (flag == 1)
-		mini->env[i] = NULL;
-	else
-	{
+	if (flag == 0)
 		mini->env[i] = "OLPWD";
-		mini->env[++i] = NULL;
-	}
 }
 
 static int	check_oldpwd(char **env)
@@ -43,7 +38,6 @@ void	copy_env(t_shell *mini, char **env)
 	int		i;
 	int		flag;
 	int		lines;
-	char	*var;
 
 	if (!env)
 		ft_exit(mini, 0);
@@ -59,10 +53,11 @@ void	copy_env(t_shell *mini, char **env)
 	while (env[++i])
 	{
 		if (!ft_strncmp(env[i], "_=", 2))
-			var = ft_strdup("_=env");
+			mini->env[i] = "_=env";
 		else
-			var = ft_strdup(env[i]);
-		mini->env[i] = var;
+			mini->env[i] = env[i];
+		if (!mini->env[i])
+			ft_exit(mini, 0);
 	}
 	oldpwd_status(mini, i, flag);
 }
