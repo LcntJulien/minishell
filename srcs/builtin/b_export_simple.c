@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/08 15:34:03 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:29:15 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void print_export(t_shell *mini, char **exp)
 	i = 0;
 	while (exp[i])
 	{	
-		if (ft_strncmp(mini->env[i], "_=env", 5))
+		if (ft_strncmp(exp[i], "_=", 2))
 		{
 			name = var_name(mini, exp[i]);
 			content = var_content(mini, exp[i]);
