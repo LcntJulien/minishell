@@ -12,22 +12,10 @@
 
 #include "../../include/minishell.h"
 
-static void	modify_pwd(t_shell *mini, t_token *list)
+static void	modify_oldpwd(t_shell *mini, t_token *list)
 {
 	int	i;
 
-	i = -1;
-	while (mini->env[++i])
-	{
-		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
-		{
-			printf("%s\n", var_content(mini, mini->env[i]));
-			mini->env[i] = ft_strjoin("OLDPWD=", var_content(mini, mini->env[i]));
-			break ;
-		}
-		else
-			i++;
-	}
 	i = -1;
 	while (mini->env[++i])
 	{
@@ -41,11 +29,46 @@ static void	modify_pwd(t_shell *mini, t_token *list)
 	}
 }
 
+static void	modify_pwd(t_shell *mini, t_token *list)
+{
+	int	i;
+	char *tmp;
+
+	i = -1;
+	while (mini->env[++i])
+	{
+		if (ft_strncmp(mini->env[i], "PWD", 3) == 0)
+			tmp = var_content(mini, mini->env[i]);
+	}
+	i = -1;
+	while (mini->env[++i])
+	{
+		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
+		{
+			mini->env[i] = ft_strjoin("OLDPWD=", tmp);
+			break ;
+		}
+	}
+	modify_oldpwd(mini, list);
+}
+
 static int	check_valid_path(char *str)
 {
 	struct stat	buf;
 
 	return (stat(str, &buf)); 
+}
+
+static void	old_pwd(t_shell *mini, t_token *list)
+{
+	int i;
+
+	i = -1;
+	while (mini->env[++i])
+	{
+		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
+			list->s = var_content(mini, mini->env[i]);
+	}
 }
 
 void	b_cd(t_shell *mini, t_token *list)
@@ -54,10 +77,11 @@ void	b_cd(t_shell *mini, t_token *list)
 	if (!list->next)
 	{
 		mini->rtn = 0;
-		free(list);
 		return ;
 	}
 	list = list->next;
+	if (strncmp(list->s, "-", 1) == 0)
+		old_pwd(mini, list);
 	if (chdir(list->s) == -1)
 	{
 		mini->rtn = 1;
@@ -70,5 +94,4 @@ void	b_cd(t_shell *mini, t_token *list)
 	}
 	else
 		modify_pwd(mini, list);
-	//free list;
 }
