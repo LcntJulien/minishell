@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/08 11:34:53 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:38:28 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char				**add_var_env(t_shell *mini, int lines, t_token *new);
 void				sub_var_env(t_shell *mini, int lines, t_token *sub);
 
 /*	b_pwd	*/
-void				b_wd(t_shell *mini);
+void				b_pwd(t_shell *mini);
 
 /*	b_unset	*/
 void				b_unset(t_shell *mini);
