@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 17:53:59 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:09:45 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void				parse(t_shell *mini);
 
 /* token.c */
 void				*get_tokens(char *line);
+void				display_tokens(t_token *token);
 
 /* type.c */
 int					is_sep(char *line, int i);
