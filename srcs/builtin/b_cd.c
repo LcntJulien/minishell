@@ -27,6 +27,7 @@ static void	modify_oldpwd(t_shell *mini, t_token *list)
 		else
 			i++;
 	}
+	mini->rtn = 0;
 }
 
 static void	modify_pwd(t_shell *mini, t_token *list)
@@ -64,7 +65,10 @@ static int	cd_check_args(t_shell *mini, t_token *list)
 	if (list->s == "-")
 		old_pwd(mini, list);
 	else if (ft_strncmp(list->s, "..", 2))
-		parent_folder(mini, list);
+	{
+		if (!parent_folder(mini, list))
+			return (0);
+	return (1);
 }
 
 void	b_cd(t_shell *mini, t_token *list)
@@ -76,8 +80,8 @@ void	b_cd(t_shell *mini, t_token *list)
 		return ;
 	}
 	list = list->next;
-	cd_check_args(mini, list);
-	if (chdir(list->s) == -1)
+	if (!cd_check_args(mini, list) || (chdir(list->s) == -1
+		&& mini->rtn != 2))
 	{
 		mini->rtn = 1;
 		printf("minishell: cd: `%s': No such file or directory\n", list->s);
@@ -87,6 +91,8 @@ void	b_cd(t_shell *mini, t_token *list)
 		mini->rtn = 1;
 		printf("minishell: cd: `%s': Not a directory\n", list->s);
 	}
+	else if (mini->rtn  == 2)
+		mini->rtn = 0;
 	else
 		modify_pwd(mini, list);
 }

@@ -24,15 +24,53 @@ void	old_pwd(t_shell *mini, t_token *list)
 	}
 }
 
-void	parent_folder(t_shell *mini, t_token *list)
+void	change_parent_folder(t_shell *mini, t_token *list)
 {
-	char	*path;
 	int		len;
+	char	*str;
 
-	path = getcwd(NULL, 0);
 	len = ft_strlen(path);
 	while (path[len] != '/' && len > 0)
 		len--;
-	if (len == 0)
-		
+	if (path[0] == '/' && len == 0)	
+	{
+		mini->rtn = 2;
+		return (0);
+	}
+	else
+	{
+	}
+}
+
+static int	check_valid_path(t_shell *mini, t_token *list, char *path)
+{
+
+}
+
+int	parent_folder(t_shell *mini, t_token *list)
+{
+	char	*path;
+	int		i;
+
+	if (list->s == "..")
+	{
+		change_parent_folder(mini, list);
+		return (1);
+	}
+	i = 2;
+	path = getcwd(NULL, 0);
+	while (list->s[i])
+	{
+		if (list->s[i] == '/')
+		{
+			if (!check_parent_folder(mini, list, path))
+			{
+				mini->rtn = 1;
+				return (0);
+			}
+
+		}
+		else
+			return (0);
+	}
 }
