@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:46:04 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/09 11:27:22 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/10 01:54:15 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,53 +24,87 @@ void	old_pwd(t_shell *mini, t_token *list)
 	}
 }
 
-void	change_parent_folder(t_shell *mini, t_token *list)
+static char *previous_folder(t_shell *mini, t_token *list, char *path)
 {
 	int		len;
+	int		i;
 	char	*str;
 
 	len = ft_strlen(path);
-	while (path[len] != '/' && len > 0)
-		len--;
-	if (path[0] == '/' && len == 0)	
+	if (len == 1)	
 	{
-		mini->rtn = 2;
-		return (0);
+		str = calloc(sizeof(char *), (len + 1));
+		if (!str)
+			ft_exit_plus(mini, list, 0);
+		str[0] = '/';
 	}
 	else
 	{
+		while (path[len] != '/' && len > 0)
+			len--;
+		str = calloc(sizeof(char *), (len + 1));
+		if (!str)
+			ft_exit_plus(mini, list, 0);
+		i = -1;
+		while (++i < len)
+			str[i] = path[i];
 	}
+	return (str);
 }
 
-static int	check_valid_path(t_shell *mini, t_token *list, char *path)
+static int	test_redir(char *redir)
 {
+	if (chdir(redir) == -1)
+		return (0);
+	else if (check_valid_path(redir) == -1)
+		return (0);
+	else
+		return (1);
+}	
 
+static char	*next_folder(char *path, int *i, t_shell *mini, t_token *list)
+{
+	char	*str;
+	int		j;
+	int		k;
+
+	while (path[*i] && path[*i] != '/')
+	{
+		(*i)++;
+		j++;
+	}
+	str = calloc(sizeof(char *), (j + 1));
+	if (!str)
+		ft_exit_plus(mini, list, 0);
+	k = -1;
+	while (++k < j)
+		str[k] = path[k];
+	return (str);
 }
 
-int	parent_folder(t_shell *mini, t_token *list)
+char	*parent_folder(t_shell *mini, t_token *list)
 {
 	char	*path;
+	char	*redir;
 	int		i;
 
-	if (list->s == "..")
-	{
-		change_parent_folder(mini, list);
-		return (1);
-	}
-	i = 2;
 	path = getcwd(NULL, 0);
+	i = 0;
+	redir = calloc(sizeof(char *), 1);
+	if (!redir)
+		ft_exit_plus(mini, list, 0);
 	while (list->s[i])
 	{
-		if (list->s[i] == '/')
+		while (list->s[i] != '/' && list->s[i])
+			i++;
+		if (list->s[i - 2] == '.' && list->s[i - 1] == '.')
 		{
-			if (!check_parent_folder(mini, list, path))
-			{
-				mini->rtn = 1;
-				return (0);
-			}
-
+			redir = previous_folder(mini, list, path);
+			if (!test_redir(redir))
+				return (NULL);
 		}
 		else
-			return (0);
+			redir = ft_strjoin(redir, next_folder(list->s, &i, mini, list));
 	}
+	return (redir);
 }

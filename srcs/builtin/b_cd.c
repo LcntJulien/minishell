@@ -53,7 +53,7 @@ static void	modify_pwd(t_shell *mini, t_token *list)
 	modify_oldpwd(mini, list);
 }
 
-static int	check_valid_path(char *str)
+int	check_valid_path(char *str)
 {
 	struct stat	buf;
 
@@ -62,26 +62,35 @@ static int	check_valid_path(char *str)
 
 static int	cd_check_args(t_shell *mini, t_token *list)
 {
-	if (list->s == "-")
+	char *str;
+
+	if (ft_strncmp(list->s, "-", 1) == 0)
 		old_pwd(mini, list);
-	else if (ft_strncmp(list->s, "..", 2))
+	else if (ft_strncmp(list->s, "..", 2) == 0)
 	{
-		if (!parent_folder(mini, list))
+		str = parent_folder(mini, list);
+		if (!str)
 			return (0);
+		else
+			list->s = str;
+	}
 	return (1);
 }
 
 void	b_cd(t_shell *mini, t_token *list)
 {
+	char *logname;
+
 	list = mini->token;
 	if (!list->next)
 	{
-		mini->rtn = 0;
+		logname = var_content(mini, "LOGNAME");
+		list->s = ft_strjoin("/home/", logname);
+		modify_pwd(mini, list);
 		return ;
 	}
 	list = list->next;
-	if (!cd_check_args(mini, list) || (chdir(list->s) == -1
-		&& mini->rtn != 2))
+	if (!cd_check_args(mini, list) || (chdir(list->s) == -1))
 	{
 		mini->rtn = 1;
 		printf("minishell: cd: `%s': No such file or directory\n", list->s);
@@ -91,8 +100,6 @@ void	b_cd(t_shell *mini, t_token *list)
 		mini->rtn = 1;
 		printf("minishell: cd: `%s': Not a directory\n", list->s);
 	}
-	else if (mini->rtn  == 2)
-		mini->rtn = 0;
 	else
 		modify_pwd(mini, list);
 }
