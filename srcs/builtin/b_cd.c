@@ -59,16 +59,12 @@ static int	check_valid_path(char *str)
 	return (stat(str, &buf)); 
 }
 
-static void	old_pwd(t_shell *mini, t_token *list)
+static int	cd_check_args(t_shell *mini, t_token *list)
 {
-	int i;
-
-	i = -1;
-	while (mini->env[++i])
-	{
-		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
-			list->s = var_content(mini, mini->env[i]);
-	}
+	if (list->s == "-")
+		old_pwd(mini, list);
+	else if (ft_strncmp(list->s, "..", 2))
+		parent_folder(mini, list);
 }
 
 void	b_cd(t_shell *mini, t_token *list)
@@ -80,8 +76,7 @@ void	b_cd(t_shell *mini, t_token *list)
 		return ;
 	}
 	list = list->next;
-	if (strncmp(list->s, "-", 1) == 0)
-		old_pwd(mini, list);
+	cd_check_args(mini, list);
 	if (chdir(list->s) == -1)
 	{
 		mini->rtn = 1;

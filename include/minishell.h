@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/08 19:38:28 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/09 11:25:03 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ int					is_variable(char *str, int i, t_shell *mini, int *len);
 
 /* b_cd */
 void				b_cd(t_shell*mini, t_token *list);
+
+/* b_cd_more */
+void				old_pwd(t_shell*mini, t_token *list);
+void				parent_folder(t_shell*mini, t_token *list);
 
 /* b_echo */
 void				b_echo(t_shell *mini, t_token *list);
