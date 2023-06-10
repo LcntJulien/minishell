@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 08:16:28 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/10 08:18:52 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:26:50 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,30 @@ void	modify_pwd(t_shell *mini, t_token *list)
 		}
 	}
 	modify_oldpwd(mini, list);
+}
+
+int	check_valid_path(char *str)
+{
+	struct stat	buf;
+
+	return (stat(str, &buf)); 
+}
+
+void	cd_dispatch(t_shell *mini, t_token *list, char *tmp_path)
+{
+	if (chdir(tmp_path) == -1)
+	{
+		mini->rtn = 1;
+		printf("minishell: cd: `%s': No such file or directory\n", list->s);
+	}
+	else if (check_valid_path(tmp_path))
+	{
+		mini->rtn = 1;
+		printf("minishell: cd: `%s': Not a directory\n", list->s);
+	}
+	else
+	{
+		list->s = tmp_path;
+		modify_pwd(mini, list);
+	}
 }

@@ -12,63 +12,30 @@
 
 #include "../../include/minishell.h"
 
-int	check_valid_path(char *str)
-{
-	struct stat	buf;
-
-	return (stat(str, &buf)); 
-}
-
-static void	cd_dispatch(t_shell *mini, t_token *list)
-{
-	if (chdir(list->s) == -1)
-	{
-		mini->rtn = 1;
-		printf("minishell: cd: `%s': No such file or directory\n", list->s);
-	}
-	else if (check_valid_path(list->s))
-	{
-		mini->rtn = 1;
-		printf("minishell: cd: `%s': Not a directory\n", list->s);
-	}
-	else
-		modify_pwd(mini, list);
-
-}
-
-void	search_folder_name(t_token *list, int i)
-{
-
-
-}
-
 static char	*another_folder(t_shell *mini, t_token *list)
 {
-	char	*str;
+	char	*folder_name;
 	int		i;
+	int		len;
 
-	i = 0;
-	if (list->s[0] == '/' && !list->s[1])	
-		return (ft_strdup("/"));
-	else if (list->s[0] != '/')	
+	if (list->s[0] != '/')	
 	{
-		i++;
+		i = 0;
+		len = ft_strlen(list->s);
 		while (list->s[i] && list->s[i] != '/')
 			i++;
-		search_folder_name(list, i);
-		
-
-			str = getcwd(NULL, 0);
-			return(ft_strjoin(str, list->s));
+		folder_name = calloc(sizeof(char *), (len - i + 1));
+		if (!folder_name)
+			ft_exit_plus(mini, list, 0);
+		while (i < len)	
+		{
+			folder_name[i] = list->s[i];
+			i++;
 		}
-		else
-			return (ft_strdup("/"));
-
+		return(ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), folder_name));
 	}
 	else
-	{
-
-	}
+		return (list->s);
 }
 
 static char *cd_check_args(t_shell *mini, t_token *list)
@@ -77,8 +44,10 @@ static char *cd_check_args(t_shell *mini, t_token *list)
 
 	if (ft_strncmp(list->s, "-", 1) == 0)
 		tmp_path = old_pwd(mini, list);
-	else if (ft_strncmp(list->s, "..", 2) == 0)
-		tmp_path = parent_folder(mini, list);
+	if (ft_strncmp(list->s, "~", 1) == 0)
+		tmp_path = home_path(mini, list);
+	else if (list->s[0] == '/' && !list->s[1])	
+		tmp_path = ft_strdup("/");
 	else
 		tmp_path = another_folder(mini, list);
 	if (!tmp_path)
@@ -86,22 +55,39 @@ static char *cd_check_args(t_shell *mini, t_token *list)
 	return (tmp_path);
 }
 
+static void	without_arg(t_shell *mini, t_token *list)
+{
+	char *home;
+
+	home = var_content(mini, "HOME");
+	if (!home)
+	{
+		mini->rtn = 1;
+		printf("minishell: cd: HOME not set\n");
+		return ;
+	}
+	list->s = home;
+	modify_pwd(mini, list);
+	return ;
+}
+
 void	b_cd(t_shell *mini, t_token *list)
 {
-	char *logname;
 	char *tmp_path;
 
 	list = mini->token;
 	if (!list->next)
 	{
-		logname = var_content(mini, "LOGNAME");
-		list->s = ft_strjoin("/home/", logname);
-		modify_pwd(mini, list);
+		without_arg(mini, list);
 		return ;
 	}
 	list = list->next;
 	tmp_path = cd_check_args(mini, list);
-	if (!tmp_path)
-		ft_exit_plus(mini, list, 0);
-	cd_dispatch(mini, list);
+	if (ft_strncmp(tmp_path, "HOME", 4) == 0 || ft_strncmp(tmp_path, "OLDPWD", 6) == 0)
+	{
+		mini->rtn = 1;
+		printf("minishell: cd: %s not set\n", tmp_path);
+		return ;
+	}
+	cd_dispatch(mini, list, tmp_path);
 }
