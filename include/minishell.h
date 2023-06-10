@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/10 01:18:51 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/10 08:18:32 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ int					check_valid_path(char *str);
 /* b_cd_more */
 void				old_pwd(t_shell*mini, t_token *list);
 char				*parent_folder(t_shell*mini, t_token *list);
+
+/* b_cd_more */
+void				modify_pwd(t_shell*mini, t_token *list);
 
 /* b_echo */
 void				b_echo(t_shell *mini, t_token *list);
