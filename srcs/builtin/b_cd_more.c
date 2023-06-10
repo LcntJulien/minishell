@@ -12,15 +12,17 @@
 
 #include "../../include/minishell.h"
 
-void	old_pwd(t_shell *mini, t_token *list)
+char	*old_pwd(t_shell *mini, t_token *list)
 {
-	int i;
+	int		i;
+	char	*tmp_path;
 
 	i = -1;
+	tmp_path = 0;
 	while (mini->env[++i])
 	{
 		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
-			list->s = var_content(mini, mini->env[i]);
+			tmp_path = var_content(mini, mini->env[i]);
 	}
 }
 

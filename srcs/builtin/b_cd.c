@@ -36,15 +36,28 @@ static void	cd_dispatch(t_shell *mini, t_token *list)
 
 }
 
+void	search_folder_name(t_token *list, int i)
+{
+
+
+}
+
 static char	*another_folder(t_shell *mini, t_token *list)
 {
-	char *str;
+	char	*str;
+	int		i;
 
-	if (list->s[0] != '/')	
+	i = 0;
+	if (list->s[0] == '/' && !list->s[1])	
+		return (ft_strdup("/"));
+	else if (list->s[0] != '/')	
 	{
-		if (list->s[1] != '.')
-		{
-			if ()
+		i++;
+		while (list->s[i] && list->s[i] != '/')
+			i++;
+		search_folder_name(list, i);
+		
+
 			str = getcwd(NULL, 0);
 			return(ft_strjoin(str, list->s));
 		}
@@ -52,36 +65,31 @@ static char	*another_folder(t_shell *mini, t_token *list)
 			return (ft_strdup("/"));
 
 	}
-}
-
-static int	cd_check_args(t_shell *mini, t_token *list)
-{
-	char *str;
-
-	if (ft_strncmp(list->s, "-", 1) == 0)
-		old_pwd(mini, list);
-	else if (ft_strncmp(list->s, "..", 2) == 0)
-	{
-		str = parent_folder(mini, list);
-		if (!str)
-			return (0);
-		else
-			list->s = str;
-	}
 	else
 	{
-		str = another_folder(mini, list);
-		if (!str)
-			return (0);
-		else
-			list->s = str;
+
 	}
-	return (1);
+}
+
+static char *cd_check_args(t_shell *mini, t_token *list)
+{
+	char *tmp_path;
+
+	if (ft_strncmp(list->s, "-", 1) == 0)
+		tmp_path = old_pwd(mini, list);
+	else if (ft_strncmp(list->s, "..", 2) == 0)
+		tmp_path = parent_folder(mini, list);
+	else
+		tmp_path = another_folder(mini, list);
+	if (!tmp_path)
+		return (0);
+	return (tmp_path);
 }
 
 void	b_cd(t_shell *mini, t_token *list)
 {
 	char *logname;
+	char *tmp_path;
 
 	list = mini->token;
 	if (!list->next)
@@ -92,10 +100,8 @@ void	b_cd(t_shell *mini, t_token *list)
 		return ;
 	}
 	list = list->next;
-	if (cd_check_args(mini, list))
-	{
-		mini->rtn = 1;
-		printf("minishell: cd: `%s': No such file or directory\n", list->s);
-	}
+	tmp_path = cd_check_args(mini, list);
+	if (!tmp_path)
+		ft_exit_plus(mini, list, 0);
 	cd_dispatch(mini, list);
 }
