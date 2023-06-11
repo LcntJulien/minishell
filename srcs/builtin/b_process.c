@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:53:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/10 01:28:06 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:24:49 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	b_process(t_shell *mini)
 		b_pwd(mini);
 	else if (mini->token && !ft_strncmp(mini->token->s, "export", 6))
 		b_export(mini, list);
-	//else if (mini->token && !ft_strncmp(mini->token->s, "unset", 5))
-		//b_unset(mini, list);
+	else if (mini->token && !ft_strncmp(mini->token->s, "unset", 5))
+		b_unset(mini, list);
 	else if (mini->token && !ft_strncmp(mini->token->s, "env", 3))
 		b_env(mini);
 	//else if (mini->token && !ft_strncmp(mini->token->s, "exit", 4))

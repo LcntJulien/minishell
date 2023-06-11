@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:46:04 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/10 16:39:00 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 11:22:46 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,9 @@ char	*home_path(t_shell *mini, t_token *list)
 char	*old_pwd(t_shell *mini, t_token *list)
 {
 	int		i;
-	char	*tmp_path;
 	
 	(void)list;
 	i = 0;
-	tmp_path = 0;
 	while (mini->env[i])
 	{
 		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)

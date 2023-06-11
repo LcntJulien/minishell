@@ -57,18 +57,18 @@ static char *cd_check_args(t_shell *mini, t_token *list)
 
 static void	without_arg(t_shell *mini, t_token *list)
 {
-	char *home;
-
-	home = var_content(mini, "HOME");
-	if (!home)
+	if (!existing_var(mini, "HOME="))
 	{
 		mini->rtn = 1;
 		printf("minishell: cd: HOME not set\n");
 		return ;
 	}
-	list->s = home;
-	modify_pwd(mini, list);
-	return ;
+	else
+	{
+		list->s = return_var_content(mini, "HOME=");
+		modify_pwd(mini, list);
+		return ;
+	}
 }
 
 void	b_cd(t_shell *mini, t_token *list)

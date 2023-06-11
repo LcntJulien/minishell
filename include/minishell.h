@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/10 15:24:50 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:38:11 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ typedef struct s_shell
 	t_token			*token;
 	char			**env;
 	char			*line;
+	char			*pwd;
+	char			*oldpwd;
+	char			*home;
 	int				in;
 	int				out;
 	int				rtn;
@@ -77,8 +80,7 @@ void				b_process(t_shell *mini);
 int					tab_lines(char **tab);
 int					is_there_an_equal(char *s);
 int					max_len(int s1, int s2);
-char				*define_word(char *str, int i, t_shell *mini);
-int					is_variable(char *str, int i, t_shell *mini, int *len);
+int					check_nb_args(t_shell *mini, int i);
 
 /* b_cd */
 void				b_cd(t_shell*mini, t_token *list);
@@ -122,7 +124,7 @@ void				sub_var_env(t_shell *mini, int lines, t_token *sub);
 void				b_pwd(t_shell *mini);
 
 /*	b_unset	*/
-void				b_unset(t_shell *mini);
+void				b_unset(t_shell *mini, t_token *list);
 
 /*	b_free	*/
 void				free_tab(char **tab);
@@ -133,9 +135,13 @@ void				free_tab(char **tab);
 void				copy_env(t_shell *mini, char **env);
 
 /* u_utils */
-int					check_nb_args(t_shell *mini, int i);
-char				*var_name(t_shell *mini, char *str);
 char				*var_content(t_shell *mini, char *str);
+char				*return_var_content(t_shell *mini, char *var);
+char				*var_name(t_shell *mini, char *str);
+char				*return_var_name(t_shell *mini, char *var);
+int					existing_var(t_shell *mini, char *var);
+
+/* u_utils_more */
 
 /* u_exit */
 void				ft_exit_plus(t_shell *mini, t_token *token, int i);
