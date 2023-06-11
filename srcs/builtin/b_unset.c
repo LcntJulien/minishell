@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/11 14:21:14 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:38:13 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@ int	check_variable(t_shell *mini, t_token *list, int i)
 	if (ft_strncmp(list->s, "HOME", 4) == 0)
 	{
 		mini->home = mini->env[i];
-		return (1);
-	}
-	else if (ft_strncmp(list->s, "PWD", 3) == 0)
-	{
-		mini->pwd = mini->env[i];
-		return (1);
-	}
-	else if (ft_strncmp(list->s, "OLDPWD", 6) == 0)
-	{
-		mini->oldpwd = mini->env[i];
 		return (1);
 	}
 	else

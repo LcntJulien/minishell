@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/11 16:51:52 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:49:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ typedef struct s_shell
 	t_token			*token;
 	char			**env;
 	char			*line;
-	char			*pwd;
-	char			*oldpwd;
 	char			*home;
 	int				in;
 	int				out;
@@ -88,6 +86,7 @@ void				b_cd(t_shell*mini, t_token *list);
 /* b_cd_more */
 int					check_valid_path(char *str);
 char				*home_path(t_shell *mini, t_token *list);
+char				*old_pwd(t_shell *mini);
 
 /* b_cd_exce */
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);

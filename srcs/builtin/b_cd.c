@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 19:55:48by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:32:02 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static char *check_str_cd(t_shell *mini, t_token *list)
 	char *tmp_path;
 
 	if (ft_strncmp(list->s, "-", 1) == 0 && list->s[1] == 0)
-		tmp_path = mini->oldpwd;
-	if (ft_strncmp(list->s, "~", 1) == 0)
+		tmp_path = old_pwd(mini);
+	else if (ft_strncmp(list->s, "~", 1) == 0)
 		tmp_path = home_path(mini, list);
 	else if (list->s[0] == '/' && !list->s[1])	
 		tmp_path = ft_strdup("/");
@@ -57,9 +57,6 @@ static char *check_str_cd(t_shell *mini, t_token *list)
 
 static void	without_arg(t_shell *mini, t_token *list)
 {
-	char *tmp;
-
-	tmp = NULL;
 	if (!existing_var(mini, "HOME="))
 	{
 		mini->rtn = 1;
@@ -69,8 +66,8 @@ static void	without_arg(t_shell *mini, t_token *list)
 	else
 	{
 		list->s = return_var_content(mini, "HOME=");
-		modify_oldpwd(mini, &tmp);
-		modify_pwd_and_tmp(mini, tmp);
+		printf("list->s = %s\n", list->s);
+		cd_dispatch(mini, list, list->s);
 		return ;
 	}
 }
@@ -83,9 +80,10 @@ static int	args_before_cd(t_shell *mini, t_token *list)
 		mini->rtn = 1;
 		return (0); 
 	}
-	else if (list->next && (list->next->type == 1 || list->next->type == 2)
-		&& list->next->next && (list->next->next->type == 1
-		|| list->next->next->type == 2))
+	else if (list->next && (list->next->type == 1 || list->next->type == 2
+		|| list->next->type == 3) && list->next->next
+		&& (list->next->next->type == 1 || list->next->next->type == 2
+		|| list->next->next->type == 3))
 	{
 		printf("minishell: cd: Too many arguments\n");
 		mini->rtn = 1;
@@ -103,8 +101,11 @@ void	b_cd(t_shell *mini, t_token *list)
 		return ;
 	list = list->next;
 	if (ft_strncmp(list->s, "..", 2) != 0)
-	{	tmp_path = check_str_cd(mini, list);
-		if (ft_strncmp(tmp_path, "HOME", 4) == 0 || ft_strncmp(tmp_path, "OLDPWD", 6) == 0)
+	{	
+		tmp_path = check_str_cd(mini, list);
+		printf("tmp_path = %s\n", tmp_path);
+		if (ft_strncmp(tmp_path, "HOME", 4) == 0
+			|| ft_strncmp(tmp_path, "OLDPWD", 6) == 0)
 		{
 			mini->rtn = 1;
 			printf("minishell: cd: %s not set\n", tmp_path);
@@ -113,8 +114,5 @@ void	b_cd(t_shell *mini, t_token *list)
 		cd_dispatch(mini, list, tmp_path);
 	}
 	else
-	{
-		tmp_path = list->s;
-		cd_dispatch(mini, list, tmp_path);
-	}
+		cd_dispatch(mini, list, list->s);
 }

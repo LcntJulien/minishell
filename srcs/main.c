@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/11 13:30:24 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:49:13 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ static void	startshell(t_shell *mini, char	**env)
 	mini->rtn = 0;
 	mini->exit = 0;
 	copy_env(mini, env);
-	mini->pwd = return_var_content(mini, "PWD=");
-	mini->oldpwd = return_var_content(mini, "OLDPWD=");
 	mini->home = return_var_content(mini, "HOME");
-	printf("pwd = %s | oldpwd = %s | home = %s \n", mini->pwd, mini->oldpwd, mini->home);
 }
 
 static void	args(int ac, char **av)

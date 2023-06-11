@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 08:16:28 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/11 16:52:12 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:45:38 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,13 @@ void	modify_pwd_and_tmp(t_shell *mini, char *tmp)
 	int	i;
 
 	i = -1;
-	if (!existing_var(mini, "PWD"))
-		mini->pwd = tmp;
-	else
+	if (existing_var(mini, "PWD"))
 	{
 		while (mini->env[++i])
 		{
 			if (ft_strncmp(mini->env[i], "PWD", 3) == 0)
 			{
 				mini->env[i] = ft_strjoin("PWD=", tmp);
-				mini->pwd = tmp;
 				break ;
 			}
 			else
@@ -41,16 +38,13 @@ void	modify_pwd(t_shell *mini, t_token *list)
 	int	i;
 
 	i = -1;
-	if (!existing_var(mini, "PWD"))
-		mini->pwd = list->s;
-	else
+	if (existing_var(mini, "PWD"))
 	{
 		while (mini->env[++i])
 		{
 			if (ft_strncmp(mini->env[i], "PWD", 3) == 0)
 			{
 				mini->env[i] = ft_strjoin("PWD=", list->s);
-				mini->pwd = list->s;
 				break ;
 			}
 			else
@@ -65,44 +59,28 @@ void	modify_oldpwd(t_shell *mini, char **tmp)
 	int	i;
 
 	i = -1;
-	if (!existing_var(mini, "OLDPWD"))
+	if (existing_var(mini, "OLDPWD"))
 	{
-		*tmp = mini->oldpwd;
-		mini->oldpwd = mini->pwd;
-	}
-	else
-	{
-		*tmp = mini->oldpwd;
+		
+		*tmp = return_var_content(mini, "OLDPWD=");
+		printf("*tmp = %s\n", *tmp);
 		while (mini->env[++i])
 		{
 			if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
 			{
-				mini->env[i] = ft_strjoin("OLDPWD=", mini->pwd);
-				mini->oldpwd = mini->pwd;
+				mini->env[i] = ft_strjoin("OLDPWD=", return_var_content(mini, "PWD="));
 				break ;
 			}
 		}
 	}
 }
 
-void	cd_dispatch(t_shell *mini, t_token *list, char *tmp_path)
+static void	modify_env(t_shell *mini, t_token *list, char *tmp_path)
 {
 	char *tmp;
 
 	tmp = NULL;
-	if (chdir(tmp_path) == -1)
-	{
-		mini->rtn = 1;
-		printf("minishell: cd: `%s': No such file or directory\n", list->s);
-	}
-	else if (check_valid_path(tmp_path) == -1)
-	{
-		mini->rtn = 1;
-		printf("minishell: cd: `%s': Not a directory\n", list->s);
-	}
-	else
-	{
-		modify_oldpwd(mini, &tmp);
+	modify_oldpwd(mini, &tmp);
 		if (list->s[0] == '-' && list->s[1] == 0)
 			modify_pwd_and_tmp(mini, tmp);
 		else
@@ -110,5 +88,25 @@ void	cd_dispatch(t_shell *mini, t_token *list, char *tmp_path)
 			list->s = tmp_path;
 			modify_pwd(mini, list);
 		}
+}
+
+void	cd_dispatch(t_shell *mini, t_token *list, char *tmp_path)
+{
+	if (chdir(tmp_path) == -1)
+	{
+		mini->rtn = 1;
+		printf("minishell: cd: `%s': No such file or directory\n", list->s);
+		return ;
+	}
+	else if (check_valid_path(tmp_path) == -1)
+	{
+		mini->rtn = 1;
+		printf("minishell: cd: `%s': Not a directory\n", list->s);
+		return ;
+	}
+	else
+	{
+		tmp_path = getcwd(NULL, 0);
+		modify_env(mini, list, tmp_path);	
 	}
 }
