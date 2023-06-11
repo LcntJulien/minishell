@@ -6,11 +6,18 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:46:04 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/11 11:22:46 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:44:52 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	check_valid_path(char *str)
+{
+	struct stat	buf;
+
+	return (stat(str, &buf));
+}
 
 static char	*substract_folder_name(t_shell *mini, t_token *list)
 {
@@ -35,28 +42,7 @@ static char	*substract_folder_name(t_shell *mini, t_token *list)
 
 char	*home_path(t_shell *mini, t_token *list)
 {
-	char	*home;
-
-	home = var_content(mini, "HOME");
-	if (!home)
-		return ("HOME");
-	else if (list->s[1] && list->s[1] == '/')
-		return (ft_strjoin(home, substract_folder_name(mini, list)));
-	return (list->s);
-}
-
-char	*old_pwd(t_shell *mini, t_token *list)
-{
-	int		i;
-	
-	(void)list;
-	i = 0;
-	while (mini->env[i])
-	{
-		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
-			return (var_content(mini, mini->env[i]));
-		else
-			i++;
-	}
-	return ("OLDPWD");
+	if (list->s[1] && list->s[1] == '/')
+		return (ft_strjoin(mini->home, substract_folder_name(mini, list)));
+	return (mini->home);
 }

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/11 12:38:11 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 16:51:52 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,15 @@ int					check_nb_args(t_shell *mini, int i);
 
 /* b_cd */
 void				b_cd(t_shell*mini, t_token *list);
-int					check_valid_path(char *str);
 
 /* b_cd_more */
+int					check_valid_path(char *str);
 char				*home_path(t_shell *mini, t_token *list);
-char				*old_pwd(t_shell*mini, t_token *list);
 
 /* b_cd_exce */
+void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
 void				modify_pwd(t_shell*mini, t_token *list);
-int					check_valid_path(char *str);
+void				modify_oldpwd(t_shell *mini, char **tmp);
 void				cd_dispatch(t_shell *mini, t_token *list, char *tmp_path);
 
 /* b_echo */

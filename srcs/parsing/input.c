@@ -112,6 +112,6 @@ void	parse(t_shell *mini)
 	}
 	token = mini->token;
 	clean_tokens(token);
-	//display_tokens(token);
+	display_tokens(token);
 	free(line);
 }

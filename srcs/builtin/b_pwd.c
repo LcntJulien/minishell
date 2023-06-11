@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:15:31 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/10 01:28:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/11 14:37:24 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	b_pwd(t_shell *mini)
 	if (!path)
 		ft_exit(mini, 1);
 	printf("%s\n", path);
+	free(path);
 	return ;
 }
