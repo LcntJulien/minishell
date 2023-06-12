@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/11 18:49:18 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:12:23 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,13 @@ void				b_cd(t_shell*mini, t_token *list);
 int					check_valid_path(char *str);
 char				*home_path(t_shell *mini, t_token *list);
 char				*old_pwd(t_shell *mini);
+int					valid_path(t_shell *mini, t_token *list, char *tmp_path);
 
 /* b_cd_exce */
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
 void				modify_pwd(t_shell*mini, t_token *list);
 void				modify_oldpwd(t_shell *mini, char **tmp);
-void				cd_dispatch(t_shell *mini, t_token *list, char *tmp_path);
+void				check_var_status(t_shell *mini, t_token *list, char *tmp_path);
 
 /* b_echo */
 void				b_echo(t_shell *mini, t_token *list);
@@ -127,6 +128,7 @@ void				b_unset(t_shell *mini, t_token *list);
 
 /*	b_free	*/
 void				free_tab(char **tab);
+void				free_cd(char *tmp_path, char *tmp_pwd);
 
 /*	UTILS	*/
 

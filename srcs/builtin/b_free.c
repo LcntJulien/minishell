@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 15:57:18 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:49:16 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,19 @@ void	free_tab(char **tab)
 			tab[i] = NULL;
 		}
 		free(tab);
+	}
+}
+
+void	free_cd(char *tmp_path, char *tmp_pwd)
+{
+	if (tmp_path)
+	{
+		free(tmp_path);
+		tmp_path = NULL;
+	}
+	if (tmp_pwd)
+	{
+		free(tmp_pwd);
+		tmp_pwd = NULL;
 	}
 }

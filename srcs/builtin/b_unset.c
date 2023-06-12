@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 15:58:55 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:44:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	b_unset(t_shell *mini, t_token *list)
 		{
 			if (ft_strncmp(list->s, "_", ft_strlen(list->s) != 0))
 			{
-				if (existing_var(mini, list->s))
+				if (existing_var(mini, list->s) != -1)
 					mini->env = delete_var(mini, list, list->s);
 			}
 			list = list->next;

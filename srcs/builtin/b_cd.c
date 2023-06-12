@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 15:43:34 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:59:28 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static char	*check_str_cd(t_shell *mini, t_token *list)
 		tmp_path = old_pwd(mini);
 	else if (ft_strncmp(list->s, "~", 1) == 0)
 		tmp_path = home_path(mini, list);
-	else if (list->s[0] == '/' && !list->s[1])
-		tmp_path = ft_strdup("/");
 	else
 		tmp_path = another_folder(mini, list);
 	if (!tmp_path)
@@ -57,7 +55,7 @@ static char	*check_str_cd(t_shell *mini, t_token *list)
 
 static void	without_arg(t_shell *mini, t_token *list)
 {
-	if (!existing_var(mini, "HOME="))
+	if (existing_var(mini, "HOME=") != -1)
 	{
 		mini->rtn = 1;
 		printf("minishell: cd: HOME not set\n");
@@ -65,8 +63,9 @@ static void	without_arg(t_shell *mini, t_token *list)
 	}
 	else
 	{
+		free(list->s);
 		list->s = return_var_content(mini, "HOME=");
-		cd_dispatch(mini, list, list->s);
+		check_var_status(mini, list, list->s);
 		return ;
 	}
 }
@@ -109,8 +108,8 @@ void	b_cd(t_shell *mini, t_token *list)
 			printf("minishell: cd: %s not set\n", tmp_path);
 			return ;
 		}
-		cd_dispatch(mini, list, tmp_path);
+		check_var_status(mini, list, tmp_path);
 	}
 	else
-		cd_dispatch(mini, list, list->s);
+		check_var_status(mini, list, list->s);
 }

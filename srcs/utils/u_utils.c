@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 15:38:19 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 18:30:16 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ char	*return_var_content(t_shell *mini, char *var)
 		tmp = var_name(mini, mini->env[i]);
 		len = ft_strlen(tmp);
 		if (ft_strncmp(tmp, var, len) == 0)
-			return (tmp);
+		{
+			free (tmp);
+			return (var_content(mini, mini->env[i]));
+		}
 	}
 	free(tmp);
 	return (0);
@@ -116,9 +119,9 @@ int	existing_var(t_shell *mini, char *var)
 		if (ft_strncmp(tmp, var, len) == 0)
 		{
 			free(tmp);
-			return (1);
+			return (i);
 		}
 	}
 	free(tmp);
-	return (0);
+	return (-1);
 }
