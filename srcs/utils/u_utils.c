@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 18:30:16 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 22:57:09 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*var_content(t_shell *mini, char *str)
 		}
 		return (s);
 	}
-	return (0);
+	return (NULL);
 }
 
 char	*return_var_content(t_shell *mini, char *var)
@@ -59,7 +59,7 @@ char	*return_var_content(t_shell *mini, char *var)
 		}
 	}
 	free(tmp);
-	return (0);
+	return (NULL);
 }
 
 char	*var_name(t_shell *mini, char *str)
@@ -84,7 +84,7 @@ char	*var_name(t_shell *mini, char *str)
 		}
 		return (s);
 	}
-	return (0);
+	return (NULL);
 }
 
 char	*return_var_name(t_shell *mini, char *var)
@@ -102,7 +102,7 @@ char	*return_var_name(t_shell *mini, char *var)
 			return (tmp);
 	}
 	free(tmp);
-	return (0);
+	return (NULL);
 }
 
 int	existing_var(t_shell *mini, char *var)

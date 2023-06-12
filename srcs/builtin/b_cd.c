@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 19:59:28 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 23:01:40 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ static char	*folder(t_shell *mini, t_token *list, int c)
 {
 	if (c == 0)
 	{
-		int	i;
-
-		i = existing_var(mini, "OLDPWD");
-		if (i != -1)
-			return (var_content(mini, mini->env[i]));
+		if (existing_var(mini, "OLDPWD") != -1)
+			return (var_content(mini, mini->env[existing_var(mini, "OLDPWD")]));
 		else
 			return ("OLDPWD");
 	}
@@ -54,12 +51,13 @@ static char	*check_str_cd(t_shell *mini, t_token *list)
 		tmp_path = folder(mini, list, 2);
 	if (!tmp_path)
 		ft_exit_plus(mini, list, 0);
+	printf("%s\n", tmp_path);
 	return (tmp_path);
 }
 
 static void	without_arg(t_shell *mini, t_token *list)
 {
-	if (existing_var(mini, "HOME=") != -1)
+	if (existing_var(mini, "HOME=") == -1)
 	{
 		mini->rtn = 1;
 		printf("minishell: cd: HOME not set\n");
