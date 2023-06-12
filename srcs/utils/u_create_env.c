@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/08 12:06:51 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:51:03 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_oldpwd(char **env)
 	flag = 0;
 	while (env[++i])
 	{
-		if (!ft_strncmp(env[i],"OLDPWD", 6))
+		if (ft_strncmp(env[i],"OLDPWD", 6) == 0)
 			flag = 1;	
 	}
 	return (flag);

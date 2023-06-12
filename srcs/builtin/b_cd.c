@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/11 19:32:02 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:39:28 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char *check_str_cd(t_shell *mini, t_token *list)
 	else
 		tmp_path = another_folder(mini, list);
 	if (!tmp_path)
-		return (0);
+		ft_exit_plus(mini, list, 0);
 	return (tmp_path);
 }
 
@@ -66,7 +66,6 @@ static void	without_arg(t_shell *mini, t_token *list)
 	else
 	{
 		list->s = return_var_content(mini, "HOME=");
-		printf("list->s = %s\n", list->s);
 		cd_dispatch(mini, list, list->s);
 		return ;
 	}
@@ -103,7 +102,6 @@ void	b_cd(t_shell *mini, t_token *list)
 	if (ft_strncmp(list->s, "..", 2) != 0)
 	{	
 		tmp_path = check_str_cd(mini, list);
-		printf("tmp_path = %s\n", tmp_path);
 		if (ft_strncmp(tmp_path, "HOME", 4) == 0
 			|| ft_strncmp(tmp_path, "OLDPWD", 6) == 0)
 		{

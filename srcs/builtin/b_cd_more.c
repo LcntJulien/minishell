@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:46:04 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/11 19:44:59 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:22:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static char	*substract_folder_name(t_shell *mini, t_token *list)
 	len = ft_strlen(list->s);
 	while (list->s[i] && list->s[i] == '/')
 		i++;
-	folder_name = calloc(sizeof(char *), (len - i + 1));
+	folder_name = ft_calloc(sizeof(char *), (len - i + 1));
 	if (!folder_name)
-		ft_exit_plus(mini, list, 0);
+		ft_exit_plus(mini, mini->token, 0);
 	while (i < len)	
 	{
 		folder_name[i] = list->s[i];
@@ -43,7 +43,7 @@ static char	*substract_folder_name(t_shell *mini, t_token *list)
 char	*home_path(t_shell *mini, t_token *list)
 {
 	if (list->s[1] && list->s[1] == '/')
-		return (ft_strjoin(mini->home, substract_folder_name(mini, list)));
+		return (ft_strjoin(ft_strjoin(mini->home, "/"), substract_folder_name(mini, list)));
 	return (mini->home);
 }
 

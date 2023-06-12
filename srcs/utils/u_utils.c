@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/11 14:19:32 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:35:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*var_content(t_shell *mini, char *str)
 			i++;
 		s = ft_calloc(sizeof(char), (len - i + 1));
 		if (!s)
-			ft_exit(mini, 0);
+			ft_exit_plus(mini, mini->token, 0);
 		while(str[i] && i < len)
 		{
 			s[j] = str[i++];
@@ -43,16 +43,19 @@ char	*var_content(t_shell *mini, char *str)
 
 char	*return_var_content(t_shell *mini, char *var)
 {
-	int	i;
-	int	len;
-
+	int		i;
+	int		len;
+	char	*tmp;
+	
 	i = -1;
 	while (mini->env[++i])
 	{
-		len = ft_strlen(var_name(mini, mini->env[i]));
-		if (ft_strncmp(var_name(mini, mini->env[i]), var, len) == 0)
-			return (var_content(mini, mini->env[i]));
+		tmp = var_name(mini, mini->env[i]);
+		len = ft_strlen(tmp);
+		if (ft_strncmp(tmp, var, len) == 0)
+			return (tmp);
 	}
+	free(tmp);
 	return (0);
 }
 
@@ -70,7 +73,7 @@ char	*var_name(t_shell *mini, char *str)
 			i++;
 		s = ft_calloc(sizeof(char), (i + 1));
 		if (!s)
-			ft_exit(mini, 0);
+			ft_exit_plus(mini, mini->token, 0);
 		while(str[j] && j < i)
 		{
 			s[j] = str[j]; 
@@ -83,30 +86,39 @@ char	*var_name(t_shell *mini, char *str)
 
 char	*return_var_name(t_shell *mini, char *var)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	char	*tmp;
 
 	i = -1;
 	while (mini->env[++i])
 	{
-		len = ft_strlen(var_name(mini, mini->env[i]));
-		if (ft_strncmp(var_name(mini, mini->env[i]), var, len) == 0)
-			return (var_name(mini, mini->env[i]));
+		tmp = var_name(mini, mini->env[i]);
+		len = ft_strlen(tmp);
+		if (ft_strncmp(tmp, var, len) == 0)
+			return (tmp);
 	}
+	free(tmp);
 	return (0);
 }
 
 int	existing_var(t_shell *mini, char *var)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	char	*tmp;
 
 	i = -1;
 	while (mini->env[++i])
 	{
-		len = ft_strlen(var_name(mini, mini->env[i]));
-		if (ft_strncmp(var_name(mini, mini->env[i]), var, len) == 0)
+		tmp = var_name(mini, mini->env[i]);
+		len = ft_strlen(tmp);
+		if (ft_strncmp(tmp, var, len) == 0)
+		{
+			free(tmp);
 			return (1);
+		}
 	}
+	free(tmp);
 	return (0);
 }
