@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 08:16:28 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 15:45:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:41:12 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	modify_oldpwd(t_shell *mini, char **tmp)
 	if (existing_var(mini, "OLDPWD"))
 	{
 		*tmp = return_var_content(mini, "OLDPWD=");
-		printf("*tmp = %s\n", *tmp);
 		while (mini->env[++i])
 		{
 			if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
