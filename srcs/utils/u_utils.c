@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 14:35:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:38:19 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*var_content(t_shell *mini, char *str)
 	int		j;
 	int		len;
 	char	*s;
-	
+
 	i = 0;
 	j = 0;
 	if (*str)
@@ -31,7 +31,7 @@ char	*var_content(t_shell *mini, char *str)
 		s = ft_calloc(sizeof(char), (len - i + 1));
 		if (!s)
 			ft_exit_plus(mini, mini->token, 0);
-		while(str[i] && i < len)
+		while (str[i] && i < len)
 		{
 			s[j] = str[i++];
 			j++;
@@ -46,7 +46,7 @@ char	*return_var_content(t_shell *mini, char *var)
 	int		i;
 	int		len;
 	char	*tmp;
-	
+
 	i = -1;
 	while (mini->env[++i])
 	{
@@ -64,7 +64,7 @@ char	*var_name(t_shell *mini, char *str)
 	int		i;
 	int		j;
 	char	*s;
-	
+
 	i = 0;
 	j = 0;
 	if (*str)
@@ -74,9 +74,9 @@ char	*var_name(t_shell *mini, char *str)
 		s = ft_calloc(sizeof(char), (i + 1));
 		if (!s)
 			ft_exit_plus(mini, mini->token, 0);
-		while(str[j] && j < i)
+		while (str[j] && j < i)
 		{
-			s[j] = str[j]; 
+			s[j] = str[j];
 			j++;
 		}
 		return (s);

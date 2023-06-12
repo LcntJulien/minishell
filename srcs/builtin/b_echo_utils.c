@@ -6,9 +6,8 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:17:43 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 10:12:58 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:46:41 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-

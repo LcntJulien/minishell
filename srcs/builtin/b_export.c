@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/08 17:45:55 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:50:14 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	check_existing_args(t_shell *mini, char *s)
 	i = 0;
 	while (mini->env[i])
 	{
-		if (ft_strncmp(mini->env[i], var_name(mini, s), ft_strlen(var_name(mini, s))))
+		if (ft_strncmp(mini->env[i], var_name(mini, s),
+				ft_strlen(var_name(mini, s))))
 			i++;
 		else
 			return (1);
@@ -34,9 +35,9 @@ static int	alpha_num_underscore(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if(s[0] == '=')
+		if (s[0] == '=')
 			return (0);
-		else if(s[0] == '_' && s[1] == '=')
+		else if (s[0] == '_' && s[1] == '=')
 			return (2);
 		else if (ft_isalnum(s[i]) || s[i] == '_')
 			i++;
@@ -53,6 +54,7 @@ static int	alpha_num_underscore(char *s)
 void	b_export_args(t_shell *mini, t_token *list, int nb_args)
 {
 	int		lines;
+
 	while (nb_args > 0)
 	{
 		lines = tab_lines(mini->env);

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 08:44:56 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:38:49 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit_plus(t_shell *mini, t_token *token, int i)
 {
-	int j;
+	int	j;
 
 	j = -1;
 	if (i == 0)
@@ -33,7 +33,7 @@ void	ft_exit_plus(t_shell *mini, t_token *token, int i)
 
 void	ft_exit(t_shell *mini, int i)
 {
-	int j;
+	int	j;
 
 	j = -1;
 	if (i == 0)

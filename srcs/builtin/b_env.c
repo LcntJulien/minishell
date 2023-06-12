@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 17:15:45 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/05 09:29:21by jmathieu         ###   ########.fr       */
+/*   Created: 2023/06/12 15:48:25 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/06/12 15:48:57 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,23 @@
 
 void	b_env(t_shell *mini)
 {
-	int	i;
+	int		i;
+	t_token	*list;
 
-	// conditions to implement	
-	//if (!mini->token->next || )
-	i = -1;
-	while (mini->env[++i])
+	list = mini->token;
+	if (!list->next || (list->next && (list->next->type == 6
+				|| list->next->type == 8 || list->next->type == 9)))
 	{
-		if (is_there_an_equal(mini->env[i]))
-			printf("%s\n", mini->env[i]);
+		i = -1;
+		while (mini->env[++i])
+		{
+			if (is_there_an_equal(mini->env[i]))
+				printf("%s\n", mini->env[i]);
+		}
+		mini->rtn = 0;
+	}
+	else
+	{
+		mini->rtn = 1;
 	}
 }

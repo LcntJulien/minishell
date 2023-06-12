@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 08:16:28 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 14:40:44 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:45:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ void	modify_oldpwd(t_shell *mini, char **tmp)
 	i = -1;
 	if (existing_var(mini, "OLDPWD"))
 	{
-		
 		*tmp = return_var_content(mini, "OLDPWD=");
 		printf("*tmp = %s\n", *tmp);
 		while (mini->env[++i])
 		{
 			if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
 			{
-				mini->env[i] = ft_strjoin("OLDPWD=", return_var_content(mini, "PWD="));
+				mini->env[i] = ft_strjoin("OLDPWD=",
+						return_var_content(mini, "PWD="));
 				break ;
 			}
 		}
@@ -79,7 +79,7 @@ void	modify_oldpwd(t_shell *mini, char **tmp)
 
 static void	modify_env(t_shell *mini, t_token *list, char *tmp_path)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = NULL;
 	modify_oldpwd(mini, &tmp);
@@ -111,6 +111,6 @@ void	cd_dispatch(t_shell *mini, t_token *list, char *tmp_path)
 		tmp_path = getcwd(NULL, 0);
 		if (!tmp_path)
 			ft_exit_plus(mini, list, 0);
-		modify_env(mini, list, tmp_path);	
+		modify_env(mini, list, tmp_path);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/11 18:38:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:58:55 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_variable(t_shell *mini, t_token *list, int i)
 		return (1);
 	}
 	else
-		return (0);	
+		return (0);
 }
 
 void	del_var_env(t_shell *mini, char **env, int lines, t_token *list)
@@ -48,9 +48,9 @@ void	del_var_env(t_shell *mini, char **env, int lines, t_token *list)
 
 static char	**delete_var(t_shell *mini, t_token *list, char *var)
 {
-	int	i;
-	int len;
-	char **new_env;
+	int		i;
+	int		len;
+	char	**new_env;
 
 	i = -1;
 	while (mini->env[++i])
@@ -70,7 +70,7 @@ static char	**delete_var(t_shell *mini, t_token *list, char *var)
 
 void	b_unset(t_shell *mini, t_token *list)
 {
-	int i;
+	int	i;
 
 	if (!list->next)
 		return ;

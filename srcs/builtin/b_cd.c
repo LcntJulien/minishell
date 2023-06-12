@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 14:39:28 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:43:34 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*another_folder(t_shell *mini, t_token *list)
 	int		i;
 	int		len;
 
-	if (list->s[0] != '/')	
+	if (list->s[0] != '/')
 	{
 		i = 0;
 		len = ft_strlen(list->s);
@@ -27,26 +27,26 @@ static char	*another_folder(t_shell *mini, t_token *list)
 		folder_name = calloc(sizeof(char *), (len - i + 1));
 		if (!folder_name)
 			ft_exit_plus(mini, list, 0);
-		while (i < len)	
+		while (i < len)
 		{
 			folder_name[i] = list->s[i];
 			i++;
 		}
-		return(ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), folder_name));
+		return (ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), folder_name));
 	}
 	else
 		return (list->s);
 }
 
-static char *check_str_cd(t_shell *mini, t_token *list)
+static char	*check_str_cd(t_shell *mini, t_token *list)
 {
-	char *tmp_path;
+	char	*tmp_path;
 
 	if (ft_strncmp(list->s, "-", 1) == 0 && list->s[1] == 0)
 		tmp_path = old_pwd(mini);
 	else if (ft_strncmp(list->s, "~", 1) == 0)
 		tmp_path = home_path(mini, list);
-	else if (list->s[0] == '/' && !list->s[1])	
+	else if (list->s[0] == '/' && !list->s[1])
 		tmp_path = ft_strdup("/");
 	else
 		tmp_path = another_folder(mini, list);
@@ -77,16 +77,16 @@ static int	args_before_cd(t_shell *mini, t_token *list)
 	{
 		without_arg(mini, list);
 		mini->rtn = 1;
-		return (0); 
+		return (0);
 	}
 	else if (list->next && (list->next->type == 1 || list->next->type == 2
-		|| list->next->type == 3) && list->next->next
+			|| list->next->type == 3) && list->next->next
 		&& (list->next->next->type == 1 || list->next->next->type == 2
-		|| list->next->next->type == 3))
+			|| list->next->next->type == 3))
 	{
 		printf("minishell: cd: Too many arguments\n");
 		mini->rtn = 1;
-		return (0); 
+		return (0);
 	}
 	else
 		return (1);

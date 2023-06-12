@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/11 12:37:33 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:59:20 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	tab_lines(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
