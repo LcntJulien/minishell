@@ -85,8 +85,6 @@ void				b_cd(t_shell*mini, t_token *list);
 
 /* b_cd_more */
 int					check_valid_path(char *str);
-char				*home_path(t_shell *mini, t_token *list);
-char				*old_pwd(t_shell *mini);
 int					valid_path(t_shell *mini, t_token *list, char *tmp_path);
 
 /* b_cd_exce */

@@ -12,30 +12,34 @@
 
 #include "../../include/minishell.h"
 
-static char	*another_folder(t_shell *mini, t_token *list)
+static char	*folder(t_shell *mini, t_token *list, int c)
 {
-	char	*folder_name;
-	int		i;
-	int		len;
-
-	if (list->s[0] != '/')
+	if (c == 0)
 	{
-		i = 0;
-		len = ft_strlen(list->s);
-		while (list->s[i] && list->s[i] != '/')
-			i++;
-		folder_name = calloc(sizeof(char *), (len - i + 1));
-		if (!folder_name)
-			ft_exit_plus(mini, list, 0);
-		while (i < len)
-		{
-			folder_name[i] = list->s[i];
-			i++;
-		}
-		return (ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), folder_name));
+		int	i;
+
+		i = existing_var(mini, "OLDPWD");
+		if (i != -1)
+			return (var_content(mini, mini->env[i]));
+		else
+			return ("OLDPWD");
+	}
+	else if (c == 1)
+	{
+		if (list->s[1] && list->s[1] == '/')
+			return (ft_strjoin(ft_strjoin(mini->home, "/"), list->s));
+		else if (list->s[1] && list->s[1] != '/')
+			return (ft_strjoin(mini->home, list->s));
+		else
+			return (mini->home);
 	}
 	else
-		return (list->s);
+	{
+		if (list->s[0] != '/')
+			return (ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), list->s));
+		else
+			return (list->s);
+	}
 }
 
 static char	*check_str_cd(t_shell *mini, t_token *list)
@@ -43,11 +47,11 @@ static char	*check_str_cd(t_shell *mini, t_token *list)
 	char	*tmp_path;
 
 	if (ft_strncmp(list->s, "-", 1) == 0 && list->s[1] == 0)
-		tmp_path = old_pwd(mini);
+		tmp_path = folder(mini, list, 0);
 	else if (ft_strncmp(list->s, "~", 1) == 0)
-		tmp_path = home_path(mini, list);
+		tmp_path = folder(mini, list, 1);
 	else
-		tmp_path = another_folder(mini, list);
+		tmp_path = folder(mini, list, 2);
 	if (!tmp_path)
 		ft_exit_plus(mini, list, 0);
 	return (tmp_path);
