@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 23:01:40 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 08:12:05 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static char	*check_str_cd(t_shell *mini, t_token *list)
 		tmp_path = folder(mini, list, 2);
 	if (!tmp_path)
 		ft_exit_plus(mini, list, 0);
-	printf("%s\n", tmp_path);
 	return (tmp_path);
 }
 
@@ -77,7 +76,6 @@ static int	args_before_cd(t_shell *mini, t_token *list)
 	if (!list->next)
 	{
 		without_arg(mini, list);
-		mini->rtn = 1;
 		return (0);
 	}
 	else if (list->next && (list->next->type == 1 || list->next->type == 2

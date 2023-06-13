@@ -19,6 +19,7 @@ void	modify_pwd_and_tmp(t_shell *mini, char *tmp)
 	i = existing_var(mini, "PWD");
 	if (i != -1)
 	{
+		free_str(mini->env[i]);
 		mini->env[i] = ft_strjoin("PWD=", tmp);
 		printf("%s\n", mini->env[i]);
 	}
@@ -31,7 +32,10 @@ void	modify_pwd(t_shell *mini, t_token *list)
 
 	i = existing_var(mini, "PWD");
 	if (i != -1)
+	{
+		free_str(mini->env[i]);
 		mini->env[i] = ft_strjoin("PWD=", list->s);
+	}
 	mini->rtn = 0;
 }
 
@@ -44,11 +48,13 @@ void	modify_oldpwd(t_shell *mini, char *tmp_pwd, char **tmp)
 	{
 		*tmp = return_var_content(mini, mini->env[i]);
 		i = existing_var(mini, "OLDPWD");
+		free_str(mini->env[i]);
 		mini->env[i] = ft_strjoin("OLDPWD=", tmp_pwd);
 	}
 	else
 	{
 		i = existing_var(mini, "OLDPWD");
+		free_str(mini->env[i]);
 		mini->env[i] = ft_strjoin("OLDPWD=", tmp_pwd);
 	}
 }
@@ -83,8 +89,8 @@ void	check_var_status(t_shell *mini, t_token *list, char *tmp_path)
 		tmp_pwd = getcwd(NULL, 0);
 		if (!valid_path(mini, list, tmp_path))
 		{
-			free(tmp_path);
-			free(tmp_pwd);
+			free_str(tmp_path);
+			free_str(tmp_pwd);
 			return ;
 		}
 	}
@@ -98,6 +104,6 @@ void	check_var_status(t_shell *mini, t_token *list, char *tmp_path)
 	}
 	tmp_path = getcwd(NULL, 0);
 	modify_env(mini, list, tmp_path, tmp_pwd);
-	free(tmp_path);
-	free(tmp_pwd);
+	free_str(tmp_path);
+	free_str(tmp_pwd);
 }
