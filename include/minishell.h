@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/13 15:03:04 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:30:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ int					valid_path(t_shell *mini, t_token *list, char *tmp_path);
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
 void				modify_pwd(t_shell*mini, t_token *list);
 void				modify_oldpwd(t_shell *mini, char *tmp_pwd, char **tmp);
-void				check_var_status(t_shell *mini, t_token *list, char *tmp_path);
+void				check_var_status(t_shell *mini, t_token *list,
+						char *tmp_path);
 
 /* b_echo */
 void				b_echo(t_shell *mini, t_token *list);
