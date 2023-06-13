@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/07 10:19:39 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:49:06 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	tab_lines(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -39,57 +39,23 @@ int	is_there_an_equal(char *s)
 
 int	max_len(int s1, int s2)
 {
-	if (s1 > s2)
+	if (s1 >= s2)
 		return (s1);
 	else
 		return (s2);
 }
 
-char	*define_word(char *str, int i, t_shell *mini)
+int	check_nb_args(t_shell *mini, int i)
 {
-	int 	j;
-	int		k;
-	char	*word;
+	t_token	*tmp;
+	int		nb;
 
-	j = 0;
-	k = 0;
-	while (str[i] && str[i] != ' ')
+	nb = 0;
+	tmp = mini->token;
+	while (tmp->next && tmp->next->type == i)
 	{
-		j++;
-		i++;
+		nb++;
+		tmp = tmp->next;
 	}
-	i = i - j;
-	word = ft_calloc((j + 1), sizeof(char));
-	if (!word)
-		ft_exit(mini, 1);
-	while(j > 0)
-	{
-		word[k++] = str[i++];
-		j--;
-	}
-	word[k] = '\0';
-	return (word);
-}
-
-int	is_variable(char *str, int i, t_shell *mini, int *len)
-{
-	int		j;
-	char	*new_w;
-
-	j = 0;
-	new_w = define_word(str, i + 1, mini);
-	*len = ft_strlen(new_w);
-	while (mini->env[j])
-	{
-		i = ft_strncmp(new_w, mini->env[j], (size_t)len);
-		if (i == 0)
-			break ;
-		else
-			j++;
-	}
-	free(new_w);
-	if (i == 0)
-		return (j);
-	else
-		return (0);
+	return (nb);
 }

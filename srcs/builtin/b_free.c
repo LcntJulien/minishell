@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   b_free.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 14:07:15 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/08 13:36:46 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/06/13 09:48:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../include/minishell.h"
 
-size_t	ft_strlen(const char *s)
+void	free_tab(char **tab)
 {
 	int	i;
 
-	if (!s)
-		return (0);
 	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (!tab)
+	{
+		while (tab[i])
+		{
+			free(tab[i]);
+			tab[i] = NULL;
+		}
+		free(tab);
+	}
+}
+
+void	free_str(char **tmp)
+{
+	if (*tmp)
+	{
+		free(*tmp);
+		*tmp = NULL;
+	}
 }

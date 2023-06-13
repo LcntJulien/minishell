@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/06 20:20:14 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:10:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,47 @@
 
 static void	oldpwd_status(t_shell *mini, int i, int flag)
 {
-	if (flag == 1)
-		mini->env[i] = NULL;
-	else
-	{
-		mini->env[i] = "OLPWD";
-		mini->env[++i] = NULL;
-	}
+	if (flag == 0)
+		mini->env[i] = ft_strdup("OLDPWD");
 }
 
 static int	check_oldpwd(char **env)
 {
-	int i;
+	int	i;
 	int	flag;
 
 	i = -1;
 	flag = 0;
 	while (env[++i])
 	{
-		if (!ft_strncmp(env[i],"OLDPWD", 6))
-			flag = 1;	
+		if (ft_strncmp(env[i], "OLDPWD", 6) == 0)
+			flag = 1;
 	}
 	return (flag);
 }
 
-void	copy_env(t_shell *mini, char **env)
+static void	copy_env(t_shell *mini, char **env, int flag)
 {
-	int		i;
+	int i;
+	
+	i = -1;
+	while (env[++i])
+	{
+		if (!ft_strncmp(env[i], "_=", 2))
+			mini->env[i] = ft_strjoin("_=",
+					ft_strjoin(getcwd(NULL, 0), "/minishell"));
+		else
+			mini->env[i] = ft_strdup(env[i]);
+		if (!mini->env[i])
+			ft_exit_plus(mini, mini->token, 0);
+	}
+	oldpwd_status(mini, i, flag);
+}
+
+void	alloc_env(t_shell *mini, char **env)
+{
 	int		flag;
 	int		lines;
-	char	*var;
 
 	if (!env)
 		ft_exit(mini, 0);
@@ -55,14 +66,5 @@ void	copy_env(t_shell *mini, char **env)
 		mini->env = ft_calloc((lines + 2), sizeof(char *));
 	if (!mini->env)
 		ft_exit(mini, 0);
-	i = -1;
-	while (env[++i])
-	{
-		if (!ft_strncmp(env[i], "_=", 2))
-			var = ft_strdup("_=env");
-		else
-			var = ft_strdup(env[i]);
-		mini->env[i] = var;
-	}
-	oldpwd_status(mini, i, flag);
+	copy_env(mini, env, flag);
 }

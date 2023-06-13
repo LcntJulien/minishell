@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/07 15:54:35 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/06/13 12:39:00 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,16 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXB)b_process.c		\
 		$(PFXB)b_utils.c		\
 		$(PFXB)b_cd.c			\
+		$(PFXB)b_cd_more.c		\
+		$(PFXB)b_cd_exce.c		\
 		$(PFXB)b_echo.c			\
 		$(PFXB)b_echo_utils.c	\
 		$(PFXB)b_env.c			\
 		$(PFXB)b_exit.c			\
 		$(PFXB)b_export.c		\
-		$(PFXB)b_export_simple.c\
+		$(PFXB)b_export_print.c	\
 		$(PFXB)b_export_arg.c	\
+		$(PFXB)b_free.c			\
 		$(PFXB)b_pwd.c			\
 		$(PFXB)b_unset.c		\
 		$(PFXU)u_create_env.c	\
@@ -44,7 +47,7 @@ CC		= gcc
 
 LIBFT 	= -lft -L ./libft
 
-#HEADERS	= -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+#HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
 HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
 #LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"

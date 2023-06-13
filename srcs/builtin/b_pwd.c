@@ -6,18 +6,20 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:15:31 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/26 16:37:19 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:57:47 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
-// void	b_pwd(t_shell *mini)
-// {
-// 	char	*path;
+void	b_pwd(t_shell *mini)
+{
+	char	*path;
 
-// 	path = getcwd(NULL, 0);
-// 	if (path != NULL)
-// 		printf("%s\n", path);
-// 	return ;
-// }
+	path = getcwd(NULL, 0);
+	if (!path)
+		ft_exit(mini, 1);
+	printf("%s\n", path);
+	free(path);
+	return ;
+}

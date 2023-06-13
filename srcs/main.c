@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/05 17:15:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:02:53 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	startshell(t_shell *mini, char	**env)
 	mini->out = dup(STDOUT_FILENO);
 	mini->rtn = 0;
 	mini->exit = 0;
-	copy_env(mini, env);
+	alloc_env(mini, env);
+	mini->home = return_var_content(mini, "HOME");
 }
 
 static void	args(int ac, char **av)

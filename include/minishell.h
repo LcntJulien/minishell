@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 15:48:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:03:04 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_shell
 	t_token			*token;
 	char			**env;
 	char			*line;
+	char			*home;
 	int				in;
 	int				out;
 	int				rtn;
@@ -77,14 +78,23 @@ void				b_process(t_shell *mini);
 int					tab_lines(char **tab);
 int					is_there_an_equal(char *s);
 int					max_len(int s1, int s2);
-char				*define_word(char *str, int i, t_shell *mini);
-int					is_variable(char *str, int i, t_shell *mini, int *len);
+int					check_nb_args(t_shell *mini, int i);
 
 /* b_cd */
-void				b_cd(t_shell*mini);
+void				b_cd(t_shell*mini, t_token *list);
+
+/* b_cd_more */
+int					check_valid_path(char *str);
+int					valid_path(t_shell *mini, t_token *list, char *tmp_path);
+
+/* b_cd_exce */
+void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
+void				modify_pwd(t_shell*mini, t_token *list);
+void				modify_oldpwd(t_shell *mini, char *tmp_pwd, char **tmp);
+void				check_var_status(t_shell *mini, t_token *list, char *tmp_path);
 
 /* b_echo */
-void				b_echo(t_shell *mini);
+void				b_echo(t_shell *mini, t_token *list);
 
 /* b_echo_utils */
 int					print_variable(t_shell *mini, int i);
@@ -99,30 +109,37 @@ void				b_env(t_shell *mini);
 /*	b_export	*/
 int					check_existing_args(t_shell *mini, char *s);
 void				b_export_args(t_shell *mini, t_token *list, int nb_args);
-void				b_export(t_shell *mini);
+void				b_export(t_shell *mini, t_token *list);
 
-/*	b_export_simple	*/
+/*	b_export_print	*/
 void				print_listed_env(t_shell *mini);
 
 /*	b_export_arg	*/
 char				**add_var_env(t_shell *mini, int lines, t_token *new);
-char				**sub_var_env(t_shell *mini, int lines, t_token *sub);
+void				sub_var_env(t_shell *mini, int lines, t_token *sub);
 
 /*	b_pwd	*/
-void				b_wd(t_shell *mini);
+void				b_pwd(t_shell *mini);
 
 /*	b_unset	*/
-void				b_unset(t_shell *mini);
+void				b_unset(t_shell *mini, t_token *list);
+
+/*	b_free	*/
+void				free_tab(char **tab);
 
 /*	UTILS	*/
 
 /* u_create_env */
-void				copy_env(t_shell *mini, char **env);
+void				alloc_env(t_shell *mini, char **env);
 
 /* u_utils */
-int					check_nb_args(t_shell *mini, int i);
-char				*var_name(char *str);
-char				*var_content(char *str);
+char				*var_content(t_shell *mini, char *str);
+char				*return_var_content(t_shell *mini, char *var);
+char				*var_name(t_shell *mini, char *str);
+char				*return_var_name(t_shell *mini, char *var);
+int					existing_var(t_shell *mini, char *var);
+
+/* u_utils_more */
 
 /* u_exit */
 void				ft_exit_plus(t_shell *mini, t_token *token, int i);
