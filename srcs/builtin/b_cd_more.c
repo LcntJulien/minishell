@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:46:04 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 10:45:42 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:24:37 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ int	valid_path(t_shell *mini, t_token *list, char *tmp_path)
 	if (chdir(tmp_path) == -1)
 	{
 		mini->rtn = 1;
-		printf("minishell: cd: `%s': No such file or directory\n", list->s);
+		if (list->s[0] == '-' && !list->s[1])
+			printf("minishell: cd: `%s': No such file or directory\n",
+				tmp_path);
+		else
+			printf("minishell: cd: `%s': No such file or directory\n", list->s);
 		return (0);
 	}
 	else if (check_valid_path(tmp_path) == -1)

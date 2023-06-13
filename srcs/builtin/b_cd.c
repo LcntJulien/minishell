@@ -16,10 +16,11 @@ static char	*folder(t_shell *mini, t_token *list, int c)
 {
 	if (c == 0)
 	{
-		if (existing_var(mini, "OLDPWD") != -1)
+		c = existing_var(mini, "OLDPWD");
+		if (c != -1 && ft_strncmp("OLDPWD=", mini->env[c], 7) == 0)
 			return (var_content(mini, mini->env[existing_var(mini, "OLDPWD")]));
 		else
-			return ("OLDPWD");
+			return (ft_strdup("OLDPWD"));
 	}
 	else if (c == 1)
 	{

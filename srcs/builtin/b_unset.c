@@ -6,89 +6,69 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 19:44:56 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:12:13 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	check_variable(t_shell *mini, t_token *list, int i)
+static char	**delete_var(t_shell *mini, t_token *list, int i)
 {
-	if (ft_strncmp(list->s, "HOME", 4) == 0)
-	{
-		mini->home = mini->env[i];
-		return (1);
-	}
-	else
-		return (0);
-}
-
-void	del_var_env(t_shell *mini, char **env, int lines, t_token *list)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i != lines)
-	{
-		env[j] = mini->env[i];
-		i++;
-		j++;
-	}
-	check_variable(mini, list, i);
-	i++;
-	while (mini->env[i])
-	{
-		env[j] = mini->env[i];
-		i++;
-		j++;
-	}
-}
-
-static char	**delete_var(t_shell *mini, t_token *list, char *var)
-{
-	int		i;
+	int		j;
 	int		len;
 	char	**new_env;
 
-	i = -1;
-	while (mini->env[++i])
+	j = -1;
+	len = tab_lines(mini->env) - 1;
+	new_env = ft_calloc(sizeof(char *), (len + 1));
+	if (!new_env)
+		ft_exit_plus(mini, list, 0);
+	while (mini->env[++j])
 	{
-		len = ft_strlen(var_name(mini, mini->env[i]));
-		if (ft_strncmp(var_name(mini, mini->env[i]), var, len) == 0)
+		if (j != i)
+			new_env[j] = mini->env[j];
+		else
 		{
-			len = tab_lines(mini->env) - 1;
-			new_env = ft_calloc(sizeof(char *), (len + 1));
-			if (!new_env)
-				ft_exit_plus(mini, list, 0);
-			del_var_env(mini, new_env, i, list);
+			free(mini->env[i]);
+			mini->env[i] = NULL;
 		}
 	}
 	return (new_env);
 }
 
-void	b_unset(t_shell *mini, t_token *list)
+static void	b_unset_args(t_shell *mini, t_token *list, int nb_args)
 {
 	int	i;
 
+	while (nb_args > 0)
+	{
+		i = existing_var(mini, list->s);
+		if (i != -1)
+			mini->env = delete_var(mini, list, i);
+		mini->rtn = 0;
+		list = list->next;
+		nb_args--;
+	}
+	return ;
+}
+
+void	b_unset(t_shell *mini, t_token *list)
+{
+	int		nb_args;
+	t_token	*tmp;
+
+	nb_args = 0;
 	if (!list->next)
 		return ;
 	else
 	{
-		list = list->next;
-		i = check_nb_args(mini, 1);
-		while (i > 0)
+		tmp = mini->token->next;
+		while (tmp && (tmp->type == 1 || tmp->type == 2))
 		{
-			if (ft_strncmp(list->s, "_", ft_strlen(list->s) != 0))
-			{
-				if (existing_var(mini, list->s) != -1)
-					mini->env = delete_var(mini, list, list->s);
-			}
-			list = list->next;
-			i--;
+			nb_args++;
+			tmp = tmp->next;
 		}
+		list = mini->token->next;
+		b_unset_args(mini, list, nb_args);
 	}
-	mini->rtn = 0;
-	return ;
 }

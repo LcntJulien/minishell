@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/13 09:56:46 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:03:04 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int					check_existing_args(t_shell *mini, char *s);
 void				b_export_args(t_shell *mini, t_token *list, int nb_args);
 void				b_export(t_shell *mini, t_token *list);
 
-/*	b_export_simple	*/
+/*	b_export_print	*/
 void				print_listed_env(t_shell *mini);
 
 /*	b_export_arg	*/
@@ -130,7 +130,7 @@ void				free_tab(char **tab);
 /*	UTILS	*/
 
 /* u_create_env */
-void				copy_env(t_shell *mini, char **env);
+void				alloc_env(t_shell *mini, char **env);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);

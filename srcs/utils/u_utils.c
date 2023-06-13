@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 11:55:59 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:46:33 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ int	existing_var(t_shell *mini, char *var)
 			tmp = NULL;
 			return (i);
 		}
+		free(tmp);
+		tmp = NULL;
 	}
-	free(tmp);
-	tmp = NULL;
 	return (-1);
 }
