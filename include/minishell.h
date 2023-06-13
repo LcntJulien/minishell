@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/12 22:54:52 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:56:46 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void				b_unset(t_shell *mini, t_token *list);
 
 /*	b_free	*/
 void				free_tab(char **tab);
-void				free_str(char *tmp);
 
 /*	UTILS	*/
 

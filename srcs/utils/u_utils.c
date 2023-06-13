@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 08:14:16 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:00:20 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ char	*return_var_content(t_shell *mini, char *var)
 		len = ft_strlen(tmp);
 		if (ft_strncmp(tmp, var, len) == 0)
 		{
-			free_str(tmp);
+			free(tmp);
+			tmp = NULL;
 			return (var_content(mini, mini->env[i]));
 		}
-		free_str(tmp);
+		free(tmp);
+		tmp = NULL;
 	}
-	free_str(tmp);
+	free(tmp);
+	tmp = NULL;
 	return (NULL);
 }
 
@@ -101,9 +104,11 @@ char	*return_var_name(t_shell *mini, char *var)
 		len = ft_strlen(tmp);
 		if (ft_strncmp(tmp, var, len) == 0)
 			return (tmp);
-		free_str(tmp);
+		free(tmp);
+		tmp = NULL;
 	}
-	free_str(tmp);
+	free(tmp);
+	tmp = NULL;
 	return (NULL);
 }
 
@@ -120,10 +125,12 @@ int	existing_var(t_shell *mini, char *var)
 		len = ft_strlen(tmp);
 		if (ft_strncmp(tmp, var, len) == 0)
 		{
-			free_str(tmp);
+			free(tmp);
+			tmp = NULL;
 			return (i);
 		}
 	}
-	free_str(tmp);
+	free(tmp);
+	tmp = NULL;
 	return (-1);
 }

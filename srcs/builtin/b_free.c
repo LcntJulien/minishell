@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_free.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 22:54:49 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:48:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	free_tab(char **tab)
 	}
 }
 
-void	free_str(char *tmp)
+void	free_str(char **tmp)
 {
-	if (tmp)
+	if (*tmp)
 	{
-		free(tmp);
-		tmp = NULL;
+		free(*tmp);
+		*tmp = NULL;
 	}
 }
