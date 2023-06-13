@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 08:12:05 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:57:14by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	without_arg(t_shell *mini, t_token *list)
 	else
 	{
 		free(list->s);
+		list->s = NULL;
 		list->s = return_var_content(mini, "HOME=");
 		check_var_status(mini, list, list->s);
 		return ;
@@ -106,9 +107,13 @@ void	b_cd(t_shell *mini, t_token *list)
 		{
 			mini->rtn = 1;
 			printf("minishell: cd: %s not set\n", tmp_path);
+			free(tmp_path);
+			tmp_path = NULL;
 			return ;
 		}
 		check_var_status(mini, list, tmp_path);
+		free(tmp_path);
+		tmp_path = NULL;
 	}
 	else
 		check_var_status(mini, list, list->s);
