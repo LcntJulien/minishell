@@ -12,11 +12,19 @@
 
 #include "../../include/minishell.h"
 
+/*
+ NOTES:
+ - Le parsing doit pouvoir gérer `'e''c''h''o'` ou tout autre fonction correcte
+ sans quotes ouverts
+ - Les variables valides entre quotes doivent aussi prendre leur valeur
+ en content
+*/
+
 int	parse_err_msg(t_shell *mini, t_token *tk, int status)
 {
 	char	*tab[255];
 
-	tab[2] = "; unexpected token";
+	tab[2] = "; syntax error near unexpected token";
 	tab[127] = "; command not found";
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(tk->s, 2);
@@ -105,7 +113,7 @@ void	parse(t_shell *mini)
 	if (parse_err(mini, token))
 		return ;
 	clean_tokens(token);
-	// display_tokens(token);
+	display_tokens(token);
 	free(line);
 	free(mini->line);
 }
