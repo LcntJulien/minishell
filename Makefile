@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/08 14:37:08 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/06/12 15:58:38 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ PFXB	= $(PFXS)builtin/
 PFXU	= $(PFXS)utils/
 
 PFXP	= $(PFXS)parsing/
+
+PFXE	= $(PFXS)exec/
 
 SRCS	= $(PFXS)main.c			\
 		$(PFXP)input.c			\
@@ -37,7 +39,8 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXB)b_unset.c		\
 		$(PFXU)u_create_env.c	\
 		$(PFXU)u_utils.c		\
-		$(PFXU)u_exit.c
+		$(PFXU)u_exit.c			\
+		$(PFXE)minishell.c
 		
 NAME	= minishell
 

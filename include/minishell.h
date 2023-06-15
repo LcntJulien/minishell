@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/08 19:09:45 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:48:58 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ typedef struct s_token
 typedef struct s_shell
 {
 	t_token			*token;
+	pid_t			*pid;
 	char			**env;
 	char			*line;
+	int				*tab;
+	int				status;
 	int				in;
 	int				out;
 	int				rtn;
-	int				pid;
 	int				exit;
 }					t_shell;
 
@@ -150,5 +152,12 @@ void				space(char *line, int *i);
 void				listfree(t_token *token);
 void				clean_tokens(t_token *tk);
 void				convert_var(t_token *tk, t_shell *mini);
+
+/*
+EXEC
+*/
+
+/* minishell.c */
+void				minishell(t_shell *mini);
 
 #endif
