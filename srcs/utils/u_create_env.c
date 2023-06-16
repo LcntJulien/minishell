@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 15:10:21 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:32:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static int	check_oldpwd(char **env)
 
 static void	copy_env(t_shell *mini, char **env, int flag)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (env[++i])
 	{
