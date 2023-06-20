@@ -6,7 +6,7 @@
 #    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/13 12:39:00 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/06/20 08:25:14 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXB)b_cd_more.c		\
 		$(PFXB)b_cd_exce.c		\
 		$(PFXB)b_echo.c			\
-		$(PFXB)b_echo_utils.c	\
 		$(PFXB)b_env.c			\
 		$(PFXB)b_exit.c			\
 		$(PFXB)b_export.c		\
