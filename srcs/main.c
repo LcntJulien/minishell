@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/13 15:02:53 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:16:05 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ static void	args(int ac, char **av)
 int	main(int ac, char **av, char **env)
 {
 	t_shell	mini;
+	int		histo;
 
 	args(ac, av);
 	startshell(&mini, env);
-	mini.rtn = 0;
-	mini.exit = 0;
 	signal(SIGINT, sigint_handler);
 	while (mini.exit == 0)
 	{
