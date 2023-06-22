@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/13 16:30:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:02:01 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_shell
 }					t_shell;
 
 /*	BUILTIN	*/
-
 /* b_process */
 void				b_process(t_shell *mini);
 
@@ -133,6 +132,14 @@ void				free_tab(char **tab);
 /* u_create_env */
 void				alloc_env(t_shell *mini, char **env);
 
+/* u_exit */
+void				ft_exit_plus(t_shell *mini, t_token *token, int i);
+void				ft_exit(t_shell *mini, int i);
+
+/* u_history */
+int					create_history(int *histo);
+void				add_histo(char *str, int histo);
+
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);
 char				*return_var_content(t_shell *mini, char *var);
@@ -140,14 +147,7 @@ char				*var_name(t_shell *mini, char *str);
 char				*return_var_name(t_shell *mini, char *var);
 int					existing_var(t_shell *mini, char *var);
 
-/* u_utils_more */
-
-/* u_exit */
-void				ft_exit_plus(t_shell *mini, t_token *token, int i);
-void				ft_exit(t_shell *mini, int i);
-
 /* PARSING */
-
 void				parse(t_shell *mini);
 int					quote_state(char *line, int idx);
 int					is_sep(char *line, int i);

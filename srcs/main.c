@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/13 15:02:53 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:02:14 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sigint_handler(int sig)
 	exit(0);
 }
 
-static void	startshell(t_shell *mini, char	**env)
+static void	startshell(t_shell *mini, char	**env, int *histo)
 {
 	mini->in = dup(STDIN_FILENO);
 	mini->out = dup(STDOUT_FILENO);
@@ -28,6 +28,8 @@ static void	startshell(t_shell *mini, char	**env)
 	mini->exit = 0;
 	alloc_env(mini, env);
 	mini->home = return_var_content(mini, "HOME");
+	if (!create_history(histo))
+		ft_exit_plus(mini, mini->token, 0);
 }
 
 static void	args(int ac, char **av)
@@ -43,15 +45,16 @@ static void	args(int ac, char **av)
 int	main(int ac, char **av, char **env)
 {
 	t_shell	mini;
+	int		histo;
 
 	args(ac, av);
-	startshell(&mini, env);
-	mini.rtn = 0;
-	mini.exit = 0;
+	startshell(&mini, env, &histo);
 	signal(SIGINT, sigint_handler);
 	while (mini.exit == 0)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
+		if (mini.line)
+			add_histo(mini.line, histo);
 		parse(&mini);
 		b_process(&mini);
 	}
