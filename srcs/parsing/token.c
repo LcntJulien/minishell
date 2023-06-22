@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/06 17:54:24 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/22 20:26:36 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ t_token	*new_token(char *line, int *i)
 	t_token	*new;
 
 	j = 0;
-	if (!(new = malloc(sizeof(t_token))) ||
-		!(new->s = malloc(sizeof(char) * str_alloc(line, i) + 1)))
+	new = malloc(sizeof(t_token));
+	new->s = ft_calloc(sizeof(char), str_alloc(line, i) + 1);
+	if (!new || !new->s)
 		return (NULL);
 	while (line[*i])
 	{
@@ -50,7 +51,6 @@ t_token	*new_token(char *line, int *i)
 			new->s[j++] = line[*i];
 		(*i)++;
 	}
-	new->s[j] = 0;
 	return (new);
 }
 
