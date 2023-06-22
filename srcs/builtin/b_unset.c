@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 15:12:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/22 20:03:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,11 @@ static char	**delete_var(t_shell *mini, t_token *list, int i)
 	new_env = ft_calloc(sizeof(char *), (len + 1));
 	if (!new_env)
 		ft_exit_plus(mini, list, 0);
-	while (mini->env[++j])
+	len = -1;
+	while (mini->env[++len])
 	{
-		if (j != i)
-			new_env[j] = mini->env[j];
-		else
-		{
-			free(mini->env[i]);
-			mini->env[i] = NULL;
-		}
+		if (len != i)
+			new_env[++j] = mini->env[len];
 	}
 	return (new_env);
 }
@@ -68,6 +64,8 @@ void	b_unset(t_shell *mini, t_token *list)
 			nb_args++;
 			tmp = tmp->next;
 		}
+		if (nb_args == 0)
+			return ;
 		list = mini->token->next;
 		b_unset_args(mini, list, nb_args);
 	}
