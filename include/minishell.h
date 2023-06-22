@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/21 16:18:59 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:02:01 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void				ft_exit(t_shell *mini, int i);
 
 /* u_history */
 int					create_history(int *histo);
+void				add_histo(char *str, int histo);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);
