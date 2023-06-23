@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 12:39:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/23 14:34:43 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,14 @@ static void	print_export(t_shell *mini, char **exp)
 			name = var_name(mini, exp[i]);
 			content = var_content(mini, exp[i]);
 			if (!is_there_an_equal(exp[i]))
-				printf("declare -x %s\n", name);
+				ft_putstr_fd(ft_strjoin(ft_strjoin("declare -x ", name),
+						"\n"), mini->out);
 			else
-				printf("declare -x %s=\"%s\"\n", name, content);
+			{
+				ft_putstr_fd(ft_strjoin("declare -x ", name), mini->out);
+				ft_putstr_fd(ft_strjoin("=\"", content), mini->out);
+				ft_putstr_fd("\"\n", mini->out);
+			}
 			free_var_export(name, content);
 		}
 		i++;

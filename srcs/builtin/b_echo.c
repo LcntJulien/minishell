@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/16 12:22:02 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/23 14:34:28 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	args_to_print(t_token *list)
 
 	tmp = list;
 	nb_args = 0;
-	while (tmp  && ((tmp->type >= 0 && tmp->type <= 5)))
+	while (tmp && ((tmp->type >= 0 && tmp->type <= 5)))
 	{
 			nb_args++;
 			tmp = tmp->next;
@@ -70,24 +70,24 @@ static void	print_echo(t_shell *mini, t_token *list, int nb_args)
 	nb_opt = nb_option(mini->token->next);
 	while (nb_args > 0)
 	{
-		printf("%s", list->s);
+		ft_putstr_fd(list->s, mini->out);
 		mini->rtn = 0;
 		nb_args--;
 		if (list->next && nb_args > 0)
-			printf(" ");
+			ft_putstr_fd(" ", mini->out);
 		else
 			break ;
 		list = list->next;
 	}
 	if (nb_opt == 0)
-		printf("\n");
+		ft_putstr_fd("\n", mini->out);
 }
 
 void	b_echo(t_shell *mini, t_token *list)
 {
 	int		nb_args;
 	int		nb_opt;
-	
+
 	if (!mini->token->next)
 	{
 		mini->rtn = 0;

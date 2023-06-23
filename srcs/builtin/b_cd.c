@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/23 08:21:34 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:59:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static char	*folder(t_shell *mini, t_token *list, int c)
 	{
 		c = existing_var(mini, "OLDPWD");
 		if (c != -1 && ft_strncmp("OLDPWD=", mini->env[c], 7) == 0)
-			return (var_content(mini, mini->env[existing_var(mini, "OLDPWD")]));
+			return (var_content(mini, mini->env[existing_var(mini,
+							"OLDPWD")]));
 		else
 			return (ft_strdup("OLDPWD"));
 	}
@@ -60,7 +61,7 @@ static void	without_arg(t_shell *mini, t_token *list)
 	if (existing_var(mini, "HOME=") == -1)
 	{
 		mini->rtn = 1;
-		printf("minishell: cd: HOME not set\n");
+		ft_putstr_fd("minishell: cd: HOME not set\n", mini->out);
 		return ;
 	}
 	else
@@ -85,7 +86,7 @@ static int	args_before_cd(t_shell *mini, t_token *list)
 		&& (list->next->next->type == 1 || list->next->next->type == 2
 			|| list->next->next->type == 3))
 	{
-		printf("minishell: cd: Too many arguments\n");
+		ft_putstr_fd("minishell: cd: Too many arguments\n", mini->out);
 		mini->rtn = 1;
 		return (0);
 	}
@@ -107,7 +108,8 @@ void	b_cd(t_shell *mini, t_token *list)
 			|| ft_strncmp(tmp_path, "OLDPWD", 6) == 0)
 		{
 			mini->rtn = 1;
-			printf("minishell: cd: %s not set\n", tmp_path);
+			ft_putstr_fd(ft_strjoin(ft_strjoin("minishell: cd:", tmp_path),
+					"not set\n"), mini->out);
 			free(tmp_path);
 			tmp_path = NULL;
 			return ;
