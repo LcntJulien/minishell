@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/22 19:38:45 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:21:34 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*folder(t_shell *mini, t_token *list, int c)
 		if (list->s[0] != '/')
 			return (ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), list->s));
 		else
-			return (list->s);
+			return (ft_strdup(list->s));
 	}
 }
 
