@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/12 15:58:38 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/06/26 15:36:42 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,12 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXU)u_create_env.c	\
 		$(PFXU)u_utils.c		\
 		$(PFXU)u_exit.c			\
+		$(PFXU)split/split.c	\
+		$(PFXU)split/s_utils.c	\
+		$(PFXE)utils.c			\
+		$(PFXE)redir.c			\
+		$(PFXE)mem.c			\
+		$(PFXE)error.c			\
 		$(PFXE)minishell.c
 		
 NAME	= minishell
