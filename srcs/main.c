@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/15 18:46:23 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:52:40 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	sigint_handler(int sig)
 {
+	(void)sig;
 	ft_putstr_fd("\033[0;35m\033[1mminishell ▸ \033[0m", 2);
-	printf("Received SIGINT signal (%d)\n", sig);
+	// printf("Received SIGINT signal (%d)\n", sig);
 	// system("leaks minishell");
 	exit(0);
 }
@@ -52,7 +53,7 @@ int	main(int ac, char **av, char **env)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		parse(&mini);
-		// minishell(&mini);
+		minishell(&mini);
 		// b_process(&mini);
 	}
 	listfree(mini.token);
