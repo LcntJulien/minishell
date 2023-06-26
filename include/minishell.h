@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/15 17:48:58 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:06:03 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ typedef struct s_shell
 	pid_t			*pid;
 	char			**env;
 	char			*line;
-	int				*tab;
+	char			*cmd;
+	char			**args;
+	char			**paths;
+	int				ncmd;
 	int				status;
 	int				in;
 	int				out;
@@ -154,10 +157,36 @@ void				clean_tokens(t_token *tk);
 void				convert_var(t_token *tk, t_shell *mini);
 
 /*
+UTILS
+*/
+
+/* cstm_split */
+char				**custom_split(const char *s, char c, int sw);
+int					scount(const char *s, char c, int q);
+char				**tabfree(char **p);
+
+/*
 EXEC
 */
 
 /* minishell.c */
 void				minishell(t_shell *mini);
+
+/* utils.c */
+void				get_paths(t_shell *mini);
+char				**get_args(t_token *tk);
+char				*get_cmd(t_shell *mini);
+void				nb_cmd(t_shell *mini);
+
+/* mem.c */
+void				mini_alloc(t_shell *mini, int ncmd);
+void				free_cpa(t_shell *mini);
+void				close_pipes(int **tab);
+
+/* redir.c */
+int					is_redir(t_token *tk);
+
+/* error.c */
+void				err_manager(void);
 
 #endif
