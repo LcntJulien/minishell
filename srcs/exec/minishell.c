@@ -6,89 +6,103 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/15 18:40:27 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:29:03 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
- - connaitre nb cmd -> parcourir liste chercher pipe
- - ouvrir scopes pour execution
-	-> dup stdout/stdin/autre & fork pid pour attente d'exec
- - determiner process -> builtin/execve
- - boucler sur nb cmd -> set mini->token sur prochaine cmd/decla...
-*/
-
-void	child(t_shell *mini, t_token *tk, int i)
+t_token	*next_cmd(t_token *tk)
 {
-	if ()
+	while (tk && tk->type != PIPE)
+		tk = tk->next;
+	if (tk && tk->type == PIPE)
+		tk = tk->next;
+	return (tk);
 }
 
-void	minipipe(t_shell *mini, t_token *tk, int cmd)
+void	exec(t_shell *mini, t_token *tk)
 {
-	int	i;
+	if (tk->type == BUILTIN)
+		b_process(mini);
+	else
+	{
+		mini->args = get_args(tk);
+		mini->cmd = get_cmd(mini);
+		if (!mini->cmd)
+			err_manager();
+		if (execve(mini->cmd, mini->args, mini->env) == -1)
+			err_manager();
+	}
+}
+
+void	child(t_shell *mini, t_token *tk, int *tab, int i)
+{
+	if (!is_redir(tk))
+	{
+		if (i == 0)
+		{
+			dup2(tab[i][0], STDIN_FILENO);
+			dup2(tab[i][1], STDOUT_FILENO);
+		}
+		else if (i == mini->ncmd)
+			dup2(tab[i][0], tab[i - 1][1]);
+		else
+		{
+			dup2(tab[i][0], tab[i - 1][1]);
+			dup2(tab[i][1], STDOUT_FILENO);
+		}
+		close_pipes(tab);
+	}
+	exec(mini, tk);
+}
+
+void	minipipe(t_shell *mini, t_token *tk)
+{
+	int		i;
+	int		**tab[mini->ncmd][2];
+	pid_t	*pid;
 
 	i = 0;
-	mini->tab = malloc(sizeof(int **) * cmd);
-	if (!mini->tab)
-		err_manager();
-	mini->pid = malloc(sizeof(pid_t) * cmd);
+	pid = malloc(sizeof(pid_t) * mini->ncmd);
 	if (!mini->pid)
 		err_manager();
-	while (i <= cmd)
+	while (i < mini->ncmd)
 	{
-		if (pipe(mini->tab[i]) < 0)
+		if (pipe(tab[i]) < 0)
 			err_manager();
+		pid[i] = fork();
+		if (pid[i] < 0)
+			err_manager();
+		if (pid[i] == 0)
+			child(mini, tk, tab, i);
+		tk = next_cmd(tk);
 		i++;
 	}
+	close_pipes(mini);
 	i = 0;
-	while (i <= cmd)
-	{
-		mini->pid[i] = fork();
-		if (mini->pid[i] < 0)
-			err_manager();
-		child(mini, tk, i);
-		next_cmd();
-		i++;
-	}
-	i = 0;
-	close_pipes();
-	while (i++ < cmd)
-		waitpid(-1, mini->status, 0);
-	free_all();
-}
-
-int	nb_cmd(t_shell *mini)
-{
-	t_token	*tk;
-	int		r;
-
-	tk = mini->token;
-	r = 0;
-	while (tk)
-	{
-		if (tk->type == PIPE)
-			r++;
-		tk = tk->next;
-	}
-	return (r + 1);
+	while (i++ < mini->ncmd)
+		waitpid(-1, &mini->status, 0);
+	free_cpa(mini);
 }
 
 void	minishell(t_shell *mini)
 {
 	t_token	*tk;
-	int		cmd;
+	pid_t	pid;
 
 	tk = mini->token;
-	cmd = nb_cmd(mini);
-	if (cmd > 1)
-		minipipe(mini, tk, cmd);
+	mini->ncmd = nb_cmd(mini);
+	get_paths(mini);
+	if (mini->ncmd > 1)
+		minipipe(mini, tk, mini->ncmd);
 	else
 	{
-		if (tk->type == DECLAVAR)
-			return ;
-		else if (tk->type == INPUT)
-			redir();
+		pid = fork();
+		if (pid < 0)
+			err_manager();
+		else if (pid == 0)
+			exec(mini, tk);
+		waitpid(-1, &mini->status, 0);
 	}
 }
