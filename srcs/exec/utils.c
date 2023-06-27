@@ -6,23 +6,26 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/26 21:02:24 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:18:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	nb_cmd(t_shell *mini)
+int	nb_cmd(t_shell *mini)
 {
 	t_token	*tk;
+	int		r;
 
 	tk = mini->token;
+	r = 0;
 	while (tk)
 	{
 		if (tk->type == PIPE)
-			mini->ncmd++;
+			r++;
 		tk = tk->next;
 	}
+	return (r + 1);
 }
 
 void	get_paths(t_shell *mini)
