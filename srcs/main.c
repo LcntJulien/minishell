@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/26 15:52:40 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:20:55 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	startshell(t_shell *mini, char	**env)
 	mini->out = dup(STDOUT_FILENO);
 	mini->rtn = 0;
 	mini->exit = 0;
+	mini->ncmd = 0;
+	mini->status = 0;
 	copy_env(mini, env);
 }
 
