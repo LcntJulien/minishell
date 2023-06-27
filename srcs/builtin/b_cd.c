@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/23 13:59:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:35:35 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ static char	*folder(t_shell *mini, t_token *list, int c)
 			return (ft_strjoin(mini->home, list->s));
 	}
 	else
-	{
-		if (list->s[0] != '/')
-			return (ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), list->s));
-		else
 			return (ft_strdup(list->s));
-	}
 }
 
 static char	*check_str_cd(t_shell *mini, t_token *list)
@@ -56,38 +51,34 @@ static char	*check_str_cd(t_shell *mini, t_token *list)
 	return (tmp_path);
 }
 
-static void	without_arg(t_shell *mini, t_token *list)
-{
-	if (existing_var(mini, "HOME=") == -1)
-	{
-		mini->rtn = 1;
-		ft_putstr_fd("minishell: cd: HOME not set\n", mini->out);
-		return ;
-	}
-	else
-	{
-		free(list->s);
-		list->s = NULL;
-		list->s = return_var_content(mini, "HOME=");
-		check_var_status(mini, list, list->s);
-		return ;
-	}
-}
-
 static int	args_before_cd(t_shell *mini, t_token *list)
 {
 	if (!list->next)
 	{
-		without_arg(mini, list);
+		if (existing_var(mini, "HOME=") == -1)
+		{
+			mini->rtn = 1;
+			ft_putstr_fd("minishell: cd: HOME not set\n", mini->out);
+		}
+		else
+		{
+			free(list->s);
+			list->s = NULL;
+			list->s = return_var_content(mini, "HOME=");
+			check_var_status(mini, list, list->s);
+		}
 		return (0);
 	}
-	else if (list->next && (list->next->type == 1 || list->next->type == 2
-			|| list->next->type == 3) && list->next->next
-		&& (list->next->next->type == 1 || list->next->next->type == 2
-			|| list->next->next->type == 3))
+	else
+		return (1);
+}
+
+int	valid_path(t_shell *mini, char *tmp_path)
+{
+	if (chdir(tmp_path) == -1)
 	{
-		ft_putstr_fd("minishell: cd: Too many arguments\n", mini->out);
 		mini->rtn = 1;
+		perror(ft_strjoin("minishell: cd: ", tmp_path));
 		return (0);
 	}
 	else
@@ -108,8 +99,8 @@ void	b_cd(t_shell *mini, t_token *list)
 			|| ft_strncmp(tmp_path, "OLDPWD", 6) == 0)
 		{
 			mini->rtn = 1;
-			ft_putstr_fd(ft_strjoin(ft_strjoin("minishell: cd:", tmp_path),
-					"not set\n"), mini->out);
+			ft_putstr_fd(ft_strjoin(ft_strjoin("minishell: cd: ", tmp_path),
+					" not set\n"), mini->out);
 			free(tmp_path);
 			tmp_path = NULL;
 			return ;

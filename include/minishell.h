@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/22 19:02:01 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:29:58 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,8 @@ int					max_len(int s1, int s2);
 int					check_nb_args(t_shell *mini, int i);
 
 /* b_cd */
+int					valid_path(t_shell *mini, char *tmp_path);
 void				b_cd(t_shell*mini, t_token *list);
-
-/* b_cd_more */
-int					check_valid_path(char *str);
-int					valid_path(t_shell *mini, t_token *list, char *tmp_path);
 
 /* b_cd_exce */
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
