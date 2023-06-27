@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/26 20:45:50 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:11:21 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@
 // 		err_manager();
 // }
 
-void	close_pipes(int	**tab)
+void	close_pipes(t_shell *mini, int tab[][2])
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (i < mini->ncmd)
 	{
+		fprintf(stdout, "ici\n");
 		close(tab[i][0]);
 		close(tab[i][1]);
 		i++;
