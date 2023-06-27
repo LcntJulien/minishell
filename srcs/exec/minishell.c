@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/26 21:29:03 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:12:35 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exec(t_shell *mini, t_token *tk)
 	}
 }
 
-void	child(t_shell *mini, t_token *tk, int *tab, int i)
+void	child(t_shell *mini, t_token *tk, int tab[][2], int i)
 {
 	if (!is_redir(tk))
 	{
@@ -60,13 +60,13 @@ void	child(t_shell *mini, t_token *tk, int *tab, int i)
 void	minipipe(t_shell *mini, t_token *tk)
 {
 	int		i;
-	int		**tab[mini->ncmd][2];
+	int		tab[mini->ncmd][2];
 	pid_t	*pid;
 
 	i = 0;
 	pid = malloc(sizeof(pid_t) * mini->ncmd);
-	if (!mini->pid)
-		err_manager();
+	// if (!mini->pid)
+	// 	err_manager();
 	while (i < mini->ncmd)
 	{
 		if (pipe(tab[i]) < 0)
@@ -79,8 +79,9 @@ void	minipipe(t_shell *mini, t_token *tk)
 		tk = next_cmd(tk);
 		i++;
 	}
-	close_pipes(mini);
+	close_pipes(mini, tab);
 	i = 0;
+	// fprintf(stdout, "ici\n");
 	while (i++ < mini->ncmd)
 		waitpid(-1, &mini->status, 0);
 	free_cpa(mini);
@@ -95,7 +96,7 @@ void	minishell(t_shell *mini)
 	mini->ncmd = nb_cmd(mini);
 	get_paths(mini);
 	if (mini->ncmd > 1)
-		minipipe(mini, tk, mini->ncmd);
+		minipipe(mini, tk);
 	else
 	{
 		pid = fork();
