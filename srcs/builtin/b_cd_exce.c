@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/23 08:22:14 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:33:33 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ void	check_var_status(t_shell *mini, t_token *list, char *tmp_path)
 	tmp_pwd = getcwd(NULL, 0);
 	if ((existing_var(mini, "PWD")) == -1)
 	{
-		if (!valid_path(mini, list, tmp_path))
+		if (!valid_path(mini, tmp_path))
 		{
 			free(tmp_pwd);
 			return ;
 		}
 	}
 	else
-		if (!valid_path(mini, list, tmp_path))
+		if (!valid_path(mini, tmp_path))
 			return ;
 	modify_env(mini, list, tmp_pwd);
 	if (tmp_pwd)

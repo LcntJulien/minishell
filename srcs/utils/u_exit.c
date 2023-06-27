@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/12 15:38:49 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/06/23 14:23:03 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_exit(t_shell *mini, int i)
 	j = -1;
 	if (i == 0)
 	{
-		printf("Environnement cannot be loaded !\n");
+		ft_putstr_fd("Environnement cannot be loaded !\n", mini->out);
 		exit(0);
 	}
 	if (i == 1)
