@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/26 21:06:03 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:12:25 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,12 +176,12 @@ void				minishell(t_shell *mini);
 void				get_paths(t_shell *mini);
 char				**get_args(t_token *tk);
 char				*get_cmd(t_shell *mini);
-void				nb_cmd(t_shell *mini);
+int					nb_cmd(t_shell *mini);
 
 /* mem.c */
 void				mini_alloc(t_shell *mini, int ncmd);
 void				free_cpa(t_shell *mini);
-void				close_pipes(int **tab);
+void				close_pipes(t_shell *mini, int tab[][2]);
 
 /* redir.c */
 int					is_redir(t_token *tk);
