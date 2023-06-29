@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/29 14:08:28 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:11:34 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 		i++;
 	}
 	i = 0;
+	fprintf(stderr, "%d\n", i);
 	while (i < mini->ncmd)
 	{
 		pid[i] = fork();
@@ -92,12 +93,14 @@ void	minipipe(t_shell *mini, t_token *tk)
 	}
 
 
-	i = -1;
+	i = 0;
 	fprintf(stdout, "ici");
 	close_pipes(mini, tab);
-	while (++i < mini->ncmd)
-		if (waitpid(pid[i], &mini->status, 0) < 0)
-			err_manager();
+	while (i < mini->ncmd)
+	{
+		waitpid(pid[i], &mini->status, 0);
+		i++;
+	}
 	free_cpa(mini);
 }
 
