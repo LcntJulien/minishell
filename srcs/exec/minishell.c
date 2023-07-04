@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/04 15:14:10 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:05:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,13 @@ t_token	*next_cmd(t_token *tk)
 void	exec(t_shell *mini, t_token *tk)
 {
 	if (tk->type == BUILTIN)
-	{
-		fprintf(stderr, "BTN\n");
 		b_process(mini);
-	}
 	else
 	{
-		fprintf(stderr, "EXV\n");
 		mini->args = get_args(tk);
 		mini->cmd = get_cmd(mini);
 		if (!mini->cmd)
 			err_manager();
-		fprintf(stderr, "execve cmd: %s\n", mini->cmd);
 		execve(mini->cmd, mini->args, mini->env);
 		exit(EXIT_FAILURE);
 	}
