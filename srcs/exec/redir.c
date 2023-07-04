@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/26 14:50:08 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:55:08 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,35 @@
 
 void	redirin(void)
 {
-	exit(1);
+	// exit(1);
 }
 
 void	redirout(void)
 {
-	exit(1);
+	// exit(1);
 }
 
 int	is_redir(t_token *tk)
 {
-	int tab[11];
+	t_token	*cpy;
+	int		tab[11];
+	int		i;
 
-	while (tk && tk->type != PIPE)
+	cpy = tk;
+	i = 0;
+	while (tab[i] && i <= 11)
+		tab[i++] = 0;
+	while (cpy && cpy->type != PIPE)
 	{
-		if (tk->type == INPUT)
+		if (cpy->type == INPUT)
 			tab[INPUT]++;
-		if (tk->type == OUTPUT)
+		if (cpy->type == OUTPUT)
 			tab[OUTPUT]++;
-		if (tk->type == APPEND)
+		if (cpy->type == APPEND)
 			tab[APPEND]++;
-		if (tk->type == HEREDOC)
+		if (cpy->type == HEREDOC)
 			tab[HEREDOC]++;
+		cpy = cpy->next;
 	}
 	if (tab[INPUT] >= 1 || tab[HEREDOC] >= 1 || tab[OUTPUT] >= 1
 		|| tab[APPEND] >= 1)
@@ -46,6 +53,5 @@ int	is_redir(t_token *tk)
 			redirout();
 		return (1);
 	}
-	else
-		return (0);
+	return (0);
 }

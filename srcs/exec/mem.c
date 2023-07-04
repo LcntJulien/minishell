@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/27 17:04:15 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:18:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,29 @@ void	close_pipes(t_shell *mini, int tab[][2])
 		close(tab[i][0]);
 		close(tab[i][1]);
 		i++;
+	}
+}
+
+void	close_child(t_shell *mini, int tab[][2], int i)
+{
+	if (i == 0)
+	{
+		close(tab[i][0]);
+		close(tab[i][1]);
+		close(tab[i + 1][0]);
+	}
+	else if (i == mini->ncmd - 1)
+	{
+		close(tab[i - 1][0]);
+		close(tab[i - 1][1]);
+		close(tab[i][1]);
+	}
+	else
+	{
+		close(tab[i][1]);
+		close(tab[i - 1][0]);
+		close(tab[i - 1][1]);
+		close(tab[i + 1][0]);
 	}
 }
 

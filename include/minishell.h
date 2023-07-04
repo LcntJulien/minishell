@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/29 12:18:00 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:22:52 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ int					nb_cmd(t_shell *mini);
 void				mini_alloc(t_shell *mini, int ncmd);
 void				free_cpa(t_shell *mini);
 void				close_pipes(t_shell *mini, int tab[][2]);
+void				close_child(t_shell *mini, int tab[][2], int i);
 
 /* redir.c */
 int					is_redir(t_token *tk);
