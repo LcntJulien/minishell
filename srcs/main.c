@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/22 19:02:14 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:00:08 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	sigint_handler(int sig)
 {
+	(void)sig;
 	ft_putstr_fd("\033[0;35m\033[1mminishell ▸ \033[0m", 2);
-	printf("Received SIGINT signal (%d)\n", sig);
+	// printf("Received SIGINT signal (%d)\n", sig);
 	// system("leaks minishell");
 	exit(0);
 }
@@ -26,6 +27,8 @@ static void	startshell(t_shell *mini, char	**env, int *histo)
 	mini->out = dup(STDOUT_FILENO);
 	mini->rtn = 0;
 	mini->exit = 0;
+	mini->ncmd = 0;
+	mini->status = 0;
 	alloc_env(mini, env);
 	mini->home = return_var_content(mini, "HOME");
 	if (!create_history(histo))
@@ -56,7 +59,8 @@ int	main(int ac, char **av, char **env)
 		if (mini.line)
 			add_histo(mini.line, histo);
 		parse(&mini);
-		b_process(&mini);
+		minishell(&mini);
+		// b_process(&mini);
 	}
 	listfree(mini.token);
 	return (0);

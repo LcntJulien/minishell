@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/27 14:29:58 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:57:46 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@
 # define CMD 0
 # define ARG 1
 # define VAR 2
-
 # define OPTION 3
 # define BUILTIN 4
 # define DECLAVAR 5
-
 # define PIPE 6
 # define INPUT 7
 # define OUTPUT 8
@@ -59,17 +57,25 @@ typedef struct s_token
 typedef struct s_shell
 {
 	t_token			*token;
+	pid_t			*pid;
 	char			**env;
 	char			*line;
+	char			*cmd;
+	char			**args;
+	char			**paths;
+	int				ncmd;
+	int				status;
 	char			*home;
 	int				in;
 	int				out;
 	int				rtn;
-	int				pid;
 	int				exit;
 }					t_shell;
 
-/*	BUILTIN	*/
+/*
+BUILTIN
+*/
+
 /* b_process */
 void				b_process(t_shell *mini);
 
@@ -144,15 +150,60 @@ char				*var_name(t_shell *mini, char *str);
 char				*return_var_name(t_shell *mini, char *var);
 int					existing_var(t_shell *mini, char *var);
 
-/* PARSING */
+/*
+PARSING
+*/
+/* input.c */
 void				parse(t_shell *mini);
-int					quote_state(char *line, int idx);
-int					is_sep(char *line, int i);
+
+/* token.c */
 void				*get_tokens(char *line);
+void				display_tokens(t_token *token);
+
+/* type.c */
+int					is_sep(char *line, int i);
+void				post_tk_type(t_token *tk, t_shell *mini);
+void				tk_type(t_token *token);
+
+/* utils.c */
+int					quote_state(char *line, int idx);
 void				space(char *line, int *i);
 void				listfree(t_token *token);
-void				post_tk_type(t_token *tk, t_shell *mini);
 void				clean_tokens(t_token *tk);
-void				tk_type(t_token *token);
+void				convert_var(t_token *tk, t_shell *mini);
+
+/*
+UTILS
+*/
+
+/* cstm_split */
+char				**custom_split(const char *s, char c, int sw);
+int					scount(const char *s, char c, int q);
+char				**tabfree(char **p);
+
+/*
+EXEC
+*/
+
+/* minishell.c */
+void				minishell(t_shell *mini);
+
+/* utils.c */
+void				get_paths(t_shell *mini);
+char				**get_args(t_token *tk);
+char				*get_cmd(t_shell *mini);
+int					nb_cmd(t_shell *mini);
+
+/* mem.c */
+void				mini_alloc(t_shell *mini, int ncmd);
+void				free_cpa(t_shell *mini);
+void				close_pipes(t_shell *mini, int tab[][2]);
+void				close_child(t_shell *mini, int tab[][2], int i);
+
+/* redir.c */
+int					is_redir(t_token *tk);
+
+/* error.c */
+void				err_manager(void);
 
 #endif

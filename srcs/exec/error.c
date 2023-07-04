@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 14:07:15 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/04 11:58:09 by jlecorne         ###   ########.fr       */
+/*   Created: 2023/06/26 14:39:05 by jlecorne          #+#    #+#             */
+/*   Updated: 2023/06/26 14:50:13 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../include/minishell.h"
 
-size_t	ft_strlen(const char *s)
+void	err_manager(void)
 {
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	if (s)
-	{
-		while (s[i])
-			i++;
-		return (i);
-	}
-	return (0);
+	fprintf(stdout, "err_manager\n");
+	exit(1);
 }

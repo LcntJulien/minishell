@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/22 20:26:36 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:00:52 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	display_tokens(t_token *token)
+{
+	char	*tab[11];
+
+	tab[0] = "CMD";
+	tab[1] = "ARG";
+	tab[2] = "VAR";
+	tab[3] = "OPTION";
+	tab[4] = "BUILTIN";
+	tab[5] = "DECLAVAR";
+	tab[6] = "PIPE";
+	tab[7] = "INPUT";
+	tab[8] = "OUTPUT";
+	tab[9] = "APPEND";
+	tab[10] = "HEREDOC";
+	while (token)
+	{
+		if (token->s != NULL)
+			fprintf(stdout, "%s --> %s\n", token->s, tab[token->type]);
+		else
+			fprintf(stdout, "|VIDE| --> %s\n", tab[token->type]);
+		token = token->next;
+	}
+}
 
 int	str_alloc(char *line, int *i)
 {
@@ -33,7 +58,7 @@ t_token	*new_token(char *line, int *i)
 
 	j = 0;
 	new = malloc(sizeof(t_token));
-	new->s = ft_calloc(sizeof(char), str_alloc(line, i) + 1);
+	new->s = malloc(sizeof(char) * str_alloc(line, i) + 1);
 	if (!new || !new->s)
 		return (NULL);
 	while (line[*i])

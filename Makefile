@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/06/27 14:30:07 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/07/04 11:58:45 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ PFXB	= $(PFXS)builtin/
 PFXU	= $(PFXS)utils/
 
 PFXP	= $(PFXS)parsing/
+
+PFXE	= $(PFXS)exec/
 
 SRCS	= $(PFXS)main.c			\
 		$(PFXP)input.c			\
@@ -39,6 +41,13 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXU)u_create_env.c	\
 		$(PFXU)u_utils.c		\
 		$(PFXU)u_exit.c			\
+		$(PFXU)split/split.c	\
+		$(PFXU)split/s_utils.c	\
+		$(PFXE)utils.c			\
+		$(PFXE)redir.c			\
+		$(PFXE)mem.c			\
+		$(PFXE)error.c			\
+		$(PFXE)minishell.c		\
 		$(PFXU)u_history.c
 		
 NAME	= minishell

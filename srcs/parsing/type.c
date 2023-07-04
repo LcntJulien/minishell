@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:29:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/06 17:58:14 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:43:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	is_sep(char *line, int i)
 
 void	post_tk_type(t_token *tk, t_shell *mini)
 {
-	(void)mini;
 	if (tk->type == CMD)
 	{
 		if (is_builtin(tk->s))
@@ -75,14 +74,13 @@ void	post_tk_type(t_token *tk, t_shell *mini)
 	else if (tk->type == ARG)
 	{
 		if ((tk->s[0] == '\"' && tk->s[1] == '$') || tk->s[0] == '$')
-		{
 			tk->type = VAR;
-			// convert_var(tk, mini);
-		}
 		else if (((tk->s[0] == '\"' || tk->s[0] == '\'') && tk->s[1] == '-')
 						|| tk->s[0] == '-')
 			tk->type = OPTION;
 	}
+	if (tk->type == VAR)
+		convert_var(tk, mini);
 }
 
 void	tk_type(t_token *token)
