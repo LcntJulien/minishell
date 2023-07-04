@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/04 11:57:46 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:58:06 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,12 @@ typedef struct s_shell
 	t_token			*token;
 	pid_t			*pid;
 	char			**env;
-	char			*line;
-	char			*cmd;
 	char			**args;
 	char			**paths;
-	int				ncmd;
-	int				status;
+	char			*line;
+	char			*cmd;
 	char			*home;
-	int				in;
-	int				out;
+	int				ncmd;
 	int				rtn;
 	int				exit;
 }					t_shell;

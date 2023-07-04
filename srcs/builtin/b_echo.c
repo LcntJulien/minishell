@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/04 11:59:19 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:01:09 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ static void	print_echo(t_shell *mini, t_token *list, int nb_args)
 	nb_opt = nb_option(mini->token->next);
 	while (nb_args > 0)
 	{
-		ft_putstr_fd(list->s, mini->out);
+		ft_putstr_fd(list->s, STDOUT_FILENO);
 		mini->rtn = 0;
 		nb_args--;
 		if (list->next && nb_args > 0)
-			ft_putstr_fd(" ", mini->out);
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		else
 			break ;
 		list = list->next;
 	}
 	if (nb_opt == 0)
-		ft_putstr_fd("\n", mini->out);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
 void	b_echo(t_shell *mini, t_token *list)

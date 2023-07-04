@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/04 12:00:52 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:06:26 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	display_tokens(t_token *token)
 	while (token)
 	{
 		if (token->s != NULL)
-			fprintf(stdout, "%s --> %s\n", token->s, tab[token->type]);
+			fprintf(stderr, "%s --> %s\n", token->s, tab[token->type]);
 		else
-			fprintf(stdout, "|VIDE| --> %s\n", tab[token->type]);
+			fprintf(stderr, "|VIDE| --> %s\n", tab[token->type]);
 		token = token->next;
 	}
 }
@@ -58,7 +58,7 @@ t_token	*new_token(char *line, int *i)
 
 	j = 0;
 	new = malloc(sizeof(t_token));
-	new->s = malloc(sizeof(char) * str_alloc(line, i) + 1);
+	new->s = ft_calloc(sizeof(char), (str_alloc(line, i)) + 1);
 	if (!new || !new->s)
 		return (NULL);
 	while (line[*i])
@@ -66,7 +66,7 @@ t_token	*new_token(char *line, int *i)
 		if (line[*i] == ' ' && quote_state(line, *i) == 0)
 			break ;
 		if (((line[*i] == '<' && line[*i + 2] == '<') || (line[*i] == '>'
-					&& line[*i + 2] == '>')) && (line[*i - 1] != '<' || line[*i
+					&& line[*i + 2] == '>')) && (line[*i - 1] != '<' && line[*i
 				- 1] != '>'))
 		{
 			new->s[j++] = line[*i + 2];

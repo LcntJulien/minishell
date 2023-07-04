@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/23 14:33:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:01:51 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	b_export_args(t_shell *mini, t_token *list, int nb_args)
 		{
 			mini->rtn = 1;
 			ft_putstr_fd(ft_strjoin(ft_strjoin("minishell: export: ", list->s),
-					": Not a valid identifier\n"), mini->out);
+					": Not a valid identifier\n"), STDOUT_FILENO);
 		}
 		else if (alpha_num_underscore(list->s) == 2)
 		{	

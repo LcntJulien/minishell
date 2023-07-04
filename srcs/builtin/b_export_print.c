@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export_print.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/23 14:34:43 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:01:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static void	print_export(t_shell *mini, char **exp)
 			content = var_content(mini, exp[i]);
 			if (!is_there_an_equal(exp[i]))
 				ft_putstr_fd(ft_strjoin(ft_strjoin("declare -x ", name),
-						"\n"), mini->out);
+						"\n"), STDOUT_FILENO);
 			else
 			{
-				ft_putstr_fd(ft_strjoin("declare -x ", name), mini->out);
-				ft_putstr_fd(ft_strjoin("=\"", content), mini->out);
-				ft_putstr_fd("\"\n", mini->out);
+				ft_putstr_fd(ft_strjoin("declare -x ", name), STDOUT_FILENO);
+				ft_putstr_fd(ft_strjoin("=\"", content), STDOUT_FILENO);
+				ft_putstr_fd("\"\n", STDOUT_FILENO);
 			}
 			free_var_export(name, content);
 		}

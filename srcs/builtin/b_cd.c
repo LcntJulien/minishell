@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/27 14:35:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:00:15 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	args_before_cd(t_shell *mini, t_token *list)
 		if (existing_var(mini, "HOME=") == -1)
 		{
 			mini->rtn = 1;
-			ft_putstr_fd("minishell: cd: HOME not set\n", mini->out);
+			ft_putstr_fd("minishell: cd: HOME not set\n", STDOUT_FILENO);
 		}
 		else
 		{
@@ -100,7 +100,7 @@ void	b_cd(t_shell *mini, t_token *list)
 		{
 			mini->rtn = 1;
 			ft_putstr_fd(ft_strjoin(ft_strjoin("minishell: cd: ", tmp_path),
-					" not set\n"), mini->out);
+					" not set\n"), STDOUT_FILENO);
 			free(tmp_path);
 			tmp_path = NULL;
 			return ;
