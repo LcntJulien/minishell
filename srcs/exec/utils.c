@@ -64,7 +64,7 @@ char	**get_args(t_token *tk)
 		cpy = cpy->next;
 	}
 	cpy = tk;
-	args = malloc(sizeof(char *) * i + 1);
+	args = malloc(sizeof(char *) * (i + 1));
 	if (!args)
 		return (NULL);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 18:53:26 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:13:34 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	main(int ac, char **av, char **env)
 		minishell(&mini);
 	}
 	close(histo);
-	listfree(mini.token);
+	ft_free(&mini);
 	return (0);
 }

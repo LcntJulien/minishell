@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 18:22:59 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:13:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,6 @@ void				b_pwd(t_shell *mini);
 /*	b_unset	*/
 void				b_unset(t_shell *mini, t_token *list);
 
-/*	b_free	*/
-void				free_tab(char **tab);
-
 /*
 UTILS
 */
@@ -140,6 +137,10 @@ void				alloc_env(t_shell *mini, char **env);
 /* u_exit */
 void				ft_exit_plus(t_shell *mini, t_token *token, int i);
 void				ft_exit(t_shell *mini, int i);
+
+/*	u_free	*/
+void				free_tab(char **tab);
+void				ft_free(t_shell *mini);
 
 /* u_history */
 int					create_history(int *histo);
