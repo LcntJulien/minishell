@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/30 13:18:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:51:01 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,39 +22,30 @@
 // 		err_manager();
 // }
 
-void	close_pipes(t_shell *mini, int tab[][2])
+void	close_pipes(t_shell *mini, int tab[][2], int i, int sw)
 {
-	int	i;
+	int j;
 
-	i = 0;
-	while (i < mini->ncmd)
+	j = 0;
+	if (sw)
 	{
-		close(tab[i][0]);
-		close(tab[i][1]);
-		i++;
-	}
-}
-
-void	close_child(t_shell *mini, int tab[][2], int i)
-{
-	if (i == 0)
-	{
-		close(tab[i][0]);
-		close(tab[i][1]);
-		close(tab[i + 1][0]);
-	}
-	else if (i == mini->ncmd - 1)
-	{
-		close(tab[i - 1][0]);
-		close(tab[i - 1][1]);
-		close(tab[i][1]);
+		while (j < mini->ncmd)
+		{
+			if (j != i || i == 0)
+				close(tab[j][0]);
+			if (j != (i + 1))
+				close(tab[j][1]);
+			j++;
+		}
 	}
 	else
 	{
-		close(tab[i][1]);
-		close(tab[i - 1][0]);
-		close(tab[i - 1][1]);
-		close(tab[i + 1][0]);
+		while (j < mini->ncmd)
+		{
+			close(tab[j][0]);
+			close(tab[j][1]);
+			j++;
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 12:39:59 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:39:40 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	sigint_handler(int sig)
 {
-	printf("Received SIGINT signal (%d)\n", sig);
+	(void)sig;
+	// ft_putstr_fd("\033[0;35m\033[1mminishell ▸ \033[0m", 2);
+	// printf("Received SIGINT signal (%d)\n", sig);
+	// system("leaks minishell");
 	exit(0);
 }
 
@@ -50,7 +53,8 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
-		if (mini.line[0])
+		// fprintf(stderr, "entrée standars: %s\n", mini.line);
+		if (mini.line)
 			add_histo(mini.line, histo);
 		parse(&mini);
 		minishell(&mini);

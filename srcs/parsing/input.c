@@ -40,7 +40,7 @@ int	parse_err(t_shell *mini, t_token *tk)
 	while (tk)
 	{
 		if (quote_state(tk->s, ft_strlen(tk->s)) || (tk->type == VAR
-					&& (!tk->prev || tk->prev->type == PIPE)))
+				&& (!tk->prev || tk->prev->type == PIPE)))
 			return (parse_err_msg(mini, tk, 127));
 		else if (tk->type == PIPE && !tk->next)
 			return (parse_err_msg(mini, tk, 2));

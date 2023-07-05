@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 14:00:11 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:51:18 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ int					check_nb_args(t_shell *mini, int i);
 
 /* b_cd */
 int					valid_path(t_shell *mini, char *tmp_path);
-void				b_cd(t_shell*mini, t_token *list);
+void				b_cd(t_shell *mini, t_token *list);
 
 /* b_cd_exce */
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
-void				modify_pwd(t_shell*mini, t_token *list);
+void				modify_pwd(t_shell *mini, t_token *list);
 void				modify_oldpwd(t_shell *mini, char *tmp_pwd, char **tmp);
 void				check_var_status(t_shell *mini, t_token *list,
 						char *tmp_path);
@@ -194,8 +194,7 @@ int					nb_cmd(t_shell *mini);
 /* mem.c */
 void				mini_alloc(t_shell *mini, int ncmd);
 void				free_cpa(t_shell *mini);
-void				close_pipes(t_shell *mini, int tab[][2]);
-void				close_child(t_shell *mini, int tab[][2], int i);
+void				close_pipes(t_shell *mini, int tab[][2], int i, int sw);
 
 /* redir.c */
 int					is_redir(t_token *tk);
