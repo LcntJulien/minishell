@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_process.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:53:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/05 14:55:23 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:23:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	b_process(t_shell *mini)
 		b_unset(mini, list);
 	else if (mini->token && !ft_strncmp(mini->token->s, "env", 3))
 		b_env(mini);
-	//else if (mini->token && !ft_strncmp(mini->token->s, "exit", 4))
-		//b_exit(mini, list);
+	else if (mini->token && !ft_strncmp(mini->token->s, "exit", 4))
+		b_exit(mini);
 	return ;
 }

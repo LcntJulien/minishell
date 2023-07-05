@@ -6,7 +6,7 @@
 #    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/07/05 12:41:35 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/07/05 18:08:59 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXE)mem.c			\
 		$(PFXE)error.c			\
 		$(PFXE)minishell.c		\
-		$(PFXU)u_history.c
+		$(PFXU)u_history.c		\
+		$(PFXU)u_signals.c		
+
 		
 NAME	= minishell
 
