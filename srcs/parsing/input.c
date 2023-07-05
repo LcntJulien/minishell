@@ -18,6 +18,7 @@
  sans quotes ouverts
  - Les variables valides entre quotes doivent aussi prendre leur valeur
  en content
+ - les string doivent être nettoyés de leur quotes si valides
 */
 
 int	parse_err_msg(t_shell *mini, t_token *tk, int status)

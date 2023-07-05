@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/04 11:55:35 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:05:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,19 @@ void	child(t_shell *mini, t_token *tk, int tab[][2], int i)
 {
 	// if (is_redir(tk) == 0)
 	// {
-		if (i == 0)
-			dup2(tab[i + 1][1], STDOUT_FILENO);
-		else if (i == mini->ncmd - 1)
-			dup2(tab[i][0], STDIN_FILENO);
-		else
-		{
-			dup2(tab[i][0], STDIN_FILENO);
-			dup2(tab[i + 1][1], STDOUT_FILENO);
-		}
-		close_child(mini, tab, i);
+	if (i == 0)
+	{
+		dup2(tab[i][0], STDIN_FILENO);
+		dup2(tab[i + 1][1], STDOUT_FILENO);
+	}
+	else if (i == mini->ncmd - 1)
+		dup2(tab[i][0], STDIN_FILENO);
+	else
+	{
+		dup2(tab[i][0], STDIN_FILENO);
+		dup2(tab[i + 1][1], STDOUT_FILENO);
+	}
+	close_child(mini, tab, i);
 	// }
 	exec(mini, tk);
 }
@@ -78,7 +81,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 	i = 0;
 	close_pipes(mini, tab);
 	while (i < mini->ncmd)
-		waitpid(pid[i++], &mini->status, 0);
+		waitpid(pid[i++], &mini->rtn, 0);
 	// free_cpa(mini);
 }
 
@@ -99,7 +102,7 @@ void	minishell(t_shell *mini)
 			err_manager();
 		else if (pid == 0)
 			exec(mini, tk);
-		waitpid(-1, &mini->status, 0);
+		waitpid(-1, &mini->rtn, 0);
 	}
 	// free_cpa(mini);
 }

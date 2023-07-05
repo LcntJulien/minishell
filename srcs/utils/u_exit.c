@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/23 14:23:03 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:03:10 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_exit(t_shell *mini, int i)
 	j = -1;
 	if (i == 0)
 	{
-		ft_putstr_fd("Environnement cannot be loaded !\n", mini->out);
+		ft_putstr_fd("Environnement cannot be loaded !\n", STDOUT_FILENO);
 		exit(0);
 	}
 	if (i == 1)
