@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/04 16:05:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:56:55by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,24 @@ t_token	*next_cmd(t_token *tk)
 
 void	exec(t_shell *mini, t_token *tk)
 {
+	char	*ret;
+
+	ret = NULL;
 	if (tk->type == BUILTIN)
 		b_process(mini);
 	else
 	{
 		mini->args = get_args(tk);
 		mini->cmd = get_cmd(mini);
-		if (!mini->cmd)
-			err_manager();
+		if (!mini->cmd[0])
+		{
+			ret = ft_strjoin(ft_strjoin("minishell: ", mini->token->s),
+				": no such file or directory\n");
+			ft_putendl_fd(ret, STDOUT_FILENO);
+			free(ret);
+			mini->rtn = 1;
+			return ;
+		}
 		execve(mini->cmd, mini->args, mini->env);
 		exit(EXIT_FAILURE);
 	}

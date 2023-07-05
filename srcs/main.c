@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/04 16:05:44 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:39:59 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void	sigint_handler(int sig)
 {
-	(void)sig;
-	ft_putstr_fd("\033[0;35m\033[1mminishell ▸ \033[0m", 2);
 	printf("Received SIGINT signal (%d)\n", sig);
-	// system("leaks minishell");
 	exit(0);
 }
 
@@ -50,14 +47,15 @@ int	main(int ac, char **av, char **env)
 	args(ac, av);
 	startshell(&mini, env, &histo);
 	signal(SIGINT, sigint_handler);
-	while (mini.exit == 0)
+	while (1)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
-		if (mini.line)
+		if (mini.line[0])
 			add_histo(mini.line, histo);
 		parse(&mini);
 		minishell(&mini);
 	}
+	close(histo);
 	listfree(mini.token);
 	return (0);
 }
