@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
 /*   Updated: 2023/07/05 14:39:40 by jlecorne         ###   ########.fr       */
@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **env)
 	args(ac, av);
 	startshell(&mini, env, &histo);
 	signal(SIGINT, sigint_handler);
-	while (mini.exit == 0)
+	while (1)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		// fprintf(stderr, "entrée standars: %s\n", mini.line);
@@ -59,6 +59,7 @@ int	main(int ac, char **av, char **env)
 		parse(&mini);
 		minishell(&mini);
 	}
+	close(histo);
 	listfree(mini.token);
 	return (0);
 }
