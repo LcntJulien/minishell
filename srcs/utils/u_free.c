@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/05 19:11:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:15:26 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	free_tab(char **tab)
 	}
 }
 
-void	free_str(char **tmp)
+void	free_str(char *tmp)
 {
 	if (*tmp)
 	{
-		free(*tmp);
-		*tmp = NULL;
+		free(tmp);
+		tmp = NULL;
 	}
 }
 

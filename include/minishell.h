@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 19:13:17 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:41:10 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,13 @@ UTILS
 */
 
 /* u_create_env */
+int					get_shlvl(char *str);
 void				alloc_env(t_shell *mini, char **env);
+
+/* u_env_excepts */
+int					check_last(t_shell *mini, char **env, int i);
+int					check_shlvl(t_shell *mini, char **env, int i);
+int					check_oldpwd(t_shell *mini, char **env, int i);
 
 /* u_exit */
 void				ft_exit_plus(t_shell *mini, t_token *token, int i);
@@ -140,6 +146,7 @@ void				ft_exit(t_shell *mini, int i);
 
 /*	u_free	*/
 void				free_tab(char **tab);
+void				free_str(char *tmp);
 void				ft_free(t_shell *mini);
 
 /* u_history */
