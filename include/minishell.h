@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 15:51:18 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/09 16:56:28 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,13 @@ void				tk_type(t_token *token);
 
 /* utils.c */
 int					quote_state(char *line, int idx);
+int					valid_var(t_token *tk);
+int					is_quote(t_token *tk);
+int					is_dollar(t_token *tk);
+void				convert_var(t_token *tk, t_shell *mini);
 void				space(char *line, int *i);
 void				listfree(t_token *token);
 void				clean_tokens(t_token *tk);
-void				convert_var(t_token *tk, t_shell *mini);
 
 /*
 UTILS
