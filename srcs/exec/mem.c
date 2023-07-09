@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 15:51:01 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/09 16:53:45 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 void	close_pipes(t_shell *mini, int tab[][2], int i, int sw)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (sw)

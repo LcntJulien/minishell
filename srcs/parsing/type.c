@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:29:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 14:43:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/09 17:09:11 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	post_tk_type(t_token *tk, t_shell *mini)
 		if ((tk->s[0] == '\"' && tk->s[1] == '$') || tk->s[0] == '$')
 			tk->type = VAR;
 		else if (((tk->s[0] == '\"' || tk->s[0] == '\'') && tk->s[1] == '-')
-						|| tk->s[0] == '-')
+			|| tk->s[0] == '-')
 			tk->type = OPTION;
 	}
 	if (tk->type == VAR)
@@ -85,7 +85,7 @@ void	post_tk_type(t_token *tk, t_shell *mini)
 
 void	tk_type(t_token *token)
 {
-	if (token->s[0] == '$')
+	if (token->s[0] == '$' || is_dollar(token))
 		token->type = VAR;
 	else if (ft_strncmp(token->s, "|", ft_strlen(token->s)) == 0)
 		token->type = PIPE;
@@ -98,7 +98,7 @@ void	tk_type(t_token *token)
 	else if (ft_strncmp(token->s, "<<", ft_strlen(token->s)) == 0)
 		token->type = HEREDOC;
 	else if (token->prev == NULL || token->prev->type == PIPE
-			|| (token->prev->prev && token->prev->prev->type >= INPUT))
+		|| (token->prev->prev && token->prev->prev->type >= INPUT))
 		token->type = CMD;
 	else
 		token->type = ARG;
