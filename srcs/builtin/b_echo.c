@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/04 15:01:09 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/09 17:09:38 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	args_to_print(t_token *list)
 	nb_args = 0;
 	while (tmp && ((tmp->type >= 0 && tmp->type <= 5)))
 	{
-			nb_args++;
-			tmp = tmp->next;
+		nb_args++;
+		tmp = tmp->next;
 	}
 	return (nb_args);
 }

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/04 15:00:15 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/09 17:32:31 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*folder(t_shell *mini, t_token *list, int c)
 			return (ft_strjoin(mini->home, list->s));
 	}
 	else
-			return (ft_strdup(list->s));
+		return (ft_strdup(list->s));
 }
 
 static char	*check_str_cd(t_shell *mini, t_token *list)
@@ -93,7 +93,7 @@ void	b_cd(t_shell *mini, t_token *list)
 		return ;
 	list = list->next;
 	if (ft_strncmp(list->s, "..", 2) != 0)
-	{	
+	{
 		tmp_path = check_str_cd(mini, list);
 		if (ft_strncmp(tmp_path, "HOME", 4) == 0
 			|| ft_strncmp(tmp_path, "OLDPWD", 6) == 0)
