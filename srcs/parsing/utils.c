@@ -6,34 +6,21 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 17:54:19 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/09 15:21:31 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	quote_state(char *line, int idx)
+int	is_quote(t_token *tk)
 {
 	int	i;
-	int	quote;
 
-	i = 0;
-	quote = 0;
-	while (line[i] && i < idx)
-	{
-		if (i > 0 && line[i - 1] == '\\')
-			;
-		else if (quote == 0 && line[i] == '\'')
-			quote = 1;
-		else if (quote == 0 && line[i] == '\"')
-			quote = 2;
-		else if (quote == 1 && line[i] == '\'')
-			quote = 0;
-		else if (quote == 2 && line[i] == '\"')
-			quote = 0;
-		i++;
-	}
-	return (quote);
+	i = -1;
+	while (tk->s[++i])
+		if (tk->s[i] == '\'' || tk->s[i] == '\"')
+			return (1);
+	return (0);
 }
 
 void	space(char *line, int *i)
@@ -62,22 +49,28 @@ void	listfree(t_token *tk)
 	tk = NULL;
 }
 
-void	clean_tokens(t_token *tk)
+int	quote_state(char *line, int idx)
 {
-	char	*cpy;
+	int	i;
+	int	quote;
 
-	while (tk)
+	i = 0;
+	quote = 0;
+	while (line[i] && i < idx)
 	{
-		if ((tk->type == CMD || tk->type == OPTION || tk->type == BUILTIN)
-			&& (tk->s[0] == '\'' || tk->s[0] == '\"'))
-		{
-			cpy = ft_strdup(tk->s);
-			free(tk->s);
-			tk->s = NULL;
-			tk->s = ft_substr(cpy, 1, ft_strlen(cpy) - 2);
-		}
-		tk = tk->next;
+		if (i > 0 && line[i - 1] == '\\')
+			;
+		else if (quote == 0 && line[i] == '\'')
+			quote = 1;
+		else if (quote == 0 && line[i] == '\"')
+			quote = 2;
+		else if (quote == 1 && line[i] == '\'')
+			quote = 0;
+		else if (quote == 2 && line[i] == '\"')
+			quote = 0;
+		i++;
 	}
+	return (quote);
 }
 
 void	convert_var(t_token *tk, t_shell *mini)
