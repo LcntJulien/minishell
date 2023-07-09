@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 15:51:22 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/09 18:43:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,17 @@ void	minishell(t_shell *mini)
 		minipipe(mini, tk);
 	else
 	{
-		pid = fork();
-		if (pid < 0)
-			err_manager();
-		else if (pid == 0)
-			exec(mini, tk);
-		waitpid(-1, &mini->rtn, 0);
+		if (tk->type == BUILTIN)
+			b_process(mini);
+		else
+		{
+			pid = fork();
+			if (pid < 0)
+				err_manager();
+			else if (pid == 0)
+				exec(mini, tk);
+			waitpid(-1, &mini->rtn, 0);
+		}
 	}
 	// free_cpa(mini);
 }
