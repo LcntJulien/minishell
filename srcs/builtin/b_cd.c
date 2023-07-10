@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/04 15:00:15 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:56:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,15 @@ static int	args_before_cd(t_shell *mini, t_token *list)
 
 int	valid_path(t_shell *mini, char *tmp_path)
 {
+	char	*str;
+
+	str = NULL;
 	if (chdir(tmp_path) == -1)
 	{
 		mini->rtn = 1;
-		perror(ft_strjoin("minishell: cd: ", tmp_path));
+		str = ft_strjoin("minishell: cd: ", tmp_path);
+		perror(str);
+		free_str(str);
 		return (0);
 	}
 	else

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cstm_split.c                                       :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 17:50:18 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/21 13:33:57 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:22:42 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	**tab_maker(const char *s, char c, int q, int sw)
 	tab = ft_calloc((scount(s, c, q) + 1), sizeof(char *));
 	while (s[i])
 	{
-		if (s[i] != c && s[i] != 0 && q == 0 && (s[i - 1] == c || i == 0))
+		if (s[i] && s[i] != c && q == 0 && (i == 0 || s[i - 1] == c))
 		{
 			if (s[i] == 34 || s[i] == 39)
 				q = s[i];

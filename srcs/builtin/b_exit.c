@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/05/25 12:29:43 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:23:55 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
-// void	b_exit(t_shell *mini)
-// {
-// 	return ;
-// }
+void	b_exit(t_shell *mini)
+{
+	ft_free(mini);
+	exit(0);
+}

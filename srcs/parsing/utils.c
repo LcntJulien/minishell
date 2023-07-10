@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/06/07 17:54:19 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:31:06 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,16 @@ void	listfree(t_token *tk)
 	t_token	*tmp;
 
 	tmp = NULL;
-	while (tk->next != NULL)
+	while (tk && tk->next != NULL)
 		tk = tk->next;
-	while (tk->prev != NULL)
+	while (tk && tk->prev != NULL)
 	{
-		tmp = tk;
-		free(tmp->s);
-		free(tmp);
-		tmp = NULL;
-		tk = tk->prev;
+		free(tk->s);
+		tk->s = NULL;
+		tmp = tk->prev;
+		free(tk);
+		tk = tmp;
 	}
-	free(tk);
 	tk = NULL;
 }
 

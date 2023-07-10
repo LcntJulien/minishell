@@ -35,16 +35,22 @@ void	get_paths(t_shell *mini)
 
 	i = -1;
 	paths = NULL;
-	while (mini->env[++i])
+	if (existing_var(mini, "PATH") != -1)
 	{
-		if (!ft_strncmp("PATH=", mini->env[i], 5))
+		while (mini->env[++i])
 		{
-			paths = ft_substr(mini->env[i], 5, 200);
-			break ;
+			if (!ft_strncmp("PATH=", mini->env[i], 5))
+			{
+				paths = ft_substr(mini->env[i], 5, 200);
+				break ;
+			}
+		}
+		if (mini->env[i])
+		{
+			mini->paths = custom_split(paths, ':', 1);
+			free(paths);
 		}
 	}
-	mini->paths = custom_split(paths, ':', 1);
-	free(paths);
 }
 
 char	**get_args(t_token *tk)
@@ -61,7 +67,7 @@ char	**get_args(t_token *tk)
 		cpy = cpy->next;
 	}
 	cpy = tk;
-	args = malloc(sizeof(char *) * i + 1);
+	args = malloc(sizeof(char *) * (i + 1));
 	if (!args)
 		return (NULL);
 	i = 0;

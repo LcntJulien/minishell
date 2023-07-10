@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_free.c                                           :+:      :+:    :+:   */
+/*   u_signals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 09:48:27 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/07/05 18:00:39 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/07/06 15:08:10 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
-void	free_tab(char **tab)
+void	sigint_handler(int sig)
 {
-	int	i;
-
-	i = 0;
-	if (!tab)
-	{
-		while (tab[i])
-		{
-			free(tab[i]);
-			tab[i] = NULL;
-		}
-		free(tab);
-	}
+	(void)sig;
+	printf("\n");
 }
 
-void	free_str(char **tmp)
+void	define_signals(void)
 {
-	if (*tmp)
-	{
-		free(*tmp);
-		*tmp = NULL;
-	}
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
