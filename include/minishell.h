@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/06 16:41:10 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/10 09:09:47 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ BUILTIN
 */
 
 /* b_process */
-void				b_process(t_shell *mini);
+int					b_process(t_shell *mini);
 
 /* b_utils */
 int					tab_lines(char **tab);

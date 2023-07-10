@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 18:47:29 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/10 09:09:20 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	exec(t_shell *mini, t_token *tk)
 	ret = NULL;
 	if (tk->type == BUILTIN)
 	{
-		b_process(mini);
-		exit(EXIT_SUCCESS);
+		if (!b_process(mini))
+			exit(EXIT_SUCCESS);
+		else
+			exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -45,7 +47,7 @@ void	exec(t_shell *mini, t_token *tk)
 			//return ;
 		//}
 		execve(mini->cmd, mini->args, mini->env);
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 }
 

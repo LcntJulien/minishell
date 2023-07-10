@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/06 17:25:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:25:36 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 static void	startshell(t_shell *mini, char	**env, int *histo)
 {
+	mini->pid = 0;
 	mini->rtn = 0;
 	mini->exit = 0;
 	mini->ncmd = 0;
 	mini->cmd = NULL;
+	mini->args = NULL;
+	mini->paths = NULL;
+	mini->line = NULL;
 	alloc_env(mini, env);
 	mini->home = return_var_content(mini, "HOME");
 	if (!create_history(histo))
@@ -45,15 +49,18 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
-		if (!mini.line[0] && mini.rtn != 0)
-			exit(mini.rtn);
-		else if (!mini.line[0] && mini.rtn == 0)
-			continue ;
-		parse(&mini);
-		minishell(&mini);
-		listfree(mini.token);
+		if (!mini.line)
+			break ;
+		if (mini.line[0])
+		{
+			add_histo(mini.line, histo);
+			parse(&mini);
+			minishell(&mini);
+			listfree(mini.token);
+		}
 	}
 	close(histo);
 	ft_free(&mini);
+	exit(mini.rtn);
 	return (0);
 }

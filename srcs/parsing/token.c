@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 11:55:19 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:46:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ int	str_alloc(char *line, int *i)
 	return (j);
 }
 
-t_token	*new_token(char *line, int *i)
+t_token	*new_token(char *line, int *i, int j)
 {
-	int		j;
 	t_token	*new;
 
-	j = 0;
 	new = malloc(sizeof(t_token));
-	new->s = ft_calloc(sizeof(char), (str_alloc(line, i)) + 1);
-	if (!new || !new->s)
+	if (!new)
+		return (NULL);
+	new->s = ft_calloc(sizeof(char), (str_alloc(line, i) + 1));
+	if (!new->s)
 		return (NULL);
 	while (line[*i])
 	{
@@ -91,7 +91,7 @@ void	*get_tokens(char *line)
 	space(line, &i);
 	while (line[i])
 	{
-		token = new_token(line, &i);
+		token = new_token(line, &i, 0);
 		token->prev = prev;
 		if (prev)
 			prev->next = token;

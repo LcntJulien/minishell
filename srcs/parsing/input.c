@@ -63,7 +63,7 @@ char	*alloc_line(t_shell *mini)
 			sep++;
 		i++;
 	}
-	if (!(nl = malloc(sizeof(char) * (2 * sep + i + 1))))
+	if (!(nl = ft_calloc(sizeof(char), (2 * sep + i + 1))))
 		return (NULL);
 	return (nl);
 }
@@ -77,7 +77,9 @@ char	*parse_line(t_shell *mini)
 	i = 0;
 	j = 0;
 	nl = alloc_line(mini);
-	while (nl && mini->line[i])
+	if (!nl)
+		ft_exit(mini, 2);
+	while (mini->line[i])
 	{
 		if (quote_state(mini->line, i) == 0 && is_sep(mini->line, i))
 		{
@@ -90,7 +92,6 @@ char	*parse_line(t_shell *mini)
 		else
 			nl[j++] = mini->line[i++];
 	}
-	nl[j] = '\0';
 	return (nl);
 }
 

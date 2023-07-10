@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/04 15:03:10 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:01:32 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,27 @@ void	ft_exit_plus(t_shell *mini, t_token *token, int i)
 		while (mini->env[++j])
 			free(mini->env[j]);
 		free(mini->env);
-		exit(0);
+		exit(1);
 	}
 }
 
 void	ft_exit(t_shell *mini, int i)
 {
-	int	j;
+	int		j;
 
 	j = -1;
 	if (i == 0)
 	{
 		ft_putstr_fd("Environnement cannot be loaded !\n", STDOUT_FILENO);
-		exit(0);
+		exit(1);
 	}
-	if (i == 1)
+	if (i == 1 || i == 2)
 	{
 		while (mini->env[++j])
 			free(mini->env[j]);
 		free(mini->env);
-		exit(0);
+		if (i == 2)
+			perror("Trouble initiating the parsing of the line !");
+		exit(1);
 	}
 }

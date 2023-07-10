@@ -35,7 +35,7 @@ void	get_paths(t_shell *mini)
 
 	i = -1;
 	paths = NULL;
-	if (existing_var(mini, "PATH"))
+	if (existing_var(mini, "PATH") != -1)
 	{
 		while (mini->env[++i])
 		{
@@ -45,8 +45,11 @@ void	get_paths(t_shell *mini)
 				break ;
 			}
 		}
-		mini->paths = custom_split(paths, ':', 1);
-		free(paths);
+		if (mini->env[i])
+		{
+			mini->paths = custom_split(paths, ':', 1);
+			free(paths);
+		}
 	}
 }
 
