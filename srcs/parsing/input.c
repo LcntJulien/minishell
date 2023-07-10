@@ -104,6 +104,8 @@ void	parse(t_shell *mini)
 		return ;
 	line = parse_line(mini);
 	mini->token = get_tokens(line);
+	if (!mini->token)
+		ft_exit(mini, 3);
 	token = mini->token;
 	while (token)
 	{

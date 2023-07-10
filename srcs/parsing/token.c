@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/10 14:46:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:35:06 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	*get_tokens(char *line)
 	while (line[i])
 	{
 		token = new_token(line, &i, 0);
+		if (!token)
+			return (NULL);
 		token->prev = prev;
 		if (prev)
 			prev->next = token;
