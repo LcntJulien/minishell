@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/09 17:32:31 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:14:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,15 @@ static int	args_before_cd(t_shell *mini, t_token *list)
 
 int	valid_path(t_shell *mini, char *tmp_path)
 {
+	char	*str;
+
+	str = NULL;
 	if (chdir(tmp_path) == -1)
 	{
 		mini->rtn = 1;
-		perror(ft_strjoin("minishell: cd: ", tmp_path));
+		str = ft_strjoin("minishell: cd: ", tmp_path);
+		perror(str);
+		free_str(str);
 		return (0);
 	}
 	else

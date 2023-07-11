@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:48:25 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/05 14:56:26 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:32:16 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	b_env(t_shell *mini)
 {
 	int		i;
+	char	*str;
 	t_token	*list;
 
 	list = mini->token;
@@ -25,7 +26,12 @@ void	b_env(t_shell *mini)
 		while (mini->env[++i])
 		{
 			if (is_there_an_equal(mini->env[i]))
-				ft_putstr_fd(ft_strjoin(mini->env[i], "\n"), STDOUT_FILENO);
+			{
+				str = ft_strjoin(mini->env[i], "\n");
+				ft_putstr_fd(str, STDOUT_FILENO);
+				free(str);
+				str = NULL;
+			}
 		}
 		mini->rtn = 0;
 	}

@@ -6,27 +6,46 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/09 17:15:46 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:14:58 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_var_export(char *name, char *content)
+static void	print_export_to_fd(char *name, char *s1, char *content, int i)
 {
-	free(name);
-	name = NULL;
-	free(content);
-	content = NULL;
+	char	*s2;
+
+	s2 = NULL;
+	if (i == 0)
+	{
+		s1 = ft_strjoin("declare -x ", name);
+		s2 = ft_strjoin(s1, "\n");
+		ft_putstr_fd(s2, STDOUT_FILENO);
+	}
+	else
+	{
+		s1 = ft_strjoin("declare -x ", name);
+		s2 = ft_strjoin(s1, "=\"");
+		free_str(s1);
+		s1 = ft_strjoin(s2, content);
+		free_str(s2);
+		s2 = ft_strjoin(s1, "\"\n");
+		ft_putstr_fd(s2, STDOUT_FILENO);
+	}
+	free_str(s1);
+	free_str(s2);
 }
 
 static void	print_export(t_shell *mini, char **exp)
 {
 	int		i;
+	char	*s;
 	char	*name;
 	char	*content;
 
 	i = 0;
+	s = NULL;
 	while (exp[i])
 	{
 		if (ft_strncmp(exp[i], "_=", 2))
@@ -34,15 +53,11 @@ static void	print_export(t_shell *mini, char **exp)
 			name = var_name(mini, exp[i]);
 			content = var_content(mini, exp[i]);
 			if (!is_there_an_equal(exp[i]))
-				ft_putstr_fd(ft_strjoin(ft_strjoin("declare -x ", name),
-						"\n"), STDOUT_FILENO);
+				print_export_to_fd(name, s, content, 0);
 			else
-			{
-				ft_putstr_fd(ft_strjoin("declare -x ", name), STDOUT_FILENO);
-				ft_putstr_fd(ft_strjoin("=\"", content), STDOUT_FILENO);
-				ft_putstr_fd("\"\n", STDOUT_FILENO);
-			}
-			free_var_export(name, content);
+				print_export_to_fd(name, s, content, 1);
+			free_str(name);
+			free_str(content);
 		}
 		i++;
 	}

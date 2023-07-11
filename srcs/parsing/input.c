@@ -64,7 +64,9 @@ char	*parse_line(t_shell *mini)
 	i = 0;
 	j = 0;
 	nl = alloc_line(mini);
-	while (nl && mini->line[i])
+	if (!nl)
+		ft_exit(mini, 2);
+	while (mini->line[i])
 	{
 		if (quote_state(mini->line, i) == 0 && is_sep(mini->line, i))
 		{
@@ -77,7 +79,6 @@ char	*parse_line(t_shell *mini)
 		else
 			nl[j++] = mini->line[i++];
 	}
-	nl[j] = '\0';
 	return (nl);
 }
 
@@ -90,6 +91,8 @@ void	parse(t_shell *mini)
 		return ;
 	line = parse_line(mini);
 	mini->token = get_tokens(line);
+	if (!mini->token)
+		ft_exit(mini, 3);
 	token = mini->token;
 	clean_tokens(token);
 	while (token)

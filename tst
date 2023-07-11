@@ -1,4 +1,4 @@
-salut ca va ?
-ca va et toi ?
-ca va !
-super !
+salut ?
+hey
+hola ?
+como esta ?

@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/07/09 15:22:07 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/07/11 14:14:34 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,10 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXB)b_export.c		\
 		$(PFXB)b_export_print.c	\
 		$(PFXB)b_export_arg.c	\
-		$(PFXB)b_free.c			\
 		$(PFXB)b_pwd.c			\
 		$(PFXB)b_unset.c		\
 		$(PFXU)u_create_env.c	\
+		$(PFXU)u_env_excepts.c	\
 		$(PFXU)u_utils.c		\
 		$(PFXU)u_exit.c			\
 		$(PFXU)split/split.c	\
@@ -49,7 +49,10 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXE)mem.c			\
 		$(PFXE)error.c			\
 		$(PFXE)minishell.c		\
-		$(PFXU)u_history.c
+		$(PFXU)u_history.c		\
+		$(PFXU)u_free.c			\
+		$(PFXU)u_signals.c		
+
 		
 NAME	= minishell
 
@@ -57,11 +60,11 @@ CC		= gcc
 
 LIBFT 	= -lft -L ./libft
 
-#HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
-HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
+HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+#HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
-#LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
-LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
+LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
+#LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
 
 CFLAGS	= -Wall -Wextra -Werror -ggdb3
 

@@ -6,9 +6,10 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 14:58:41 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:23:34 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../include/minishell.h"
 
@@ -35,7 +36,7 @@ void	exec(t_shell *mini, t_token *tk)
 		if (!mini->cmd)
 			err_manager();
 		execve(mini->cmd, mini->args, mini->env);
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 }
 

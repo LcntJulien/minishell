@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 01:11:44 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:12:57 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ bool				with_dquote_print(char *str, t_shell *mini);
 char				**renew_env(t_shell *mini, int lines, t_token *tmp);
 void				b_env(t_shell *mini);
 
+/* exit */
+void				b_exit(t_shell *mini);
+
 /*	b_export	*/
 int					check_existing_args(t_shell *mini, char *s);
 void				b_export_args(t_shell *mini, t_token *list, int nb_args);
@@ -125,21 +128,34 @@ void				b_pwd(t_shell *mini);
 /*	b_unset	*/
 void				b_unset(t_shell *mini, t_token *list);
 
-/*	b_free	*/
-void				free_tab(char **tab);
-
-/*	UTILS	*/
+/*
+UTILS
+*/
 
 /* u_create_env */
+int					get_shlvl(char *str);
 void				alloc_env(t_shell *mini, char **env);
+
+/* u_env_excepts */
+int					check_last(t_shell *mini, char **env, int i);
+int					check_shlvl(t_shell *mini, char **env, int i);
+int					check_oldpwd(t_shell *mini, char **env, int i);
 
 /* u_exit */
 void				ft_exit_plus(t_shell *mini, t_token *token, int i);
 void				ft_exit(t_shell *mini, int i);
 
+/*	u_free	*/
+void				free_tab(char **tab);
+void				free_str(char *tmp);
+void				ft_free(t_shell *mini);
+
 /* u_history */
 int					create_history(int *histo);
 void				add_histo(char *str, int histo);
+
+/* u_signal*/
+void				define_signals(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);

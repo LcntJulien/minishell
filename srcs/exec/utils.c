@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/10 19:41:35 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:47:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,24 @@ void	get_paths(t_shell *mini)
 	int		i;
 	char	*paths;
 
-	i = 0;
+	i = -1;
 	paths = NULL;
-	while (mini->env[i])
+	if (existing_var(mini, "PATH") != -1)
 	{
-		if (!ft_strncmp("PATH=", mini->env[i], 5))
+		while (mini->env[++i])
 		{
-			paths = ft_substr(mini->env[i], 5, 200);
-			break ;
+			if (!ft_strncmp("PATH=", mini->env[i], 5))
+			{
+				paths = ft_substr(mini->env[i], 5, 200);
+				break ;
+			}
 		}
-		i++;
+		if (mini->env[i])
+		{
+			mini->paths = custom_split(paths, ':', 1);
+			free(paths);
+		}
 	}
-	mini->paths = custom_split(paths, ':', 1);
-	free(paths);
 }
 
 char	**get_args(t_token *tk)
@@ -73,7 +78,7 @@ char	**get_args(t_token *tk)
 		cpy = cpy->next;
 	}
 	cpy = tk;
-	args = malloc(sizeof(char *) * i + 1);
+	args = malloc(sizeof(char *) * (i + 1));
 	if (!args)
 		return (NULL);
 	i = 0;
@@ -91,14 +96,14 @@ char	*get_cmd(t_shell *mini)
 	int		i;
 	char	*pathcmd;
 
-	i = 0;
-	while (mini->paths[i])
+	i = -1;
+	while (mini->paths[++i])
 	{
 		pathcmd = ft_strjoin(mini->paths[i], mini->args[0]);
 		if (access(pathcmd, X_OK) == 0)
 			return (pathcmd);
 		free(pathcmd);
-		i++;
+		pathcmd = NULL;
 	}
 	if (access(mini->args[0], 0) == 0)
 		return (mini->args[0]);
