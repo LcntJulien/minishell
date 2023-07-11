@@ -3,14 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/10 14:31:06 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:34:29 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	is_quote(t_token *tk)
+{
+	int	i;
+
+	i = -1;
+	while (tk->s[++i])
+		if (tk->s[i] == '\'' || tk->s[i] == '\"')
+			return (1);
+	return (0);
+}
+
+void	space(char *line, int *i)
+{
+	while ((line[*i] == ' ' || line[*i] == '\t') || (line[*i] == '\r'
+			|| line[*i] == '\v' || line[*i] == '\f'))
+		(*i)++;
+}
+
+void	listfree(t_token *tk)
+{
+	t_token	*tmp;
+
+	tmp = NULL;
+	if (tk)
+	{
+		while (tk && tk->next != NULL)
+			tk = tk->next;
+		while (tk && tk->prev != NULL)
+		{
+			tmp = tk->prev;
+			free(tk->s);
+			free(tk);
+			tk = NULL;
+			tk = tmp;
+		}
+		free(tk->s);
+		free(tk);
+		tk = NULL;
+	}
+}
 
 int	quote_state(char *line, int idx)
 {
@@ -34,49 +75,6 @@ int	quote_state(char *line, int idx)
 		i++;
 	}
 	return (quote);
-}
-
-void	space(char *line, int *i)
-{
-	while ((line[*i] == ' ' || line[*i] == '\t') || (line[*i] == '\r'
-			|| line[*i] == '\v' || line[*i] == '\f'))
-		(*i)++;
-}
-
-void	listfree(t_token *tk)
-{
-	t_token	*tmp;
-
-	tmp = NULL;
-	while (tk && tk->next != NULL)
-		tk = tk->next;
-	while (tk && tk->prev != NULL)
-	{
-		free(tk->s);
-		tk->s = NULL;
-		tmp = tk->prev;
-		free(tk);
-		tk = tmp;
-	}
-	tk = NULL;
-}
-
-void	clean_tokens(t_token *tk)
-{
-	char	*cpy;
-
-	while (tk)
-	{
-		if ((tk->type == CMD || tk->type == OPTION || tk->type == BUILTIN)
-			&& (tk->s[0] == '\'' || tk->s[0] == '\"'))
-		{
-			cpy = ft_strdup(tk->s);
-			free(tk->s);
-			tk->s = NULL;
-			tk->s = ft_substr(cpy, 1, ft_strlen(cpy) - 2);
-		}
-		tk = tk->next;
-	}
 }
 
 void	convert_var(t_token *tk, t_shell *mini)

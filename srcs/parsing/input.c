@@ -12,41 +12,27 @@
 
 #include "../../include/minishell.h"
 
-/*
- NOTES:
- - Le parsing doit pouvoir gérer `'e''c''h''o'` ou tout autre fonction correcte
- sans quotes ouverts
- - Les variables valides entre quotes doivent aussi prendre leur valeur
- en content
- - les string doivent être nettoyés de leur quotes si valides
-*/
-
-int	parse_err_msg(t_shell *mini, t_token *tk, int status)
+void	parse_err_msg(t_shell *mini, t_token *tk, int status)
 {
-	char	*tab[255];
+	char	*msg;
 
-	tab[2] = "; syntax error near unexpected token";
-	tab[127] = "; command not found";
+	msg = "; syntax error near unexpected token";
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(tk->s, 2);
-	ft_putendl_fd(tab[status], 2);
+	ft_putendl_fd(msg, 2);
 	mini->rtn = status;
 	free(mini->line);
-	return (1);
+	exit(status);
 }
 
-int	parse_err(t_shell *mini, t_token *tk)
+void	parse_err(t_shell *mini, t_token *tk)
 {
 	while (tk)
 	{
-		if (quote_state(tk->s, ft_strlen(tk->s)) || (tk->type == VAR
-				&& (!tk->prev || tk->prev->type == PIPE)))
-			return (parse_err_msg(mini, tk, 127));
-		else if (tk->type == PIPE && !tk->next)
+		if (tk->type == PIPE && !tk->next)
 			return (parse_err_msg(mini, tk, 2));
 		tk = tk->next;
 	}
-	return (0);
 }
 
 char	*alloc_line(t_shell *mini)
@@ -63,7 +49,8 @@ char	*alloc_line(t_shell *mini)
 			sep++;
 		i++;
 	}
-	if (!(nl = ft_calloc(sizeof(char), (2 * sep + i + 1))))
+	nl = malloc(sizeof(char) * (2 * sep + i + 1));
+	if (!nl)
 		return (NULL);
 	return (nl);
 }
@@ -98,11 +85,12 @@ void	parse(t_shell *mini)
 	t_token	*token;
 	char	*line;
 
-	if (!mini->line[0])
+	if (!mini->line)
 		return ;
 	line = parse_line(mini);
 	mini->token = get_tokens(line);
 	token = mini->token;
+	clean_tokens(token);
 	while (token)
 	{
 		if (token->type <= VAR)
@@ -110,10 +98,7 @@ void	parse(t_shell *mini)
 		token = token->next;
 	}
 	token = mini->token;
-	if (parse_err(mini, token))
-		return ;
-	clean_tokens(token);
-	// display_tokens(token);
+	parse_err(mini, token);
 	free(line);
 	free(mini->line);
 }

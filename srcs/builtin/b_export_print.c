@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   b_export_print.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
 /*   Updated: 2023/07/11 18:22:55 by jmathieu         ###   ########.fr       */
@@ -47,7 +47,7 @@ static void	print_export(t_shell *mini, char **exp)
 	i = 0;
 	s = NULL;
 	while (exp[i])
-	{	
+	{
 		if (ft_strncmp(exp[i], "_=", 2))
 		{
 			name = var_name(mini, exp[i]);
@@ -73,7 +73,7 @@ static void	sort_in_tab(char **exp, int lines)
 	j = 1;
 	while (j < lines)
 	{
-			i = 0;
+		i = 0;
 		while (i < j)
 		{
 			len = max_len(ft_strlen(exp[i]), ft_strlen(exp[j]));

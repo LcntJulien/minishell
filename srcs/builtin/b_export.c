@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/04 15:01:51 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/09 17:16:09 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	b_export_args(t_shell *mini, t_token *list, int nb_args)
 					": Not a valid identifier\n"), STDOUT_FILENO);
 		}
 		else if (alpha_num_underscore(list->s) == 2)
-		{	
+		{
 			mini->rtn = 0;
 			break ;
 		}

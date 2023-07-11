@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   b_process.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:53:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/10 09:08:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:20:03 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	b_process(t_shell *mini)
+void	b_process(t_shell *mini)
 {
 	t_token	*list;
 
@@ -31,8 +31,5 @@ int	b_process(t_shell *mini)
 		b_env(mini);
 	else if (mini->token && !ft_strncmp(mini->token->s, "exit", 4))
 		b_exit(mini);
-	if (mini->rtn == 0)
-		return (0);
-	else
-		return (1);
+	return ;
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/07/11 13:44:52 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/07/11 14:14:34 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ PFXE	= $(PFXS)exec/
 SRCS	= $(PFXS)main.c			\
 		$(PFXP)input.c			\
 		$(PFXP)utils.c			\
+		$(PFXP)utils1.c			\
 		$(PFXP)token.c			\
 		$(PFXP)type.c			\
 		$(PFXB)b_process.c		\

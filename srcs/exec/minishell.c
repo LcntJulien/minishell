@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 18:38:59 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:40:39 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,65 +23,65 @@ t_token	*next_cmd(t_token *tk)
 
 void	exec(t_shell *mini, t_token *tk)
 {
-	if (tk->type == BUILTIN)
+	if (tk && tk->type == BUILTIN)
 	{
-		if (!b_process(mini))
-			exit(EXIT_SUCCESS);
-		else
-			exit(EXIT_FAILURE);
+		b_process(mini);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		mini->args = get_args(tk);
 		mini->cmd = get_cmd(mini);
+		if (!mini->cmd)
+			err_manager();
 		execve(mini->cmd, mini->args, mini->env);
 		exit(EXIT_SUCCESS);
 	}
 }
 
-void	child(t_shell *mini, t_token *tk, int tab[][2], int i)
+void	child(t_shell *mini, t_token *tk, int i)
 {
 	// if (is_redir(tk) == 0)
 	// {
 	if (i == 0)
-		dup2(tab[i + 1][1], STDOUT_FILENO);
+		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	else if (i == mini->ncmd - 1)
-		dup2(tab[i][0], STDIN_FILENO);
+		dup2(mini->tab[i][0], STDIN_FILENO);
 	else
 	{
-		dup2(tab[i][0], STDIN_FILENO);
-		dup2(tab[i + 1][1], STDOUT_FILENO);
+		dup2(mini->tab[i][0], STDIN_FILENO);
+		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	}
 	// }
-	close_pipes(mini, tab, i, 1);
+	close_pipes(mini, i, 1);
 	exec(mini, tk);
 }
 
 void	minipipe(t_shell *mini, t_token *tk)
 {
-	int		i;
-	int		tab[mini->ncmd][2];
-	pid_t	pid[mini->ncmd];
+	int	i;
 
 	i = 0;
+	pipe_alloc(mini);
 	while (i < mini->ncmd)
-		if (pipe(tab[i++]) < 0)
+		if (pipe(mini->tab[i++]) < 0)
 			err_manager();
 	i = 0;
 	while (i < mini->ncmd)
 	{
-		pid[i] = fork();
-		if (pid[i] < 0)
+		mini->pid[i] = fork();
+		if (mini->pid[i] < 0)
 			err_manager();
-		if (pid[i] == 0)
-			child(mini, tk, tab, i);
+		if (mini->pid[i] == 0)
+			child(mini, tk, i);
 		tk = next_cmd(tk);
 		i++;
 	}
 	i = 0;
-	close_pipes(mini, tab, i, 0);
+	close_pipes(mini, i, 0);
 	while (i < mini->ncmd)
-		waitpid(pid[i++], &mini->rtn, 0);
+		waitpid(mini->pid[i++], &mini->rtn, 0);
+	mini_free(mini);
 }
 
 void	minishell(t_shell *mini)
@@ -96,12 +96,16 @@ void	minishell(t_shell *mini)
 		minipipe(mini, tk);
 	else
 	{
-		pid = fork();
-		if (pid < 0)
-			err_manager();
-		else if (pid == 0)
-			exec(mini, tk);
-		waitpid(-1, &mini->rtn, 0);
+		if (tk && tk->type == BUILTIN)
+			b_process(mini);
+		else
+		{
+			pid = fork();
+			if (pid < 0)
+				err_manager();
+			else if (pid == 0)
+				exec(mini, tk);
+			waitpid(-1, &mini->rtn, 0);
+		}
 	}
-	// free_cpa(mini);
 }

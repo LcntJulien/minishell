@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/05 15:51:01 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:41:31 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 // 		err_manager();
 // }
 
-void	close_pipes(t_shell *mini, int tab[][2], int i, int sw)
+void	close_pipes(t_shell *mini, int i, int sw)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (sw)
@@ -32,9 +32,9 @@ void	close_pipes(t_shell *mini, int tab[][2], int i, int sw)
 		while (j < mini->ncmd)
 		{
 			if (j != i || i == 0)
-				close(tab[j][0]);
+				close(mini->tab[j][0]);
 			if (j != (i + 1))
-				close(tab[j][1]);
+				close(mini->tab[j][1]);
 			j++;
 		}
 	}
@@ -42,30 +42,34 @@ void	close_pipes(t_shell *mini, int tab[][2], int i, int sw)
 	{
 		while (j < mini->ncmd)
 		{
-			close(tab[j][0]);
-			close(tab[j][1]);
+			close(mini->tab[j][0]);
+			close(mini->tab[j][1]);
 			j++;
 		}
 	}
 }
 
-void	free_cpa(t_shell *mini)
+void	mini_free(t_shell *mini)
 {
 	int	i;
 
 	i = 0;
+	while (i < mini->ncmd)
+		free(mini->tab[i++]);
+	free(mini->tab);
+	i = 0;
+	free(mini->pid);
+	i = 0;
 	while (mini->paths[i])
-	{
-		free(mini->paths[i]);
-		i++;
-	}
+		free(mini->paths[i++]);
 	free(mini->paths);
 	i = 0;
-	while (mini->args[i])
+	if (mini->args)
 	{
-		free(mini->args[i]);
-		i++;
+		while (mini->args[i])
+			free(mini->args[i++]);
+		free(mini->args);
 	}
-	free(mini->args);
-	free(mini->cmd);
+	if (mini->cmd)
+		free(mini->cmd);
 }
