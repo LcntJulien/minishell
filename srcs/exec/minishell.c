@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/09 18:43:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 01:45:08 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,50 +39,49 @@ void	exec(t_shell *mini, t_token *tk)
 	}
 }
 
-void	child(t_shell *mini, t_token *tk, int tab[][2], int i)
+void	child(t_shell *mini, t_token *tk, int i)
 {
 	// if (is_redir(tk) == 0)
 	// {
 	if (i == 0)
-		dup2(tab[i + 1][1], STDOUT_FILENO);
+		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	else if (i == mini->ncmd - 1)
-		dup2(tab[i][0], STDIN_FILENO);
+		dup2(mini->tab[i][0], STDIN_FILENO);
 	else
 	{
-		dup2(tab[i][0], STDIN_FILENO);
-		dup2(tab[i + 1][1], STDOUT_FILENO);
+		dup2(mini->tab[i][0], STDIN_FILENO);
+		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	}
 	// }
-	close_pipes(mini, tab, i, 1);
+	close_pipes(mini, i, 1);
 	exec(mini, tk);
 }
 
 void	minipipe(t_shell *mini, t_token *tk)
 {
-	int		i;
-	int		tab[mini->ncmd][2];
-	pid_t	pid[mini->ncmd];
+	int	i;
 
 	i = 0;
+	pipe_alloc(mini);
 	while (i < mini->ncmd)
-		if (pipe(tab[i++]) < 0)
+		if (pipe(mini->tab[i++]) < 0)
 			err_manager();
 	i = 0;
 	while (i < mini->ncmd)
 	{
-		pid[i] = fork();
-		if (pid[i] < 0)
+		mini->pid[i] = fork();
+		if (mini->pid[i] < 0)
 			err_manager();
-		if (pid[i] == 0)
-			child(mini, tk, tab, i);
+		if (mini->pid[i] == 0)
+			child(mini, tk, i);
 		tk = next_cmd(tk);
 		i++;
 	}
 	i = 0;
-	close_pipes(mini, tab, i, 0);
+	close_pipes(mini, i, 0);
 	while (i < mini->ncmd)
-		waitpid(pid[i++], &mini->rtn, 0);
-	// free_cpa(mini);
+		waitpid(mini->pid[i++], &mini->rtn, 0);
+	mini_free(mini);
 }
 
 void	minishell(t_shell *mini)
@@ -109,5 +108,6 @@ void	minishell(t_shell *mini)
 			waitpid(-1, &mini->rtn, 0);
 		}
 	}
-	// free_cpa(mini);
+	listfree(mini->token);
+	listfree(tk);
 }
