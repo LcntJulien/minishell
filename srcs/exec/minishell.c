@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/10 09:09:20 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:38:59 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ t_token	*next_cmd(t_token *tk)
 
 void	exec(t_shell *mini, t_token *tk)
 {
-	char	*ret;
-
-	ret = NULL;
 	if (tk->type == BUILTIN)
 	{
 		if (!b_process(mini))
@@ -37,15 +34,6 @@ void	exec(t_shell *mini, t_token *tk)
 	{
 		mini->args = get_args(tk);
 		mini->cmd = get_cmd(mini);
-		//if (!mini->cmd[0])
-		//{
-			//ret = ft_strjoin(ft_strjoin("minishell: ", mini->token->s),
-				//": no such file or directory\n");
-			//ft_putendl_fd(ret, STDOUT_FILENO);
-			//free(ret);
-			//mini->rtn = 1;
-			//return ;
-		//}
 		execve(mini->cmd, mini->args, mini->env);
 		exit(EXIT_SUCCESS);
 	}

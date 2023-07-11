@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 14:36:56 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:30:38 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static char	**delete_var(t_shell *mini, int i)
 	len = tab_lines(mini->env) - 1;
 	new_env = ft_calloc(sizeof(char *), (len + 1));
 	if (!new_env)
-	{
-		ft_exit_plus(mini);
-		exit(1);
-	}
+		ft_exit_plus(mini, "Fail to allocate memory\n", 1);
 	len = -1;
 	while (mini->env[++len])
 	{

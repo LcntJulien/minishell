@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:00:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/06 15:08:10 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:56:29 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	printf("\n");
+	rl_redisplay();
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
 }
 
 void	define_signals(void)

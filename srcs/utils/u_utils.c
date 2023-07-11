@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 15:43:33 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:37:42 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*var_content(t_shell *mini, char *str)
 			i++;
 		s = ft_calloc(sizeof(char), (len - i + 1));
 		if (!s)
-			ft_exit_plus(mini);
+			ft_exit_plus(mini, "Fail to allocate memory\n", 1);
 		while (str[i] && i < len)
 		{
 			s[j] = str[i++];
@@ -80,7 +80,7 @@ char	*var_name(t_shell *mini, char *str)
 			i++;
 		s = ft_calloc(sizeof(char), (i + 1));
 		if (!s)
-			ft_exit_var(mini);
+			ft_exit_plus(mini, "Fail to allocate memory\n", 1);
 		while (str[j] && j < i)
 		{
 			s[j] = str[j];

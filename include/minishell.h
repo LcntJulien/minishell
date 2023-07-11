@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 14:02:18 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:13:47 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,14 @@ int					check_shlvl(t_shell *mini, char **env, int i);
 int					check_oldpwd(t_shell *mini, char **env, int i);
 
 /* u_exit */
-void				ft_exit_plus(t_shell *mini);
-void				ft_exit(t_shell *mini, int i);
+void				ft_exit(t_shell *mini, char *err, int rtn);
+void				ft_exit_plus(t_shell *mini, char *err, int rtn);
+void				ft_exit_all(t_shell *mini, int rtn);
 
 /*	u_free	*/
-void				free_tab(char **tab);
 void				free_str(char *tmp);
-void				ft_free(t_shell *mini);
+void				free_tab(char **tab);
+void				free_env(t_shell *mini);
 
 /* u_history */
 int					create_history(int *histo);

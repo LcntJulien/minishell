@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 14:17:58 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:17:07 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,7 @@ static void	modify_env(t_shell *mini, t_token *list, char *cur_dir)
 	list->s = NULL;
 	list->s = getcwd(NULL, 0);
 	if (!list->s)
-	{
-		ft_putstr_fd("No directory\n", STDOUT_FILENO);
-		ft_exit_plus(mini);
-		mini->rtn = -1;
-		exit(mini->rtn);
-	}
+		ft_exit_plus(mini, "No directory\n", 1);
 	modify_pwd(mini, list);
 }
 
