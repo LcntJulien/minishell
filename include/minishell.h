@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 14:14:15 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:12:57 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ BUILTIN
 */
 
 /* b_process */
-int					b_process(t_shell *mini);
+void				b_process(t_shell *mini);
 
 /* b_utils */
 int					tab_lines(char **tab);
