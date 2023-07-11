@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_create_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/06 16:40:59 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:20:57 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int	get_shlvl(char *str)
 
 static int	env_exceptions(t_shell *mini, char **env, int i)
 {
-	int		shlvl;
-	char	*str;
+	// int		shlvl;
+	// char	*str;
 	
-	shlvl = 0;
-	str = NULL;
+	// shlvl = 0;
+	// str = NULL;
 	if (check_oldpwd(mini, env, i))
 		return (1);
 	else if (check_shlvl(mini, env, i))	
