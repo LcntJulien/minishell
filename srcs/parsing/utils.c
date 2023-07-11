@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 14:18:34 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:34:29 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,22 @@ void	listfree(t_token *tk)
 	t_token	*tmp;
 
 	tmp = NULL;
-	while (tk->next != NULL)
-		tk = tk->next;
-	while (tk->prev != NULL)
+	if (tk)
 	{
-		tmp = tk->prev;
+		while (tk && tk->next != NULL)
+			tk = tk->next;
+		while (tk && tk->prev != NULL)
+		{
+			tmp = tk->prev;
+			free(tk->s);
+			free(tk);
+			tk = NULL;
+			tk = tmp;
+		}
 		free(tk->s);
 		free(tk);
 		tk = NULL;
-		tk = tmp;
 	}
-	free(tk->s);
-	free(tk);
-	tk = NULL;
 }
 
 int	quote_state(char *line, int idx)

@@ -87,7 +87,7 @@ void	parse(t_shell *mini)
 	t_token	*token;
 	char	*line;
 
-	if (!mini->line[0])
+	if (!mini->line)
 		return ;
 	line = parse_line(mini);
 	mini->token = get_tokens(line);

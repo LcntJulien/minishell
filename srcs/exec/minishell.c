@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 15:23:34 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:31:28 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token	*next_cmd(t_token *tk)
 
 void	exec(t_shell *mini, t_token *tk)
 {
-	if (tk->type == BUILTIN)
+	if (tk && tk->type == BUILTIN)
 	{
 		b_process(mini);
 		exit(EXIT_SUCCESS);
@@ -97,7 +97,7 @@ void	minishell(t_shell *mini)
 		minipipe(mini, tk);
 	else
 	{
-		if (tk->type == BUILTIN)
+		if (tk && tk->type == BUILTIN)
 			b_process(mini);
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 15:25:10 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:29:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	startshell(t_shell *mini, char	**env, int *histo)
 {
 	mini->pid = 0;
 	mini->rtn = 0;
-	mini->exit = 0;
+	mini->exit = 1;
 	mini->ncmd = 0;
 	mini->cmd = NULL;
 	mini->args = NULL;
@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **env)
 	args(ac, av);
 	startshell(&mini, env, &histo);
 	define_signals();
-	while (1)
+	while (mini.exit != 0)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		// if (!mini.line)
