@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 01:35:27 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:04:02 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int ac, char **av, char **env)
 			add_histo(mini.line, histo);
 		parse(&mini);
 		minishell(&mini);
+		listfree(mini.token);
 	}
-	listfree(mini.token);
 	return (0);
 }

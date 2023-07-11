@@ -100,7 +100,6 @@ void	parse(t_shell *mini)
 	}
 	token = mini->token;
 	parse_err(mini, token);
-	listfree(token);
 	free(line);
 	free(mini->line);
 }
