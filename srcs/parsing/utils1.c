@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/10 20:31:21 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:12:47 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	clean_tokens(t_token *tk)
 	while (cpy)
 	{
 		if ((cpy->type == VAR && valid_var(cpy)) || (cpy->type != ARG
-				&& cpy->type != VAR && !quote_state(cpy->s, ft_strlen(cpy->s)))
-			|| (cpy->type == ARG && is_quote(cpy)))
+				&& cpy->type != VAR && !quote_state(cpy->s, ft_strlen(cpy->s)
+					- 1)) || (cpy->type == ARG && is_quote(cpy) > 1))
 		{
 			s = ft_strdup(cpy->s);
 			free(cpy->s);
