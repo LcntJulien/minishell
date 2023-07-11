@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 14:15:36 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:47:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*get_cmd(t_shell *mini)
 		if (access(pathcmd, X_OK) == 0)
 			return (pathcmd);
 		free(pathcmd);
-		i++;
+		pathcmd = NULL;
 	}
 	if (access(mini->args[0], 0) == 0)
 		return (mini->args[0]);
