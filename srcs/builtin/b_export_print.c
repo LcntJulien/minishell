@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 14:14:58 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:22:55 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,13 @@ void	print_listed_env(t_shell *mini)
 	char	**exp;
 
 	lines = tab_lines(mini->env);
-	if (lines)
-	{
-		exp = ft_calloc((lines + 1), sizeof(char *));
-		if (!exp)
-			ft_exit(mini, 1);
-		copy_tab(mini, exp);
-		sort_in_tab(exp, lines);
-		print_export(mini, exp);
-		mini->rtn = 0;
-		free_tab(exp);
-	}
+	exp = ft_calloc((lines + 1), sizeof(char *));
+	if (!exp)
+		ft_exit_plus(mini, "No enough memory\n",1);
+	copy_tab(mini, exp);
+	sort_in_tab(exp, lines);
+	print_export(mini, exp);
+	mini->rtn = 0;
+	free_tab(exp);
 	mini->rtn = 0;
 }

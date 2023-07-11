@@ -29,6 +29,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXB)b_process.c		\
 		$(PFXB)b_utils.c		\
 		$(PFXB)b_cd.c			\
+		$(PFXB)b_cd_more.c		\
 		$(PFXB)b_cd_exce.c		\
 		$(PFXB)b_echo.c			\
 		$(PFXB)b_env.c			\

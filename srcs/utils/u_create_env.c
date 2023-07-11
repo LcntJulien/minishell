@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 14:20:57 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:35:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,12 @@ int	get_shlvl(char *str)
 	while (str[++start])
 		shlvl[i++] = str[start];
 	i = ft_atoi(shlvl);
-	free(shlvl);
-	shlvl = NULL;
+	free_str(shlvl);
 	return (i);	
 }
 
 static int	env_exceptions(t_shell *mini, char **env, int i)
 {
-	// int		shlvl;
-	// char	*str;
-	
-	// shlvl = 0;
-	// str = NULL;
 	if (check_oldpwd(mini, env, i))
 		return (1);
 	else if (check_shlvl(mini, env, i))	
@@ -77,7 +71,7 @@ static void	copy_env(t_shell *mini, char **env, int flag)
 		if (!env_exceptions(mini, env, i))
 			mini->env[i] = ft_strdup(env[i]);
 		if (!mini->env[i])
-			ft_exit_plus(mini, mini->token, 0);
+			ft_exit_plus(mini, "Fail to initiate environnement\n", 1);
 	}
 	if (flag == 0)
 		mini->env[i] = ft_strdup("OLDPWD");
@@ -89,7 +83,10 @@ void	alloc_env(t_shell *mini, char **env)
 	int		lines;
 
 	if (!env)
-		ft_exit(mini, 0);
+	{
+		perror("No previous environnement !\n");
+		exit(1);
+	}
 	flag = ft_oldpwd(env);
 	lines = tab_lines(env);
 	if (flag == 1)
@@ -97,6 +94,9 @@ void	alloc_env(t_shell *mini, char **env)
 	else
 		mini->env = ft_calloc((lines + 2), sizeof(char *));
 	if (!mini->env)
-		ft_exit(mini, 0);
+	{
+		perror("Not enough memory !\n");
+		exit(1);
+	}
 	copy_env(mini, env, flag);
 }

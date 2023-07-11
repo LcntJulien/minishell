@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/13 12:56:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:29:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sub_var_env(t_shell *mini, int lines, t_token *sub)
 			{
 				mini->env[i] = sub->s;
 				if (!mini->env[i])
-					ft_exit_plus(mini, sub, 0);
+					ft_exit_plus(mini, "Fail to modify the environnement\n", 1);
 			}
 		}
 		i++;
@@ -44,14 +44,13 @@ char	**add_var_env(t_shell *mini, int lines, t_token *new)
 	i = 0;
 	tmp = ft_calloc((lines + 1), sizeof(char *));
 	if (!tmp)
-		ft_exit_plus(mini, new, 0);
+		ft_exit_plus(mini, "Fail to allocate memory\n", 1);
 	while (mini->env[i])
 	{
 		tmp[i] = mini->env[i];
 		i++;
 	}
 	tmp[i] = ft_strdup(new->s);
-	if (!tmp[i])
-		ft_exit_plus(mini, new, 0);
+		ft_exit_plus(mini, "Fail to register a variable\n", 1);
 	return (tmp);
 }

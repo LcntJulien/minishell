@@ -84,15 +84,19 @@ int					max_len(int s1, int s2);
 int					check_nb_args(t_shell *mini, int i);
 
 /* b_cd */
-int					valid_path(t_shell *mini, char *tmp_path);
 void				b_cd(t_shell *mini, t_token *list);
+
+/* b_cd_more */
+char				*folder2(t_shell *mini, t_token *list);
+char				*folder1(t_shell *mini);
+int					valid_path(t_shell *mini, char *tmp_path);
 
 /* b_cd_exce */
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
 void				modify_pwd(t_shell *mini, t_token *list);
 void				modify_oldpwd(t_shell *mini, char *tmp_pwd, char **tmp);
 void				check_var_status(t_shell *mini, t_token *list,
-						char *tmp_path);
+						char *tmp_path, char *cur_dir);
 
 /* b_echo */
 void				b_echo(t_shell *mini, t_token *list);
@@ -142,13 +146,14 @@ int					check_shlvl(t_shell *mini, char **env, int i);
 int					check_oldpwd(t_shell *mini, char **env, int i);
 
 /* u_exit */
-void				ft_exit_plus(t_shell *mini, t_token *token, int i);
-void				ft_exit(t_shell *mini, int i);
+void				ft_exit(t_shell *mini, char *err, int rtn);
+void				ft_exit_plus(t_shell *mini, char *err, int rtn);
+void				ft_exit_all(t_shell *mini, int rtn);
 
 /*	u_free	*/
-void				free_tab(char **tab);
 void				free_str(char *tmp);
-void				ft_free(t_shell *mini);
+void				free_tab(char **tab);
+void				free_env(t_shell *mini);
 
 /* u_history */
 int					create_history(int *histo);

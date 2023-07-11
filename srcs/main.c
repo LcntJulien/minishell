@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 16:50:52 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:58:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	startshell(t_shell *mini, char	**env, int *histo)
 	alloc_env(mini, env);
 	mini->home = return_var_content(mini, "HOME");
 	if (!create_history(histo))
-		ft_exit_plus(mini, mini->token, 0);
+		ft_exit(mini, "Fail to create/iniate history\n", 1);
 }
 
 static void	args(int ac, char **av)
@@ -34,7 +34,7 @@ static void	args(int ac, char **av)
 	if (ac < 1 || ac > 1)
 	{
 		printf("Launch without any arguments\n");
-		exit(0);
+		exit(1);
 	}
 }
 
@@ -60,7 +60,5 @@ int	main(int ac, char **av, char **env)
 		}
 	}
 	close(histo);
-	ft_free(&mini);
-	exit(mini.rtn);
-	return (0);
+	ft_exit_all(&mini, 130);	
 }
