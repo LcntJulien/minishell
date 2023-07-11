@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:29:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/09 17:09:11 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/10 20:57:33 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	is_builtin(char *s)
 {
 	char	*tab[7];
-	char	*cpy;
 	int		i;
 
 	tab[0] = "echo";
@@ -25,13 +24,10 @@ int	is_builtin(char *s)
 	tab[4] = "unset";
 	tab[5] = "env";
 	tab[6] = "exit";
-	cpy = s;
 	i = 0;
-	if (s[0] == '\"' || s[0] == '\'')
-		cpy = ft_substr(s, 1, ft_strlen(cpy) - 2);
 	while (i <= 6)
 	{
-		if (ft_strncmp(tab[i], cpy, ft_strlen(cpy)) == 0)
+		if (ft_strncmp(tab[i], s, ft_strlen(s)) == 0)
 			return (1);
 		i++;
 	}
