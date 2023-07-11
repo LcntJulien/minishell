@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/27 14:33:33 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:17:58 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	modify_oldpwd(t_shell *mini, char *tmp_pwd, char **tmp)
 	mini->env[i] = ft_strjoin("OLDPWD=", tmp_pwd);
 }
 
-static void	modify_env(t_shell *mini, t_token *list, char *tmp_pwd)
+static void	modify_env(t_shell *mini, t_token *list, char *cur_dir)
 {
 	int		i;
 	char	*tmp;
@@ -61,7 +61,7 @@ static void	modify_env(t_shell *mini, t_token *list, char *tmp_pwd)
 	i = existing_var(mini, "OLDPWD");
 	if (i != -1)
 	{
-		modify_oldpwd(mini, tmp_pwd, &tmp);
+		modify_oldpwd(mini, cur_dir, &tmp);
 		if (list->s[0] == '-' && list->s[1] == 0)
 		{
 			modify_pwd_and_tmp(mini, tmp);
@@ -71,29 +71,31 @@ static void	modify_env(t_shell *mini, t_token *list, char *tmp_pwd)
 	free(list->s);
 	list->s = NULL;
 	list->s = getcwd(NULL, 0);
+	if (!list->s)
+	{
+		ft_putstr_fd("No directory\n", STDOUT_FILENO);
+		ft_exit_plus(mini);
+		mini->rtn = -1;
+		exit(mini->rtn);
+	}
 	modify_pwd(mini, list);
 }
 
-void	check_var_status(t_shell *mini, t_token *list, char *tmp_path)
+void	check_var_status(t_shell *mini, t_token *list, char *tmp_path,
+	char *cur_dir)
 {
-	char	*tmp_pwd;
-
-	tmp_pwd = getcwd(NULL, 0);
 	if ((existing_var(mini, "PWD")) == -1)
 	{
 		if (!valid_path(mini, tmp_path))
 		{
-			free(tmp_pwd);
+			free_str(cur_dir);
 			return ;
 		}
 	}
 	else
 		if (!valid_path(mini, tmp_path))
 			return ;
-	modify_env(mini, list, tmp_pwd);
-	if (tmp_pwd)
-	{
-		free(tmp_pwd);
-		tmp_pwd = NULL;
-	}
+	modify_env(mini, list, cur_dir);
+	if (cur_dir)
+		free_str(cur_dir);
 }

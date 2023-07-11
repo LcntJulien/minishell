@@ -6,29 +6,39 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/10 15:17:44 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:43:49 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_exit_plus(t_shell *mini, t_token *token, int i)
+void	ft_exit_var(t_shell *mini)
 {
-	int	j;
+	int	i;
 
-	j = -1;
-	if (i == 0)
-	{
-		while (token->s)
-		{
-			free(token->s);
-			token = token->next;
-		}
-		while (mini->env[++j])
-			free(mini->env[j]);
-		free(mini->env);
-		exit(1);
-	}
+	i = -1;
+	listfree(mini->token);
+	while (mini->env[++i])
+		free(mini->env[i]);
+	free(mini->env);
+	free_str(mini->home);
+	free_tab(mini->args);
+	free_tab(mini->paths);
+	
+}
+
+void	ft_exit_plus(t_shell *mini)
+{
+	int	i;
+
+	i = -1;
+	listfree(mini->token);
+	while (mini->env[++i])
+		free(mini->env[i]);
+	free(mini->env);
+	free_str(mini->home);
+	free_tab(mini->args);
+	free_tab(mini->paths);
 }
 
 void	ft_exit(t_shell *mini, int i)

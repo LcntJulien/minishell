@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/10 13:05:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:43:33 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*var_content(t_shell *mini, char *str)
 
 	i = 0;
 	j = 0;
-	if (*str)
+	if (str)
 	{
 		len = ft_strlen(str);
 		while (str[i] && str[i] != '=')
@@ -30,7 +30,7 @@ char	*var_content(t_shell *mini, char *str)
 			i++;
 		s = ft_calloc(sizeof(char), (len - i + 1));
 		if (!s)
-			ft_exit_plus(mini, mini->token, 0);
+			ft_exit_plus(mini);
 		while (str[i] && i < len)
 		{
 			s[j] = str[i++];
@@ -74,13 +74,13 @@ char	*var_name(t_shell *mini, char *str)
 
 	i = 0;
 	j = 0;
-	if (*str)
+	if (str)
 	{
 		while (str[i] && str[i] != '=')
 			i++;
 		s = ft_calloc(sizeof(char), (i + 1));
 		if (!s)
-			ft_exit_plus(mini, mini->token, 0);
+			ft_exit_var(mini);
 		while (str[j] && j < i)
 		{
 			s[j] = str[j];

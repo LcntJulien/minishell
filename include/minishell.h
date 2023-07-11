@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/10 09:09:47 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:02:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,19 @@ int					max_len(int s1, int s2);
 int					check_nb_args(t_shell *mini, int i);
 
 /* b_cd */
-int					valid_path(t_shell *mini, char *tmp_path);
 void				b_cd(t_shell *mini, t_token *list);
+
+/* b_cd_more */
+char				*folder2(t_shell *mini, t_token *list);
+char				*folder1(t_shell *mini);
+int					valid_path(t_shell *mini, char *tmp_path);
 
 /* b_cd_exce */
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
 void				modify_pwd(t_shell *mini, t_token *list);
 void				modify_oldpwd(t_shell *mini, char *tmp_pwd, char **tmp);
 void				check_var_status(t_shell *mini, t_token *list,
-						char *tmp_path);
+						char *tmp_path, char *cur_dir);
 
 /* b_echo */
 void				b_echo(t_shell *mini, t_token *list);
@@ -141,7 +145,7 @@ int					check_shlvl(t_shell *mini, char **env, int i);
 int					check_oldpwd(t_shell *mini, char **env, int i);
 
 /* u_exit */
-void				ft_exit_plus(t_shell *mini, t_token *token, int i);
+void				ft_exit_plus(t_shell *mini);
 void				ft_exit(t_shell *mini, int i);
 
 /*	u_free	*/

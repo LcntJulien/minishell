@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:25:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/06 16:39:44 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:38:40 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	check_shlvl(t_shell *mini, char **env, int i)
 	{
 		shlvl = get_shlvl(env[i]) + 1;
 		if (shlvl == -1 || shlvl == 0)
-			ft_exit_plus(mini, mini->token, 0);
+		{
+			ft_exit_plus(mini);
+			exit(1);
+		}
 		str = ft_itoa(shlvl);
 		mini->env[i] = ft_strjoin("SHLVL=", str);
 		free_str(str);

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/10 14:39:52 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:17:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,4 @@ void	ft_free(t_shell *mini)
 	while (mini->env[++i])
 		free(mini->env[i]);
 	free(mini->env);
-	listfree(mini->token);
 }

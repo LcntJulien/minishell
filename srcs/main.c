@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/10 14:25:36 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:16:51 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ static void	startshell(t_shell *mini, char	**env, int *histo)
 	alloc_env(mini, env);
 	mini->home = return_var_content(mini, "HOME");
 	if (!create_history(histo))
-		ft_exit_plus(mini, mini->token, 0);
+	{
+		mini->rtn = 1;
+		ft_exit_plus(mini);
+		exit (mini->rtn);
+	}
 }
 
 static void	args(int ac, char **av)
