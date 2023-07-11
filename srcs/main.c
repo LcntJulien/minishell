@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 15:24:24 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:25:10 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
-		if (!mini.line)
-			break ;
-		if (mini.line[0])
-		{
+		// if (!mini.line)
+		// 	break ;
+		if (mini.line)
 			add_histo(mini.line, histo);
 		parse(&mini);
 		minishell(&mini);
