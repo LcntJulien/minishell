@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/09 16:56:28 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 01:11:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ typedef struct s_shell
 	t_token			*token;
 	pid_t			*pid;
 	char			**env;
-	char			**args;
 	char			**paths;
+	char			**args;
 	char			*line;
 	char			*cmd;
 	char			*home;
+	int				**tab;
 	int				ncmd;
 	int				rtn;
 	int				exit;
@@ -189,6 +190,7 @@ EXEC
 void				minishell(t_shell *mini);
 
 /* utils.c */
+void				pipe_alloc(t_shell *mini);
 void				get_paths(t_shell *mini);
 char				**get_args(t_token *tk);
 char				*get_cmd(t_shell *mini);
@@ -196,8 +198,8 @@ int					nb_cmd(t_shell *mini);
 
 /* mem.c */
 void				mini_alloc(t_shell *mini, int ncmd);
-void				free_cpa(t_shell *mini);
-void				close_pipes(t_shell *mini, int tab[][2], int i, int sw);
+void				mini_free(t_shell *mini);
+void				close_pipes(t_shell *mini, int i, int sw);
 
 /* redir.c */
 int					is_redir(t_token *tk);
