@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/09 18:30:34 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/10 20:31:21 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,5 @@ void	clean_tokens(t_token *tk)
 		}
 		cpy = cpy->next;
 	}
+	free(cpy);
 }
