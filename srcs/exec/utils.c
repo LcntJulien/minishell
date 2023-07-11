@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 16:28:51 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:39:55 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,22 @@ void	pipe_alloc(t_shell *mini)
 void	get_paths(t_shell *mini)
 {
 	int		i;
- 	char	*paths;
+	char	*paths;
 
- 	i = 0;
- 	paths = NULL;
- 	while (mini->env[i])
- 	{
- 		if (!ft_strncmp("PATH=", mini->env[i], 5))
- 		{
- 			paths = ft_substr(mini->env[i], 5, 200);
- 			break ;
- 		}
- 		i++;
- 	}
- 	mini->paths = custom_split(paths, ':', 1);
- 	free(paths);
- }
+	i = 0;
+	paths = NULL;
+	while (mini->env[i])
+	{
+		if (!ft_strncmp("PATH=", mini->env[i], 5))
+		{
+			paths = ft_substr(mini->env[i], 5, 200);
+			break ;
+		}
+		i++;
+	}
+	mini->paths = custom_split(paths, ':', 1);
+	free(paths);
+}
 
 char	**get_args(t_token *tk)
 {

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 01:39:16 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:41:31 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,13 @@ void	close_pipes(t_shell *mini, int i, int sw)
 
 void	mini_free(t_shell *mini)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < mini->ncmd)
 		free(mini->tab[i++]);
 	free(mini->tab);
 	i = 0;
-	// while (i < mini->ncmd)
-	// 	free(mini->pid[i++]);
 	free(mini->pid);
 	i = 0;
 	while (mini->paths[i])
@@ -68,9 +66,9 @@ void	mini_free(t_shell *mini)
 	i = 0;
 	if (mini->args)
 	{
-	while (mini->args[i])
-		free(mini->args[i++]);
-	free(mini->args);
+		while (mini->args[i])
+			free(mini->args[i++]);
+		free(mini->args);
 	}
 	if (mini->cmd)
 		free(mini->cmd);
