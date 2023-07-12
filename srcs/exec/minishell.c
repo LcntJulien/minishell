@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/12 17:03:12 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:28:16 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,13 @@ void	minishell(t_shell *mini)
 			b_process(mini);
 		else
 		{
-			define_signal = TRUE;
+			define_signal = FALSE;
 			pid = fork();
 			if (pid < 0)
 				err_manager();
 			else if (pid == 0)
 				exec(mini, tk);
 			waitpid(-1, &mini->rtn, 0);
-			define_signal = FALSE;
 		}
 	}
 }

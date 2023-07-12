@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/12 18:00:21 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:28:51 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	startshell(t_shell *mini, char	**env, int *histo)
 	mini->home = return_var_content(mini, "HOME");
 	if (!create_history(histo))
 		ft_exit(mini, "Fail to create/iniate history\n", 1);
-	define_signal = FALSE;
+	rl_catch_signals = 0;
 }
 
 static void	args(int ac, char **av)
@@ -44,13 +44,13 @@ int	main(int ac, char **av, char **env)
 	t_shell	mini;
 	int		histo;
 
-	rl_catch_signals = 0;
 	args(ac, av);
 	startshell(&mini, env, &histo);
 	define_signals();
 	while (mini.exit != 0)
 	{
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
+		define_signal = TRUE;
 		if (!mini.line)
 			break ;
 		if (mini.line[0])
