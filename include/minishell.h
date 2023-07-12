@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 15:12:57 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:49:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+
+bool	define_signal;
 
 typedef struct s_token
 {
@@ -112,7 +114,7 @@ char				**renew_env(t_shell *mini, int lines, t_token *tmp);
 void				b_env(t_shell *mini);
 
 /* exit */
-void				b_exit(t_shell *mini);
+void				b_exit(t_shell *mini, t_token *list);
 
 /*	b_export	*/
 int					check_existing_args(t_shell *mini, char *s);
