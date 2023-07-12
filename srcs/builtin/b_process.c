@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_process.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:53:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 15:20:03 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:05:23 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	b_process(t_shell *mini)
 	t_token	*list;
 
 	list = mini->token;
+	define_signal = TRUE;
 	if (mini->token && !ft_strncmp(mini->token->s, "echo", 4))
 		b_echo(mini, list);
 	else if (mini->token && !ft_strncmp(mini->token->s, "cd", 2))
@@ -30,6 +31,7 @@ void	b_process(t_shell *mini)
 	else if (mini->token && !ft_strncmp(mini->token->s, "env", 3))
 		b_env(mini);
 	else if (mini->token && !ft_strncmp(mini->token->s, "exit", 4))
-		b_exit(mini);
+		b_exit(mini, list);
+	define_signal = FALSE;
 	return ;
 }

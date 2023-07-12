@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 22:44:23 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:49:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+
+bool	define_signal;
 
 typedef struct s_token
 {
