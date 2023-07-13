@@ -12,25 +12,15 @@
 
 #include "../../include/minishell.h"
 
-void	parse_err_msg(t_shell *mini, t_token *tk, int status)
+void	parse_err(t_shell *mini)
 {
-	char	*msg;
+	t_token	*tk;
 
-	msg = "; syntax error near unexpected token";
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(tk->s, 2);
-	ft_putendl_fd(msg, 2);
-	mini->rtn = status;
-	free(mini->line);
-	exit(status);
-}
-
-void	parse_err(t_shell *mini, t_token *tk)
-{
+	tk = mini->token;
 	while (tk)
 	{
 		if (tk->type == PIPE && !tk->next)
-			return (parse_err_msg(mini, tk, 2));
+			err_manager(mini, tk, 3);
 		tk = tk->next;
 	}
 }
@@ -79,6 +69,7 @@ char	*parse_line(t_shell *mini)
 		else
 			nl[j++] = mini->line[i++];
 	}
+	nl[j] = '\0';
 	return (nl);
 }
 
@@ -101,7 +92,6 @@ void	parse(t_shell *mini)
 			post_tk_type(token, mini);
 		token = token->next;
 	}
-	parse_err(mini, token);
 	free(line);
-	free(mini->line);
+	parse_err(mini);
 }

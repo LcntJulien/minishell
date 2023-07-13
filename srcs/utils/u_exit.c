@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 21:19:05 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:29:11 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_exit(t_shell *mini, int i)
 	j = -1;
 	if (i == 0)
 	{
-		ft_putstr_fd("Environnement cannot be loaded !\n", STDOUT_FILENO);
+		ft_putstr_fd("Environnement cannot be loaded !\n", 2);
 		exit(1);
 	}
 	if (i == 1 || i == 2 || i == 3)

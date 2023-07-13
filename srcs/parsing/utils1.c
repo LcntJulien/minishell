@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 21:12:47 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:37:58 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	valid_var(t_token *tk)
 	i = 0;
 	while (tk->s[++i])
 		if (tk->s[i] == '\'')
-			r--;
+			return (0);
 	return (r);
 }
 
