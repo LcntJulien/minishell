@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/12 18:00:21 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:47:40 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 static void	startshell(t_shell *mini, char	**env, int *histo)
 {
+	mini->exit = 0;
 	mini->pid = 0;
 	mini->rtn = 0;
-	mini->exit = 1;
 	mini->ncmd = 0;
 	mini->cmd = NULL;
 	mini->args = NULL;
 	mini->paths = NULL;
 	mini->line = NULL;
+	mini->tab = NULL;
 	alloc_env(mini, env);
 	mini->home = return_var_content(mini, "HOME");
 	if (!create_history(histo))
@@ -48,8 +49,9 @@ int	main(int ac, char **av, char **env)
 	args(ac, av);
 	startshell(&mini, env, &histo);
 	define_signals();
-	while (mini.exit != 0)
+	while (!mini.exit)
 	{
+		mini_free(&mini);
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		if (!mini.line)
 			break ;
@@ -58,7 +60,7 @@ int	main(int ac, char **av, char **env)
 			add_histo(mini.line, histo);
 			parse(&mini);
 			minishell(&mini);
-			listfree(mini.token);
+			// mini_free(&mini);
 		}
 	}
 	close(histo);

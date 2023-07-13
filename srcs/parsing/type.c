@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:29:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/10 20:57:33 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:16:29 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	post_tk_type(t_token *tk, t_shell *mini)
 			|| tk->s[0] == '-')
 			tk->type = OPTION;
 	}
-	if (tk->type == VAR)
+	if (tk->type == VAR && !valid_var(tk))
 		convert_var(tk, mini);
 }
 

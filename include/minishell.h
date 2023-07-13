@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/12 16:49:17 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:46:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,6 @@ char				*get_cmd(t_shell *mini);
 int					nb_cmd(t_shell *mini);
 
 /* mem.c */
-void				mini_alloc(t_shell *mini, int ncmd);
 void				mini_free(t_shell *mini);
 void				close_pipes(t_shell *mini, int i, int sw);
 
@@ -228,6 +227,6 @@ void				close_pipes(t_shell *mini, int i, int sw);
 int					is_redir(t_token *tk);
 
 /* error.c */
-void				err_manager(void);
+void				err_manager(t_shell *mini, t_token *tk, int err);
 
 #endif

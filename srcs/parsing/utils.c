@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 16:34:29 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:12:08 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 int	is_quote(t_token *tk)
 {
 	int	i;
+	int	r;
 
 	i = -1;
+	r = 0;
 	while (tk->s[++i])
 		if (tk->s[i] == '\'' || tk->s[i] == '\"')
-			return (1);
-	return (0);
+			r++;
+	return (r);
 }
 
 void	space(char *line, int *i)
@@ -60,11 +62,9 @@ int	quote_state(char *line, int idx)
 
 	i = 0;
 	quote = 0;
-	while (line[i] && i < idx)
+	while (line[i] && i <= idx)
 	{
-		if (i > 0 && line[i - 1] == '\\')
-			;
-		else if (quote == 0 && line[i] == '\'')
+		if (quote == 0 && line[i] == '\'')
 			quote = 1;
 		else if (quote == 0 && line[i] == '\"')
 			quote = 2;
