@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/12 20:28:16 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:00:33 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 	while (i < mini->ncmd)
 	{
 		mini->pid[i] = fork();
+		printf("PID = %d\n", getpid());
 		if (mini->pid[i] < 0)
 			err_manager();
 		if (mini->pid[i] == 0)
@@ -100,13 +101,12 @@ void	minishell(t_shell *mini)
 			b_process(mini);
 		else
 		{
-			define_signal = FALSE;
 			pid = fork();
 			if (pid < 0)
 				err_manager();
 			else if (pid == 0)
 				exec(mini, tk);
-			waitpid(-1, &mini->rtn, 0);
+			waitpid(0, &mini->rtn, 0);
 		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mem.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 16:41:31 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:36:39 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,21 @@ void	mini_free(t_shell *mini)
 	int	i;
 
 	i = 0;
-	while (i < mini->ncmd)
-		free(mini->tab[i++]);
-	free(mini->tab);
+	if (mini->tab)
+	{
+		while (i < mini->ncmd)
+			free(mini->tab[i++]);
+		free(mini->tab);
+	}
 	i = 0;
 	free(mini->pid);
 	i = 0;
-	while (mini->paths[i])
-		free(mini->paths[i++]);
-	free(mini->paths);
+	if (mini->tab)
+	{
+		while (mini->paths[i])
+			free(mini->paths[i++]);
+		free(mini->paths);
+	}
 	i = 0;
 	if (mini->args)
 	{

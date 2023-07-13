@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/12 19:46:30 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:16:41 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@
 # include <termios.h>
 # include <unistd.h>
 
-bool	define_signal;
-
 typedef struct s_token
 {
 	char			*s;
@@ -60,6 +58,8 @@ typedef struct s_shell
 {
 	t_token			*token;
 	pid_t			*pid;
+	pid_t			ppid;
+	pid_t			cur_pid;
 	char			**env;
 	char			**paths;
 	char			**args;
@@ -163,6 +163,11 @@ void				add_histo(char *str, int histo);
 
 /* u_signal*/
 void				define_signals(void);
+
+/* u_signal_more*/
+void				sigint_0_handler(void);
+void				sigint_1_handler(void);
+void				sigint_2_handler(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);
