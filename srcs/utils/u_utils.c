@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 18:37:42 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:35:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*var_content(t_shell *mini, char *str)
 		len = ft_strlen(str);
 		while (str[i] && str[i] != '=')
 			i++;
-		if (str[i] == '=')
+		if (str[i])
 			i++;
 		s = ft_calloc(sizeof(char), (len - i + 1));
 		if (!s)
@@ -51,18 +51,18 @@ char	*return_var_content(t_shell *mini, char *var)
 	while (mini->env[++i])
 	{
 		tmp = var_name(mini, mini->env[i]);
-		len = ft_strlen(tmp);
-		if (ft_strncmp(tmp, var, len) == 0)
+		if (tmp)
 		{
-			free(tmp);
-			tmp = NULL;
-			return (var_content(mini, mini->env[i]));
+			len = ft_strlen(tmp);
+			if (ft_strncmp(tmp, var, len) == 0)
+			{
+				free_str(tmp);
+				return (var_content(mini, mini->env[i]));
+			}	
+			free_str(tmp);
 		}
-		free(tmp);
-		tmp = NULL;
 	}
-	free(tmp);
-	tmp = NULL;
+	free_str(tmp);
 	return (NULL);
 }
 
@@ -104,11 +104,9 @@ char	*return_var_name(t_shell *mini, char *var)
 		len = ft_strlen(tmp);
 		if (ft_strncmp(tmp, var, len) == 0)
 			return (tmp);
-		free(tmp);
-		tmp = NULL;
+		free_str(tmp);
 	}
-	free(tmp);
-	tmp = NULL;
+	free_str(tmp);
 	return (NULL);
 }
 
@@ -122,15 +120,18 @@ int	existing_var(t_shell *mini, char *var)
 	while (mini->env[++i])
 	{
 		tmp = var_name(mini, mini->env[i]);
-		len = ft_strlen(tmp);
-		if (ft_strncmp(tmp, var, len) == 0)
+		if (tmp)
 		{
+			len = ft_strlen(tmp);
+			if (ft_strncmp(tmp, var, len) == 0)
+			{
+				free(tmp);
+				tmp = NULL;
+				return (i);
+			}
 			free(tmp);
 			tmp = NULL;
-			return (i);
 		}
-		free(tmp);
-		tmp = NULL;
 	}
 	return (-1);
 }

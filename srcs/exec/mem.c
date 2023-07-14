@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mem.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/12 16:49:19 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:29:25 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,3 +97,34 @@ void	close_pipes(t_shell *mini, int i, int sw)
 		}
 	}
 }
+
+void	mini_free(t_shell *mini)
+{
+	int	i;
+
+	i = 0;
+	if (mini->tab)
+	{
+		while (i < mini->ncmd)
+			free(mini->tab[i++]);
+		free(mini->tab);
+	}
+	free(mini->pid);
+	i = 0;
+	if (mini->tab)
+	{
+		while (mini->paths[i])
+			free(mini->paths[i++]);
+		free(mini->paths);
+	}
+	i = 0;
+	if (mini->args)
+	{
+		while (mini->args[i])
+			free(mini->args[i++]);
+		free(mini->args);
+	}
+	if (mini->cmd)
+		free(mini->cmd);
+}
+

@@ -1,48 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_free.c                                           :+:      :+:    :+:   */
+/*   u_signals_more.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 18:41:34 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/07/13 10:01:41 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/07/13 10:47:30 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
-void	free_str(char *tmp)
+void	sigint_0_handler(void)
 {
-	if (tmp)
-	{
-		free(tmp);
-		tmp = NULL;
-	}
-}
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = -1;
-	if (tab)
-	{
-		while (tab[++i])
-			free_str(tab[i]);
-		free(tab);
-	}
-}
-
-void	free_env(t_shell *mini)
-{
-	int	i;
-
-	i = -1;
-	while (mini->env[++i])
-	{
-		free(mini->env[i]);
-		mini->env[i] = NULL;
-	}
-	free(mini->env);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 }

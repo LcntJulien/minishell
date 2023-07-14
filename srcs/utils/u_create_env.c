@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_create_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 18:35:54 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:29:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ static void	copy_env(t_shell *mini, char **env, int flag)
 	while (env[++i])
 	{
 		if (!env_exceptions(mini, env, i))
+		{
 			mini->env[i] = ft_strdup(env[i]);
-		if (!mini->env[i])
-			ft_exit_plus(mini, "Fail to initiate environnement\n", 1);
+			if (!mini->env[i])
+				ft_exit_plus(mini, "Fail to initiate environnement\n", 1);
+		}
 	}
 	if (flag == 0)
 		mini->env[i] = ft_strdup("OLDPWD");
@@ -84,7 +86,7 @@ void	alloc_env(t_shell *mini, char **env)
 
 	if (!env)
 	{
-		perror("No previous environnement !\n");
+		perror("Fail to load previous environnement\n");
 		exit(1);
 	}
 	flag = ft_oldpwd(env);
@@ -95,7 +97,7 @@ void	alloc_env(t_shell *mini, char **env)
 		mini->env = ft_calloc((lines + 2), sizeof(char *));
 	if (!mini->env)
 	{
-		perror("Not enough memory !\n");
+		perror("Fail to allocate memory !\n");
 		exit(1);
 	}
 	copy_env(mini, env, flag);

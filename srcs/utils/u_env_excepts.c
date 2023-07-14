@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:25:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 18:36:47 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:37:26 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ int	check_last(t_shell *mini, char **env, int i)
 	lstr = NULL;
 	if (!ft_strncmp(env[i], "_=", 2))
 	{
-		fstr = getcwd(NULL, 0);
-		lstr = ft_strjoin(fstr, "/minishell");
-		mini->env[i] = ft_strjoin("_=", lstr);
-		free_str(fstr);
-		free_str(lstr);
+		//fstr = getcwd(NULL, 0);
+		//lstr = ft_strjoin(fstr, "/minishell");
+		//mini->env[i] = ft_strjoin("_=", lstr);
+		mini->env[i] = ft_strdup("_=/usr/bin/env");
+		//free_str(fstr);
+		//free_str(lstr);
 		return (1);
 	}
 	return (0);

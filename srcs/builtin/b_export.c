@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/09 17:16:09 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:59:44 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,34 @@ static int	alpha_num_underscore(char *s)
 	return (0);
 }
 
+static void	not_a_variable(t_shell *mini, t_token * list)
+{
+	mini->rtn = 1;
+	ft_putstr_fd("minishell: export: ", STDOUT_FILENO);
+	ft_putstr_fd(list->s, STDOUT_FILENO);
+	ft_putstr_fd(": Not a valid identifier\n", STDOUT_FILENO);
+}
+
 void	b_export_args(t_shell *mini, t_token *list, int nb_args)
 {
 	int		lines;
+	char	*var;
 
 	while (nb_args > 0)
 	{
 		lines = tab_lines(mini->env);
+		var = var_name(mini, list->s);
 		if (!alpha_num_underscore(list->s))
-		{
-			mini->rtn = 1;
-			ft_putstr_fd(ft_strjoin(ft_strjoin("minishell: export: ", list->s),
-					": Not a valid identifier\n"), STDOUT_FILENO);
-		}
+			not_a_variable(mini, list);
 		else if (alpha_num_underscore(list->s) == 2)
-		{
-			mini->rtn = 0;
-			break ;
-		}
-		else if (existing_var(mini, var_name(mini, list->s)) == -1)
+			continue ;
+		else if (existing_var(mini, var) == -1)
 			mini->env = add_var_env(mini, lines + 1, list);
 		else
 			sub_var_env(mini, lines, list);
 		list = list->next;
 		nb_args--;
+		free_str(var);
 	}
 }
 

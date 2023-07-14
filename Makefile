@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/07/11 14:14:34 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/07/13 13:04:35 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,8 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXE)minishell.c		\
 		$(PFXU)u_history.c		\
 		$(PFXU)u_free.c			\
-		$(PFXU)u_signals.c		
+		$(PFXU)u_signals.c		\
+		$(PFXU)u_signals_more.c		
 
 		
 NAME	= minishell
