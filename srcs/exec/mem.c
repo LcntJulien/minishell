@@ -12,15 +12,64 @@
 
 #include "../../include/minishell.h"
 
-// void	mini_alloc(t_shell *mini, int ncmd)
-// {
-// 	mini->tab = malloc(sizeof(int *) * ncmd);
-// 	if (!mini->tab)
-// 		err_manager();
-// 	mini->pid = malloc(sizeof(pid_t) * ncmd);
-// 	if (!mini->pid)
-// 		err_manager();
-// }
+void	free_args(t_shell *mini)
+{
+	int	i;
+
+	i = 0;
+	if (mini->args)
+	{
+		while (mini->args[i])
+			free(mini->args[i++]);
+		free(mini->args);
+		mini->args = NULL;
+	}
+}
+
+void	free_pipe(t_shell *mini)
+{
+	int	i;
+
+	i = 0;
+	if (mini->tab)
+	{
+		while (i < mini->ncmd)
+			free(mini->tab[i++]);
+		free(mini->tab);
+		mini->tab = NULL;
+	}
+}
+
+void	free_paths(t_shell *mini)
+{
+	int	i;
+
+	i = 0;
+	if (mini->paths)
+	{
+		while (mini->paths[i])
+			free(mini->paths[i++]);
+		free(mini->paths);
+		mini->paths = NULL;
+	}
+}
+
+void	mini_free(t_shell *mini)
+{
+	free_pipe(mini);
+	free_paths(mini);
+	free_args(mini);
+	if (mini->pid)
+		free(mini->pid);
+	mini->pid = NULL;
+	if (mini->cmd)
+		free(mini->cmd);
+	mini->cmd = NULL;
+	if (mini->line)
+		free(mini->line);
+	mini->line = NULL;
+	listfree(mini->token);
+}
 
 void	close_pipes(t_shell *mini, int i, int sw)
 {
@@ -78,3 +127,4 @@ void	mini_free(t_shell *mini)
 	if (mini->cmd)
 		free(mini->cmd);
 }
+

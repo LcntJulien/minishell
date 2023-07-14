@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
 /*   Updated: 2023/07/14 17:43:06 by jmathieu         ###   ########.fr       */
@@ -33,7 +33,7 @@ void	exec(t_shell *mini, t_token *tk)
 		mini->args = get_args(tk);
 		mini->cmd = get_cmd(mini);
 		if (!mini->cmd)
-			err_manager();
+			err_manager(mini, tk, 0);
 		execve(mini->cmd, mini->args, mini->env);
 		exit(EXIT_SUCCESS);
 	}
@@ -65,13 +65,13 @@ void	minipipe(t_shell *mini, t_token *tk)
 	pipe_alloc(mini);
 	while (i < mini->ncmd)
 		if (pipe(mini->tab[i++]) < 0)
-			err_manager();
+			err_manager(mini, tk, 1);
 	i = 0;
 	while (i < mini->ncmd)
 	{
 		mini->pid[i] = fork();
 		if (mini->pid[i] < 0)
-			err_manager();
+			err_manager(mini, tk, 2);
 		if (mini->pid[i] == 0)
 			child(mini, tk, i);
 		tk = next_cmd(tk);
@@ -81,7 +81,6 @@ void	minipipe(t_shell *mini, t_token *tk)
 	close_pipes(mini, i, 0);
 	while (i < mini->ncmd)
 		waitpid(mini->pid[i++], &mini->rtn, 0);
-	mini_free(mini);
 }
 
 void	minishell(t_shell *mini)
@@ -102,7 +101,7 @@ void	minishell(t_shell *mini)
 		{
 			pid = fork();
 			if (pid < 0)
-				err_manager();
+				err_manager(mini, tk, 2);
 			else if (pid == 0)
 				exec(mini, tk);
 			waitpid(0, &mini->rtn, 0);

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
 /*   Updated: 2023/07/14 18:17:05 by jmathieu         ###   ########.fr       */
@@ -14,6 +14,7 @@
 
 static void	startshell(t_shell *mini, char	**env, int *histo)
 {
+	mini->exit = 0;
 	mini->pid = 0;
 	mini->rtn = 0;
 	mini->ncmd = 0;
@@ -22,6 +23,7 @@ static void	startshell(t_shell *mini, char	**env, int *histo)
 	mini->args = NULL;
 	mini->paths = NULL;
 	mini->line = NULL;
+	mini->tab = NULL;
 	alloc_env(mini, env);
 	//if (existing_var(mini, "HOME") != -1)
 	mini->home = return_var_content(mini, "HOME");
