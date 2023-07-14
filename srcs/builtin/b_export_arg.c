@@ -6,34 +6,49 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 18:57:30 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:36:06 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static void	sub_var_env_next(t_shell *mini, int i, t_token *sub, char *s1)
+{
+	mini->env[i] = sub->s;
+	if (!mini->env[i])
+	{
+		free_str(s1);
+		ft_exit_plus(mini, "Fail to modify the environnement\n", 1);
+	}
+}
+
 void	sub_var_env(t_shell *mini, int lines, t_token *sub)
 {
 	int		i;
+	char	*s1;
+	char	*s2;
 
 	i = 0;
+	s1 = var_name(mini, sub->s);
 	while (i < lines)
 	{
-		if (!ft_strncmp(var_name(mini, mini->env[i]),
-				var_name(mini, sub->s), ft_strlen(sub->s)))
+		s2 = var_name(mini, mini->env[i]);
+		if (!ft_strncmp(s1, s2, ft_strlen(s1)))
 		{
 			if ((is_there_an_equal(mini->env[i])
 					&& is_there_an_equal(sub->s))
 				|| (!is_there_an_equal(mini->env[i])
 					&& is_there_an_equal(sub->s)))
 			{
-				mini->env[i] = sub->s;
-				if (!mini->env[i])
-					ft_exit_plus(mini, "Fail to modify the environnement\n", 1);
+				free_str(s2);
+				sub_var_env_next(mini, i, sub, s1);
 			}
 		}
+		if (s2)
+			free_str(s2);
 		i++;
 	}
+	free_str(s1);
 }
 
 char	**add_var_env(t_shell *mini, int lines, t_token *new)
