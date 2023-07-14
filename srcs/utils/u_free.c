@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_free.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 18:13:36 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:41:34 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ void	free_tab(char **tab)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (tab)
 	{
-		while (tab[i])
-		{
-			free(tab[i]);
-			tab[i] = NULL;
-		}
+		while (tab[++i])
+			free_str(tab[i]);
 		free(tab);
 	}
 }

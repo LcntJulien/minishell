@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export_print.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 18:22:55 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:40:11 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	print_listed_env(t_shell *mini)
 	copy_tab(mini, exp);
 	sort_in_tab(exp, lines);
 	print_export(mini, exp);
-	mini->rtn = 0;
 	free_tab(exp);
 	mini->rtn = 0;
 }

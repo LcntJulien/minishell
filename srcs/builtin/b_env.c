@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:48:25 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/10 12:32:16 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:00:33 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	b_env(t_shell *mini)
 {
 	int		i;
-	char	*str;
 	t_token	*list;
 
 	list = mini->token;
@@ -27,16 +26,12 @@ void	b_env(t_shell *mini)
 		{
 			if (is_there_an_equal(mini->env[i]))
 			{
-				str = ft_strjoin(mini->env[i], "\n");
-				ft_putstr_fd(str, STDOUT_FILENO);
-				free(str);
-				str = NULL;
+				ft_putstr_fd(mini->env[i], STDOUT_FILENO);
+				ft_putstr_fd("\n", STDOUT_FILENO);
 			}
 		}
 		mini->rtn = 0;
 	}
 	else
-	{
 		mini->rtn = 1;
-	}
 }

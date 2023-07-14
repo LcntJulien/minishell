@@ -6,17 +6,17 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:00:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/13 17:02:25 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:41:52 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-//static void	sigint_chose_handler(int s)
-//{
-	//(void)s;
-	//if (def_sig == 0)
-		//sigint_0_handler();
+static void	sigint_chose_handler(int s)
+{
+	(void)s;
+	if (def_sig == 0)
+		sigint_0_handler();
 	//else if (def_sig == 1)
 		//sigint_1_handler();
 	//else if (def_sig == 2)
@@ -27,12 +27,12 @@
 		//sigint_4_handler();
 	//else if (def_sig == 1)
 		//sigint_5_handler();
-//}
+}
 
 //static void	siquit_handler(int s)
 //{
 	//(void)s;
-	//if (sig == FALSE)
+	//if (def_sig == FALSE)
 	//{
 		//rl_redisplay();
 		//ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
@@ -40,13 +40,13 @@
 	//}
 //}
 
-//void	define_signals(void)
-//{
+void	define_signals(void)
+{
 	//struct sigaction	sigint;
 	//struct sigaction	sigquit;
 	
 	//sigaction(SIGINT, &sigint, NULL);
 	//sigaction(SIGINT, &sigquit, NULL);
-	//signal(SIGINT, sigint_chose_handler);
+	signal(SIGINT, sigint_chose_handler);
 	//signal(SIGQUIT, sigquit_handler);
-//}
+}

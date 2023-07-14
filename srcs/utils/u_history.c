@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:17:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 17:52:12 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:19:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	add_histo(char *str, int histo)
 {
+	histo = open(".mini_history", O_RDWR | O_APPEND | O_CREAT, 0644);
 	add_history(str);
 	if (histo <= 0)
 		return ;
 	write(histo, str, ft_strlen(str));
 	write(histo, "\n", 1);
+	close(histo);
 }
 
 static int	init_history(int *histo)
@@ -49,5 +51,6 @@ int	create_history(int *histo)
 		return (0);
 	}
 	init_history(histo);
+	close(*histo);
 	return (1);
 }

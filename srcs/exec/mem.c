@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/13 17:36:39 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:29:25 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	mini_free(t_shell *mini)
 			free(mini->tab[i++]);
 		free(mini->tab);
 	}
-	i = 0;
 	free(mini->pid);
 	i = 0;
 	if (mini->tab)

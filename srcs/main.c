@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/13 17:38:02 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:17:05 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ static void	startshell(t_shell *mini, char	**env, int *histo)
 	mini->paths = NULL;
 	mini->line = NULL;
 	alloc_env(mini, env);
+	//if (existing_var(mini, "HOME") != -1)
 	mini->home = return_var_content(mini, "HOME");
+	//else
+		//mini->home = ft_strdup("/Users/jmathieu");
 	if (!create_history(histo))
 		ft_exit(mini, "Fail to create/iniate history\n", 1);
 	rl_catch_signals = 0;
@@ -50,7 +53,7 @@ int	main(int ac, char **av, char **env)
 
 	args(ac, av);
 	startshell(&mini, env, &histo);
-	//define_signals();
+	define_signals();
 	while (1)
 	{
 		mini_free(&mini);
@@ -64,6 +67,6 @@ int	main(int ac, char **av, char **env)
 			minishell(&mini);
 		}
 	}
-	close(histo);
+	//close(histo);
 	ft_exit_all(&mini, 130);	
 }

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:53:47 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/06/23 13:45:21 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:27:52 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ int	is_there_an_equal(char *s)
 {
 	int	i;
 
-	i = 0;
-	while (s[i])
+	i = -1;
+	//printf("str = %s\n", s);
+	while (s[++i])
 	{
 		if (s[i] == '=')
 			return (1);
-		else
-			i++;
 	}
 	return (0);
 }
