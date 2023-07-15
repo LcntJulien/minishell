@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 14:27:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:14:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ void	exec(t_shell *mini, t_token *tk)
 
 void	child(t_shell *mini, t_token *tk, int i)
 {
-	int	tab[11];
+	// int	tab[11];
+	int	*tab;
 	int	j;
 
-	j = 0;
-	while (tab[j] && j < 11)
-		tab[j++] = 0;
+	tab = malloc(sizeof(int) * 11);
+	j = -1;
+	while (++j < 11)
+		tab[j] = 0;
 	if (i == 0)
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	else if (i == mini->ncmd - 1)
@@ -57,6 +59,7 @@ void	child(t_shell *mini, t_token *tk, int i)
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	}
 	is_redir(mini, tk, tab, i);
+	free(tab);
 	close_pipes(mini, i, 1);
 	exec(mini, tk);
 }
@@ -97,7 +100,7 @@ void	minishell(t_shell *mini)
 	get_paths(mini);
 	if (mini->ncmd > 1)
 		minipipe(mini, tk);
-	else
+	else if (mini->ncmd == 1)
 	{
 		if (tk && tk->type == BUILTIN)
 			b_process(mini);
