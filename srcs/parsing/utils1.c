@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/13 14:37:58 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:32:10 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	clean_alloc(char *s)
 		if (s[i] != '\'' && s[i] != '\"')
 			r++;
 		else if (quote_state(s, i) && ((s[i] == '\'' && quote_state(s, i) == 2)
-				|| (s[i] == '\"' && quote_state(s, i) == 1)))
+						|| (s[i] == '\"' && quote_state(s, i) == 1)))
 			r++;
 		i++;
 	}
@@ -76,7 +76,7 @@ char	*clean_s(char *s)
 		if (s[i] != '\'' && s[i] != '\"')
 			new[j++] = s[i];
 		else if (quote_state(s, i) && ((s[i] == '\'' && quote_state(s, i) == 2)
-				|| (s[i] == '\"' && quote_state(s, i) == 1)))
+						|| (s[i] == '\"' && quote_state(s, i) == 1)))
 			new[j++] = s[i];
 		i++;
 	}
@@ -93,8 +93,9 @@ void	clean_tokens(t_token *tk)
 	while (cpy)
 	{
 		if ((cpy->type == VAR && valid_var(cpy)) || (cpy->type != ARG
-				&& cpy->type != VAR && !quote_state(cpy->s, ft_strlen(cpy->s)
-					- 1)) || (cpy->type == ARG && is_quote(cpy) > 1))
+				&& cpy->type != VAR && cpy->type != PIPE && !quote_state(cpy->s,
+					ft_strlen(cpy->s) - 1) && is_quote(cpy))
+			|| (cpy->type == ARG && is_quote(cpy) > 1))
 		{
 			s = ft_strdup(cpy->s);
 			free(cpy->s);
@@ -103,5 +104,6 @@ void	clean_tokens(t_token *tk)
 		}
 		cpy = cpy->next;
 	}
+	free(s);
 	free(cpy);
 }

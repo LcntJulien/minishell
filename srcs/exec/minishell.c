@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 13:32:55 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:27:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	child(t_shell *mini, t_token *tk, int i)
 	int	j;
 
 	j = 0;
-	while (tab[j] && j <= 11)
+	while (tab[j] && j < 11)
 		tab[j++] = 0;
 	if (i == 0)
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);

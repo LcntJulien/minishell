@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/07/15 13:48:49 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/07/15 14:04:26 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,11 +63,11 @@ CC		= gcc
 
 LIBFT 	= -lft -L ./libft
 
-# HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
-HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
+HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+# HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
-# LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
-LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
+LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
+# LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
 
 CFLAGS	= -Wall -Wextra -Werror -ggdb3
 
