@@ -6,41 +6,81 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/04 11:55:08 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:27:39 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	redirin(void)
+void	redir(t_shell *mini, t_token *tk, int i)
 {
-	// exit(1);
+	(void)mini;
+	(void)tk;
+	(void)i;
 }
 
-void	redirout(void)
+void	redirin(t_shell *mini, t_token *tk, int i)
 {
-	// exit(1);
+	t_token	*cp;
+	int		j;
+	int		k;
+	int		input;
+	int		heredoc;
+
+	cp = tk;
+	j = 0;
+	k = 0;
+	input = 0;
+	heredoc = 0;
+	while (cp && cp->type != PIPE)
+	{
+		if (cp->type == INPUT)
+			input++;
+		if (cp->type == HEREDOC)
+			heredoc++;
+		cp = cp->next;
+	}
+	cp = tk;
+	while (cp && cp->type != PIPE)
+	{
+		if (cp->type == INPUT && j == input)
+			redir(mini, cp->next, i);
+		else if (cp->type == INPUT && j < input)
+			j++;
+		cp = cp->next;
+	}
+	cp = tk;
+	while (cp && cp->type != PIPE)
+	{
+		if (cp->type == HEREDOC && k == heredoc)
+			redir(mini, cp->next, i);
+		else if (cp->type == HEREDOC && k < heredoc)
+			k++;
+		cp = cp->next;
+	}
 }
 
-int	is_redir(t_token *tk)
+void	redirout(t_shell *mini, t_token *tk, int i)
+{
+	(void)mini;
+	(void)tk;
+	(void)i;
+}
+
+void	is_redir(t_shell *mini, t_token *tk, int tab[11], int i)
 {
 	t_token	*cpy;
-	int		tab[11];
-	int		i;
 
 	cpy = tk;
-	i = 0;
-	while (tab[i] && i <= 11)
-		tab[i++] = 0;
 	while (cpy && cpy->type != PIPE)
 	{
 		if (cpy->type == INPUT)
 			tab[INPUT]++;
-		if (cpy->type == OUTPUT)
+		else if (cpy->type == OUTPUT)
 			tab[OUTPUT]++;
-		if (cpy->type == APPEND)
+		else if (cpy->type == APPEND)
 			tab[APPEND]++;
-		if (cpy->type == HEREDOC)
+		else if (cpy->type == HEREDOC)
 			tab[HEREDOC]++;
 		cpy = cpy->next;
 	}
@@ -48,10 +88,8 @@ int	is_redir(t_token *tk)
 		|| tab[APPEND] >= 1)
 	{
 		if (tab[INPUT] >= 1 || tab[HEREDOC] >= 1)
-			redirin();
+			redirin(mini, tk, i);
 		if (tab[OUTPUT] >= 1 || tab[APPEND] >= 1)
-			redirout();
-		return (1);
+			redirout(mini, tk, i);
 	}
-	return (0);
 }
