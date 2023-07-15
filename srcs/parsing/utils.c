@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 21:12:08 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:29:58 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,19 @@ void	space(char *line, int *i)
 
 void	listfree(t_token *tk)
 {
-	t_token	*tmp;
+	t_token	*cpy;
+	t_token	*next;
 
-	tmp = NULL;
-	if (tk)
+	cpy = tk;
+	if (cpy != NULL)
 	{
-		while (tk && tk->next != NULL)
-			tk = tk->next;
-		while (tk && tk->prev != NULL)
+		while (cpy != NULL)
 		{
-			tmp = tk->prev;
-			free(tk->s);
-			free(tk);
-			tk = NULL;
-			tk = tmp;
+			next = cpy->next;
+			free(cpy->s);
+			free(cpy);
+			cpy = next;
 		}
-		free(tk->s);
-		free(tk);
-		tk = NULL;
 	}
 }
 
