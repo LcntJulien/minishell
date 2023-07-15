@@ -6,7 +6,11 @@
 #    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
+<<<<<<< Updated upstream
 #    Updated: 2023/07/13 13:04:35 by jmathieu         ###   ########.fr        #
+=======
+#    Updated: 2023/07/15 13:21:03 by jlecorne         ###   ########.fr        #
+>>>>>>> Stashed changes
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +51,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXU)split/s_utils.c	\
 		$(PFXE)utils.c			\
 		$(PFXE)redir.c			\
+		$(PFXE)redir1.c			\
 		$(PFXE)mem.c			\
 		$(PFXE)error.c			\
 		$(PFXE)minishell.c		\
