@@ -35,13 +35,14 @@ char	*alloc_line(t_shell *mini)
 	sep = 0;
 	while (mini->line[i])
 	{
-		if (is_sep(mini->line, i))
+		if (is_sep(mini->line, i) && !is_sep(mini->line, i + 1))
 			sep++;
 		i++;
 	}
 	nl = malloc(sizeof(char) * (2 * sep + i + 1));
 	if (!nl)
 		return (NULL);
+	fprintf(stderr, "allocated space for parsing: %d\n", (2 * sep + i + 1));
 	return (nl);
 }
 
@@ -60,7 +61,8 @@ char	*parse_line(t_shell *mini)
 		{
 			nl[j++] = ' ';
 			nl[j++] = mini->line[i++];
-			if (quote_state(mini->line, i) == 0 && mini->line[i] == '>')
+			if (quote_state(mini->line, i) == 0 && (mini->line[i] == '>'
+					|| mini->line[i] == '<'))
 				nl[j++] = mini->line[i++];
 			nl[j++] = ' ';
 		}
@@ -68,6 +70,7 @@ char	*parse_line(t_shell *mini)
 			nl[j++] = mini->line[i++];
 	}
 	nl[j] = '\0';
+	fprintf(stderr, "parsed line length: %lu\n", ft_strlen(nl) + 1);
 	return (nl);
 }
 
