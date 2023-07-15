@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:29:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/13 14:16:29 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:53:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	post_tk_type(t_token *tk, t_shell *mini)
 
 void	tk_type(t_token *token)
 {
+	printf("s = %s\n", token->s);
 	if (token->s[0] == '$' || is_dollar(token))
 		token->type = VAR;
 	else if (ft_strncmp(token->s, "|", ft_strlen(token->s)) == 0)
