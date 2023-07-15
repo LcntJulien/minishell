@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 13:25:41 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/15 13:53:09 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	startshell(t_shell *mini, char **env, int *histo)
 	mini->paths = NULL;
 	mini->line = NULL;
 	mini->tab = NULL;
+	mini->token = NULL;
 	alloc_env(mini, env);
 	//if (existing_var(mini, "HOME") != -1)
 	mini->home = return_var_content(mini, "HOME");
@@ -67,8 +68,7 @@ int	main(int ac, char **av, char **env)
 			add_histo(mini.line, histo);
 			parse(&mini);
 			heredoc_manager(&mini);
-			// minishell(&mini);
-			// mini_free(&mini);
+			minishell(&mini);
 		}
 	}
 	close(histo);

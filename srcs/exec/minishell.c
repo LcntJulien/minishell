@@ -6,11 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2023/07/14 17:43:06 by jmathieu         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/14 15:14:20 by jlecorne         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2023/07/15 13:32:55 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

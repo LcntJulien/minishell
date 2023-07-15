@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_env_excepts.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:25:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 17:37:26 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/15 13:30:04 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 int	check_last(t_shell *mini, char **env, int i)
 {
-	char	*fstr;
-	char	*lstr;
-	
-	fstr = NULL;
-	lstr = NULL;
 	if (!ft_strncmp(env[i], "_=", 2))
 	{
 		//fstr = getcwd(NULL, 0);
