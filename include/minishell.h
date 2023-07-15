@@ -6,7 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2023/07/14 13:40:18 by jmathieu         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/13 18:44:15 by jlecorne         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +50,11 @@
 # include <termios.h>
 # include <unistd.h>
 
+<<<<<<< Updated upstream
 int	def_sig;
+=======
+bool				define_signal;
+>>>>>>> Stashed changes
 
 typedef struct s_token
 {
@@ -231,7 +239,7 @@ void				mini_free(t_shell *mini);
 void				close_pipes(t_shell *mini, int i, int sw);
 
 /* redir.c */
-int					is_redir(t_token *tk);
+void				is_redir(t_shell *mini, t_token *tk, int tab[11], int i);
 
 /* error.c */
 void				err_manager(t_shell *mini, t_token *tk, int err);
