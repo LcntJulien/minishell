@@ -6,7 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2023/07/14 17:43:06 by jmathieu         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/14 15:14:20 by jlecorne         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +45,12 @@ void	exec(t_shell *mini, t_token *tk)
 
 void	child(t_shell *mini, t_token *tk, int i)
 {
-	// if (is_redir(tk) == 0)
-	// {
+	int	tab[11];
+	int	j;
+
+	j = 0;
+	while (tab[j] && j <= 11)
+		tab[j++] = 0;
 	if (i == 0)
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	else if (i == mini->ncmd - 1)
@@ -52,7 +60,7 @@ void	child(t_shell *mini, t_token *tk, int i)
 		dup2(mini->tab[i][0], STDIN_FILENO);
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	}
-	// }
+	is_redir(mini, tk, tab, i);
 	close_pipes(mini, i, 1);
 	exec(mini, tk);
 }
