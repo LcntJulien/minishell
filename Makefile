@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-<<<<<<< Updated upstream
-#    Updated: 2023/07/13 13:04:35 by jmathieu         ###   ########.fr        #
-=======
-#    Updated: 2023/07/15 13:21:03 by jlecorne         ###   ########.fr        #
->>>>>>> Stashed changes
+#    Updated: 2023/07/15 13:24:08 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
