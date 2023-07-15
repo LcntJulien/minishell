@@ -6,13 +6,17 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2023/07/14 18:17:05 by jmathieu         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/15 12:58:14 by jlecorne         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	startshell(t_shell *mini, char	**env, int *histo)
+static void	startshell(t_shell *mini, char **env, int *histo)
 {
 	mini->exit = 0;
 	mini->pid = 0;
@@ -53,6 +57,10 @@ int	main(int ac, char **av, char **env)
 	t_shell	mini;
 	int		histo;
 
+<<<<<<< Updated upstream
+=======
+	// rl_catch_signals = 0;
+>>>>>>> Stashed changes
 	args(ac, av);
 	startshell(&mini, env, &histo);
 	define_signals();
@@ -66,9 +74,19 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse(&mini);
+<<<<<<< Updated upstream
 			minishell(&mini);
 		}
 	}
 	//close(histo);
 	ft_exit_all(&mini, 130);	
+=======
+			heredoc_manager(&mini);
+			// minishell(&mini);
+			// mini_free(&mini);
+		}
+	}
+	close(histo);
+	ft_exit_all(&mini, 130);
+>>>>>>> Stashed changes
 }
