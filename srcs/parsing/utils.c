@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 14:17:46 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/15 15:53:37 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	listfree(t_token *tk)
 	t_token	*tmp;
 
 	cpy = tk;
+	tmp = NULL;
 	while (cpy != NULL)
 	{
 		tmp = cpy->next;
