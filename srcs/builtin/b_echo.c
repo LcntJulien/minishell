@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/09 17:09:38 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:08:22 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	args_to_print(t_token *list)
+static int	args_to_print(t_token *list, t_shell *mini)
 {
 	int		nb_args;
 	t_token	*tmp;
@@ -21,6 +21,7 @@ static int	args_to_print(t_token *list)
 	nb_args = 0;
 	while (tmp && ((tmp->type >= 0 && tmp->type <= 5)))
 	{
+		is_it_a_variable(mini, tmp);
 		nb_args++;
 		tmp = tmp->next;
 	}
@@ -71,7 +72,6 @@ static void	print_echo(t_shell *mini, t_token *list, int nb_args)
 	while (nb_args > 0)
 	{
 		ft_putstr_fd(list->s, STDOUT_FILENO);
-		mini->rtn = 0;
 		nb_args--;
 		if (list->next && nb_args > 0)
 			ft_putstr_fd(" ", STDOUT_FILENO);
@@ -95,19 +95,14 @@ void	b_echo(t_shell *mini, t_token *list)
 	}
 	else
 	{
-		mini->rtn = 0;
 		list = mini->token->next;
 		nb_opt = nb_option(list);
 		if (!list)
 			return ;
-		while (list && nb_opt > 0)
-		{
-			nb_opt--;
-			list = list->next;
-		}
-		if (!list)
+		if (!check_opt(list, nb_opt))
 			return ;
-		nb_args = args_to_print(list);
+		nb_args = args_to_print(list, mini);
 		print_echo(mini, list, nb_args);
+		mini->rtn = 0;
 	}
 }

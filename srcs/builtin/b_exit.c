@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/12 14:05:40 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:39:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	exit_too_much(t_shell *mini)
 	s1 = ft_strjoin("minishell: exit: ", mini->token->s);
 	s2 = ft_strjoin(s1, ": numeric argument required\n");
 	free_str(s1);
-	perror(s2);
+	ft_putstr_fd(s2, STDOUT_FILENO);
 	free_str(s2);
 	exit_until(mini);
 	exit(255);
@@ -74,7 +74,7 @@ void	b_exit(t_shell *mini, t_token *list)
 {
 	double	nb;
 	
-	perror("exit\n");
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (list->next)
 	{
 		list = list->next;
@@ -82,8 +82,9 @@ void	b_exit(t_shell *mini, t_token *list)
 		if (nb < -9223372036854775807 || nb > 9223372036854775807)
 			exit_too_much(mini);
 		else if (list->next)
-			perror("minishell: exit: too many argument\n");
-		mini->rtn = (long)nb % 256;
+			ft_putstr_fd("minishell: exit: too many argument\n",
+				STDOUT_FILENO);
+		mini->rtn = (long)nb % 255;
 		exit_until(mini);
 		exit(mini->rtn);
 	}
