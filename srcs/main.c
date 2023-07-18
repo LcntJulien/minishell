@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 10:52:54 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:10:20 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 static void	args(int ac, char **av)
 {
 	(void)av;
-	def_sig = 0;
+	g_sig = 0;
 	define_signals();
 	if (ac < 1 || ac > 1)
 	{
@@ -60,9 +60,9 @@ int	main(int ac, char **av, char **env)
 	startshell(&mini, env, &histo, &term);
 	while (1)
 	{
+		mini_free(&mini);
 		if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
 			ft_exit_plus(&mini, "Fail to reload minishell attributes\n", 1);
-		mini_free(&mini);
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		if (!mini.line)
 			break ;

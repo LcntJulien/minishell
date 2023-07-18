@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/17 16:17:56 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:59:16 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # include <termios.h>
 # include <unistd.h>
 
-int					def_sig;
+int					g_sig;
 
 typedef struct s_token
 {
@@ -150,7 +150,7 @@ int					check_oldpwd(t_shell *mini, char **env, int i);
 /* u_exit */
 void				ft_exit(t_shell *mini, char *err, int rtn);
 void				ft_exit_plus(t_shell *mini, char *err, int rtn);
-void				ft_exit_all(t_shell *mini, int rtn);
+void				ft_exit_all(t_shell *mini, int histo, int rtn);
 
 /*	u_free	*/
 void				free_str(char *tmp);
@@ -162,6 +162,7 @@ int					create_history(int *histo);
 void				add_histo(char *str, int histo);
 
 /* u_signal*/
+void				define_last(t_shell *mini);
 void				define_signals(void);
 
 /* u_signal_more*/
@@ -198,7 +199,7 @@ int					is_quote(t_token *tk);
 int					is_dollar(t_token *tk);
 void				convert_var(t_token *tk, t_shell *mini);
 void				space(char *line, int *i);
-void				listfree(t_token *token);
+void				listfree(t_shell *mini, t_token *token);
 void				clean_tokens(t_token *tk);
 
 /*
