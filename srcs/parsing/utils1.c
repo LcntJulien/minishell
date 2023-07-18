@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 15:31:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/18 00:38:27 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	clean_alloc(char *s)
 		if (s[i] != '\'' && s[i] != '\"')
 			r++;
 		else if (quote_state(s, i) && ((s[i] == '\'' && quote_state(s, i) == 2)
-						|| (s[i] == '\"' && quote_state(s, i) == 1)))
+				|| (s[i] == '\"' && quote_state(s, i) == 1)))
 			r++;
 		i++;
 	}
@@ -76,7 +76,7 @@ char	*clean_s(char *s)
 		if (s[i] != '\'' && s[i] != '\"')
 			new[j++] = s[i];
 		else if (quote_state(s, i) && ((s[i] == '\'' && quote_state(s, i) == 2)
-						|| (s[i] == '\"' && quote_state(s, i) == 1)))
+				|| (s[i] == '\"' && quote_state(s, i) == 1)))
 			new[j++] = s[i];
 		i++;
 	}
