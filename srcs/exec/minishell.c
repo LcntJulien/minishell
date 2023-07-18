@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 14:50:23 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:19:09 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 			child(mini, tk, i);
 		tk = next_cmd(tk);
 		i++;
+		printf("g_sig = %d\n", g_sig);
 	}
 	i = 0;
 	close_pipes(mini, i, 0);

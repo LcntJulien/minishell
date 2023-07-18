@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:33:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 15:16:11 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:40:30 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,12 @@ void	define_last(t_shell *mini)
 		mini->rtn = 131;
 	else if (g_sig == 130)
 		mini->rtn = 130;
-	else if (g_sig == 20)
-		mini->rtn = 1;
 	g_sig = 0;
 }
 
 static void	sigint_chose_handler(int sig)
 {
 	(void)sig;
-	//printf("g_sig = %d\n", g_sig);
 	if (g_sig == 0)
 		sigint_0_handler();
 	else

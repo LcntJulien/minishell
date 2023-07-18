@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 10:01:41 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 15:09:39 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:23:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	sigint_0_handler(void)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	g_sig = 1;
 }
 
 void	sigint_1_handler(void)
