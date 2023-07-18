@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 16:14:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:08:01 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	child(t_shell *mini, t_token *tk, int i)
 		dup2(mini->tab[i][0], STDIN_FILENO);
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	}
-	is_redir(mini, tk, tab, i);
+	redir(mini, tk, tab, i);
 	free(tab);
 	close_pipes(mini, i, 1);
 	exec(mini, tk);
