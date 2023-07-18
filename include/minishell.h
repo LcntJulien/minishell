@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 13:33:50 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/18 01:18:27 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void				mini_free(t_shell *mini);
 void				close_pipes(t_shell *mini, int i, int sw);
 
 /* redir.c */
-void				is_redir(t_shell *mini, t_token *tk, int tab[11], int i);
+void				redir(t_shell *mini, t_token *tk, int tab[11], int i);
 void				heredoc_manager(t_shell *mini);
 
 /* error.c */
