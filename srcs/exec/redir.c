@@ -6,83 +6,85 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/14 16:27:39 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:06:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	redir(t_shell *mini, t_token *tk, int i)
+void	do_redirin(t_shell *mini, t_token *cur, int i)
 {
 	(void)mini;
-	(void)tk;
+	(void)cur;
+	(void)i;
+}
+
+void	do_redirout(t_shell *mini, t_token *cur, int i)
+{
+	(void)mini;
+	(void)cur;
 	(void)i;
 }
 
 void	redirin(t_shell *mini, t_token *tk, int i)
 {
 	t_token	*cp;
-	int		j;
-	int		k;
-	int		input;
-	int		heredoc;
+	t_token	*cur;
 
 	cp = tk;
-	j = 0;
-	k = 0;
-	input = 0;
-	heredoc = 0;
+	cur = NULL;
+	while (cp->prev != NULL && cp->prev->type != PIPE)
+		cp = cp->prev;
 	while (cp && cp->type != PIPE)
 	{
-		if (cp->type == INPUT)
-			input++;
-		if (cp->type == HEREDOC)
-			heredoc++;
+		if (cp->type == INPUT || cp->type == HEREDOC)
+			cur = cp;
 		cp = cp->next;
 	}
-	cp = tk;
-	while (cp && cp->type != PIPE)
-	{
-		if (cp->type == INPUT && j == input)
-			redir(mini, cp->next, i);
-		else if (cp->type == INPUT && j < input)
-			j++;
-		cp = cp->next;
-	}
-	cp = tk;
-	while (cp && cp->type != PIPE)
-	{
-		if (cp->type == HEREDOC && k == heredoc)
-			redir(mini, cp->next, i);
-		else if (cp->type == HEREDOC && k < heredoc)
-			k++;
-		cp = cp->next;
-	}
+	if (cur != NULL)
+		do_redirin(mini, cur, i);
 }
 
 void	redirout(t_shell *mini, t_token *tk, int i)
 {
-	(void)mini;
-	(void)tk;
-	(void)i;
+	t_token	*cp;
+	t_token	*cur;
+
+	cp = tk;
+	cur = NULL;
+	while (cp->prev != NULL && cp->prev->type != PIPE)
+		cp = cp->prev;
+	while (cp && cp->type != PIPE)
+	{
+		if (cp->type == OUTPUT || cp->type == APPEND)
+			cur = cp;
+		cp = cp->next;
+	}
+	while (cp->prev != NULL && cp->prev->type != PIPE)
+		cp = cp->prev;
+	if (cur != NULL)
+	{
+		// clear_files(mini, cp);
+		do_redirout(mini, cur, i);
+	}
 }
 
-void	is_redir(t_shell *mini, t_token *tk, int tab[11], int i)
+void	redir(t_shell *mini, t_token *tk, int tab[11], int i)
 {
-	t_token	*cpy;
+	t_token	*cp;
 
-	cpy = tk;
-	while (cpy && cpy->type != PIPE)
+	cp = tk;
+	while (cp && cp->type != PIPE)
 	{
-		if (cpy->type == INPUT)
+		if (cp->type == INPUT)
 			tab[INPUT]++;
-		else if (cpy->type == OUTPUT)
+		else if (cp->type == OUTPUT)
 			tab[OUTPUT]++;
-		else if (cpy->type == APPEND)
+		else if (cp->type == APPEND)
 			tab[APPEND]++;
-		else if (cpy->type == HEREDOC)
+		else if (cp->type == HEREDOC)
 			tab[HEREDOC]++;
-		cpy = cpy->next;
+		cp = cp->next;
 	}
 	if (tab[INPUT] >= 1 || tab[HEREDOC] >= 1 || tab[OUTPUT] >= 1
 		|| tab[APPEND] >= 1)
