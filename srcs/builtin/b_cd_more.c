@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 14:02:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:47:35 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*folder2(t_shell *mini, t_token *list)
 {
 	char	*str1;
 	char	*str2;
-	
+
 	if (list->s[1] && list->s[1] == '/')
 	{
 		str1 = ft_strjoin(mini->home, "/");
@@ -33,7 +33,7 @@ char	*folder2(t_shell *mini, t_token *list)
 char	*folder1(t_shell *mini)
 {
 	int	i;
-	
+
 	i = existing_var(mini, "OLDPWD");
 	if (i != -1 && ft_strncmp("OLDPWD=", mini->env[i], 7) == 0)
 		return (var_content(mini, mini->env[existing_var(mini,
@@ -41,7 +41,6 @@ char	*folder1(t_shell *mini)
 	else
 		return (ft_strdup("OLDPWD"));
 }
-
 
 int	valid_path(t_shell *mini, char *tmp_path)
 {

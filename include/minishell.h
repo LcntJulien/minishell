@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 13:33:50 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:17:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,9 @@ void				check_var_status(t_shell *mini, t_token *list,
 /* b_echo */
 void				b_echo(t_shell *mini, t_token *list);
 
-/* b_echo_utils */
-int					print_variable(t_shell *mini, int i);
-bool				without_quote_print(char *str, t_shell *mini);
-bool				with_squote_print(char *str, t_shell *mini);
-bool				with_dquote_print(char *str, t_shell *mini);
+/* b_echo */
+void				is_it_a_variable(t_shell *mini, t_token *tmp);
+int					check_opt(t_token *list, int nb_opt);
 
 /* b_env */
 char				**renew_env(t_shell *mini, int lines, t_token *tmp);
