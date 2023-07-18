@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/15 15:59:53 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/18 01:34:55 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static void	args(int ac, char **av)
 	}
 }
 
-
-
 int	main(int ac, char **av, char **env)
 {
 	t_shell	mini;
@@ -67,7 +65,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse(&mini);
-			// heredoc_manager(&mini);
+			heredoc_manager(&mini);
 			minishell(&mini);
 		}
 	}
