@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 18:40:11 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:49:37 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	print_listed_env(t_shell *mini)
 	lines = tab_lines(mini->env);
 	exp = ft_calloc((lines + 1), sizeof(char *));
 	if (!exp)
-		ft_exit_plus(mini, "No enough memory\n",1);
+		ft_exit_plus(mini, "No enough memory\n", 1);
 	copy_tab(mini, exp);
 	sort_in_tab(exp, lines);
 	print_export(mini, exp);

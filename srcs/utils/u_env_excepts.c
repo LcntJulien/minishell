@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_env_excepts.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:25:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/15 13:30:04 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:51:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@ int	check_last(t_shell *mini, char **env, int i)
 {
 	if (!ft_strncmp(env[i], "_=", 2))
 	{
-		//fstr = getcwd(NULL, 0);
-		//lstr = ft_strjoin(fstr, "/minishell");
-		//mini->env[i] = ft_strjoin("_=", lstr);
 		mini->env[i] = ft_strdup("_=/usr/bin/env");
-		//free_str(fstr);
-		//free_str(lstr);
 		return (1);
 	}
 	return (0);
@@ -31,7 +26,7 @@ int	check_shlvl(t_shell *mini, char **env, int i)
 {
 	int		shlvl;
 	char	*str;
-	
+
 	shlvl = 0;
 	str = NULL;
 	if (!ft_strncmp(env[i], "SHLVL=", 5))

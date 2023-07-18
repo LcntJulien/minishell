@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 17:29:54 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:50:49 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	get_shlvl(char *str)
 	start = 0;
 	while (str[start] && str[start] != '=')
 		start++;
-	end = ft_strlen(str); 	
+	end = ft_strlen(str);
 	shlvl = ft_calloc(sizeof(char), (end - start));
 	if (!shlvl)
 		return (-1);
@@ -46,14 +46,14 @@ int	get_shlvl(char *str)
 		shlvl[i++] = str[start];
 	i = ft_atoi(shlvl);
 	free_str(shlvl);
-	return (i);	
+	return (i);
 }
 
 static int	env_exceptions(t_shell *mini, char **env, int i)
 {
 	if (check_oldpwd(mini, env, i))
 		return (1);
-	else if (check_shlvl(mini, env, i))	
+	else if (check_shlvl(mini, env, i))
 		return (1);
 	else if (check_last(mini, env, i))
 		return (1);

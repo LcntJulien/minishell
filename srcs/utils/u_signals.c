@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:00:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/17 19:26:43 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:51:32 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	sigint_chose_handler(int s)
 {
 	(void)s;
-	ft_putstr_fd(ft_itoa(def_sig), STDOUT_FILENO);
 	if (def_sig == 0)
 		sigint_0_handler();
 	else if (def_sig == 1)

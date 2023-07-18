@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/17 18:39:54 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:48:47 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	exit_too_much(t_shell *mini)
 void	b_exit(t_shell *mini, t_token *list)
 {
 	double	nb;
-	
+
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (list->next)
 	{
@@ -82,7 +82,7 @@ void	b_exit(t_shell *mini, t_token *list)
 		if (nb < -9223372036854775807 || nb > 9223372036854775807)
 			exit_too_much(mini);
 		else if (list->next)
-			ft_putstr_fd("minishell: exit: too many argument\n",
+			ft_putstr_fd("minishell: exit: too many arguments\n",
 				STDOUT_FILENO);
 		mini->rtn = (long)nb % 255;
 		exit_until(mini);
