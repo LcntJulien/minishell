@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 10:48:47 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:59:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	exit_until(t_shell *mini)
 	if (mini->env)
 		free_env(mini);
 	if (mini->token)
-		listfree(mini->token);
+		listfree(mini, mini->token);
 	if (mini->args)
 		free_tab(mini->args);
 	if (mini->paths)
@@ -64,7 +64,7 @@ void	exit_too_much(t_shell *mini)
 	s1 = ft_strjoin("minishell: exit: ", mini->token->s);
 	s2 = ft_strjoin(s1, ": numeric argument required\n");
 	free_str(s1);
-	ft_putstr_fd(s2, STDOUT_FILENO);
+	ft_putstr_fd(s2, STDERR_FILENO);
 	free_str(s2);
 	exit_until(mini);
 	exit(255);
@@ -83,7 +83,7 @@ void	b_exit(t_shell *mini, t_token *list)
 			exit_too_much(mini);
 		else if (list->next)
 			ft_putstr_fd("minishell: exit: too many arguments\n",
-				STDOUT_FILENO);
+				STDERR_FILENO);
 		mini->rtn = (long)nb % 255;
 		exit_until(mini);
 		exit(mini->rtn);

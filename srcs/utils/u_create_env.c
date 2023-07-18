@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 10:50:49 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:37:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	alloc_env(t_shell *mini, char **env)
 
 	if (!env)
 	{
-		perror("Fail to load previous environnement\n");
+		ft_putstr_fd("Fail to load previous environnement\n", 2);
 		exit(1);
 	}
 	flag = ft_oldpwd(env);
@@ -97,7 +97,7 @@ void	alloc_env(t_shell *mini, char **env)
 		mini->env = ft_calloc((lines + 2), sizeof(char *));
 	if (!mini->env)
 	{
-		perror("Fail to allocate memory !\n");
+		ft_putstr_fd("Fail to allocate memory !\n", 2);
 		exit(1);
 	}
 	copy_env(mini, env, flag);

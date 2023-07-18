@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/17 19:26:26 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:19:09 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exec(t_shell *mini, t_token *tk)
 {
 	if (tk && tk->type == BUILTIN)
 	{
-		def_sig = 0;
+		g_sig= 0;
 		b_process(mini);
 		exit(EXIT_SUCCESS);
 	}
@@ -76,7 +76,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 	i = 0;
 	while (i < mini->ncmd)
 	{
-		def_sig = 1;
+		g_sig = 1;
 		mini->pid[i] = fork();
 		if (mini->pid[i] < 0)
 			err_manager(mini, tk, 2);
@@ -84,6 +84,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 			child(mini, tk, i);
 		tk = next_cmd(tk);
 		i++;
+		printf("g_sig = %d\n", g_sig);
 	}
 	i = 0;
 	close_pipes(mini, i, 0);
@@ -107,7 +108,7 @@ void	minishell(t_shell *mini)
 			b_process(mini);
 		else
 		{
-			def_sig = 1;
+			g_sig = 1;
 			pid = fork();
 			if (pid < 0)
 				err_manager(mini, tk, 2);

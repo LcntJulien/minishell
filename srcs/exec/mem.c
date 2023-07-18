@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/17 17:55:41 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:12:01 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ void	free_paths(t_shell *mini)
 
 void	mini_free(t_shell *mini)
 {
+	if (g_sig != 0)
+		define_last(mini);
 	free_pipe(mini);
 	free_paths(mini);
 	free_args(mini);
+	listfree(mini, mini->token);
 	if (mini->pid)
 		free(mini->pid);
 	mini->pid = NULL;
@@ -68,7 +71,6 @@ void	mini_free(t_shell *mini)
 	if (mini->line)
 		free(mini->line);
 	mini->line = NULL;
-	listfree(mini->token);
 }
 
 void	close_pipes(t_shell *mini, int i, int sw)

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 10:49:08 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:35:05 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static int	alpha_num_underscore(char *s)
 static void	not_a_variable(t_shell *mini, t_token *list)
 {
 	mini->rtn = 1;
-	ft_putstr_fd("minishell: export: ", STDOUT_FILENO);
-	ft_putstr_fd(list->s, STDOUT_FILENO);
-	ft_putstr_fd(": Not a valid identifier\n", STDOUT_FILENO);
+	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
+	ft_putstr_fd(list->s, STDERR_FILENO);
+	ft_putstr_fd(": Not a valid identifier\n", STDERR_FILENO);
 }
 
 void	b_export_args(t_shell *mini, t_token *list, int nb_args)

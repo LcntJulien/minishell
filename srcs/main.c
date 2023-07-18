@@ -6,11 +6,13 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 10:52:54 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:57:04 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+//int	g_sig;
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 	struct termios *term)
@@ -41,11 +43,11 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 static void	args(int ac, char **av)
 {
 	(void)av;
-	def_sig = 0;
+	g_sig = 0;
 	define_signals();
-	if (ac < 1 || ac > 1)
+	if (ac > 1)
 	{
-		printf("Launch without any arguments\n");
+		ft_putstr_fd("Launch without any arguments\n", STDERR_FILENO);
 		exit(1);
 	}
 }
@@ -62,7 +64,6 @@ int	main(int ac, char **av, char **env)
 	{
 		if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
 			ft_exit_plus(&mini, "Fail to reload minishell attributes\n", 1);
-		mini_free(&mini);
 		mini.line = readline("\033[0;35m\033[1mminishell ▸ \033[0m");
 		if (!mini.line)
 			break ;
@@ -73,6 +74,7 @@ int	main(int ac, char **av, char **env)
 			// heredoc_manager(&mini);
 			minishell(&mini);
 		}
+		mini_free(&mini);
 	}
 	ft_exit_all(&mini, histo, 130);
 }
