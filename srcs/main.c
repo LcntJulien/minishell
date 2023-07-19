@@ -6,13 +6,13 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 18:57:04 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:09:51 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-//int	g_sig;
+int	g_sig;
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 	struct termios *term)

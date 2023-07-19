@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:26:29 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 10:48:18 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:39:38 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*define_word(char *str, int i)
 	int		j;
 
 	j = 0;
-	tmp_str = ft_calloc(sizeof(char), ft_strlen(str - 1));
+	tmp_str = ft_calloc(sizeof(char), ft_strlen(str));
 	if (!str)
 		return (NULL);
 	while (str[i])
@@ -48,8 +48,6 @@ void	is_it_a_variable(t_shell *mini, t_token *tmp)
 	i = 0;
 	if (tmp->s[i++] == '$')
 	{
-		if (tmp->s[i] == '?' || tmp->s[i] == '$')
-			other_variable(mini, tmp, i);
 		if (tmp->s[i] == '?' || tmp->s[i] == '$')
 			other_variable(mini, tmp, i);
 		tmp_str = define_word(tmp->s, i);
