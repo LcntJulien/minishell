@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/20 17:14:54 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:57:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse(&mini);
-			// heredoc_manager(&mini);
+			heredoc_manager(&mini);
 			minishell(&mini);
 		}
 		mini_free(&mini);
