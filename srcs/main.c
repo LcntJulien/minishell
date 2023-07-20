@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 18:57:04 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:57:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->tab = NULL;
 	mini->token = NULL;
 	alloc_env(mini, env);
-	//if (existing_var(mini, "HOME") != -1)
-	mini->home = return_var_content(mini, "HOME");
-	//else
-		//mini->home = ft_strdup("/Users/jmathieu");
+	mini->home = ft_strdup(getenv("HOME"));
 	if (!create_history(histo))
-		ft_exit(mini, "Fail to create/iniate history\n", 1);
+		ft_exit_plus(mini, "Fail to create/iniate history\n", 1);
 	if (tcgetattr(STDIN_FILENO, term) == -1)
 		ft_exit_plus(mini, "Fail to get terminal attributes\n", 1);
 	rl_catch_signals = 0;
@@ -71,7 +68,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse(&mini);
-			// heredoc_manager(&mini);
+			heredoc_manager(&mini);
 			minishell(&mini);
 		}
 		mini_free(&mini);

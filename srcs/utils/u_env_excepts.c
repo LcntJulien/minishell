@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:25:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 10:51:18 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:46:11 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 
 int	check_last(t_shell *mini, char **env, int i)
 {
+	char	*str;
+	char	*pwd;
+
+	pwd = NULL;	
+	str = NULL;
 	if (!ft_strncmp(env[i], "_=", 2))
 	{
-		mini->env[i] = ft_strdup("_=/usr/bin/env");
+		pwd = getcwd(NULL, 0);
+		if (!pwd)
+			ft_exit_plus(mini, "Fail to access to the folder\n", 1);
+		str = ft_strjoin("_=", pwd);
+		free_str(pwd);
+		mini->env[i] = ft_strjoin(str, "/minishell");
 		return (1);
 	}
 	return (0);

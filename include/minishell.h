@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 18:56:49 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:17:09 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_shell
 	char			**args;
 	char			*line;
 	char			*cmd;
+	char			*echo;
 	char			*home;
 	int				**tab;
 	int				ncmd;
@@ -129,6 +130,9 @@ void				print_listed_env(t_shell *mini);
 char				**add_var_env(t_shell *mini, int lines, t_token *new);
 void				sub_var_env(t_shell *mini, int lines, t_token *sub);
 
+/* b_var.c */
+void				sub_var_last_cmd(t_shell *mini);
+
 /*	b_pwd	*/
 void				b_pwd(t_shell *mini);
 
@@ -149,7 +153,6 @@ int					check_shlvl(t_shell *mini, char **env, int i);
 int					check_oldpwd(t_shell *mini, char **env, int i);
 
 /* u_exit */
-void				ft_exit(t_shell *mini, char *err, int rtn);
 void				ft_exit_plus(t_shell *mini, char *err, int rtn);
 void				ft_exit_all(t_shell *mini, int histo, int rtn);
 

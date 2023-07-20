@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/11 18:30:38 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:16:50 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,19 @@ static char	**delete_var(t_shell *mini, int i)
 
 static void	b_unset_args(t_shell *mini, t_token *list, int nb_args)
 {
-	int	i;
+	int		i;
+	char	*str;
 
 	while (nb_args > 0)
 	{
 		i = existing_var(mini, list->s);
 		if (i != -1)
-			mini->env = delete_var(mini, i);
+		{
+			str = return_var_name(mini, list->s);
+			if (ft_strncmp("_", str, ft_strlen(str)))
+				mini->env = delete_var(mini, i);
+			free(str);
+		}
 		mini->rtn = 0;
 		list = list->next;
 		nb_args--;

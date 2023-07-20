@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 12:34:34 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:30:20 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ void	print_listed_env(t_shell *mini)
 	copy_tab(mini, exp);
 	sort_in_tab(exp, lines);
 	print_export(mini, exp);
-	free_tab(exp);
 	mini->rtn = 0;
 }

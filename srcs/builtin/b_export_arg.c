@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 22:36:06 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:37:49 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	sub_var_env_next(t_shell *mini, int i, t_token *sub, char *s1)
 {
-	mini->env[i] = sub->s;
+	mini->env[i] = ft_strdup(sub->s);
 	if (!mini->env[i])
 	{
 		free_str(s1);
@@ -39,10 +39,7 @@ void	sub_var_env(t_shell *mini, int lines, t_token *sub)
 					&& is_there_an_equal(sub->s))
 				|| (!is_there_an_equal(mini->env[i])
 					&& is_there_an_equal(sub->s)))
-			{
-				free_str(s2);
 				sub_var_env_next(mini, i, sub, s1);
-			}
 		}
 		if (s2)
 			free_str(s2);

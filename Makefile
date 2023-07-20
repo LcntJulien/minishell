@@ -6,7 +6,7 @@
 #    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/07/17 16:18:21 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/07/20 13:24:00 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXB)b_export.c		\
 		$(PFXB)b_export_print.c	\
 		$(PFXB)b_export_arg.c	\
+		$(PFXB)b_var.c			\
 		$(PFXB)b_pwd.c			\
 		$(PFXB)b_unset.c		\
 		$(PFXU)u_create_env.c	\

@@ -6,24 +6,27 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 12:37:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:15:42 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	ft_oldpwd(char **env)
+static int	ft_more_alloc(char **env, int *f_old, int *f_sh)
 {
 	int	i;
 	int	flag;
 
 	i = -1;
-	flag = 0;
+	flag = 2;
 	while (env[++i])
 	{
-		if (ft_strncmp(env[i], "OLDPWD", 6) == 0)
-			flag = 1;
+		if (!ft_strncmp(env[i], "OLDPWD", 6))
+			(*f_old)++;
+		if (!ft_strncmp(env[i], "SHLVL", 5))
+			(*f_sh)++;
 	}
+	flag = flag - (*f_old + *f_sh);
 	return (flag);
 }
 
@@ -61,7 +64,7 @@ static int	env_exceptions(t_shell *mini, char **env, int i)
 		return (0);
 }
 
-static void	copy_env(t_shell *mini, char **env, int flag)
+static void	copy_env(t_shell *mini, char **env, int f_old, int f_sh)
 {
 	int	i;
 
@@ -75,13 +78,17 @@ static void	copy_env(t_shell *mini, char **env, int flag)
 				ft_exit_plus(mini, "Fail to initiate environnement\n", 1);
 		}
 	}
-	if (flag == 0)
+	if (f_sh == 0)
+		mini->env[i++] = ft_strdup("SHLVL=1");
+	if (f_old == 0)
 		mini->env[i] = ft_strdup("OLDPWD");
 }
 
 void	alloc_env(t_shell *mini, char **env)
 {
 	int		flag;
+	int		f_old;
+	int		f_sh;
 	int		lines;
 
 	if (!env)
@@ -89,16 +96,15 @@ void	alloc_env(t_shell *mini, char **env)
 		ft_putstr_fd("Fail to load previous environnement\n", 2);
 		exit(1);
 	}
-	flag = ft_oldpwd(env);
+	f_old = 0;
+	f_sh = 0;
+	flag = ft_more_alloc(env, &f_old, &f_sh);
 	lines = tab_lines(env);
-	if (flag == 1)
-		mini->env = ft_calloc((lines + 1), sizeof(char *));
-	else
-		mini->env = ft_calloc((lines + 2), sizeof(char *));
+	mini->env = ft_calloc((lines + flag + 1), sizeof(char *));
 	if (!mini->env)
 	{
 		ft_putstr_fd("Fail to allocate memory !\n", 2);
 		exit(1);
 	}
-	copy_env(mini, env, flag);
+	copy_env(mini, env, f_old, f_sh);
 }
