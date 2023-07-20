@@ -6,11 +6,26 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:48:25 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 16:00:33 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:08:38 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	define_var(t_shell *mini, int i)
+{
+	char	*pwd;
+	char	*str;
+	
+	free_str(mini->env[i]);
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		ft_exit_plus(mini, "Fail to access directory\n", 1);
+	str = ft_strjoin("_=", pwd);
+	free_str(pwd);
+	mini->env[i] = ft_strjoin(str, "/env");
+	free_str(str);
+}
 
 void	b_env(t_shell *mini)
 {
@@ -24,6 +39,8 @@ void	b_env(t_shell *mini)
 		i = -1;
 		while (mini->env[++i])
 		{
+			if (!ft_strncmp("_=", mini->env[i], 2))
+				define_var(mini, i);
 			if (is_there_an_equal(mini->env[i]))
 			{
 				ft_putstr_fd(mini->env[i], STDOUT_FILENO);
@@ -34,4 +51,5 @@ void	b_env(t_shell *mini)
 	}
 	else
 		mini->rtn = 1;
+	
 }
