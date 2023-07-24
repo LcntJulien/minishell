@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/15 14:11:39 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:16:15 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_exit_plus(t_shell *mini, char *err, int rtn)
 	if (mini->env)
 		free_env(mini);
 	if (mini->token)
-		listfree(mini->token);
+		free_token(mini, mini->token);
 	if (mini->args)
 		free_tab(mini->args);
 	if (mini->paths)
