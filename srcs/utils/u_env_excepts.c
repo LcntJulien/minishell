@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:25:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/20 18:46:11 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/24 09:06:19 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	check_last(t_shell *mini, char **env, int i)
 		str = ft_strjoin("_=", pwd);
 		free_str(pwd);
 		mini->env[i] = ft_strjoin(str, "/minishell");
+		free_str(str);
 		return (1);
 	}
 	return (0);

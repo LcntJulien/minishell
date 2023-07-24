@@ -6,85 +6,87 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 14:59:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/24 08:00:33y jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-long long	ft_latoi(const char *str)
+static void	check_condition_exit(t_shell *mini, unsigned long ul)
 {
-	int				i;
-	int				j;
-	long long		r;
+	if (ul > 9223372036854775807)
+		exit_too_much(mini);
+}
+
+static long long	ft_latoi(const char *str, t_shell *mini)
+{
+	int					i;
+	int					sign;
+	unsigned long long	ul;
 
 	i = 0;
-	j = 1;
-	r = 0;
+	sign = 1;
+	ul = 0;
 	while (str[i] == ' ' || str[i] == '\r' || str[i] == '\f'
 		|| str[i] == '\t' || str[i] == '\v' || str[i] == '\n')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			j = -1;
+			sign = -1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		r = (r * 10) + (str[i] - '0');
+		ul = (ul * 10) + (str[i] - '0');
 		i++;
 	}
-	return (r * j);
+	check_condition_exit(mini, ul);
+	return ((long long)ul * sign);
 }
 
-void	exit_until(t_shell *mini)
+static void is_it_a_char(t_shell *mini)
 {
-	if (mini->home)
-		free_str(mini->home);
-	if (mini->env)
-		free_env(mini);
-	if (mini->token)
-		listfree(mini, mini->token);
-	if (mini->args)
-		free_tab(mini->args);
-	if (mini->paths)
-		free_tab(mini->paths);
-}
+	int		i;
+	t_token	*tmp;
 
-void	exit_too_many(void)
-{
-}
-
-void	exit_too_much(t_shell *mini)
-{
-	char	*s1;
-	char	*s2;
-
-	s1 = ft_strjoin("minishell: exit: ", mini->token->s);
-	s2 = ft_strjoin(s1, ": numeric argument required\n");
-	free_str(s1);
-	ft_putstr_fd(s2, STDERR_FILENO);
-	free_str(s2);
-	exit_until(mini);
-	exit(255);
+	i = 0;
+	tmp = mini->token->next;
+	if (tmp)
+	{
+		if (tmp->s[i] && (tmp->s[i] == '-'
+				|| tmp->s[i] == '+'))
+			i++;
+		while (tmp->s[i])	
+		{
+			if (ft_isdigit(tmp->s[i]))
+				i++;
+			else
+			{
+				ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+				ft_putstr_fd(tmp->s, STDERR_FILENO);
+				ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+				exit_until(mini);
+				exit(255);
+			}
+		}
+	}
 }
 
 void	b_exit(t_shell *mini, t_token *list)
 {
-	double	nb;
+	long long	nb;
 
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (list->next)
 	{
 		list = list->next;
-		nb = ft_latoi(list->s);
-		if (nb < -9223372036854775807 || nb > 9223372036854775807)
-			exit_too_much(mini);
-		else if (list->next)
+		is_it_a_char(mini);
+		nb = ft_latoi(list->s, mini);
+		if (list->next)
 			ft_putstr_fd("minishell: exit: too many arguments\n",
 				STDERR_FILENO);
-		mini->rtn = (long)nb % 255;
+		mini->rtn = nb % 256;
 		exit_until(mini);
 		exit(mini->rtn);
 	}
