@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 01:18:27 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:15:04 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,17 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_hrdc
+{
+	char			**content;
+	struct s_token	*tk;
+	struct s_hrdc	*next;
+}					t_hrdc;
+
 typedef struct s_shell
 {
 	t_token			*token;
+	t_hrdc			*hrdc;
 	pid_t			*pid;
 	pid_t			ppid;
 	pid_t			cur_pid;
@@ -200,7 +208,7 @@ int					is_quote(t_token *tk);
 int					is_dollar(t_token *tk);
 void				convert_var(t_token *tk, t_shell *mini);
 void				space(char *line, int *i);
-void				listfree(t_token *token);
+void				free_token(t_shell *mini, t_token *tk);
 void				clean_tokens(t_token *tk);
 
 /*
@@ -232,7 +240,7 @@ void				close_pipes(t_shell *mini, int i, int sw);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int tab[11], int i);
-void				heredoc_manager(t_shell *mini);
+void				hrdc_manager(t_shell *mini);
 
 /* error.c */
 void				err_manager(t_shell *mini, t_token *tk, int err);
