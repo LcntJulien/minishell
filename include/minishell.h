@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/20 14:17:09 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/24 10:10:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,12 @@ int					check_opt(t_token *list, int nb_opt);
 char				**renew_env(t_shell *mini, int lines, t_token *tmp);
 void				b_env(t_shell *mini);
 
-/* exit */
+/* b_exit */
 void				b_exit(t_shell *mini, t_token *list);
+
+/* b_exit_more */
+void				exit_until(t_shell *mini);
+void				exit_too_much(t_shell *mini);
 
 /*	b_export	*/
 int					check_existing_args(t_shell *mini, char *s);
