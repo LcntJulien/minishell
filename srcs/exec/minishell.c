@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/21 14:12:05 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:54:47 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	exec(t_shell *mini, t_token *tk)
 	{
 		mini->args = get_args(tk);
 		mini->cmd = get_cmd(mini);
-		fprintf(stderr, "%s\n", mini->cmd);
 		if (!mini->cmd)
 			err_manager(mini, tk, 0);
 		execve(mini->cmd, mini->args, mini->env);
@@ -59,9 +58,9 @@ void	child(t_shell *mini, t_token *tk, int i)
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	}
 	redir(mini, tk, tab, i);
-	free(tab);
 	close_pipes(mini, i, 1);
 	exec(mini, tk);
+	free(tab);
 }
 
 void	minipipe(t_shell *mini, t_token *tk)
