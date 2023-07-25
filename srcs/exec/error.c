@@ -6,11 +6,41 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:39:05 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/12 18:08:03 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:51:51 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	clear_files(t_shell *mini, t_token *tk, char *s)
+{
+	t_token	*cp;
+	int		fd;
+
+	cp = tk;
+	fd = 0;
+	while (cp->next && cp->next->type != PIPE)
+	{
+		if ((cp->type == OUTPUT || cp->type == APPEND)
+			&& (ft_strncmp(cp->next->s, s, ft_strlen(cp->next->s))))
+		{
+			fd = open(cp->next->s, O_WRONLY | O_TRUNC);
+			if (fd < 0)
+				fds_err(mini, cp->next->s);
+			close(fd);
+		}
+		cp = cp->next;
+	}
+}
+
+void	fds_err(t_shell	*mini, char	*fname)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(fname, 2);
+	ft_putendl_fd("; no such file or directory", 2);
+	mini->rtn = 1;
+	exit(1);
+}
 
 void	err_manager(t_shell *mini, t_token *tk, int err)
 {
