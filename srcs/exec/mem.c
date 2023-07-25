@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 16:15:49 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:53:22 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	mini_free(t_shell *mini)
 	free_paths(mini);
 	free_args(mini);
 	free_token(mini, mini->token);
-
 	if (mini->pid)
 		free(mini->pid);
 	mini->pid = NULL;
