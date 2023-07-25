@@ -90,8 +90,6 @@ void	parse(t_shell *mini)
 			post_tk_type(token, mini);
 		token = token->next;
 	}
-	token = mini->token;
-	display_tokens(token);
 	free(line);
 	parse_err(mini);
 }
