@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/21 13:18:30 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:53:52 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,13 @@ void	add_hrdc(t_shell *mini, t_hrdc *hrdc)
 
 t_hrdc	*new_hrdc(t_token *tk)
 {
-	t_token	*cp;
 	t_hrdc	*hrdc;
 
-	cp = tk;
-	while (cp->prev != NULL && cp->prev->type != PIPE)
-	{
-		cp = cp->prev;
-		if (cp->type == CMD || cp->type == BUILTIN)
-			break ;
-	}
 	hrdc = malloc(sizeof(t_hrdc *));
+	if (!hrdc)
+		return (NULL);
+	hrdc->idx = tk->idx;
 	hrdc->content = NULL;
-	hrdc->tk = cp;
 	hrdc->next = NULL;
 	return (hrdc);
 }
@@ -98,7 +92,7 @@ void	heredoc_handler(t_shell *mini, t_token *tk)
 
 void	hrdc_manager(t_shell *mini)
 {
-	t_token *tk;
+	t_token	*tk;
 
 	tk = mini->token;
 	while (tk->next != NULL)
