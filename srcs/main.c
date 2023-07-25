@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/21 13:44:33 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:41:41 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	startshell(t_shell *mini, char **env, int *histo)
 	mini->pid = 0;
 	mini->rtn = 0;
 	mini->ncmd = 0;
+	mini->in = 0;
+	mini->out = 0;
 	mini->cmd = NULL;
 	mini->tab = NULL;
 	mini->args = NULL;
@@ -66,7 +68,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse(&mini);
-			// hrdc_manager(&mini);
+			hrdc_manager(&mini);
 			minishell(&mini);
 		}
 	}
