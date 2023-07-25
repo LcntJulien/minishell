@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/21 13:15:04 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:51:49 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int					def_sig;
 typedef struct s_token
 {
 	char			*s;
+	int				idx;
 	int				type;
 	struct s_token	*prev;
 	struct s_token	*next;
@@ -58,8 +59,8 @@ typedef struct s_token
 
 typedef struct s_hrdc
 {
+	int				idx;
 	char			**content;
-	struct s_token	*tk;
 	struct s_hrdc	*next;
 }					t_hrdc;
 
@@ -77,6 +78,8 @@ typedef struct s_shell
 	char			*cmd;
 	char			*home;
 	int				**tab;
+	int				in;
+	int				out;
 	int				ncmd;
 	int				rtn;
 	int				exit;
@@ -244,5 +247,7 @@ void				hrdc_manager(t_shell *mini);
 
 /* error.c */
 void				err_manager(t_shell *mini, t_token *tk, int err);
+void				clear_files(t_shell *mini, t_token *tk, char *s);
+void				fds_err(t_shell *mini, char *fname);
 
 #endif
