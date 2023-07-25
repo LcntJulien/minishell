@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit_more.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 09:56:15 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/24 10:10:01 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:30:23 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exit_until(t_shell *mini)
 	if (mini->env)
 		free_env(mini);
 	if (mini->token)
-		listfree(mini, mini->token);
+		free_token(mini, mini->token);
 	if (mini->args)
 		free_tab(mini->args);
 	if (mini->paths)
