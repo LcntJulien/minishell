@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/20 17:23:55 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:07:48 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	child(t_shell *mini, t_token *tk, int i)
 		dup2(mini->tab[i][0], STDIN_FILENO);
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	}
-	is_redir(mini, tk, tab, i);
-	free(tab);
+	redir(mini, tk, tab, i);
 	close_pipes(mini, i, 1);
 	exec(mini, tk);
+	free(tab);
 }
 
 void	minipipe(t_shell *mini, t_token *tk)

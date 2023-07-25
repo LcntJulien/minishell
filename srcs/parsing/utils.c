@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 14:58:00 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:08:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	space(char *line, int *i)
 		(*i)++;
 }
 
-void	listfree(t_shell *mini, t_token *tk)
+void	free_token(t_shell *mini, t_token *tk)
 {
 	t_token	*cpy;
 	t_token	*tmp;
@@ -44,8 +44,11 @@ void	listfree(t_shell *mini, t_token *tk)
 		while (cpy != NULL)
 		{
 			tmp = cpy->next;
-			free(cpy->s);
-			cpy->s = NULL;
+			if (cpy->s != NULL)
+			{
+				free(cpy->s);
+				cpy->s = NULL;
+			}
 			free(cpy);
 			cpy = tmp;
 		}

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/11 16:39:55 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:13:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char	*get_cmd(t_shell *mini)
 	char	*pathcmd;
 
 	i = -1;
+	pathcmd = NULL;
 	while (mini->paths[++i])
 	{
 		pathcmd = ft_strjoin(mini->paths[i], mini->args[0]);

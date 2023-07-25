@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/20 17:57:17 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:08:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->exit = 0;
 	mini->pid = 0;
 	mini->ncmd = 0;
+	mini->in = 0;
+	mini->out = 0;
 	mini->cmd = NULL;
 	mini->tab = NULL;
 	mini->args = NULL;
@@ -28,6 +30,7 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->line = NULL;
 	mini->tab = NULL;
 	mini->token = NULL;
+	mini->hrdc = NULL;
 	alloc_env(mini, env);
 	mini->home = ft_strdup(getenv("HOME"));
 	if (!create_history(histo))
@@ -68,7 +71,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse(&mini);
-			heredoc_manager(&mini);
+			hrdc_manager(&mini);
 			minishell(&mini);
 		}
 		mini_free(&mini);

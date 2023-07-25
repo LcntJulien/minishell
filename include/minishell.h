@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/24 10:10:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:05:09 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,23 @@ int					g_sig;
 typedef struct s_token
 {
 	char			*s;
+	int				idx;
 	int				type;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_hrdc
+{
+	int				idx;
+	char			**content;
+	struct s_hrdc	*next;
+}					t_hrdc;
+
 typedef struct s_shell
 {
 	t_token			*token;
+	t_hrdc			*hrdc;
 	pid_t			*pid;
 	pid_t			ppid;
 	pid_t			cur_pid;
@@ -71,6 +80,8 @@ typedef struct s_shell
 	char			*echo;
 	char			*home;
 	int				**tab;
+	int				in;
+	int				out;
 	int				ncmd;
 	int				rtn;
 	int				exit;
@@ -207,7 +218,7 @@ int					is_quote(t_token *tk);
 int					is_dollar(t_token *tk);
 void				convert_var(t_token *tk, t_shell *mini);
 void				space(char *line, int *i);
-void				listfree(t_shell *mini, t_token *token);
+void				free_token(t_shell *mini, t_token *tk);
 void				clean_tokens(t_token *tk);
 
 /*
@@ -238,10 +249,12 @@ void				mini_free(t_shell *mini);
 void				close_pipes(t_shell *mini, int i, int sw);
 
 /* redir.c */
-void				is_redir(t_shell *mini, t_token *tk, int tab[11], int i);
-void				heredoc_manager(t_shell *mini);
+void				redir(t_shell *mini, t_token *tk, int tab[11], int i);
+void				hrdc_manager(t_shell *mini);
 
 /* error.c */
 void				err_manager(t_shell *mini, t_token *tk, int err);
+void				clear_files(t_shell *mini, t_token *tk, char *s);
+void				fds_err(t_shell *mini, char *fname);
 
 #endif

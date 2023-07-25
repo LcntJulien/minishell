@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mem.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/18 15:12:01 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:06:30 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	mini_free(t_shell *mini)
 	free_pipe(mini);
 	free_paths(mini);
 	free_args(mini);
-	listfree(mini, mini->token);
+	free_token(mini, mini->token);
 	if (mini->pid)
 		free(mini->pid);
 	mini->pid = NULL;

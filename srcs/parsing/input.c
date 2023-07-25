@@ -83,12 +83,15 @@ void	parse(t_shell *mini)
 	mini->token = get_tokens(line);
 	token = mini->token;
 	clean_tokens(token);
+	token = mini->token;
 	while (token)
 	{
 		if (token->type <= VAR)
 			post_tk_type(token, mini);
 		token = token->next;
 	}
+	token = mini->token;
+	display_tokens(token);
 	free(line);
 	parse_err(mini);
 }
