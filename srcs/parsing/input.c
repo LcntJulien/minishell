@@ -19,7 +19,10 @@ void	parse_err(t_shell *mini)
 	tk = mini->token;
 	while (tk)
 	{
-		if (tk->type == PIPE && !tk->next)
+		if ((tk->type == PIPE && !tk->next) || ((tk->type == INPUT
+				|| tk->type == HEREDOC || tk->type == OUTPUT
+				|| tk->type == APPEND) && (!tk->next
+				|| tk->next->type != ARG)))
 			err_manager(mini, tk, 3);
 		tk = tk->next;
 	}
@@ -81,6 +84,7 @@ void	parse(t_shell *mini)
 		return ;
 	line = parse_line(mini);
 	mini->token = get_tokens(line);
+	token_idx(mini);
 	token = mini->token;
 	clean_tokens(token);
 	token = mini->token;

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/21 13:41:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/28 14:38:19 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	display_tokens(t_token *token)
 {
+	t_token	*cp;
 	char	*tab[11];
 
+	cp = token;
+	while (cp && cp->prev && cp->prev->type != PIPE)
+		cp = cp->prev;
 	tab[0] = "CMD";
 	tab[1] = "ARG";
 	tab[2] = "VAR";
@@ -27,13 +31,27 @@ void	display_tokens(t_token *token)
 	tab[8] = "OUTPUT";
 	tab[9] = "APPEND";
 	tab[10] = "HEREDOC";
-	while (token)
+	while (cp)
 	{
-		if (token->s != NULL)
-			fprintf(stderr, "%s --> %s\n", token->s, tab[token->type]);
+		if (cp->s != NULL)
+			fprintf(stderr, "%s -> %s -> %d\n", cp->s, tab[cp->type], cp->idx);
 		else
-			fprintf(stderr, "|VIDE| --> %s\n", tab[token->type]);
-		token = token->next;
+			fprintf(stderr, "|VIDE| -> %s\n", tab[cp->type]);
+		cp = cp->next;
+	}
+}
+
+void	token_idx(t_shell *mini)
+{
+	t_token	*cp;
+	int		i;
+
+	cp = mini->token;
+	i = 0;
+	while (cp != NULL)
+	{
+		cp->idx = i++;
+		cp = cp->next;
 	}
 }
 
@@ -67,7 +85,7 @@ t_token	*new_token(char *line, int *i, int j)
 			break ;
 		if (((line[*i] == '<' && line[*i + 2] == '<') || (line[*i] == '>'
 					&& line[*i + 2] == '>')) && (line[*i - 1] != '<' || line[*i
-					- 1] != '>'))
+				- 1] != '>'))
 		{
 			new->s[j++] = line[*i + 2];
 			(*i)++;
