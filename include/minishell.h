@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/25 15:05:09 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/28 20:27:27 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define OUTPUT 8
 # define APPEND 9
 # define HEREDOC 10
+# define HRDC ".heredoc"
 
 # include LIBFT
 # include <curses.h>
@@ -204,6 +205,7 @@ void				parse(t_shell *mini);
 
 /* token.c */
 void				*get_tokens(char *line);
+void				token_idx(t_shell *mini);
 void				display_tokens(t_token *token);
 
 /* type.c */
@@ -238,10 +240,11 @@ EXEC
 void				minishell(t_shell *mini);
 
 /* utils.c */
+void				get_args(t_shell *mini, t_token *tk);
 void				pipe_alloc(t_shell *mini);
 void				get_paths(t_shell *mini);
-char				**get_args(t_token *tk);
 char				*get_cmd(t_shell *mini);
+char				**args_alloc(t_token *tk);
 int					nb_cmd(t_shell *mini);
 
 /* mem.c */
@@ -249,8 +252,13 @@ void				mini_free(t_shell *mini);
 void				close_pipes(t_shell *mini, int i, int sw);
 
 /* redir.c */
-void				redir(t_shell *mini, t_token *tk, int tab[11], int i);
+void				redir(t_shell *mini, t_token *tk, int i);
 void				hrdc_manager(t_shell *mini);
+
+/* redir2.c */
+void				args_redir(t_shell *mini, t_token *tk);
+void				redir_hrdc(t_shell *mini, t_token *cur);
+int					is_redir(t_token *tk, int mode);
 
 /* error.c */
 void				err_manager(t_shell *mini, t_token *tk, int err);
