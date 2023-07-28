@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/25 14:53:52 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/28 19:17:14 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_hrdc	*new_hrdc(t_token *tk)
 {
 	t_hrdc	*hrdc;
 
-	hrdc = malloc(sizeof(t_hrdc *));
+	hrdc = malloc(sizeof(t_hrdc));
 	if (!hrdc)
 		return (NULL);
 	hrdc->idx = tk->idx;

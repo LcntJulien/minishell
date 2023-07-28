@@ -6,11 +6,31 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/24 17:13:16 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:49:35 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	**args_alloc(t_token *tk)
+{
+	t_token	*cp;
+	char	**args;
+	int		i;
+
+	cp = tk;
+	args = NULL;
+	i = 0;
+	while (cp && cp->type != PIPE)
+	{
+		i++;
+		cp = cp->next;
+	}
+	args = malloc(sizeof(char *) * i + 1);
+	if (!args)
+		return (NULL);
+	return (args);
+}
 
 int	nb_cmd(t_shell *mini)
 {
@@ -59,31 +79,27 @@ void	get_paths(t_shell *mini)
 	free(paths);
 }
 
-char	**get_args(t_token *tk)
+void	get_args(t_shell *mini, t_token *tk)
 {
+	t_token	*cp;
 	int		i;
-	char	**args;
-	t_token	*cpy;
 
+	cp = tk;
 	i = 0;
-	cpy = tk;
-	while (cpy && cpy->type != PIPE)
+	while (cp->prev && cp->prev->type != PIPE)
+		cp = cp->prev;
+	if (is_redir(cp, 0))
+		args_redir(mini, cp);
+	else
 	{
-		i++;
-		cpy = cpy->next;
+		mini->args = args_alloc(cp);
+		while (cp && cp->type != PIPE)
+		{
+			mini->args[i++] = cp->s;
+			cp = cp->next;
+		}
+		mini->args[i] = NULL;
 	}
-	cpy = tk;
-	args = malloc(sizeof(char *) * (i + 1));
-	if (!args)
-		return (NULL);
-	i = 0;
-	while (cpy && cpy->type != PIPE)
-	{
-		args[i++] = cpy->s;
-		cpy = cpy->next;
-	}
-	args[i] = NULL;
-	return (args);
 }
 
 char	*get_cmd(t_shell *mini)
@@ -101,7 +117,7 @@ char	*get_cmd(t_shell *mini)
 		free(pathcmd);
 		pathcmd = NULL;
 	}
-	if (access(mini->args[0], 0) == 0)
+	if (access(mini->args[0], X_OK) == 0)
 		return (mini->args[0]);
 	return (NULL);
 }
