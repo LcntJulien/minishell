@@ -6,16 +6,14 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/25 15:32:57 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:58:36 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-//int	g_sig;
-
 static void	startshell(t_shell *mini, char **env, int *histo,
-	struct termios *term)
+		struct termios *term)
 {
 	mini->rtn = 0;
 	mini->exit = 0;

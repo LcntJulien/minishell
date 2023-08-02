@@ -6,34 +6,23 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/21 13:41:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:42:19 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	display_tokens(t_token *token)
+void	token_idx(t_shell *mini)
 {
-	char	*tab[11];
+	t_token	*cp;
+	int		i;
 
-	tab[0] = "CMD";
-	tab[1] = "ARG";
-	tab[2] = "VAR";
-	tab[3] = "OPTION";
-	tab[4] = "BUILTIN";
-	tab[5] = "DECLAVAR";
-	tab[6] = "PIPE";
-	tab[7] = "INPUT";
-	tab[8] = "OUTPUT";
-	tab[9] = "APPEND";
-	tab[10] = "HEREDOC";
-	while (token)
+	cp = mini->token;
+	i = 0;
+	while (cp != NULL)
 	{
-		if (token->s != NULL)
-			fprintf(stderr, "%s --> %s\n", token->s, tab[token->type]);
-		else
-			fprintf(stderr, "|VIDE| --> %s\n", tab[token->type]);
-		token = token->next;
+		cp->idx = i++;
+		cp = cp->next;
 	}
 }
 
@@ -67,7 +56,7 @@ t_token	*new_token(char *line, int *i, int j)
 			break ;
 		if (((line[*i] == '<' && line[*i + 2] == '<') || (line[*i] == '>'
 					&& line[*i + 2] == '>')) && (line[*i - 1] != '<' || line[*i
-					- 1] != '>'))
+				- 1] != '>'))
 		{
 			new->s[j++] = line[*i + 2];
 			(*i)++;
@@ -106,4 +95,30 @@ void	*get_tokens(char *line)
 	while (token && token->prev)
 		token = token->prev;
 	return (token);
+}
+
+void	clean_tokens(t_token *tk)
+{
+	t_token	*cp;
+	char	*s;
+
+	cp = tk;
+	s = NULL;
+	while (cp)
+	{
+		if (is_quote(cp) /*&& ((cp->type == VAR && valid_var(cp))
+				|| (cp->type != ARG && cp->type != VAR && !quote_state(cp->s,
+						ft_strlen(cp->s) - 1)) || (cp->type == ARG
+					&& is_quote(cp) > 1))*/
+		)
+		{
+			s = ft_strdup(cp->s);
+			free(cp->s);
+			cp->s = NULL;
+			cp->s = clean_s(s);
+		}
+		cp = cp->next;
+	}
+	free(s);
+	free(cp);
 }

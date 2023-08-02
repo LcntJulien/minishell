@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_create_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/20 12:15:42 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:17:26 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ static void	copy_env(t_shell *mini, char **env, int f_old, int f_sh)
 	int	i;
 
 	i = -1;
+	if (!env)
+	{
+		mini->env[0] = NULL;
+		return ;
+	}
 	while (env[++i])
 	{
 		if (!env_exceptions(mini, env, i))
