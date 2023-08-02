@@ -12,20 +12,52 @@
 
 #include "../../include/minishell.h"
 
-void	parse_err(t_shell *mini)
+void	display_tokens(t_token *token)
 {
-	t_token	*tk;
+	t_token	*cp;
+	char	*tab[11];
 
-	tk = mini->token;
-	while (tk)
+	cp = token;
+	while (cp && cp->prev && cp->prev->type != PIPE)
+		cp = cp->prev;
+	tab[0] = "CMD";
+	tab[1] = "ARG";
+	tab[2] = "VAR";
+	tab[3] = "OPTION";
+	tab[4] = "BUILTIN";
+	tab[5] = "DECLAVAR";
+	tab[6] = "PIPE";
+	tab[7] = "INPUT";
+	tab[8] = "OUTPUT";
+	tab[9] = "APPEND";
+	tab[10] = "HEREDOC";
+	while (cp)
 	{
-		if ((tk->type == PIPE && !tk->next) || ((tk->type == INPUT
-				|| tk->type == HEREDOC || tk->type == OUTPUT
-				|| tk->type == APPEND) && (!tk->next
-				|| tk->next->type != ARG)))
-			err_manager(mini, tk, 3);
-		tk = tk->next;
+		if (cp->s != NULL)
+			fprintf(stderr, "%s -> %s -> %d\n", cp->s, tab[cp->type], cp->idx);
+		else
+			fprintf(stderr, "|VIDE| -> %s\n", tab[cp->type]);
+		cp = cp->next;
 	}
+}
+
+int	parse_err(t_shell *mini, t_token *tk, int err)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (!err)
+	{
+		ft_putstr_fd(tk->s, 2);
+		ft_putendl_fd(": syntax error", 2);
+		mini->rtn = 2;
+	}
+	else
+	{
+		ft_putstr_fd("syntax error near unexpected token `", 2);
+		ft_putstr_fd(tk->s, 2);
+		ft_putendl_fd("'", 2);
+		mini->rtn = 258;
+	}
+	return (1);
 }
 
 char	*alloc_line(t_shell *mini)
@@ -84,10 +116,13 @@ void	parse(t_shell *mini)
 		return ;
 	line = parse_line(mini);
 	mini->token = get_tokens(line);
+	token = mini->token;
 	token_idx(mini);
-	token = mini->token;
+	if (syntax_check(mini, 0))
+		return ;
 	clean_tokens(token);
-	token = mini->token;
+	if (syntax_check(mini, 1))
+		return ;
 	while (token)
 	{
 		if (token->type <= VAR)
@@ -95,5 +130,4 @@ void	parse(t_shell *mini)
 		token = token->next;
 	}
 	free(line);
-	parse_err(mini);
 }
