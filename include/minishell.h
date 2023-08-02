@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/28 20:27:27 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:54:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define OUTPUT 8
 # define APPEND 9
 # define HEREDOC 10
+
 # define HRDC ".heredoc"
 
 # include LIBFT
@@ -47,7 +48,6 @@
 # include <termios.h>
 # include <unistd.h>
 
-//extern int					g_sig;
 int					g_sig;
 
 typedef struct s_token
@@ -201,6 +201,7 @@ int					existing_var(t_shell *mini, char *var);
 PARSING
 */
 /* input.c */
+int					parse_err(t_shell *mini, t_token *tk, int err);
 void				parse(t_shell *mini);
 
 /* token.c */
@@ -214,14 +215,21 @@ void				post_tk_type(t_token *tk, t_shell *mini);
 void				tk_type(t_token *token);
 
 /* utils.c */
-int					quote_state(char *line, int idx);
-int					valid_var(t_token *tk);
-int					is_quote(t_token *tk);
-int					is_dollar(t_token *tk);
-void				convert_var(t_token *tk, t_shell *mini);
 void				space(char *line, int *i);
 void				free_token(t_shell *mini, t_token *tk);
 void				clean_tokens(t_token *tk);
+int					syntax_check(t_shell *mini, int mode);
+int					quote_state(char *line, int idx);
+int					is_quote(t_token *tk);
+
+/* utils1.c */
+int					is_dollar(t_token *tk);
+char				*clean_s(char *s);
+
+/* var.c */
+void				convert_var(t_shell *mini, t_token *tk);
+int					contain_var(t_shell *mini, t_token *tk);
+int					valid_var(t_shell *mini, char *s);
 
 /*
 UTILS
@@ -249,7 +257,15 @@ int					nb_cmd(t_shell *mini);
 
 /* mem.c */
 void				mini_free(t_shell *mini);
+void				close_output(t_token *cp, t_token *cur);
 void				close_pipes(t_shell *mini, int i, int sw);
+
+/* free.c */
+void				free_hrdc(t_shell *mini);
+void				free_token(t_shell *mini, t_token *tk);
+void				free_args(t_shell *mini);
+void				free_pipe(t_shell *mini);
+void				free_paths(t_shell *mini);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);
