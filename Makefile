@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/07/27 16:53:42 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/08/01 16:55:46 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXP)utils1.c			\
 		$(PFXP)token.c			\
 		$(PFXP)type.c			\
+		$(PFXP)var.c			\
 		$(PFXB)b_process.c		\
 		$(PFXB)b_utils.c		\
 		$(PFXB)b_cd.c			\
@@ -53,6 +54,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXE)redir1.c			\
 		$(PFXE)redir2.c			\
 		$(PFXE)mem.c			\
+		$(PFXE)free.c			\
 		$(PFXE)error.c			\
 		$(PFXE)minishell.c		\
 		$(PFXU)u_history.c		\
