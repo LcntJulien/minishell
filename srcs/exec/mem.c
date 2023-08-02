@@ -6,53 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/25 15:06:30 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:54:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	free_args(t_shell *mini)
-{
-	int	i;
-
-	i = 0;
-	if (mini->args)
-	{
-		while (mini->args[i])
-			free(mini->args[i++]);
-		free(mini->args);
-		mini->args = NULL;
-	}
-}
-
-void	free_pipe(t_shell *mini)
-{
-	int	i;
-
-	i = 0;
-	if (mini->tab)
-	{
-		while (i < mini->ncmd)
-			free(mini->tab[i++]);
-		free(mini->tab);
-		mini->tab = NULL;
-	}
-}
-
-void	free_paths(t_shell *mini)
-{
-	int	i;
-
-	i = 0;
-	if (mini->paths)
-	{
-		while (mini->paths[i])
-			free(mini->paths[i++]);
-		free(mini->paths);
-		mini->paths = NULL;
-	}
-}
 
 void	mini_free(t_shell *mini)
 {
@@ -62,6 +20,7 @@ void	mini_free(t_shell *mini)
 	free_paths(mini);
 	free_args(mini);
 	free_token(mini, mini->token);
+	free_hrdc(mini);
 	if (mini->pid)
 		free(mini->pid);
 	mini->pid = NULL;
@@ -71,6 +30,26 @@ void	mini_free(t_shell *mini)
 	if (mini->line)
 		free(mini->line);
 	mini->line = NULL;
+}
+
+void	close_output(t_token *tk, t_token *cur)
+{
+	t_token	*cp;
+	int		fd;
+
+	cp = tk;
+	fd = 0;
+	while (cp->prev && cp->prev->type != PIPE)
+		cp = cp->prev;
+	while (cp && cp->type != PIPE)
+	{
+		if (cp->next && cp->type == OUTPUT && cp->next->idx != cur->idx)
+		{
+			fd = open(cp->next->s, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			close(fd);
+		}
+		cp = cp->next;
+	}
 }
 
 void	close_pipes(t_shell *mini, int i, int sw)

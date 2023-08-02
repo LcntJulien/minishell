@@ -6,32 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/28 19:17:14 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:34:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	free_hrdc(t_shell *mini, t_hrdc *hrdc)
-{
-	t_hrdc	*cp;
-	t_hrdc	*tmp;
-
-	cp = hrdc;
-	tmp = NULL;
-	if (mini->hrdc != NULL)
-	{
-		while (cp != NULL)
-		{
-			tmp = cp->next;
-			if (cp->content != NULL)
-				free_tab(cp->content);
-			free(cp);
-			cp = tmp;
-		}
-		mini->hrdc = NULL;
-	}
-}
 
 void	add_hrdc(t_shell *mini, t_hrdc *hrdc)
 {
@@ -76,7 +55,7 @@ void	heredoc_handler(t_shell *mini, t_token *tk)
 	while (1)
 	{
 		tmp = readline("\033[0;35m\033[▸ \033[");
-		if (ft_strncmp(tmp, tk->s, ft_strlen(tmp)) == 0)
+		if (tmp[0] && ft_strncmp(tmp, tk->s, ft_strlen(tmp)) == 0)
 			break ;
 		tab[i++] = tmp;
 	}

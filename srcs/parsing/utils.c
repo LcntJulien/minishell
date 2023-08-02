@@ -6,11 +6,26 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/25 15:08:44 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:02:58 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	space(char *line, int *i)
+{
+	while ((line[*i] == ' ' || line[*i] == '\t') || (line[*i] == '\r'
+			|| line[*i] == '\v' || line[*i] == '\f'))
+		(*i)++;
+}
+
+int	is_sep(char *line, int i)
+{
+	if (ft_strchr("<>|", line[i]) && quote_state(line, i) == 0)
+		return (1);
+	else
+		return (0);
+}
 
 int	is_quote(t_token *tk)
 {
@@ -23,37 +38,6 @@ int	is_quote(t_token *tk)
 		if (tk->s[i] == '\'' || tk->s[i] == '\"')
 			r++;
 	return (r);
-}
-
-void	space(char *line, int *i)
-{
-	while ((line[*i] == ' ' || line[*i] == '\t') || (line[*i] == '\r'
-			|| line[*i] == '\v' || line[*i] == '\f'))
-		(*i)++;
-}
-
-void	free_token(t_shell *mini, t_token *tk)
-{
-	t_token	*cpy;
-	t_token	*tmp;
-
-	cpy = tk;
-	tmp = NULL;
-	if (mini->token != NULL)
-	{
-		while (cpy != NULL)
-		{
-			tmp = cpy->next;
-			if (cpy->s != NULL)
-			{
-				free(cpy->s);
-				cpy->s = NULL;
-			}
-			free(cpy);
-			cpy = tmp;
-		}
-		mini->token = NULL;
-	}
 }
 
 int	quote_state(char *line, int idx)
@@ -78,29 +62,31 @@ int	quote_state(char *line, int idx)
 	return (quote);
 }
 
-void	convert_var(t_token *tk, t_shell *mini)
+int	syntax_check(t_shell *mini, int mode)
 {
-	char	*cpy;
-	int		i;
+	t_token	*cp;
 
-	cpy = ft_strtrim(tk->s, "$");
-	i = 0;
-	if (mini->env)
+	cp = mini->token;
+	while (cp)
 	{
-		while (mini->env[i])
+		if (!mode)
 		{
-			if (ft_strncmp(cpy, mini->env[i], ft_strlen(cpy)) == 0)
-			{
-				cpy = ft_substr(mini->env[i], ft_strlen(tk->s),
-						ft_strlen(mini->env[i]) - ft_strlen(tk->s));
-				free(tk->s);
-				tk->s = NULL;
-				tk->s = ft_strdup(cpy);
-				free(cpy);
-				return ;
-			}
-			i++;
+			if (is_quote(cp) && (((cp->s[0] == '\'' || cp->s[0] == '\"')
+							&& cp->s[0] != cp->s[ft_strlen(cp->s) - 1])
+							|| ((cp->s[ft_strlen(cp->s) - 1] == '\''
+							|| cp->s[ft_strlen(cp->s) - 1] == '\"')
+						&& cp->s[ft_strlen(cp->s) - 1] != cp->s[0])))
+				return (parse_err(mini, cp, 0));
 		}
+		else
+		{
+			if ((cp->type == PIPE && !cp->next) || ((cp->type == INPUT
+						|| cp->type == HEREDOC || cp->type == OUTPUT
+						|| cp->type == APPEND) && (!cp->next
+						|| cp->next->type != ARG)))
+				return (parse_err(mini, cp, 1));
+		}
+		cp = cp->next;
 	}
-	free(cpy);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/28 20:04:43 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:55:27 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	redirin(t_shell *mini, t_token *tk, int i)
 		do_redirin(mini, cur, i);
 }
 
-void	redirout(t_shell *mini, t_token *tk, int i)
+void redirout(t_shell *mini, t_token *tk, int i)
 {
 	t_token	*cp;
 	t_token	*cur;
@@ -89,7 +89,7 @@ void	redirout(t_shell *mini, t_token *tk, int i)
 	if (cur)
 	{
 		do_redirout(mini, cur, i);
-		// clear_files(mini, cp, cur->s);
+		close_output(tk, cur);
 	}
 }
 

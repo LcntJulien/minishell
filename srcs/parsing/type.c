@@ -6,11 +6,27 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:29:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/25 13:31:45 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:17:56 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	is_decla(char *s)
+{
+	int	i;
+	int	r;
+
+	i = 0;
+	r = 0;
+	while (s[i])
+	{
+		if (ft_strchr("=", s[i]))
+			r++;
+		i++;
+	}
+	return (r);
+}
 
 int	is_builtin(char *s)
 {
@@ -34,30 +50,6 @@ int	is_builtin(char *s)
 	return (0);
 }
 
-int	is_decla(char *s)
-{
-	int	i;
-	int	r;
-
-	i = 0;
-	r = 0;
-	while (s[i])
-	{
-		if (ft_strchr("=", s[i]))
-			r++;
-		i++;
-	}
-	return (r);
-}
-
-int	is_sep(char *line, int i)
-{
-	if (ft_strchr("<>|", line[i]) && quote_state(line, i) == 0)
-		return (1);
-	else
-		return (0);
-}
-
 void	post_tk_type(t_token *tk, t_shell *mini)
 {
 	if (tk->type == CMD)
@@ -72,11 +64,11 @@ void	post_tk_type(t_token *tk, t_shell *mini)
 		if ((tk->s[0] == '\"' && tk->s[1] == '$') || tk->s[0] == '$')
 			tk->type = VAR;
 		else if (((tk->s[0] == '\"' || tk->s[0] == '\'') && tk->s[1] == '-')
-			|| tk->s[0] == '-')
+						|| tk->s[0] == '-')
 			tk->type = OPTION;
 	}
-	if (tk->type == VAR && valid_var(tk))
-		convert_var(tk, mini);
+	if (contain_var(mini, tk))
+		convert_var(mini, tk);
 }
 
 void	tk_type(t_token *token)
@@ -94,7 +86,7 @@ void	tk_type(t_token *token)
 	else if (ft_strncmp(token->s, "<<", ft_strlen(token->s)) == 0)
 		token->type = HEREDOC;
 	else if (token->prev == NULL || token->prev->type == PIPE
-		|| (token->prev->prev && token->prev->prev->type >= INPUT))
+			|| (token->prev->prev && token->prev->prev->type >= INPUT))
 		token->type = CMD;
 	else
 		token->type = ARG;
