@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/28 15:49:35 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:24:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	get_args(t_shell *mini, t_token *tk)
 
 	cp = tk;
 	i = 0;
-	while (cp->prev && cp->prev->type != PIPE)
+	while (cp && cp->prev && cp->prev->type != PIPE)
 		cp = cp->prev;
 	if (is_redir(cp, 0))
 		args_redir(mini, cp);
@@ -109,6 +109,8 @@ char	*get_cmd(t_shell *mini)
 
 	i = -1;
 	pathcmd = NULL;
+	if (!mini->paths)
+		return (0);
 	while (mini->paths[++i])
 	{
 		pathcmd = ft_strjoin(mini->paths[i], mini->args[0]);
