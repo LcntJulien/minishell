@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/28 12:21:53 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:49:02 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 t_token	*next_cmd(t_token *tk)
 {
-	tk = tk->next;
-	while (tk && tk->type != CMD)
+	if (tk->next)
+	{
 		tk = tk->next;
+		while (tk && tk->type != CMD)
+			tk = tk->next;
+	}
 	return (tk);
 }
 
@@ -91,7 +94,7 @@ void	minishell(t_shell *mini)
 	tk = mini->token;
 	mini->ncmd = nb_cmd(mini);
 	get_paths(mini);
-	if (tk && tk->idx == 0 && tk->type != CMD)
+	if (tk && tk->idx == 0 && tk->type != CMD && tk->type != BUILTIN)
 		tk = next_cmd(tk);
 	if (mini->ncmd > 1)
 		minipipe(mini, tk);
