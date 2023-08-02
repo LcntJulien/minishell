@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/28 20:18:50 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/07/30 20:33:58 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@ void	redir_hrdc(t_shell *mini, t_token *cur)
 
 	cp = mini->hrdc;
 	j = -1;
-	fprintf(stderr, "%s\n", cp->content[0]);
 	mini->in = open(HRDC, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (mini->in < 0)
 		fds_err(mini, HRDC);
 	while (cp->next && cp->idx != cur->idx)
-	{
-		fprintf(stderr, "token->idx: %d\nhrdc->idx: %d\n", cur->idx, cp->idx);
 		cp = cp->next;
-	}
 	while (cp->content[++j])
 		ft_putendl_fd(cp->content[j], mini->in);
 	close(mini->in);
@@ -44,7 +40,7 @@ int	is_redir(t_token *tk, int mode)
 	cp = tk;
 	in = 0;
 	out = 0;
-	while (cp->prev != NULL && cp->prev->type != PIPE)
+	while (cp && cp->prev && cp->prev->type != PIPE)
 		cp = cp->prev;
 	while (cp && cp->type != PIPE)
 	{
