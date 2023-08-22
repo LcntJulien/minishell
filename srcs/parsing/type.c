@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:29:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/01 21:17:56 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:36:58 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_builtin(char *s)
 	return (0);
 }
 
-void	post_tk_type(t_token *tk, t_shell *mini)
+void	post_tk_type(t_token *tk)
 {
 	if (tk->type == CMD)
 	{
@@ -67,8 +67,17 @@ void	post_tk_type(t_token *tk, t_shell *mini)
 						|| tk->s[0] == '-')
 			tk->type = OPTION;
 	}
-	if (contain_var(mini, tk))
-		convert_var(mini, tk);
+}
+
+int	is_dollar(t_token *tk)
+{
+	int	i;
+
+	i = -1;
+	while (tk->s[++i])
+		if (tk->s[i] == '$')
+			return (1);
+	return (0);
 }
 
 void	tk_type(t_token *token)

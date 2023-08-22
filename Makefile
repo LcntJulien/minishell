@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/08/01 16:55:46 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/08/22 19:48:19 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,13 @@ PFXE	= $(PFXS)exec/
 
 SRCS	= $(PFXS)main.c			\
 		$(PFXP)input.c			\
-		$(PFXP)utils.c			\
-		$(PFXP)utils1.c			\
+		$(PFXP)utils/utils.c	\
+		$(PFXP)utils/utils1.c	\
+		$(PFXP)var/var.c		\
+		$(PFXP)var/var1.c		\
 		$(PFXP)token.c			\
 		$(PFXP)type.c			\
-		$(PFXP)var.c			\
+		$(PFXP)error.c			\
 		$(PFXB)b_process.c		\
 		$(PFXB)b_utils.c		\
 		$(PFXB)b_cd.c			\

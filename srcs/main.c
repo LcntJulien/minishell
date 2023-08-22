@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/02 19:58:36 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:43:57 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **env)
 		if (mini.line[0])
 		{
 			add_histo(mini.line, histo);
-			parse(&mini);
+			parse_input(&mini);
 			hrdc_manager(&mini);
 			minishell(&mini);
 		}

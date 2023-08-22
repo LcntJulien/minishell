@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/01 16:54:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:55:17 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,40 +201,39 @@ int					existing_var(t_shell *mini, char *var);
 PARSING
 */
 /* input.c */
-int					parse_err(t_shell *mini, t_token *tk, int err);
-void				parse(t_shell *mini);
+void				parse_input(t_shell *mini);
 
-/* token.c */
-void				*get_tokens(char *line);
-void				token_idx(t_shell *mini);
+/* utils */
+char				*clean_s(char *s);
 void				display_tokens(t_token *token);
-
-/* type.c */
-int					is_sep(char *line, int i);
-void				post_tk_type(t_token *tk, t_shell *mini);
-void				tk_type(t_token *token);
-
-/* utils.c */
-void				space(char *line, int *i);
-void				free_token(t_shell *mini, t_token *tk);
-void				clean_tokens(t_token *tk);
-int					syntax_check(t_shell *mini, int mode);
 int					quote_state(char *line, int idx);
+int					str_alloc(char *s, int *idx);
+int					is_sep(char *line, int i);
+int					is_dollar(t_token *tk);
 int					is_quote(t_token *tk);
 
-/* utils1.c */
-int					is_dollar(t_token *tk);
-char				*clean_s(char *s);
-
-/* var.c */
+/* var */
+char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
 void				convert_var(t_shell *mini, t_token *tk);
-int					contain_var(t_shell *mini, t_token *tk);
-int					valid_var(t_shell *mini, char *s);
+int					contain_var(t_token *tk);
+
+/* token.c */
+void				space(char *line, int *i);
+void				token_idx(t_shell *mini);
+void				clean_tokens(t_token *tk);
+void				*get_token(char *line);
+
+/* type.c */
+void				post_tk_type(t_token *tk);
+void				tk_type(t_token *token);
+
+/* error.c */
+int					parse_err(t_shell *mini, t_token *tk, int err);
+int					syntax_check(t_shell *mini);
 
 /*
 UTILS
 */
-
 /* cstm_split */
 char				**custom_split(const char *s, char c, int sw);
 int					scount(const char *s, char c, int q);
