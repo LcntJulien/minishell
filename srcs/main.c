@@ -6,11 +6,33 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/22 19:43:57 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/23 20:11:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	hrdc_manager(t_shell *mini)
+{
+	t_token	*tk;
+	// pid_t	pid;
+
+	tk = mini->token;
+	while (tk->next != NULL)
+	{
+		if (tk->type == HEREDOC)
+		{
+			// pid = fork();
+			// if (pid < 0)
+			// 	err_manager(mini, tk, 2);
+			// else if (pid == 0)
+				heredoc_handler(mini, tk->next);
+			// waitpid(pid, &mini->rtn, 0);
+		}
+		tk = tk->next;
+	}
+	hrdc_syntax(mini);
+}
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)

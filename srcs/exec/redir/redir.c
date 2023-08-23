@@ -6,11 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/30 19:55:27 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:38:52 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void	do_redirin(t_shell *mini, t_token *cur, int i)
 {

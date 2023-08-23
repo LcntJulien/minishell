@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/22 19:55:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:40:04 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,12 +210,13 @@ int					quote_state(char *line, int idx);
 int					str_alloc(char *s, int *idx);
 int					is_sep(char *line, int i);
 int					is_dollar(t_token *tk);
-int					is_quote(t_token *tk);
+int					is_quote(char *s);
 
 /* var */
 char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
+char				*get_vname(char *s, int idx);
 void				convert_var(t_shell *mini, t_token *tk);
-int					contain_var(t_token *tk);
+int					contain_var(char *s);
 
 /* token.c */
 void				space(char *line, int *i);
@@ -268,7 +269,10 @@ void				free_paths(t_shell *mini);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);
-void				hrdc_manager(t_shell *mini);
+
+/* redir1.c */
+void				heredoc_handler(t_shell *mini, t_token *tk);
+void				hrdc_syntax(t_shell *mini);
 
 /* redir2.c */
 void				args_redir(t_shell *mini, t_token *tk);

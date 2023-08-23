@@ -6,11 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/30 19:34:59 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/23 20:05:05 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void	add_hrdc(t_shell *mini, t_hrdc *hrdc)
 {
@@ -47,9 +47,8 @@ void	heredoc_handler(t_shell *mini, t_token *tk)
 	char	*tmp;
 	int		i;
 
-	(void)mini;
 	hrdc = new_hrdc(tk);
-	tab = ft_calloc(sizeof(char *), 50);
+	tab = ft_calloc(sizeof(char *), 100);
 	tmp = NULL;
 	i = 0;
 	while (1)
@@ -67,17 +66,44 @@ void	heredoc_handler(t_shell *mini, t_token *tk)
 		hrdc->content[i] = ft_strdup(tab[i]);
 	hrdc->content[i] = NULL;
 	add_hrdc(mini, hrdc);
+	free(tab);
 }
 
-void	hrdc_manager(t_shell *mini)
+char	*hrdc_convert(t_shell *mini, char *s)
 {
-	t_token	*tk;
+	char	*cur;
+	int		len;
+	int		i;
 
-	tk = mini->token;
-	while (tk->next != NULL)
+	cur = NULL;
+	len = ft_strlen(s);
+	i = -1;
+	while (s && s[++i])
 	{
-		if (tk->type == HEREDOC)
-			heredoc_handler(mini, tk->next);
-		tk = tk->next;
+		if (s[i] == '$' && !(is_quote(s) && quote_state(s, i) == 1))
+		{
+			cur = get_vname(s, i);
+			s = rewrite(mini, s, cur, i);
+			i += ft_strlen(s) - len;
+		}
+	}
+	return (s);
+}
+
+void	hrdc_syntax(t_shell *mini)
+{
+	t_hrdc	*cp;
+	int		i;
+
+	cp = mini->hrdc;
+	i = -1;
+	while (cp)
+	{
+		while (cp->content[++i])
+		{
+			if (contain_var(cp->content[i]))
+				cp->content[i] = hrdc_convert(mini, cp->content[i]);
+		}
+		cp = cp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:08:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/22 19:49:07 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:37:45 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	convert_var(t_shell *mini, t_token *tk)
 	i = -1;
 	while (tk->s && tk->s[++i])
 	{
-		if (tk->s[i] == '$' && !(is_quote(tk) && quote_state(tk->s, i) == 1))
+		if (tk->s[i] == '$' && !(is_quote(tk->s) && quote_state(tk->s, i) == 1))
 		{
 			cur = get_vname(tk->s, i);
 			tk->s = rewrite(mini, tk->s, cur, i);
@@ -53,18 +53,14 @@ void	convert_var(t_shell *mini, t_token *tk)
 		free(cur);
 }
 
-int	contain_var(t_token *tk)
+int	contain_var(char *s)
 {
-	char	*s;
-	int		i;
+	int	i;
 
-	s = NULL;
 	i = -1;
-	while (tk->s[++i])
-		if (tk->s[i] == '$' && tk->s[i + 1] && tk->s[i + 1] != ' ' && tk->s[i
-			+ 1] != '$' && tk->s[i + 1] != '_')
+	while (s[++i])
+		if (s[i] == '$' && s[i + 1] && s[i + 1] != ' ' && s[i + 1] != '$' && s[i
+			+ 1] != '_')
 			return (1);
-	if (s)
-		free(s);
 	return (0);
 }

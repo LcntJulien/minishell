@@ -19,7 +19,7 @@ void	parse_var(t_shell *mini)
 	cp = mini->token;
 	while (cp)
 	{
-		if (contain_var(cp))
+		if (contain_var(cp->s))
 			convert_var(mini, cp);
 		cp = cp->next;
 	}

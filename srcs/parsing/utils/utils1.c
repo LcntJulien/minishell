@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/22 19:48:53 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:09:43 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int	is_sep(char *s, int i)
 		return (0);
 }
 
-int	is_quote(t_token *tk)
+int	is_quote(char *s)
 {
 	int	i;
 	int	r;
 
 	i = -1;
 	r = 0;
-	while (tk->s[++i])
-		if (tk->s[i] == '\'' || tk->s[i] == '\"')
+	while (s[++i])
+		if (s[i] == '\'' || s[i] == '\"')
 			r++;
 	return (r);
 }

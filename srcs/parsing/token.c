@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/22 19:24:18 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:38:04 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	clean_tokens(t_token *tk)
 	s = NULL;
 	while (cp)
 	{
-		if (is_quote(cp))
+		if (is_quote(cp->s))
 		{
 			s = ft_strdup(cp->s);
 			free(cp->s);
