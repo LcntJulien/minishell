@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:11:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/22 19:27:41 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 12:34:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	syntax_check(t_shell *mini)
 		if (quote_state(cp->s, ft_strlen(cp->s)))
 			return (parse_err(mini, cp, 0));
 		else if ((cp->type == PIPE && !cp->next) || ((cp->type == INPUT
-						|| cp->type == HEREDOC || cp->type == OUTPUT
-						|| cp->type == APPEND) && (!cp->next
-						|| cp->next->type != ARG)))
+					|| cp->type == HEREDOC || cp->type == OUTPUT
+					|| cp->type == APPEND) && (!cp->next
+					|| cp->next->type != ARG)))
 			return (parse_err(mini, cp, 1));
 		cp = cp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:29 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/07/29 21:04:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 11:48:23 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	free_hrdc(t_shell *mini)
 {
 	t_hrdc	*cp;
 	t_hrdc	*tmp;
-    int i;
+	int		i;
 
 	cp = mini->hrdc;
 	tmp = NULL;
-    i = -1;
+	i = -1;
 	if (cp)
 	{
 		while (cp)
@@ -28,8 +28,8 @@ void	free_hrdc(t_shell *mini)
 			tmp = cp->next;
 			if (cp->content)
 			{
-                while (cp->content[++i])
-                   free(cp->content[i]);
+				while (cp->content[++i])
+					free(cp->content[i]);
 				cp->content = NULL;
 			}
 			free(cp);

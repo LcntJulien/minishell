@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/23 20:05:05 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 12:26:38 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	heredoc_handler(t_shell *mini, t_token *tk)
 	while (1)
 	{
 		tmp = readline("\033[0;35m\033[▸ \033[");
-		if (tmp[0] && ft_strncmp(tmp, tk->s, ft_strlen(tmp)) == 0)
+		if (tmp && tmp[0] && ft_strncmp(tmp, tk->s, ft_strlen(tmp)) == 0)
 			break ;
 		tab[i++] = tmp;
 	}

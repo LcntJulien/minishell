@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo_more.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:26:29 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/20 14:50:00 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/24 13:00:33 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ void	is_it_a_variable(t_shell *mini, t_token *tmp)
 		tmp_str = define_word(tmp->s, i);
 		if (!tmp_str)
 			ft_exit_plus(mini, "Fail to allocate memory\n", 1);
-		if (existing_var(mini, tmp_str) != -1)
-		{
-			free_str(tmp->s);
-			tmp->s = return_var_content(mini, tmp_str);
-		}
 		free_str(tmp_str);
 	}
 }
