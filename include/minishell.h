@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/01 16:54:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 11:53:52 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,83 +197,83 @@ char				*var_name(t_shell *mini, char *str);
 char				*return_var_name(t_shell *mini, char *var);
 int					existing_var(t_shell *mini, char *var);
 
-/*
-PARSING
-*/
+/* PARSING */
+
 /* input.c */
-int					parse_err(t_shell *mini, t_token *tk, int err);
-void				parse(t_shell *mini);
+void				parse_input(t_shell *mini);
+
+/* utils */
+void				display_tokens(t_token *token);
+char				*clean_s(char *s);
+int					quote_state(char *line, int idx);
+int					str_alloc(char *s, int *idx);
+int					is_sep(char *line, int i);
+int					is_dollar(t_token *tk);
+int					is_quote(char *s);
+
+/* var */
+void				convert_var(t_shell *mini, t_token *tk);
+char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
+char				*get_vname(char *s, int idx);
+int					contain_var(char *s);
 
 /* token.c */
-void				*get_tokens(char *line);
+void				space(char *line, int *i);
 void				token_idx(t_shell *mini);
-void				display_tokens(t_token *token);
+void				clean_tokens(t_token *tk);
+void				*get_token(char *line);
 
 /* type.c */
-int					is_sep(char *line, int i);
-void				post_tk_type(t_token *tk, t_shell *mini);
+void				post_tk_type(t_token *tk);
 void				tk_type(t_token *token);
 
-/* utils.c */
-void				space(char *line, int *i);
-void				free_token(t_shell *mini, t_token *tk);
-void				clean_tokens(t_token *tk);
-int					syntax_check(t_shell *mini, int mode);
-int					quote_state(char *line, int idx);
-int					is_quote(t_token *tk);
-
-/* utils1.c */
-int					is_dollar(t_token *tk);
-char				*clean_s(char *s);
-
-/* var.c */
-void				convert_var(t_shell *mini, t_token *tk);
-int					contain_var(t_shell *mini, t_token *tk);
-int					valid_var(t_shell *mini, char *s);
+/* error.c */
+int					parse_err(t_shell *mini, t_token *tk, int err);
+int					syntax_check(t_shell *mini);
 
 /*
 UTILS
 */
-
 /* cstm_split */
 char				**custom_split(const char *s, char c, int sw);
-int					scount(const char *s, char c, int q);
 char				**tabfree(char **p);
+int					scount(const char *s, char c, int q);
 
-/*
-EXEC
-*/
+/* EXEC */
 
 /* minishell.c */
 void				minishell(t_shell *mini);
 
 /* utils.c */
 void				get_args(t_shell *mini, t_token *tk);
-void				pipe_alloc(t_shell *mini);
 void				get_paths(t_shell *mini);
-char				*get_cmd(t_shell *mini);
 char				**args_alloc(t_token *tk);
+char				*get_cmd(t_shell *mini);
 int					nb_cmd(t_shell *mini);
 
 /* mem.c */
-void				mini_free(t_shell *mini);
-void				close_output(t_token *cp, t_token *cur);
 void				close_pipes(t_shell *mini, int i, int sw);
+void				close_output(t_token *cp, t_token *cur);
+void				mini_free(t_shell *mini);
+void				pipe_alloc(t_shell *mini);
 
 /* free.c */
-void				free_hrdc(t_shell *mini);
 void				free_token(t_shell *mini, t_token *tk);
+void				free_paths(t_shell *mini);
+void				free_hrdc(t_shell *mini);
 void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
-void				free_paths(t_shell *mini);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);
-void				hrdc_manager(t_shell *mini);
+
+/* redir1.c */
+void				heredoc_handler(t_shell *mini, t_token *tk);
+void				hrdc_syntax(t_shell *mini);
 
 /* redir2.c */
-void				args_redir(t_shell *mini, t_token *tk);
 void				redir_hrdc(t_shell *mini, t_token *cur);
+void				args_redir(t_shell *mini, t_token *tk);
 int					is_redir(t_token *tk, int mode);
 
 /* error.c */

@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/08/02 20:08:42 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/08/24 13:05:22 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,21 @@ PFXE	= $(PFXS)exec/
 
 SRCS	= $(PFXS)main.c			\
 		$(PFXP)input.c			\
-		$(PFXP)utils.c			\
-		$(PFXP)utils1.c			\
+		$(PFXP)utils/utils.c	\
+		$(PFXP)utils/utils1.c	\
+		$(PFXP)var/var.c		\
+		$(PFXP)var/var1.c		\
 		$(PFXP)token.c			\
 		$(PFXP)type.c			\
-		$(PFXP)var.c			\
+		$(PFXP)error.c			\
+		$(PFXE)utils.c			\
+		$(PFXE)redir/redir.c	\
+		$(PFXE)redir/redir1.c	\
+		$(PFXE)redir/redir2.c	\
+		$(PFXE)mem.c			\
+		$(PFXE)free.c			\
+		$(PFXE)error.c			\
+		$(PFXE)minishell.c		\
 		$(PFXB)b_process.c		\
 		$(PFXB)b_utils.c		\
 		$(PFXB)b_cd.c			\
@@ -49,14 +59,6 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXU)u_exit.c			\
 		$(PFXU)split/split.c	\
 		$(PFXU)split/s_utils.c	\
-		$(PFXE)utils.c			\
-		$(PFXE)redir.c			\
-		$(PFXE)redir1.c			\
-		$(PFXE)redir2.c			\
-		$(PFXE)mem.c			\
-		$(PFXE)free.c			\
-		$(PFXE)error.c			\
-		$(PFXE)minishell.c		\
 		$(PFXU)u_history.c		\
 		$(PFXU)u_free.c			\
 		$(PFXU)u_signals.c		\
@@ -69,11 +71,11 @@ CC		= gcc
 
 LIBFT 	= -lft -L ./libft
 
-# HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
-HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
+HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+# HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
-# LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
-LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
+LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
+# LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
 
 CFLAGS	= -Wall -Wextra -Werror -ggdb3
 

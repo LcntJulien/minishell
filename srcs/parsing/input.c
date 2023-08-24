@@ -12,71 +12,32 @@
 
 #include "../../include/minishell.h"
 
-void	display_tokens(t_token *token)
+void	parse_var(t_shell *mini)
 {
 	t_token	*cp;
-	char	*tab[11];
 
-	cp = token;
-	while (cp && cp->prev && cp->prev->type != PIPE)
-		cp = cp->prev;
-	tab[0] = "CMD";
-	tab[1] = "ARG";
-	tab[2] = "VAR";
-	tab[3] = "OPTION";
-	tab[4] = "BUILTIN";
-	tab[5] = "DECLAVAR";
-	tab[6] = "PIPE";
-	tab[7] = "INPUT";
-	tab[8] = "OUTPUT";
-	tab[9] = "APPEND";
-	tab[10] = "HEREDOC";
+	cp = mini->token;
 	while (cp)
 	{
-		if (cp->s != NULL)
-			fprintf(stderr, "%s -> %s -> %d\n", cp->s, tab[cp->type], cp->idx);
-		else
-			fprintf(stderr, "|VIDE| -> %s\n", tab[cp->type]);
+		if (contain_var(cp->s))
+			convert_var(mini, cp);
 		cp = cp->next;
 	}
 }
 
-int	parse_err(t_shell *mini, t_token *tk, int err)
-{
-	ft_putstr_fd("minishell: ", 2);
-	if (!err)
-	{
-		ft_putstr_fd(tk->s, 2);
-		ft_putendl_fd(": syntax error", 2);
-		mini->rtn = 2;
-	}
-	else
-	{
-		ft_putstr_fd("syntax error near unexpected token `", 2);
-		ft_putstr_fd(tk->s, 2);
-		ft_putendl_fd("'", 2);
-		mini->rtn = 258;
-	}
-	return (1);
-}
-
-char	*alloc_line(t_shell *mini)
+char	*line_alloc(t_shell *mini)
 {
 	char	*nl;
-	int		i;
 	int		sep;
+	int		i;
 
-	i = 0;
+	nl = NULL;
 	sep = 0;
-	while (mini->line[i])
-	{
+	i = -1;
+	while (mini->line[++i])
 		if (is_sep(mini->line, i) && !is_sep(mini->line, i + 1))
 			sep++;
-		i++;
-	}
-	nl = malloc(sizeof(char) * (2 * sep + i + 1));
-	if (!nl)
-		return (NULL);
+	nl = ft_calloc(sizeof(char), (2 * sep + i + 1));
 	return (nl);
 }
 
@@ -86,9 +47,9 @@ char	*parse_line(t_shell *mini)
 	int		i;
 	int		j;
 
+	nl = line_alloc(mini);
 	i = 0;
 	j = 0;
-	nl = alloc_line(mini);
 	while (mini->line[i])
 	{
 		if (quote_state(mini->line, i) == 0 && is_sep(mini->line, i))
@@ -103,11 +64,10 @@ char	*parse_line(t_shell *mini)
 		else
 			nl[j++] = mini->line[i++];
 	}
-	nl[j] = '\0';
 	return (nl);
 }
 
-void	parse(t_shell *mini)
+void	parse_input(t_shell *mini)
 {
 	t_token	*token;
 	char	*line;
@@ -115,18 +75,17 @@ void	parse(t_shell *mini)
 	if (!mini->line)
 		return ;
 	line = parse_line(mini);
-	mini->token = get_tokens(line);
-	token = mini->token;
+	mini->token = get_token(line);
 	token_idx(mini);
-	if (syntax_check(mini, 0))
+	parse_var(mini);
+	if (syntax_check(mini))
 		return ;
+	token = mini->token;
 	clean_tokens(token);
-	if (syntax_check(mini, 1))
-		return ;
 	while (token)
 	{
 		if (token->type <= VAR)
-			post_tk_type(token, mini);
+			post_tk_type(token);
 		token = token->next;
 	}
 	free(line);
