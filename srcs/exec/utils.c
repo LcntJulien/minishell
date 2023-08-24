@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 11:49:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:42:14 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**args_alloc(t_token *tk)
 		i++;
 		cp = cp->next;
 	}
-	args = malloc(sizeof(char *) * i + 1);
+	args = ft_calloc(sizeof(char *), (i + 1));
 	if (!args)
 		return (NULL);
 	return (args);
@@ -38,6 +38,8 @@ int	nb_cmd(t_shell *mini)
 	int		r;
 
 	tk = mini->token;
+	if (!tk)
+		return (0);
 	r = 0;
 	while (tk)
 	{
@@ -87,7 +89,6 @@ void	get_args(t_shell *mini, t_token *tk)
 			mini->args[i++] = cp->s;
 			cp = cp->next;
 		}
-		mini->args[i] = NULL;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 12:57:34 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:47:11 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	hrdc_manager(t_shell *mini)
 {
 	t_token	*tk;
-	// pid_t	pid;
+	int rtn;
 
 	tk = mini->token;
-	while (tk->next != NULL)
+	rtn = 0;
+	while (tk && tk->next != NULL)
 	{
 		if (tk->type == HEREDOC)
 		{
-			// pid = fork();
-			// if (pid < 0)
-			// 	err_manager(mini, tk, 2);
-			// else if (pid == 0)
-				heredoc_handler(mini, tk->next);
-			// waitpid(pid, &mini->rtn, 0);
+			rtn  = heredoc_handler(mini, tk->next);
+			if (rtn == 255)
+				mini_free(mini);
+			else if (rtn > 0 && rtn < 255)
+				ctrl_d_hrdc(mini, rtn);
 		}
 		tk = tk->next;
 	}

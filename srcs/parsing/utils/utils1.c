@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/23 19:09:43 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:09:18 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_quote(char *s)
 
 	i = -1;
 	r = 0;
-	while (s[++i])
+	while (s && s[++i])
 		if (s[i] == '\'' || s[i] == '\"')
 			r++;
 	return (r);
@@ -40,7 +40,7 @@ int	quote_state(char *s, int idx)
 
 	quote = 0;
 	i = -1;
-	while (s[++i] && i <= idx)
+	while (s && s[++i] && i <= idx)
 	{
 		if (quote == 0 && s[i] == '\'')
 			quote = 1;

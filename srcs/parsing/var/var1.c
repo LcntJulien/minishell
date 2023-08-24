@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 11:46:58 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:15:48 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_ns(char *s, char *nvar, int idx, int vname_len)
 	i = -1;
 	j = -1;
 	if ((ft_strlen(s) + ft_strlen(nvar) - vname_len) == 0)
-		return (ft_calloc(sizeof(char), 1));
+		return (NULL);
 	ns = ft_calloc(sizeof(char), ((ft_strlen(s) + ft_strlen(nvar)) - vname_len)
 			+ 1);
 	while (s[++i] && i != idx)

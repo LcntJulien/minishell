@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 11:53:52 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:52:06 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ void				ft_exit_all(t_shell *mini, int histo, int rtn);
 void				free_str(char *tmp);
 void				free_tab(char **tab);
 void				free_env(t_shell *mini);
+void				free2(char *one, char *two);
 
 /* u_history */
 int					create_history(int *histo);
@@ -214,6 +215,7 @@ int					is_quote(char *s);
 /* var */
 void				convert_var(t_shell *mini, t_token *tk);
 char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
+char				*get_nvar(t_shell *mini, char *vname);
 char				*get_vname(char *s, int idx);
 int					contain_var(char *s);
 
@@ -264,15 +266,21 @@ void				free_hrdc(t_shell *mini);
 void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
 
+/* hrdc.c */
+void				add_hrdc(t_shell *mini, t_hrdc *hrdc);
+void				hrdc_syntax(t_shell *mini);
+int					heredoc_handler(t_shell *mini, t_token *tk);
+
+/* hrdc1.c */
+void				redir_hrdc(t_shell *mini, t_token *cur);
+void				ctrl_d_hrdc(t_shell *mini, int idx);
+int					hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab,
+						int size);
+
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);
 
 /* redir1.c */
-void				heredoc_handler(t_shell *mini, t_token *tk);
-void				hrdc_syntax(t_shell *mini);
-
-/* redir2.c */
-void				redir_hrdc(t_shell *mini, t_token *cur);
 void				args_redir(t_shell *mini, t_token *tk);
 int					is_redir(t_token *tk, int mode);
 

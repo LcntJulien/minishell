@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/08/24 13:05:22 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/08/24 18:23:51 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXE)utils.c			\
 		$(PFXE)redir/redir.c	\
 		$(PFXE)redir/redir1.c	\
-		$(PFXE)redir/redir2.c	\
+		$(PFXE)redir/hrdc.c		\
+		$(PFXE)redir/hrdc1.c	\
 		$(PFXE)mem.c			\
 		$(PFXE)free.c			\
 		$(PFXE)error.c			\
