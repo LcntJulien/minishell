@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:08:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 13:02:32 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:16:06 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,27 @@ char	*get_vname(char *s, int idx)
 void	convert_var(t_shell *mini, t_token *tk)
 {
 	char	*cur;
-	int		len;
+	char	*tmp;
+	char	*iter;
 	int		i;
 
 	cur = NULL;
-	len = ft_strlen(tk->s);
+	tmp = NULL;
+	iter = NULL;
 	i = -1;
 	while (tk->s && tk->s[++i])
 	{
 		if (tk->s[i] == '$' && !(is_quote(tk->s) && quote_state(tk->s, i) == 1))
 		{
 			cur = get_vname(tk->s, i);
-			tk->s = rewrite(mini, tk->s, cur, i);
-			i += ft_strlen(tk->s) - len;
+			iter = get_nvar(mini, cur);
+			tmp = rewrite(mini, tk->s, cur, i);
+			free(tk->s);
+			tk->s = tmp;
+			i += (ft_strlen(iter) - 1);
+			free2(cur, iter);
 		}
 	}
-	if (cur)
-		free(cur);
 }
 
 int	contain_var(char *s)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_free.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 18:41:34 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:53:15 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,10 @@ void	free_env(t_shell *mini)
 		mini->env[i] = NULL;
 	}
 	free(mini->env);
+}
+
+void	free2(char *one, char *two)
+{
+	free_str(one);
+	free_str(two);
 }

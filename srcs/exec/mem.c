@@ -6,22 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 11:49:28 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 13:26:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	pipe_alloc(t_shell *mini)
-{
-	int	i;
-
-	i = 0;
-	mini->tab = malloc(sizeof(int *) * mini->ncmd);
-	while (i < mini->ncmd)
-		mini->tab[i++] = malloc(sizeof(int) * 2);
-	mini->pid = malloc(sizeof(pid_t) * mini->ncmd);
-}
 
 void	mini_free(t_shell *mini)
 {
@@ -41,6 +30,18 @@ void	mini_free(t_shell *mini)
 	if (mini->line)
 		free(mini->line);
 	mini->line = NULL;
+	mini->ncmd = 0;
+}
+
+void	pipe_alloc(t_shell *mini)
+{
+	int	i;
+
+	i = 0;
+	mini->tab = malloc(sizeof(int *) * mini->ncmd);
+	while (i < mini->ncmd)
+		mini->tab[i++] = malloc(sizeof(int) * 2);
+	mini->pid = malloc(sizeof(pid_t) * mini->ncmd);
 }
 
 void	close_output(t_token *tk, t_token *cur)

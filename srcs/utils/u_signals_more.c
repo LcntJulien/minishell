@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_signals_more.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 10:01:41 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/19 10:05:03 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:57:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,11 @@ void	sigint_1_handler(void)
 	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_redisplay();
 	g_sig = 130;
+}
+
+void	sigint_2_handler(void)
+{
+	// ft_putstr_fd("\n", STDERR_FILENO);
+	// rl_redisplay();
+	g_sig = 3;
 }

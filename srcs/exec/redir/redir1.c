@@ -5,105 +5,97 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 12:26:38 by jlecorne         ###   ########.fr       */
+/*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
+/*   Updated: 2023/08/24 17:09:55 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	add_hrdc(t_shell *mini, t_hrdc *hrdc)
+int	is_redir(t_token *tk, int mode)
 {
-	t_hrdc	*cp;
+	t_token	*cp;
+	int		in;
+	int		out;
 
-	cp = mini->hrdc;
-	if (cp == NULL)
-		mini->hrdc = hrdc;
-	else
+	cp = tk;
+	in = 0;
+	out = 0;
+	while (cp && cp->prev && cp->prev->type != PIPE)
+		cp = cp->prev;
+	while (cp && cp->type != PIPE)
 	{
-		while (cp->next != NULL)
-			cp = cp->next;
-		cp->next = hrdc;
-	}
-}
-
-t_hrdc	*new_hrdc(t_token *tk)
-{
-	t_hrdc	*hrdc;
-
-	hrdc = malloc(sizeof(t_hrdc));
-	if (!hrdc)
-		return (NULL);
-	hrdc->idx = tk->idx;
-	hrdc->content = NULL;
-	hrdc->next = NULL;
-	return (hrdc);
-}
-
-void	heredoc_handler(t_shell *mini, t_token *tk)
-{
-	t_hrdc	*hrdc;
-	char	**tab;
-	char	*tmp;
-	int		i;
-
-	hrdc = new_hrdc(tk);
-	tab = ft_calloc(sizeof(char *), 100);
-	tmp = NULL;
-	i = 0;
-	while (1)
-	{
-		tmp = readline("\033[0;35m\033[▸ \033[");
-		if (tmp && tmp[0] && ft_strncmp(tmp, tk->s, ft_strlen(tmp)) == 0)
-			break ;
-		tab[i++] = tmp;
-	}
-	hrdc->content = malloc(sizeof(char *) * i + 1);
-	if (!hrdc->content)
-		return ;
-	i = -1;
-	while (tab[++i] != NULL)
-		hrdc->content[i] = ft_strdup(tab[i]);
-	hrdc->content[i] = NULL;
-	add_hrdc(mini, hrdc);
-	free(tab);
-}
-
-char	*hrdc_convert(t_shell *mini, char *s)
-{
-	char	*cur;
-	int		len;
-	int		i;
-
-	cur = NULL;
-	len = ft_strlen(s);
-	i = -1;
-	while (s && s[++i])
-	{
-		if (s[i] == '$' && !(is_quote(s) && quote_state(s, i) == 1))
-		{
-			cur = get_vname(s, i);
-			s = rewrite(mini, s, cur, i);
-			i += ft_strlen(s) - len;
-		}
-	}
-	return (s);
-}
-
-void	hrdc_syntax(t_shell *mini)
-{
-	t_hrdc	*cp;
-	int		i;
-
-	cp = mini->hrdc;
-	i = -1;
-	while (cp)
-	{
-		while (cp->content[++i])
-		{
-			if (contain_var(cp->content[i]))
-				cp->content[i] = hrdc_convert(mini, cp->content[i]);
-		}
+		if (cp->type == INPUT || cp->type == HEREDOC)
+			in++;
+		if (cp->type == OUTPUT || cp->type == APPEND)
+			out++;
 		cp = cp->next;
 	}
+	if (!mode && (in || out))
+		return (1);
+	if (mode == 1 && in)
+		return (1);
+	if (mode == 2 && out)
+		return (1);
+	return (0);
+}
+
+t_token	*del_arg(t_token *tk)
+{
+	t_token	*tmp;
+
+	tmp = tk;
+	if (tk->prev && tk->next)
+	{
+		tmp = tk->next;
+		tmp->prev = tk->prev;
+		tk->prev->next = tmp;
+	}
+	else if (tk->next)
+	{
+		tmp = tk->next;
+		tmp->prev = NULL;
+	}
+	else if (tk->prev)
+	{
+		tmp = tk->prev;
+		tmp->next = NULL;
+	}
+	free(tk);
+	tk = NULL;
+	return (tmp);
+}
+
+t_token	*del_redir(t_token *tk)
+{
+	tk = del_arg(tk);
+	tk = del_arg(tk);
+	return (tk);
+}
+
+void	args_redir(t_shell *mini, t_token *tk)
+{
+	t_token	*cp;
+	int		i;
+
+	cp = tk;
+	i = 0;
+	while (cp && cp->type != PIPE)
+	{
+		while (cp->type == INPUT || cp->type == HEREDOC || cp->type == OUTPUT
+			|| cp->type == APPEND)
+			cp = del_redir(cp);
+		if (!cp->next)
+			break ;
+		cp = cp->next;
+	}
+	while (cp && cp->prev && cp->prev->type != PIPE)
+		cp = cp->prev;
+	mini->args = args_alloc(cp);
+	while (cp && cp->type != PIPE)
+	{
+		mini->args[i++] = cp->s;
+		cp = cp->next;
+	}
+	mini->args[i] = NULL;
 }

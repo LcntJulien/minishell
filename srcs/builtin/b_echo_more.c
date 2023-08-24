@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:26:29 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/24 13:00:33 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:10:04 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	is_it_a_variable(t_shell *mini, t_token *tmp)
 	char	*tmp_str;
 
 	i = 0;
-	if (tmp->s[i++] == '$')
+	if (tmp->s && tmp->s[i++] == '$')
 	{
 		if (tmp->s[i] == '?' || tmp->s[i] == '$' || tmp->s[i] == '_')
 			other_variable(mini, tmp, i);

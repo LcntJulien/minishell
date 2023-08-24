@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:11:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 12:34:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:39:40 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	parse_err(t_shell *mini, t_token *tk, int err)
 		ft_putendl_fd("'", 2);
 		mini->rtn = 258;
 	}
+	mini_free(mini);
 	return (1);
 }
 
