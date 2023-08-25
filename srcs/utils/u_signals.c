@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_signals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:33:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/24 18:17:08 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/25 10:11:17 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ static void	sigquit_handler(int sig)
 		ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 		rl_redisplay();
 		g_sig = 131;
-	}
-	else if (g_sig == 2)
-	{
-		fprintf(stderr, "entre dans g_sig == 2\n");
-		g_sig = 4;
 	}
 }
 
