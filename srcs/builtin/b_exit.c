@@ -91,5 +91,5 @@ void	b_exit(t_shell *mini, t_token *list)
 		exit(mini->rtn);
 	}
 	exit_until(mini);
-	exit(0);
+	exit(mini->rtn);
 }
