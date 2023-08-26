@@ -6,7 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 18:16:51 by jlecorne         ###   ########.fr       */
+<<<<<<< Updated upstream
+/*   Updated: 2023/08/26 21:15:36 by jlecorne         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/26 21:13:32 by jlecorne         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +63,8 @@ int	heredoc_handler(t_shell *mini, t_token *tk)
 		if (g_sig == 4)
 			return (hrdc->idx);
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
-		if (tmp && tmp[0] && ft_strncmp(tmp, tk->s, ft_strlen(tmp)) == 0)
+		if (!tmp || (tmp && tmp[0] && ft_strncmp(tmp, tk->s,
+				ft_strlen(tmp)) == 0))
 			break ;
 		tab[i++] = tmp;
 	}
