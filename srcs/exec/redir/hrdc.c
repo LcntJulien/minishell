@@ -6,10 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/26 21:17:17 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/26 21:17:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../../include/minishell.h"
 
 void	add_hrdc(t_shell *mini, t_hrdc *hrdc)
 {
