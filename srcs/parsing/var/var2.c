@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var1.c                                             :+:      :+:    :+:   */
+/*   var2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/28 14:39:35 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/08/28 13:56:10 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/08/28 15:03:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../../include/minishell.h"
 
-char	*get_nvar(t_shell *mini, char *vname)
+char	*other_variable(t_shell *mini, t_token *tk, int i)
+{
+	char	*new_var;
+
+	new_var = NULL;
+	if (tk->s[i] == '$')
+		new_var = ft_strdup(ft_itoa(getpid()));
+	else if (tk->s[i] == '_')
+		new_var = return_var_content(mini, "_");
+	else
+		new_var = ft_strdup(ft_itoa(mini->rtn));
+	return (new_var);
+}
+
+char	*get_other_var(char *vname)
 {
 	char	*tmp;
 	char	*nvar;
@@ -25,22 +40,11 @@ char	*get_nvar(t_shell *mini, char *vname)
 		tmp[i] = vname[i];
 	tmp[i] = '=';
 	i = -1;
-	if (mini->env)
-	{
-		while (mini->env[++i])
-		{
-			if (ft_strncmp(tmp, mini->env[i], ft_strlen(tmp)) == 0)
-			{
-				nvar = ft_substr(mini->env[i], (ft_strlen(vname) + 1),
-						ft_strlen(mini->env[i]) - (ft_strlen(vname) + 1));
-			}
-		}
-	}
 	free(tmp);
 	return (nvar);
 }
 
-char	*get_ns(char *s, char *nvar, int idx, int vname_len)
+char	*get_os(char *s, char *nvar, int idx, int vname_len)
 {
 	char	*ns;
 	int		i;
@@ -67,19 +71,17 @@ char	*get_ns(char *s, char *nvar, int idx, int vname_len)
 	return (ns);
 }
 
-char	*rewrite(t_shell *mini, char *s, char *vname, int idx)
+char	*rewrite2(t_shell *mini, char *s, char *iter, int idx)
 {
-	char	*nvar;
 	char	*ns;
 	int		i;
 
-	nvar = get_nvar(mini, vname);
 	ns = NULL;
 	i = idx;
+	(void)mini;
 	while (s[++i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"' && s[i] != '$')
 		;
 	i -= idx;
-	ns = get_ns(s, nvar, idx, i);
-	free(nvar);
+	ns = get_os(s, iter, idx, i);
 	return (ns);
 }

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/25 10:00:37 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/28 15:00:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,10 +214,19 @@ int					is_quote(char *s);
 
 /* var */
 void				convert_var(t_shell *mini, t_token *tk);
-char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
-char				*get_nvar(t_shell *mini, char *vname);
 char				*get_vname(char *s, int idx);
 int					contain_var(char *s);
+
+/* var1 */
+char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
+char				*get_nvar(t_shell *mini, char *vname);
+char				*get_ns(char *s, char *nvar, int idx, int vname_len);
+
+/* var2 */
+char				*other_variable(t_shell *mini, t_token *tmp, int i);
+char				*get_other_var(char *vname);
+char				*get_os(char *s, char *nvar, int idx, int vname_len);
+char				*rewrite2(t_shell *mini, char *s, char *iter, int idx);
 
 /* token.c */
 void				space(char *line, int *i);
