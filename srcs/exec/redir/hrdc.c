@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/26 21:17:50 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/29 01:09:05 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_hrdc	*new_hrdc(t_token *tk)
 	return (hrdc);
 }
 
-int	heredoc_handler(t_shell *mini, t_token *tk)
+void	heredoc_handler(t_shell *mini, t_token *tk)
 {
 	t_hrdc	*hrdc;
 	char	**tab;
@@ -51,23 +51,20 @@ int	heredoc_handler(t_shell *mini, t_token *tk)
 	tab = ft_calloc(sizeof(char *), 100);
 	tmp = NULL;
 	i = 0;
-	g_sig = 2;
 	while (1)
 	{
-		if (g_sig == 3)
-			return (255);
-		if (g_sig == 4)
-			return (hrdc->idx);
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
 		if (!tmp || (tmp && tmp[0] && ft_strncmp(tmp, tk->s,
-				ft_strlen(tmp)) == 0))
+					ft_strlen(tmp)) == 0))
 			break ;
 		tab[i++] = tmp;
 	}
-	if (hrdc_filler(mini, hrdc, tab, i))
-		return (255);
+	hrdc_filler(mini, hrdc, tab, i);
+	add_hrdc(mini, hrdc);
 	free(tab);
-	return (0);
+	if (tmp)
+		free(tmp);
+	return ;
 }
 
 char	*hrdc_convert(t_shell *mini, char *s)

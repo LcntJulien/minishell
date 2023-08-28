@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:33:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/25 19:39:09 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:35:19 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	sigint_chose_handler(int sig)
 	else if (g_sig == 1)
 		sigint_1_handler();
 	else if (g_sig == 2)
-		sigint_2_handler();
+		exit(1);
 }
 
 static void	sigquit_handler(int sig)

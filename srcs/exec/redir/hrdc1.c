@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:08:10 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 17:51:25 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/29 00:13:28 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	redir_hrdc(t_shell *mini, t_token *cur)
 	mini->in = open(HRDC, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (mini->in < 0)
 		fds_err(mini, HRDC);
-	while (cp->next && cp->idx != cur->idx)
+	while (cp && cp->next && cp->idx != cur->idx)
 		cp = cp->next;
-	while (cp->content[++j])
+	while (cp && cp->content[++j])
 		ft_putendl_fd(cp->content[j], mini->in);
 	close(mini->in);
 	mini->in = open(HRDC, O_RDONLY);
@@ -50,20 +50,14 @@ void	ctrl_d_hrdc(t_shell *mini, int idx)
 	cp = tmp;
 }
 
-int	hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab, int size)
+void	hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab, int size)
 {
 	int i;
 
 	i = -1;
 	hrdc->content = ft_calloc(sizeof(char *), (size + 1));
 	if (!hrdc->content)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putendl_fd("can't allocate space", 2);
-		return (1);
-	}
+		err_manager(mini, NULL, 3);
 	while (tab[++i] != NULL)
 		hrdc->content[i] = ft_strdup(tab[i]);
-	add_hrdc(mini, hrdc);
-	return (0);
 }

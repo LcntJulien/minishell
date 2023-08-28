@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 13:26:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:24:33 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	mini_free(t_shell *mini)
 	free_pipe(mini);
 	free_paths(mini);
 	free_args(mini);
-	free_token(mini, mini->token);
+	free_token(mini);
 	free_hrdc(mini);
 	if (mini->pid)
 		free(mini->pid);
@@ -31,6 +31,7 @@ void	mini_free(t_shell *mini)
 		free(mini->line);
 	mini->line = NULL;
 	mini->ncmd = 0;
+	mini->hrtn = 0;
 }
 
 void	pipe_alloc(t_shell *mini)

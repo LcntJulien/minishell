@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 17:52:06 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/28 23:51:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_shell
 	int				out;
 	int				ncmd;
 	int				rtn;
+	int				hrtn;
 	int				exit;
 }					t_shell;
 
@@ -189,7 +190,6 @@ void				define_signals(void);
 /* u_signal_more*/
 void				sigint_0_handler(void);
 void				sigint_1_handler(void);
-void				sigint_2_handler(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);
@@ -260,22 +260,22 @@ void				mini_free(t_shell *mini);
 void				pipe_alloc(t_shell *mini);
 
 /* free.c */
-void				free_token(t_shell *mini, t_token *tk);
+void				free_token(t_shell *mini);
 void				free_paths(t_shell *mini);
 void				free_hrdc(t_shell *mini);
 void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
 
 /* hrdc.c */
+void				heredoc_handler(t_shell *mini, t_token *tk);
 void				add_hrdc(t_shell *mini, t_hrdc *hrdc);
 void				hrdc_syntax(t_shell *mini);
-int					heredoc_handler(t_shell *mini, t_token *tk);
 
 /* hrdc1.c */
+void				hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab,
+						int size);
 void				redir_hrdc(t_shell *mini, t_token *cur);
 void				ctrl_d_hrdc(t_shell *mini, int idx);
-int					hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab,
-						int size);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);

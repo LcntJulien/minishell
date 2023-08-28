@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:29 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 11:48:23 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:00:06 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,25 @@ void	free_hrdc(t_shell *mini)
 	}
 }
 
-void	free_token(t_shell *mini, t_token *tk)
+void	free_token(t_shell *mini)
 {
 	t_token	*cpy;
 	t_token	*tmp;
 
-	cpy = tk;
+	cpy = mini->token;
 	tmp = NULL;
-	if (mini->token != NULL)
+	while (cpy && cpy != NULL)
 	{
-		while (cpy != NULL)
+		tmp = cpy->next;
+		if (cpy->s != NULL)
 		{
-			tmp = cpy->next;
-			if (cpy->s != NULL)
-			{
-				free(cpy->s);
-				cpy->s = NULL;
-			}
-			free(cpy);
-			cpy = tmp;
+			free(cpy->s);
+			cpy->s = NULL;
 		}
-		mini->token = NULL;
+		free(cpy);
+		cpy = tmp;
 	}
+	mini->token = NULL;
 }
 
 void	free_args(t_shell *mini)
