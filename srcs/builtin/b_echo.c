@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/28 13:38:51 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:38:34 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ static int	args_to_print(t_token *list, t_shell *mini)
 	nb_args = 0;
 	while (tmp && ((tmp->type >= 0 && tmp->type <= 5)))
 	{
-		/* a supprimer une fois le parsing ok */
-		//is_it_a_variable(mini, tmp);
 		nb_args++;
 		tmp = tmp->next;
 	}

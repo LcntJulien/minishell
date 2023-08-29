@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/28 14:39:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:03:53 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*get_nvar(t_shell *mini, char *vname)
 		}
 	}
 	free(tmp);
+	printf("nvar = %s\n", nvar);
 	return (nvar);
 }
 
