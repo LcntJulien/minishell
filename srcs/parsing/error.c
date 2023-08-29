@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:11:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 14:39:40 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/28 13:16:07 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	parse_err(t_shell *mini, t_token *tk, int err)
 	{
 		ft_putstr_fd(tk->s, 2);
 		ft_putendl_fd(": syntax error", 2);
-		mini->rtn = 2;
+		mini->rtn = 127;
 	}
 	else
 	{
 		ft_putstr_fd("syntax error near unexpected token `", 2);
 		ft_putstr_fd(tk->s, 2);
 		ft_putendl_fd("'", 2);
-		mini->rtn = 258;
+		mini->rtn = 255;
 	}
 	mini_free(mini);
 	return (1);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   u_signals_more.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 10:01:41 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/24 17:57:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:00:50 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	sigint_0_handler(void)
 {
@@ -30,7 +30,5 @@ void	sigint_1_handler(void)
 
 void	sigint_2_handler(void)
 {
-	// ft_putstr_fd("\n", STDERR_FILENO);
-	// rl_redisplay();
 	g_sig = 3;
 }

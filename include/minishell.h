@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/25 10:00:37 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:31:19 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # include <termios.h>
 # include <unistd.h>
 
-extern int			g_sig;
+int					g_sig;
 
 typedef struct s_token
 {
@@ -119,8 +119,7 @@ void				check_var_status(t_shell *mini, t_token *list,
 /* b_echo */
 void				b_echo(t_shell *mini, t_token *list);
 
-/* b_echo */
-void				is_it_a_variable(t_shell *mini, t_token *tmp);
+/* b_echo_more */
 int					check_opt(t_token *list, int nb_opt);
 
 /* b_env */
@@ -214,10 +213,18 @@ int					is_quote(char *s);
 
 /* var */
 void				convert_var(t_shell *mini, t_token *tk);
-char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
-char				*get_nvar(t_shell *mini, char *vname);
 char				*get_vname(char *s, int idx);
 int					contain_var(char *s);
+
+/* var1 */
+char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
+char				*get_nvar(t_shell *mini, char *vname);
+char				*get_ns(char *s, char *nvar, int idx, int vname_len);
+
+/* var2 */
+char				*other_variable(t_shell *mini, t_token *tmp, int i);
+char				*get_other_var(char *vname);
+char				*rewrite2(char *s, char *iter, int idx);
 
 /* token.c */
 void				space(char *line, int *i);

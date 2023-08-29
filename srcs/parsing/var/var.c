@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:08:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 16:16:06 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:01:57 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_vname(char *s, int idx)
 	i = idx;
 	while (s[++i])
 	{
-		if (!s[i] || s[i] == ' ' || s[i] == '\'' || s[i] == '\"' || s[i] == '$')
+		if (!s[i] || s[i] == ' ' || s[i] == '\'' || s[i] == '\"')
 			break ;
 		len++;
 	}
@@ -31,28 +31,52 @@ char	*get_vname(char *s, int idx)
 	return (var);
 }
 
-void	convert_var(t_shell *mini, t_token *tk)
+static char *env_var(t_shell *mini, t_token *tk, char *iter, int i)
 {
 	char	*cur;
+	char	*tmp;
+	
+	cur = get_vname(tk->s, i);
+	iter = get_nvar(mini, cur);
+	tmp = rewrite(mini, tk->s, cur, i);
+	free(cur);
+	return (tmp);
+}
+
+static char *static_var(t_shell *mini, t_token *tk, char *iter, int i)
+{
+	char	*cur;
+	char	*tmp;
+
+	cur = get_vname(tk->s, i);
+	iter = other_variable(mini, tk, i + 1);
+	tmp = rewrite2(tk->s, iter, i);
+	free(cur);
+	return (tmp);
+}
+
+void	convert_var(t_shell *mini, t_token *tk)
+{
 	char	*tmp;
 	char	*iter;
 	int		i;
 
-	cur = NULL;
 	tmp = NULL;
 	iter = NULL;
 	i = -1;
 	while (tk->s && tk->s[++i])
 	{
-		if (tk->s[i] == '$' && !(is_quote(tk->s) && quote_state(tk->s, i) == 1))
+		if (tk->s[i] == '$' && tk->s[i + 1] != ' '
+			&& !(is_quote(tk->s) && quote_state(tk->s, i) == 1))
 		{
-			cur = get_vname(tk->s, i);
-			iter = get_nvar(mini, cur);
-			tmp = rewrite(mini, tk->s, cur, i);
+			if (tk->s[i + 1] != '$' && tk->s[i + 1] != '?')
+				tmp = env_var(mini, tk, iter, i);
+			else
+				tmp = static_var(mini, tk, iter, i);
 			free(tk->s);
 			tk->s = tmp;
 			i += (ft_strlen(iter) - 1);
-			free2(cur, iter);
+			free(iter);
 		}
 	}
 }
@@ -63,8 +87,13 @@ int	contain_var(char *s)
 
 	i = -1;
 	while (s[++i])
+	{
 		if (s[i] == '$' && s[i + 1] && s[i + 1] != ' ' && s[i + 1] != '$' && s[i
-				+ 1] != '_')
+				+ 1] != '_' && s[i + 1] != '?')
 			return (1);
+		else if (s[i] == '$' && s[i + 1] && (s[i + 1] == '$' || s[i + 1] == '_'
+			|| s[i + 1] == '?'))
+			return (1);
+	}
 	return (0);
 }
