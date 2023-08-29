@@ -6,39 +6,39 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/29 01:05:47 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:55:28 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	hrdc_manager(t_shell *mini)
-{
-	t_token	*tk;
-	pid_t	pid;
+// void	hrdc_manager(t_shell *mini)
+// {
+// 	t_token	*tk;
+// 	pid_t	pid;
 
-	tk = mini->token;
-	while (tk && tk->next != NULL)
-	{
-		if (tk->type == HEREDOC)
-		{
-			pid = fork();
-			if (pid < 0)
-				err_manager(mini, NULL, 2);
-			else if (!pid)
-			{
-				g_sig = 2;
-				heredoc_handler(mini, tk->next);
-			}
-			waitpid(pid, &mini->hrtn, 0);
-			g_sig = 0;
-			if (mini->hrtn == 256)
-				mini_free(mini);
-		}
-		tk = tk->next;
-	}
-	hrdc_syntax(mini);
-}
+// 	tk = mini->token;
+// 	while (tk && tk->next != NULL)
+// 	{
+// 		if (tk->type == HEREDOC)
+// 		{
+// 			pid = fork();
+// 			if (pid < 0)
+// 				err_manager(mini, NULL, 2);
+// 			else if (!pid)
+// 			{
+// 				g_sig = 2;
+// 				heredoc_handler(mini, tk->next);
+// 			}
+// 			waitpid(pid, &mini->hrtn, 0);
+// 			g_sig = 0;
+// 			if (mini->hrtn == 256)
+// 				mini_free(mini);
+// 		}
+// 		tk = tk->next;
+// 	}
+// 	hrdc_syntax(mini);
+// }
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)
@@ -98,7 +98,6 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse_input(&mini);
-			hrdc_manager(&mini);
 			minishell(&mini);
 		}
 		mini_free(&mini);

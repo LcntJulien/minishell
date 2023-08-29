@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/28 23:51:44 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:05:01 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ int					scount(const char *s, char c, int q);
 
 /* minishell.c */
 void				minishell(t_shell *mini);
+t_token				*next_cmd(t_token *tk);
 
 /* utils.c */
 void				get_args(t_shell *mini, t_token *tk);
@@ -267,15 +268,17 @@ void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
 
 /* hrdc.c */
-void				heredoc_handler(t_shell *mini, t_token *tk);
-void				add_hrdc(t_shell *mini, t_hrdc *hrdc);
-void				hrdc_syntax(t_shell *mini);
+void				heredoc_handler(t_shell *mini, t_token *tk, int i);
+// void				add_hrdc(t_shell *mini, t_hrdc *hrdc);
+// void				hrdc_syntax(t_shell *mini);
+char				*hrdc_convert(t_shell *mini, char *s);
+void				hrdc_manager(t_shell *mini);
 
 /* hrdc1.c */
-void				hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab,
-						int size);
+// void				hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab,
+// int size);
 void				redir_hrdc(t_shell *mini, t_token *cur);
-void				ctrl_d_hrdc(t_shell *mini, int idx);
+// void				ctrl_d_hrdc(t_shell *mini, int idx);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);
