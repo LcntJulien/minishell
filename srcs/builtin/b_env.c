@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:48:25 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/20 16:08:38 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:45:39 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ static void	define_var(t_shell *mini, int i)
 	free_str(pwd);
 	mini->env[i] = ft_strjoin(str, "/env");
 	free_str(str);
+}
+
+static void	env_error(t_shell *mini)
+{
+	mini->token = mini->token->next;	
+	ft_putstr_fd("minishell: env: ", STDERR_FILENO);
+	ft_putstr_fd(mini->token->s, STDERR_FILENO);
+	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	mini->rtn = 127;
 }
 
 void	b_env(t_shell *mini)
@@ -50,6 +59,5 @@ void	b_env(t_shell *mini)
 		mini->rtn = 0;
 	}
 	else
-		mini->rtn = 1;
-	
+		env_error(mini);
 }

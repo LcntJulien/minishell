@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 18:24:01 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 10:03:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exec(t_shell *mini, t_token *tk)
 		if (!mini->cmd)
 			err_manager(mini, tk, 0);
 		execve(mini->cmd, mini->args, mini->env);
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
 }
 

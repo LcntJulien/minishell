@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:33:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/29 12:52:40 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/30 10:02:44 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	define_last(t_shell *mini)
 		mini->rtn = 131;
 	else if (g_sig == 130)
 		mini->rtn = 130;
-	else if (g_sig == 1)
-		mini->rtn = 1;
 	g_sig = 0;
 }
 

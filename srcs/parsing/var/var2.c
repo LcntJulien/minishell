@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 13:56:10 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/29 15:11:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/30 10:49:44 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*other_variable(t_shell *mini, t_token *tk, int i)
 
 	new_var = NULL;
 	if (tk->s[i] == '$')
-		new_var = ft_strdup(ft_itoa(getpid()));
+		new_var = ft_itoa(getpid());
 	else if (tk->s[i])
-		new_var = ft_strdup(ft_itoa(mini->rtn));
+		new_var = ft_itoa(mini->rtn);
 	else
 		;
 	return (new_var);

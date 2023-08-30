@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:08:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/29 16:01:57 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/30 10:51:30 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,26 @@ char	*get_vname(char *s, int idx)
 	return (var);
 }
 
-static char *env_var(t_shell *mini, t_token *tk, char *iter, int i)
+static char *env_var(t_shell *mini, t_token *tk, char **iter, int i)
 {
 	char	*cur;
 	char	*tmp;
 	
 	cur = get_vname(tk->s, i);
-	iter = get_nvar(mini, cur);
+	*iter = get_nvar(mini, cur);
 	tmp = rewrite(mini, tk->s, cur, i);
 	free(cur);
 	return (tmp);
 }
 
-static char *static_var(t_shell *mini, t_token *tk, char *iter, int i)
+static char *static_var(t_shell *mini, t_token *tk, char **iter, int i)
 {
 	char	*cur;
 	char	*tmp;
 
 	cur = get_vname(tk->s, i);
-	iter = other_variable(mini, tk, i + 1);
-	tmp = rewrite2(tk->s, iter, i);
+	*iter = other_variable(mini, tk, i + 1);
+	tmp = rewrite2(tk->s, *iter, i);
 	free(cur);
 	return (tmp);
 }
@@ -70,9 +70,9 @@ void	convert_var(t_shell *mini, t_token *tk)
 			&& !(is_quote(tk->s) && quote_state(tk->s, i) == 1))
 		{
 			if (tk->s[i + 1] != '$' && tk->s[i + 1] != '?')
-				tmp = env_var(mini, tk, iter, i);
+				tmp = env_var(mini, tk, &iter, i);
 			else
-				tmp = static_var(mini, tk, iter, i);
+				tmp = static_var(mini, tk, &iter, i);
 			free(tk->s);
 			tk->s = tmp;
 			i += (ft_strlen(iter) - 1);
