@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:39:05 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/29 18:04:44 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:45:24 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	err_manager(t_shell *mini, t_token *tk, int err)
 	ft_putstr_fd("minishell: ", 2);
 	if (!err)
 	{
-		printf("here ?");
 		if (tk)
 			ft_putstr_fd(tk->s, 2);
 		ft_putendl_fd(": command not found", 2);

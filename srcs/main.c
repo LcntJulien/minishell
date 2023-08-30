@@ -24,9 +24,9 @@ void	hrdc_manager(t_shell *mini)
 		if (tk->type == HEREDOC)
 		{
 			rtn  = heredoc_handler(mini, tk->next);
-			if (rtn == 255)
+			if (rtn == 256)
 				mini_free(mini);
-			else if (rtn > 0 && rtn < 255)
+			else if (rtn > 0 && rtn < 256)
 				ctrl_d_hrdc(mini, rtn);
 		}
 		tk = tk->next;

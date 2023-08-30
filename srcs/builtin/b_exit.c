@@ -87,8 +87,6 @@ void	b_exit(t_shell *mini, t_token *list)
 			ft_putstr_fd("minishell: exit: too many arguments\n",
 				STDERR_FILENO);
 		mini->rtn = nb % 256;
-		exit_until(mini);
-		exit(mini->rtn);
 	}
 	exit_until(mini);
 	exit(mini->rtn);
