@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 17:52:56 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 22:56:53 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	exec(t_shell *mini, t_token *tk, int i)
 	{
 		g_sig = 0;
 		b_process(mini);
-		exit(EXIT_SUCCESS);
+		return ;
 	}
 	else
 	{
@@ -68,7 +68,8 @@ void	minipipe(t_shell *mini, t_token *tk)
 	while (i < mini->ncmd)
 		if (pipe(mini->tab[i++]) < 0)
 			err_manager(mini, tk, 1);
-	hrdc_manager(mini);
+	if (hrdc_manager(mini))
+		return ;
 	i = 0;
 	while (i < mini->ncmd)
 	{
@@ -102,7 +103,7 @@ void	minishell(t_shell *mini)
 	else if (mini->ncmd == 1)
 	{
 		if (tk && tk->type == BUILTIN)
-			b_process(mini);
+			exec(mini, tk, 0);
 		else
 		{
 			g_sig = 1;

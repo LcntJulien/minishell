@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 17:44:22 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:05:18 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ void				free_pipe(t_shell *mini);
 
 /* hrdc.c */
 void				redir_hrdc(t_shell *mini, t_token *cur);
-void				hrdc_manager(t_shell *mini);
+int					hrdc_manager(t_shell *mini);
 
 /* hrdc1.c */
 void				alloc_htab(t_shell *mini, int nb);

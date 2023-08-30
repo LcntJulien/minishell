@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 17:41:49 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 22:57:06 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 		mini->in = open(cur->s, O_RDONLY);
 		if (mini->in < 0)
 			fds_err(mini, cur->s);
-		dup2(mini->in, STDIN_FILENO);
 		if (mini->ncmd > 1)
 			close(mini->tab[i][0]);
+		dup2(mini->in, STDIN_FILENO);
 	}
 	else if (cur && cur->prev->type == HEREDOC)
 	{

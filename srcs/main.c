@@ -6,11 +6,18 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 17:44:46 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:02:15 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+/* left to do */
+/*
+ - redir doesn't work with builtins
+ - program display x2 minishell header when CTRL-C in hrdc_manager
+ - leaks check / norminette check
+*/
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)

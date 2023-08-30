@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:08:10 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 18:07:34 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:58:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,18 @@ void	alloc_htab(t_shell *mini, int nb)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	mini->htab = malloc(sizeof(int *) * nb);
 	if (!mini->htab)
 		err_manager(mini, NULL, 3);
-	fprintf(stderr, "alloc_htab 1\n");
-	while (i < nb)
+	while (++i < nb)
 	{
-		mini->htab[i++] = malloc(sizeof(int) * 2);
+		mini->htab[i] = malloc(sizeof(int) * 2);
 		if (!mini->htab[i])
 			err_manager(mini, NULL, 3);
 	}
-	fprintf(stderr, "alloc_htab 2\n");
-	i = 0;
-	while (i < nb)
-		if (pipe(mini->htab[i++]) < 0)
+	i = -1;
+	while (++i < nb)
+		if (pipe(mini->htab[i]) < 0)
 			err_manager(mini, NULL, 1);
 }

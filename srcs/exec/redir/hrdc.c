@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 17:52:19 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:04:14 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	hrdc_handler(t_shell *mini, t_token *cur, int h)
 	return (0);
 }
 
-void	hrdc_manager(t_shell *mini)
+int	hrdc_manager(t_shell *mini)
 {
 	t_token	*cp;
 	int		i;
@@ -126,10 +126,14 @@ void	hrdc_manager(t_shell *mini)
 			if (is_redir(cp, 1) && is_hrdc(cp))
 			{
 				if (hrdc_handler(mini, cur_hrdc(cp), h))
+				{
 					mini_free(mini);
+					return (1);
+				}
 				h++;
 			}
 			cp = next_cmd(cp);
 		}
 	}
+	return (0);
 }
