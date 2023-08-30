@@ -6,39 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/29 15:55:28 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:44:46 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-// void	hrdc_manager(t_shell *mini)
-// {
-// 	t_token	*tk;
-// 	pid_t	pid;
-
-// 	tk = mini->token;
-// 	while (tk && tk->next != NULL)
-// 	{
-// 		if (tk->type == HEREDOC)
-// 		{
-// 			pid = fork();
-// 			if (pid < 0)
-// 				err_manager(mini, NULL, 2);
-// 			else if (!pid)
-// 			{
-// 				g_sig = 2;
-// 				heredoc_handler(mini, tk->next);
-// 			}
-// 			waitpid(pid, &mini->hrtn, 0);
-// 			g_sig = 0;
-// 			if (mini->hrtn == 256)
-// 				mini_free(mini);
-// 		}
-// 		tk = tk->next;
-// 	}
-// 	hrdc_syntax(mini);
-// }
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)
@@ -56,8 +28,8 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->paths = NULL;
 	mini->line = NULL;
 	mini->tab = NULL;
+	mini->htab = NULL;
 	mini->token = NULL;
-	mini->hrdc = NULL;
 	alloc_env(mini, env);
 	mini->home = ft_strdup(getenv("HOME"));
 	if (!create_history(histo))

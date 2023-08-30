@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/28 17:24:33 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:07:03 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	mini_free(t_shell *mini)
 	free_paths(mini);
 	free_args(mini);
 	free_token(mini);
-	free_hrdc(mini);
+	free_htab(mini);
 	if (mini->pid)
 		free(mini->pid);
 	mini->pid = NULL;
@@ -40,9 +40,20 @@ void	pipe_alloc(t_shell *mini)
 
 	i = 0;
 	mini->tab = malloc(sizeof(int *) * mini->ncmd);
+	if (!mini->tab)
+		err_manager(mini, NULL, 3);
+	fprintf(stderr, "pipe alloc 1\n");
 	while (i < mini->ncmd)
+	{
 		mini->tab[i++] = malloc(sizeof(int) * 2);
+		if (!mini->tab[i])
+			err_manager(mini, NULL, 3);
+	}
+	fprintf(stderr, "pipe alloc 2\n");
 	mini->pid = malloc(sizeof(pid_t) * mini->ncmd);
+	if (!mini->pid)
+		err_manager(mini, NULL, 3);
+	fprintf(stderr, "pipe alloc 3\n");
 }
 
 void	close_output(t_token *tk, t_token *cur)

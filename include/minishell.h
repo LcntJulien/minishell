@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/29 17:05:01 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:44:22 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,9 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_hrdc
-{
-	int				idx;
-	char			**content;
-	struct s_hrdc	*next;
-}					t_hrdc;
-
 typedef struct s_shell
 {
 	t_token			*token;
-	t_hrdc			*hrdc;
 	pid_t			*pid;
 	pid_t			ppid;
 	pid_t			cur_pid;
@@ -81,6 +73,7 @@ typedef struct s_shell
 	char			*echo;
 	char			*home;
 	int				**tab;
+	int				**htab;
 	int				in;
 	int				out;
 	int				ncmd;
@@ -263,22 +256,20 @@ void				pipe_alloc(t_shell *mini);
 /* free.c */
 void				free_token(t_shell *mini);
 void				free_paths(t_shell *mini);
-void				free_hrdc(t_shell *mini);
+void				free_htab(t_shell *mini);
 void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
 
 /* hrdc.c */
-void				heredoc_handler(t_shell *mini, t_token *tk, int i);
-// void				add_hrdc(t_shell *mini, t_hrdc *hrdc);
-// void				hrdc_syntax(t_shell *mini);
-char				*hrdc_convert(t_shell *mini, char *s);
+void				redir_hrdc(t_shell *mini, t_token *cur);
 void				hrdc_manager(t_shell *mini);
 
 /* hrdc1.c */
-// void				hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab,
-// int size);
-void				redir_hrdc(t_shell *mini, t_token *cur);
-// void				ctrl_d_hrdc(t_shell *mini, int idx);
+void				alloc_htab(t_shell *mini, int nb);
+t_token				*cur_hrdc(t_token *tk);
+int					get_htab(t_shell *mini, int i);
+int					nb_hrdc(t_shell *mini);
+int					is_hrdc(t_token *tk);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);
