@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 19:05:18 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:50:55 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ typedef struct s_shell
 	char			*home;
 	int				**tab;
 	int				**htab;
+	int				o_in;
+	int				o_out;
 	int				in;
 	int				out;
 	int				ncmd;
 	int				rtn;
-	int				hrtn;
 	int				exit;
 }					t_shell;
 
@@ -265,8 +266,8 @@ void				redir_hrdc(t_shell *mini, t_token *cur);
 int					hrdc_manager(t_shell *mini);
 
 /* hrdc1.c */
-void				alloc_htab(t_shell *mini, int nb);
 t_token				*cur_hrdc(t_token *tk);
+void				alloc_htab(t_shell *mini, int nb);
 int					get_htab(t_shell *mini, int i);
 int					nb_hrdc(t_shell *mini);
 int					is_hrdc(t_token *tk);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:54 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/14 18:35:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:53:13 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*return_var_content(t_shell *mini, char *var)
 			{
 				free_str(tmp);
 				return (var_content(mini, mini->env[i]));
-			}	
+			}
 			free_str(tmp);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 18:58:52 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:38:39 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	mini_free(t_shell *mini)
 		free(mini->line);
 	mini->line = NULL;
 	mini->ncmd = 0;
-	mini->hrtn = 0;
 }
 
 void	pipe_alloc(t_shell *mini)

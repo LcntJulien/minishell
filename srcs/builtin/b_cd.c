@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 12:32:41 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:56:10 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	next_cd_step(t_shell *mini, t_token *list, char *cur_dir)
 	char	*tmp_path;
 
 	if (ft_strncmp(list->s, "..", 2) != 0)
-	{	
+	{
 		tmp_path = check_str_cd(mini, list);
 		if (ft_strncmp(tmp_path, "HOME", 4) == 0
 			|| ft_strncmp(tmp_path, "OLDPWD", 6) == 0)

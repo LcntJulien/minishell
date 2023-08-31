@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 19:02:15 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:48:11 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* left to do */
 /*
- - redir doesn't work with builtins
+ - "Fail to reload minishell attributes" when using: `<test env` or `ls | cat <<A | env >test`
  - program display x2 minishell header when CTRL-C in hrdc_manager
  - leaks check / norminette check
 */
@@ -26,9 +26,10 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->exit = 0;
 	mini->pid = 0;
 	mini->ncmd = 0;
+	mini->o_in = dup(STDIN_FILENO);
+	mini->o_out = dup(STDOUT_FILENO);
 	mini->in = 0;
 	mini->out = 0;
-	mini->hrtn = 0;
 	mini->cmd = NULL;
 	mini->tab = NULL;
 	mini->args = NULL;

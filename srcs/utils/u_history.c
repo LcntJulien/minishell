@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_history.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:17:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 12:39:42 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:52:03 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	init_history(int *histo)
 	if (!str)
 		return (0);
 	while (str)
-	{	
+	{
 		s = ft_substr(str, 0, ft_strlen(str) - 1);
 		add_history(s);
 		free(str);
