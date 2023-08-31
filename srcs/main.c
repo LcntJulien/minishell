@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 16:14:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:44:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,20 @@
 
 /* left to do */
 /*
+ - change 1cmd heredoc to using fd instead `.file`
  - program display x2 minishell header when CTRL-C in hrdc_manager
  - si env avant autre fctn exec autre fctn ou display err -> (behavior changes if pipe or no)
  - leaks check / norminette check
+*/
+
+/* pour les builtins */
+/*
+ - cd must check if arg is an existing file/folder -> if file display file_err -> if neither display both_err
+ - pwd exec whatever
+ - export works only if alone or with correct identifiers -> some incorrects: `.`, `/`, `/:`
+ - same as export for unset
+ - exit needs digits to exit whithout err_msg but exit anyway
+ - env always send err_msg if folled by anything but a redir or a valid cmd: ls, cat(+arg), ??? 
 */
 
 static void	startshell(t_shell *mini, char **env, int *histo,
@@ -82,5 +93,5 @@ int	main(int ac, char **av, char **env)
 		}
 		mini_free(&mini);
 	}
-	ft_exit_all(&mini, histo, mini.rtn);
+	ft_exit_all(&mini, histo, 130);
 }
