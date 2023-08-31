@@ -82,5 +82,5 @@ int	main(int ac, char **av, char **env)
 		}
 		mini_free(&mini);
 	}
-	ft_exit_all(&mini, histo, 130);
+	ft_exit_all(&mini, histo, mini.rtn);
 }

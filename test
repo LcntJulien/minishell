@@ -21,3 +21,4 @@ MANPATH=/opt/homebrew/share/man::
 INFOPATH=/opt/homebrew/share/info:
 LANG=fr_FR.UTF-8
 _=/Users/julien/Documents/42/minishell/env
+

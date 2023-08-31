@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/18 12:30:26 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:36:38 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	valid_path(t_shell *mini, char *tmp_path)
 		mini->rtn = 1;
 		str = ft_strjoin("minishell: cd: ", tmp_path);
 		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 		free_str(str);
 		return (0);
 	}

@@ -18,8 +18,6 @@ void	define_last(t_shell *mini)
 		mini->rtn = 131;
 	else if (g_sig == 130)
 		mini->rtn = 130;
-	else if (g_sig == 1)
-		mini->rtn = 1;
 	g_sig = 0;
 }
 
