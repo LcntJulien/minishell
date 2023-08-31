@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_signals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:33:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/30 14:46:03 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:00:07 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	sigint_chose_handler(int sig)
 	else if (g_sig == 1)
 		sigint_1_handler();
 	else if (g_sig == 2)
-		sigint_2_handler();
+		exit(1);
 }
 
 static void	sigquit_handler(int sig)

@@ -57,6 +57,8 @@ void	err_manager(t_shell *mini, t_token *tk, int err)
 		ft_putendl_fd("error creating pipe", 2);
 	else if (err == 2)
 		ft_putendl_fd("error forking process id", 2);
+	else if (err == 3)
+		ft_putendl_fd("failed to allocate space", 2);
 	mini->rtn = EXIT_FAILURE;
 	exit(EXIT_FAILURE);
 }

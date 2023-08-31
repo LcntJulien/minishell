@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 09:56:15 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/25 15:30:23 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:13:07 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exit_until(t_shell *mini)
 	if (mini->env)
 		free_env(mini);
 	if (mini->token)
-		free_token(mini, mini->token);
+		free_token(mini);
 	if (mini->args)
 		free_tab(mini->args);
 	if (mini->paths)

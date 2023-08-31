@@ -6,64 +6,107 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:08:10 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 17:51:25 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:58:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	redir_hrdc(t_shell *mini, t_token *cur)
+int	get_htab(t_shell *mini, int i)
 {
-	t_hrdc	*cp;
+	t_token	*cp;
 	int		j;
+	int		r;
 
-	cp = mini->hrdc;
+	cp = mini->token;
 	j = -1;
-	mini->in = open(HRDC, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (mini->in < 0)
-		fds_err(mini, HRDC);
-	while (cp->next && cp->idx != cur->idx)
-		cp = cp->next;
-	while (cp->content[++j])
-		ft_putendl_fd(cp->content[j], mini->in);
-	close(mini->in);
-	mini->in = open(HRDC, O_RDONLY);
-	dup2(mini->in, STDIN_FILENO);
-}
-
-void	ctrl_d_hrdc(t_shell *mini, int idx)
-{
-	t_hrdc	*cp;
-	t_hrdc	*tmp;
-	int		i;
-
-	cp = mini->hrdc;
-	tmp = NULL;
-	i = -1;
-	while (cp->idx != idx)
-		cp = cp->next;
-	while (cp->content[++i])
-		ft_putstr_fd(cp->content[i], 1);
-	free_tab(cp->content);
-	tmp = cp->next;
-	free(cp);
-	cp = tmp;
-}
-
-int	hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab, int size)
-{
-	int i;
-
-	i = -1;
-	hrdc->content = ft_calloc(sizeof(char *), (size + 1));
-	if (!hrdc->content)
+	r = 0;
+	while (++j < i)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putendl_fd("can't allocate space", 2);
+		if (is_redir(cp, 1) && is_hrdc(cp))
+			r++;
+		cp = next_cmd(cp);
+	}
+	return (r);
+}
+
+int	is_hrdc(t_token *tk)
+{
+	t_token	*cp;
+	t_token	*cur;
+
+	cp = tk;
+	cur = NULL;
+	while (cp->prev && cp->prev->type != PIPE)
+		cp = cp->prev;
+	while (cp->next && cp->type != PIPE)
+	{
+		if (cp->next && (cp->type == INPUT || cp->type == HEREDOC))
+			cur = cp->next;
+		cp = cp->next;
+	}
+	if (cur->prev->type == HEREDOC)
+	{
+		tk = cur;
 		return (1);
 	}
-	while (tab[++i] != NULL)
-		hrdc->content[i] = ft_strdup(tab[i]);
-	add_hrdc(mini, hrdc);
 	return (0);
+}
+
+t_token	*cur_hrdc(t_token *tk)
+{
+	t_token	*cp;
+	t_token	*cur;
+
+	cp = tk;
+	cur = NULL;
+	while (cp->prev && cp->prev->type != PIPE)
+		cp = cp->prev;
+	while (cp->next && cp->type != PIPE)
+	{
+		if (cp->next && (cp->type == INPUT || cp->type == HEREDOC))
+			cur = cp->next;
+		cp = cp->next;
+	}
+	if (cur && cur->prev->type == HEREDOC)
+		return (cur);
+	return (NULL);
+}
+
+int	nb_hrdc(t_shell *mini)
+{
+	t_token	*cp;
+	int		i;
+	int		r;
+
+	cp = mini->token;
+	i = -1;
+	r = 0;
+	while (++i < mini->ncmd)
+	{
+		if (is_redir(cp, 1) && is_hrdc(cp))
+			r++;
+		cp = next_cmd(cp);
+	}
+	return (r);
+}
+
+void	alloc_htab(t_shell *mini, int nb)
+{
+	int	i;
+
+	i = -1;
+	mini->htab = malloc(sizeof(int *) * nb);
+	if (!mini->htab)
+		err_manager(mini, NULL, 3);
+	while (++i < nb)
+	{
+		mini->htab[i] = malloc(sizeof(int) * 2);
+		if (!mini->htab[i])
+			err_manager(mini, NULL, 3);
+	}
+	i = -1;
+	while (++i < nb)
+		if (pipe(mini->htab[i]) < 0)
+			err_manager(mini, NULL, 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 14:35:16 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:58:11 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,9 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_hrdc
-{
-	int				idx;
-	char			**content;
-	struct s_hrdc	*next;
-}					t_hrdc;
-
 typedef struct s_shell
 {
 	t_token			*token;
-	t_hrdc			*hrdc;
 	pid_t			*pid;
 	pid_t			ppid;
 	pid_t			cur_pid;
@@ -81,6 +73,9 @@ typedef struct s_shell
 	char			*echo;
 	char			*home;
 	int				**tab;
+	int				**htab;
+	int				o_in;
+	int				o_out;
 	int				in;
 	int				out;
 	int				ncmd;
@@ -188,7 +183,6 @@ void				define_signals(void);
 /* u_signal_more*/
 void				sigint_0_handler(void);
 void				sigint_1_handler(void);
-void				sigint_2_handler(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);
@@ -252,6 +246,7 @@ int					scount(const char *s, char c, int q);
 
 /* minishell.c */
 void				minishell(t_shell *mini);
+t_token				*next_cmd(t_token *tk);
 
 /* utils.c */
 void				get_args(t_shell *mini, t_token *tk);
@@ -267,22 +262,22 @@ void				mini_free(t_shell *mini);
 void				pipe_alloc(t_shell *mini);
 
 /* free.c */
-void				free_token(t_shell *mini, t_token *tk);
+void				free_token(t_shell *mini);
 void				free_paths(t_shell *mini);
-void				free_hrdc(t_shell *mini);
+void				free_htab(t_shell *mini);
 void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
 
 /* hrdc.c */
-void				add_hrdc(t_shell *mini, t_hrdc *hrdc);
-void				hrdc_syntax(t_shell *mini);
-int					heredoc_handler(t_shell *mini, t_token *tk);
+void				redir_hrdc(t_shell *mini, t_token *cur);
+int					hrdc_manager(t_shell *mini);
 
 /* hrdc1.c */
-void				redir_hrdc(t_shell *mini, t_token *cur);
-void				ctrl_d_hrdc(t_shell *mini, int idx);
-int					hrdc_filler(t_shell *mini, t_hrdc *hrdc, char **tab,
-						int size);
+t_token				*cur_hrdc(t_token *tk);
+void				alloc_htab(t_shell *mini, int nb);
+int					get_htab(t_shell *mini, int i);
+int					nb_hrdc(t_shell *mini);
+int					is_hrdc(t_token *tk);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);
