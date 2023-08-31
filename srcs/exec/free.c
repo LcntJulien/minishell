@@ -6,61 +6,45 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:29 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 11:48:23 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:41:21 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_hrdc(t_shell *mini)
+void	free_htab(t_shell *mini)
 {
-	t_hrdc	*cp;
-	t_hrdc	*tmp;
-	int		i;
+	int	i;
 
-	cp = mini->hrdc;
-	tmp = NULL;
-	i = -1;
-	if (cp)
+	i = 0;
+	if (mini->tab)
 	{
-		while (cp)
-		{
-			tmp = cp->next;
-			if (cp->content)
-			{
-				while (cp->content[++i])
-					free(cp->content[i]);
-				cp->content = NULL;
-			}
-			free(cp);
-			cp = tmp;
-		}
-		mini->hrdc = NULL;
+		while (i < nb_hrdc(mini))
+			free(mini->htab[i++]);
+		free(mini->htab);
+		mini->htab = NULL;
 	}
 }
 
-void	free_token(t_shell *mini, t_token *tk)
+void	free_token(t_shell *mini)
 {
 	t_token	*cpy;
 	t_token	*tmp;
 
-	cpy = tk;
+	cpy = mini->token;
 	tmp = NULL;
-	if (mini->token != NULL)
+	while (cpy && cpy != NULL)
 	{
-		while (cpy != NULL)
+		tmp = cpy->next;
+		if (cpy->s != NULL)
 		{
-			tmp = cpy->next;
-			if (cpy->s != NULL)
-			{
-				free(cpy->s);
-				cpy->s = NULL;
-			}
-			free(cpy);
-			cpy = tmp;
+			free(cpy->s);
+			cpy->s = NULL;
 		}
-		mini->token = NULL;
+		free(cpy);
+		cpy = tmp;
 	}
+	mini->token = NULL;
 }
 
 void	free_args(t_shell *mini)

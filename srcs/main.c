@@ -3,36 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/29 12:46:13 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:59:52 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	hrdc_manager(t_shell *mini)
-{
-	t_token	*tk;
-	int rtn;
-
-	tk = mini->token;
-	rtn = 0;
-	while (tk && tk->next != NULL)
-	{
-		if (tk->type == HEREDOC)
-		{
-			rtn  = heredoc_handler(mini, tk->next);
-			if (rtn == 255)
-				mini_free(mini);
-			else if (rtn > 0 && rtn < 255)
-				ctrl_d_hrdc(mini, rtn);
-		}
-		tk = tk->next;
-	}
-	hrdc_syntax(mini);
-}
+/* left to do */
+/*
+ - "Fail to reload minishell attributes" when using: `<test env` or `ls | cat <<A | env >test`
+ - program display x2 minishell header when CTRL-C in hrdc_manager
+ - leaks check / norminette check
+*/
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)
@@ -41,6 +26,8 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->exit = 0;
 	mini->pid = 0;
 	mini->ncmd = 0;
+	mini->o_in = dup(STDIN_FILENO);
+	mini->o_out = dup(STDOUT_FILENO);
 	mini->in = 0;
 	mini->out = 0;
 	mini->cmd = NULL;
@@ -49,8 +36,8 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->paths = NULL;
 	mini->line = NULL;
 	mini->tab = NULL;
+	mini->htab = NULL;
 	mini->token = NULL;
-	mini->hrdc = NULL;
 	alloc_env(mini, env);
 	mini->home = ft_strdup(getenv("HOME"));
 	if (!create_history(histo))
@@ -91,7 +78,6 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse_input(&mini);
-			hrdc_manager(&mini);
 			minishell(&mini);
 		}
 		mini_free(&mini);

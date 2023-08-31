@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_var.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:22:34 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/20 15:21:25by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:55:45 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ static char	*check_condition(t_shell *mini, t_token *tmp)
 {
 	char	*s;
 	char	*str;
-	
+
 	s = NULL;
 	str = NULL;
-	if (tmp->type == 0)	
+	if (tmp->type == 0)
 		s = ft_strjoin("/bin/", tmp->s);
-	else if (tmp->type == 2)	
+	else if (tmp->type == 2)
 	{
 		str = var_name(mini, tmp->s);
 		s = return_var_content(mini, str);
 		free_str(str);
 	}
-	else if (tmp->type == 5)	
+	else if (tmp->type == 5)
 		s = return_var_name(mini, tmp->s);
 	else
 		s = ft_strdup(tmp->s);
@@ -52,7 +52,7 @@ static char	*define_last_arg_to_write(t_shell *mini, t_token *tmp)
 {
 	char	*s;
 
-	s = NULL;	
+	s = NULL;
 	while (tmp)
 	{
 		if (tmp->type < 6)
@@ -75,7 +75,7 @@ void	sub_var_last_cmd(t_shell *mini)
 {
 	int		i;
 	char	*s;
-	t_token *tmp;
+	t_token	*tmp;
 
 	i = -1;
 	tmp = mini->token;

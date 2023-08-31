@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:48:25 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/20 16:08:38 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:54:06 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	define_var(t_shell *mini, int i)
 {
 	char	*pwd;
 	char	*str;
-	
+
 	free_str(mini->env[i]);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
@@ -51,5 +51,4 @@ void	b_env(t_shell *mini)
 	}
 	else
 		mini->rtn = 1;
-	
 }
