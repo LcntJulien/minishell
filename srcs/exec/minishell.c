@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 15:29:15 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:26:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	exec(t_shell *mini, t_token *tk, int i)
 			close(mini->out);
 			dup2(mini->o_out, STDOUT_FILENO);
 		}
-		return ;
+		if (is_redir(tk, 1))
+		{
+			close(mini->in);
+			dup2(mini->o_in, STDIN_FILENO);
+		}
 	}
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/29 14:03:53 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:14:33 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*get_nvar(t_shell *mini, char *vname)
 		}
 	}
 	free(tmp);
-	printf("nvar = %s\n", nvar);
 	return (nvar);
 }
 
