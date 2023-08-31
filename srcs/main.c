@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 14:59:52 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:14:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /* left to do */
 /*
- - "Fail to reload minishell attributes" when using: `<test env` or `ls | cat <<A | env >test`
  - program display x2 minishell header when CTRL-C in hrdc_manager
+ - si env avant autre fctn exec autre fctn ou display err -> (behavior changes if pipe or no)
  - leaks check / norminette check
 */
 
