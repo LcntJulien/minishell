@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 14:58:11 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/01 13:35:06 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,7 @@ void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
 
 /* hrdc.c */
-void				redir_hrdc(t_shell *mini, t_token *cur);
+int					solo_hrdc_filler(t_shell *mini, t_token *cur);
 int					hrdc_manager(t_shell *mini);
 
 /* hrdc1.c */
@@ -280,9 +280,10 @@ int					nb_hrdc(t_shell *mini);
 int					is_hrdc(t_token *tk);
 
 /* redir.c */
-void				redir(t_shell *mini, t_token *tk, int i);
+int					redir(t_shell *mini, t_token *tk, int i);
 
 /* redir1.c */
+int					solo_hrdc(t_shell *mini, t_token *cur);
 void				args_redir(t_shell *mini, t_token *tk);
 int					is_redir(t_token *tk, int mode);
 

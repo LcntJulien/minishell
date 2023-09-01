@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 16:44:59 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/01 13:44:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 /* left to do */
 /*
- - change 1cmd heredoc to using fd instead `.file`
- - program display x2 minishell header when CTRL-C in hrdc_manager
  - si env avant autre fctn exec autre fctn ou display err -> (behavior changes if pipe or no)
  - leaks check / norminette check
 */

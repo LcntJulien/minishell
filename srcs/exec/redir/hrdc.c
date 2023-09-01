@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 14:59:44 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/01 12:49:25 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,11 @@ char	*hrdc_convert(t_shell *mini, char *s)
 	return (s);
 }
 
-void	redir_hrdc(t_shell *mini, t_token *cur)
+int	solo_hrdc_filler(t_shell *mini, t_token *cur)
 {
 	char	*tmp;
 
 	tmp = NULL;
-	mini->in = open(HRDC, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (mini->in < 0)
-		fds_err(mini, HRDC);
 	while (1)
 	{
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
@@ -55,13 +52,11 @@ void	redir_hrdc(t_shell *mini, t_token *cur)
 			break ;
 		if (contain_var(tmp))
 			tmp = hrdc_convert(mini, tmp);
-		ft_putendl_fd(tmp, mini->in);
+		ft_putendl_fd(tmp, mini->htab[0][1]);
 	}
-	close(mini->in);
-	mini->in = open(HRDC, O_RDONLY);
-	dup2(mini->in, STDIN_FILENO);
 	if (tmp)
 		free(tmp);
+	return (0);
 }
 
 int	hrdc_filler(t_shell *mini, char *cur, int h)
@@ -97,15 +92,16 @@ int	hrdc_handler(t_shell *mini, t_token *cur, int h)
 	{
 		g_sig = 2;
 		if (hrdc_filler(mini, cur->s, h) == -1)
-			exit(-1);
+			exit(1);
 		close(mini->htab[h][1]);
 		exit(0);
 	}
-	close(mini->htab[h][1]);
 	waitpid(pid, &status, 0);
+	g_sig = 0;
+	if (status == 256)
+		mini->rtn = 1;
 	if (status != 0)
 		return (1);
-	g_sig = 0;
 	return (0);
 }
 
