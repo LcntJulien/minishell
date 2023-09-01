@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/07/20 11:16:50 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:21:37 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ static void	b_unset_args(t_shell *mini, t_token *list, int nb_args)
 	return ;
 }
 
+static void	unset_error(t_shell *mini, t_token *list)
+{
+	mini->rtn = 1;
+	ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
+	ft_putstr_fd(list->s, STDERR_FILENO);
+	ft_putstr_fd("': Not a valid identifier\n", STDERR_FILENO);
+}
+
 void	b_unset(t_shell *mini, t_token *list)
 {
 	int		nb_args;
@@ -65,7 +73,12 @@ void	b_unset(t_shell *mini, t_token *list)
 	else
 	{
 		tmp = mini->token->next;
-		while (tmp && (tmp->type == 1 || tmp->type == 2))
+		if (tmp && tmp->type == 2)
+		{
+			unset_error(mini, tmp);
+			return ;
+		}
+		while (tmp && tmp->type == 1)
 		{
 			nb_args++;
 			tmp = tmp->next;
