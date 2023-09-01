@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 12:17:22 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/01 13:55:54 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_token	*next_cmd(t_token *tk)
 void	exec(t_shell *mini, t_token *tk, int i)
 {
 	if (is_redir(tk, 0))
-		redir(mini, tk, i);
+		if (redir(mini, tk, i))
+			return ;
 	if (tk && tk->type == BUILTIN)
 	{
 		g_sig = 0;
@@ -42,7 +43,7 @@ void	exec(t_shell *mini, t_token *tk, int i)
 			dup2(mini->o_in, STDIN_FILENO);
 		}
 	}
-	else
+	else if (tk)
 	{
 		get_args(mini, tk);
 		mini->cmd = get_cmd(mini);
@@ -120,7 +121,10 @@ void	minishell(t_shell *mini)
 			if (pid < 0)
 				err_manager(mini, tk, 2);
 			else if (pid == 0)
+			{
 				exec(mini, tk, 0);
+				dup2(mini->o_in, STDIN_FILENO);
+			}
 			waitpid(pid, &mini->rtn, 0);
 		}
 	}

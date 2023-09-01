@@ -6,13 +6,13 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 22:57:06 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/01 13:34:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	do_redirin(t_shell *mini, t_token *cur, int i)
+int	do_redirin(t_shell *mini, t_token *cur, int i)
 {
 	if (cur && cur->prev->type == INPUT)
 	{
@@ -29,9 +29,8 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 	{
 		if (mini->ncmd == 1)
 		{
-			g_sig = 2;
-			redir_hrdc(mini, cur);
-			g_sig = 1;
+			if (solo_hrdc(mini, cur))
+				return (1);
 		}
 		else
 		{
@@ -39,6 +38,7 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 			dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);
 		}
 	}
+	return (0);
 }
 
 void	do_redirout(t_shell *mini, t_token *cur, int i)
@@ -54,7 +54,7 @@ void	do_redirout(t_shell *mini, t_token *cur, int i)
 	dup2(mini->out, STDOUT_FILENO);
 }
 
-void	redirin(t_shell *mini, t_token *tk, int i)
+int	redirin(t_shell *mini, t_token *tk, int i)
 {
 	t_token	*cp;
 	t_token	*cur;
@@ -70,7 +70,9 @@ void	redirin(t_shell *mini, t_token *tk, int i)
 		cp = cp->next;
 	}
 	if (cur)
-		do_redirin(mini, cur, i);
+		if (do_redirin(mini, cur, i))
+			return (1);
+	return (0);
 }
 
 void	redirout(t_shell *mini, t_token *tk, int i)
@@ -95,10 +97,12 @@ void	redirout(t_shell *mini, t_token *tk, int i)
 	}
 }
 
-void	redir(t_shell *mini, t_token *tk, int i)
+int	redir(t_shell *mini, t_token *tk, int i)
 {
 	if (is_redir(tk, 1))
-		redirin(mini, tk, i);
+		if (redirin(mini, tk, i))
+			return (1);
 	if (is_redir(tk, 2))
 		redirout(mini, tk, i);
+	return (0);
 }
