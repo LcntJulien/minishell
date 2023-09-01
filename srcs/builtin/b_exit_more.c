@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit_more.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 09:56:15 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/28 17:13:07 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/01 13:15:55 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	exit_too_much(t_shell *mini)
 	char	*s1;
 	char	*s2;
 
-	s1 = ft_strjoin("minishell: exit: ", mini->token->next->s);
+	s1 = ft_strjoin(" exit: ", mini->token->next->s);
 	s2 = ft_strjoin(s1, ": numeric argument required\n");
 	free_str(s1);
 	ft_putstr_fd(s2, STDERR_FILENO);
