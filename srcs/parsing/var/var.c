@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:08:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 13:39:21 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:13:43 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	convert_var(t_shell *mini, t_token *tk)
 			free(iter);
 		}
 	}
-	tk->type = 1;
 }
 
 int	contain_var(char *s)
