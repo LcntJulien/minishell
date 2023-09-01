@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 14:58:11 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/01 11:52:49 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,10 +179,13 @@ void				add_histo(char *str, int histo);
 /* u_signal*/
 void				define_last(t_shell *mini);
 void				define_signals(void);
+void				define_signals_hrdc(void);
 
 /* u_signal_more*/
 void				sigint_0_handler(void);
 void				sigint_1_handler(void);
+void				sigint_hrdc(int sig);
+void				sigquit_hrdc(int sig);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);

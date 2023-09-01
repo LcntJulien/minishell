@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_signals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:33:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/31 15:00:07 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/01 12:17:31 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ static void	sigint_chose_handler(int sig)
 		sigint_0_handler();
 	else if (g_sig == 1)
 		sigint_1_handler();
-	else if (g_sig == 2)
-		exit(1);
+	else if (g_sig == 300)
+	{
+		ft_putstr_fd("\n", STDERR_FILENO);
+		rl_redisplay();
+		g_sig = 1;
+	}
 }
 
 static void	sigquit_handler(int sig)
@@ -47,4 +51,10 @@ void	define_signals(void)
 {
 	signal(SIGINT, sigint_chose_handler);
 	signal(SIGQUIT, sigquit_handler);
+}
+
+void	define_signals_hrdc(void)
+{
+	signal(SIGINT, sigint_hrdc);
+	signal(SIGQUIT, sigquit_hrdc);
 }
