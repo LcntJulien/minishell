@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 13:53:02 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:38:54 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	solo_hrdc(t_shell *mini, t_token *cur)
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
-	g_sig = 2;
+	g_sig = 1;
 	if (status == 256)
 		mini->rtn = 1;
 	if (status != 0)

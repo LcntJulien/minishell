@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 13:44:16 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:32:18 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,39 @@
 
 /* left to do */
 /*
- - si env avant autre fctn exec autre fctn ou display err -> (behavior changes if pipe or no)
+ - si env avant autre fctn exec autre fctn ou display err
+	-> (behavior changes if pipe or no)
  - leaks check / norminette check
 */
 
 /* pour les builtins */
 /*
- - cd must check if arg is an existing file/folder -> if file display file_err -> if neither display both_err
+ - cd must check if arg is an existing file/folder -> if file display file_err
+	-> if neither display both_err
  - pwd exec whatever
- - export works only if alone or with correct identifiers -> some incorrects: `.`, `/`, `/:`
+ - export works only if alone or with correct identifiers
+	-> some incorrects: `.`, `/`, `/:`
  - same as export for unset
  - exit needs digits to exit whithout err_msg but exit anyway
- - env always send err_msg if folled by anything but a redir or a valid cmd: ls, cat(+arg), ??? 
+ - env always send err_msg if folled by anything but a redir or a valid cmd: ls,
+	cat(+arg), ??? 
 */
+
+void	reset_std(t_shell *mini)
+{
+	if (mini->rdr == 1 || mini->rdr == 3)
+	{
+		close(mini->in);
+		dup2(STDIN_FILENO, mini->o_in);
+		mini->rdr = 0;
+	}
+	if (mini->rdr == 2 || mini->rdr == 3)
+	{
+		close(mini->out);
+		dup2(STDOUT_FILENO, mini->o_out);
+		mini->rdr = 0;
+	}
+}
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)
@@ -35,6 +55,7 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->exit = 0;
 	mini->pid = 0;
 	mini->ncmd = 0;
+	mini->rdr = 0;
 	mini->o_in = dup(STDIN_FILENO);
 	mini->o_out = dup(STDOUT_FILENO);
 	mini->in = 0;

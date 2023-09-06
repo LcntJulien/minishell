@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 13:55:54 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:33:41 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,6 @@ void	exec(t_shell *mini, t_token *tk, int i)
 	{
 		g_sig = 0;
 		b_process(mini);
-		if (is_redir(tk, 2))
-		{
-			close(mini->out);
-			dup2(mini->o_out, STDOUT_FILENO);
-		}
-		if (is_redir(tk, 1))
-		{
-			close(mini->in);
-			dup2(mini->o_in, STDIN_FILENO);
-		}
 	}
 	else if (tk)
 	{
@@ -67,6 +57,7 @@ void	child(t_shell *mini, t_token *tk, int i)
 	}
 	close_pipes(mini, i, 1);
 	exec(mini, tk, i);
+	reset_std(mini);
 }
 
 void	minipipe(t_shell *mini, t_token *tk)
@@ -123,7 +114,8 @@ void	minishell(t_shell *mini)
 			else if (pid == 0)
 			{
 				exec(mini, tk, 0);
-				dup2(mini->o_in, STDIN_FILENO);
+				reset_std(mini);
+				exit(0);
 			}
 			waitpid(pid, &mini->rtn, 0);
 		}

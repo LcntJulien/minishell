@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 13:56:02 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:23:53 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_shell
 	int				in;
 	int				out;
 	int				ncmd;
+	int				rdr;
 	int				rtn;
 	int				exit;
 }					t_shell;
@@ -294,5 +295,7 @@ int					is_redir(t_token *tk, int mode);
 void				err_manager(t_shell *mini, t_token *tk, int err);
 void				clear_files(t_shell *mini, t_token *tk, char *s);
 void				fds_err(t_shell *mini, char *fname);
+
+void				reset_std(t_shell *mini);
 
 #endif
