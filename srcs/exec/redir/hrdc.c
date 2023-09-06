@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hrdc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/05 18:14:59 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:59:31 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	hrdc_handler(t_shell *mini, t_token *cur, int h)
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
+	status = WEXITSTATUS(status);
 	g_sig = 0;
 	if (status == 256)
 		mini->rtn = 1;
