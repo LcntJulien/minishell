@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 13:34:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:38:44 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ int	redirin(t_shell *mini, t_token *tk, int i)
 		cp = cp->next;
 	}
 	if (cur)
+	{
+		mini->rdr = 1;
 		if (do_redirin(mini, cur, i))
 			return (1);
+	}
 	return (0);
 }
 
@@ -92,6 +95,7 @@ void	redirout(t_shell *mini, t_token *tk, int i)
 	}
 	if (cur)
 	{
+		mini->rdr += 2;
 		do_redirout(mini, cur, i);
 		close_output(tk, cur);
 	}
