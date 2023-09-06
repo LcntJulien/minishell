@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 10:01:41 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/01 12:13:43 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:02:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	sigint_0_handler(void)
 {
 	rl_redisplay();
+	rl_replace_line("", 0);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_on_new_line();
 	rl_redisplay();
