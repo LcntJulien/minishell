@@ -6,13 +6,13 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/05 18:38:54 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:09:28 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	solo_hrdc(t_shell *mini, t_token *cur)
+void	solo_hrdc(t_shell *mini, t_token *cur)
 {
 	int		status;
 	pid_t	pid;
@@ -26,7 +26,6 @@ int	solo_hrdc(t_shell *mini, t_token *cur)
 	{
 		g_sig = 2;
 		solo_hrdc_filler(mini, cur);
-		close(mini->htab[0][1]);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
@@ -34,12 +33,7 @@ int	solo_hrdc(t_shell *mini, t_token *cur)
 	if (status == 256)
 		mini->rtn = 1;
 	if (status != 0)
-	{
 		mini_free(mini);
-		return (1);
-	}
-	dup2(mini->htab[0][0], STDIN_FILENO);
-	return (0);
 }
 
 int	is_redir(t_token *tk, int mode)

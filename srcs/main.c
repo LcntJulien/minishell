@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/05 18:32:18 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:45:23 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,6 @@
  - env always send err_msg if folled by anything but a redir or a valid cmd: ls,
 	cat(+arg), ??? 
 */
-
-void	reset_std(t_shell *mini)
-{
-	if (mini->rdr == 1 || mini->rdr == 3)
-	{
-		close(mini->in);
-		dup2(STDIN_FILENO, mini->o_in);
-		mini->rdr = 0;
-	}
-	if (mini->rdr == 2 || mini->rdr == 3)
-	{
-		close(mini->out);
-		dup2(STDOUT_FILENO, mini->o_out);
-		mini->rdr = 0;
-	}
-}
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)

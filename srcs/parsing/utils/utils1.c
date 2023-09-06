@@ -6,11 +6,27 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 15:14:58 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:45:29 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+void	reset_std(t_shell *mini)
+{
+	if (mini->rdr == 1 || mini->rdr == 3)
+	{
+		close(mini->in);
+		dup2(STDIN_FILENO, mini->o_in);
+		mini->rdr = 0;
+	}
+	if (mini->rdr == 2 || mini->rdr == 3)
+	{
+		close(mini->out);
+		dup2(STDOUT_FILENO, mini->o_out);
+		mini->rdr = 0;
+	}
+}
 
 int	is_sep(char *s, int i)
 {
