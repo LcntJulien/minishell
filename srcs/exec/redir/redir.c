@@ -6,13 +6,13 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/05 18:38:44 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:47:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	do_redirin(t_shell *mini, t_token *cur, int i)
+void	do_redirin(t_shell *mini, t_token *cur, int i)
 {
 	if (cur && cur->prev->type == INPUT)
 	{
@@ -29,16 +29,13 @@ int	do_redirin(t_shell *mini, t_token *cur, int i)
 	{
 		if (mini->ncmd == 1)
 		{
-			if (solo_hrdc(mini, cur))
-				return (1);
+			solo_hrdc(mini, cur);
+			dup2(mini->htab[0][0], STDIN_FILENO);
 		}
 		else
-		{
-			close(mini->tab[i][0]);
 			dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);
-		}
+		hrdc_close(mini, get_htab(mini, i), 1);
 	}
-	return (0);
 }
 
 void	do_redirout(t_shell *mini, t_token *cur, int i)
@@ -54,7 +51,7 @@ void	do_redirout(t_shell *mini, t_token *cur, int i)
 	dup2(mini->out, STDOUT_FILENO);
 }
 
-int	redirin(t_shell *mini, t_token *tk, int i)
+void	redirin(t_shell *mini, t_token *tk, int i)
 {
 	t_token	*cp;
 	t_token	*cur;
@@ -72,10 +69,8 @@ int	redirin(t_shell *mini, t_token *tk, int i)
 	if (cur)
 	{
 		mini->rdr = 1;
-		if (do_redirin(mini, cur, i))
-			return (1);
+		do_redirin(mini, cur, i);
 	}
-	return (0);
 }
 
 void	redirout(t_shell *mini, t_token *tk, int i)
@@ -101,12 +96,10 @@ void	redirout(t_shell *mini, t_token *tk, int i)
 	}
 }
 
-int	redir(t_shell *mini, t_token *tk, int i)
+void	redir(t_shell *mini, t_token *tk, int i)
 {
 	if (is_redir(tk, 1))
-		if (redirin(mini, tk, i))
-			return (1);
+		redirin(mini, tk, i);
 	if (is_redir(tk, 2))
 		redirout(mini, tk, i);
-	return (0);
 }

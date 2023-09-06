@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/05 18:33:41 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:58:11 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ t_token	*next_cmd(t_token *tk)
 void	exec(t_shell *mini, t_token *tk, int i)
 {
 	if (is_redir(tk, 0))
-		if (redir(mini, tk, i))
-			return ;
+		redir(mini, tk, i);
 	if (tk && tk->type == BUILTIN)
 	{
 		g_sig = 0;
 		b_process(mini);
+		reset_std(mini);
+		exit(0);
 	}
 	else if (tk)
 	{
@@ -47,7 +48,10 @@ void	exec(t_shell *mini, t_token *tk, int i)
 void	child(t_shell *mini, t_token *tk, int i)
 {
 	if (i == 0)
+	{
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
+		close(mini->tab[i][0]);
+	}
 	else if (i == mini->ncmd - 1)
 		dup2(mini->tab[i][0], STDIN_FILENO);
 	else
@@ -57,7 +61,7 @@ void	child(t_shell *mini, t_token *tk, int i)
 	}
 	close_pipes(mini, i, 1);
 	exec(mini, tk, i);
-	reset_std(mini);
+	exit(0);
 }
 
 void	minipipe(t_shell *mini, t_token *tk)
@@ -67,9 +71,6 @@ void	minipipe(t_shell *mini, t_token *tk)
 	i = 0;
 	pipe_alloc(mini);
 	g_sig = 300;
-	while (i < mini->ncmd)
-		if (pipe(mini->tab[i++]) < 0)
-			err_manager(mini, tk, 1);
 	if (hrdc_manager(mini))
 		return ;
 	i = 0;
@@ -83,10 +84,11 @@ void	minipipe(t_shell *mini, t_token *tk)
 		tk = next_cmd(tk);
 		i++;
 	}
-	i = 0;
+	i = -1;
 	close_pipes(mini, i, 0);
-	while (i < mini->ncmd)
-		waitpid(mini->pid[i++], &mini->rtn, 0);
+	hrdc_close(mini, get_htab(mini, i), 0);
+	while (++i < mini->ncmd)
+		waitpid(mini->pid[i], &mini->rtn, 0);
 }
 
 void	minishell(t_shell *mini)
@@ -112,11 +114,7 @@ void	minishell(t_shell *mini)
 			if (pid < 0)
 				err_manager(mini, tk, 2);
 			else if (pid == 0)
-			{
 				exec(mini, tk, 0);
-				reset_std(mini);
-				exit(0);
-			}
 			waitpid(pid, &mini->rtn, 0);
 		}
 	}

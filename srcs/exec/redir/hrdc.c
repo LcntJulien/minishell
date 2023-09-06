@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/05 18:14:59 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:09:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	hrdc_handler(t_shell *mini, t_token *cur, int h)
 		g_sig = 2;
 		if (hrdc_filler(mini, cur->s, h) == -1)
 			exit(1);
-		close(mini->htab[h][1]);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
