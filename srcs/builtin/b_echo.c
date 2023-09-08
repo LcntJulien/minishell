@@ -6,24 +6,26 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/29 13:38:34 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/08 18:23:55 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	args_to_print(t_token *list, t_shell *mini)
+static int	args_to_print(t_token *list, int nb_opt)
 {
 	int		nb_args;
-	t_token	*tmp;
 
-	(void)mini;
-	tmp = list;
 	nb_args = 0;
-	while (tmp && ((tmp->type >= 0 && tmp->type <= 5)))
+	while (nb_opt > 0)
+	{
+		nb_opt--;
+		list = list->next;
+	}
+	while (list && ((list->type >= 0 && list->type <= 5)))
 	{
 		nb_args++;
-		tmp = tmp->next;
+		list = list->next;
 	}
 	return (nb_args);
 }
@@ -64,11 +66,16 @@ static int	nb_option(t_token *list)
 	return (nb_opt);
 }
 
-static void	print_echo(t_shell *mini, t_token *list, int nb_args)
+static void	print_echo(t_token *list, int nb_args, int nb_opt)
 {
-	int	nb_opt;
-
-	nb_opt = nb_option(mini->token->next);
+	int nextline;
+	
+	nextline = nb_opt;
+	while (nb_opt > 0)
+	{
+		list = list->next;
+		nb_opt--;
+	}	
 	while (nb_args > 0)
 	{
 		ft_putstr_fd(list->s, STDOUT_FILENO);
@@ -79,7 +86,7 @@ static void	print_echo(t_shell *mini, t_token *list, int nb_args)
 			break ;
 		list = list->next;
 	}
-	if (nb_opt == 0)
+	if (nextline == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
@@ -95,14 +102,14 @@ void	b_echo(t_shell *mini, t_token *list)
 	}
 	else
 	{
-		list = mini->token->next;
+		list = list->next;
 		nb_opt = nb_option(list);
 		if (!list)
 			return ;
 		if (!check_opt(list, nb_opt))
 			return ;
-		nb_args = args_to_print(list, mini);
-		print_echo(mini, list, nb_args);
+		nb_args = args_to_print(list, nb_opt);
+		print_echo(list, nb_args, nb_opt);
 		mini->rtn = 0;
 	}
 }
