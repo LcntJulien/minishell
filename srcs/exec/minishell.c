@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/06 20:59:54 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:16:05 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	exec(t_shell *mini, t_token *tk, int i)
 		g_sig = 0;
 		b_process(mini);
 		reset_std(mini);
-		exit(0);
+		//exit(0);
 	}
 	else if (tk)
 	{
@@ -89,6 +89,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 	hrdc_close(mini, get_htab(mini, i), 0);
 	while (++i < mini->ncmd)
 		waitpid(mini->pid[i], &mini->rtn, 0);
+	mini->rtn = WEXITSTATUS(mini->rtn);
 }
 
 void	minishell(t_shell *mini)

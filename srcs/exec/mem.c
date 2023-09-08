@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mem.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/06 20:58:05 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:02:04 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	pipe_alloc(t_shell *mini)
 	i = -1;
 	while (++i < mini->ncmd)
 		if (pipe(mini->tab[i]) < 0)
-			err_manager(mini, tk, 1);
+			err_manager(mini, mini->token, 1);
 }
 
 void	close_output(t_token *tk, t_token *cur)

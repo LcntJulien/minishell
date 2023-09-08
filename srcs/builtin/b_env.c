@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:48:25 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/01 13:41:15 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:09:22 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ static void	env_error(t_shell *mini)
 	ft_putstr_fd("env: ", STDERR_FILENO);
 	ft_putstr_fd(mini->token->s, STDERR_FILENO);
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-	if (mini->ncmd == 1)
-	{
-		//suppression env
-		minishell(mini);	
-	}
 	mini->rtn = 127;
 }
 
