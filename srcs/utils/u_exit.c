@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:11:51 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/28 17:13:28 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/11 14:49:41 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_exit_plus(t_shell *mini, char *err, int rtn)
 		free_tab(mini->args);
 	if (mini->paths)
 		free_tab(mini->paths);
-	ft_putstr_fd(err, STDERR_FILENO);
+	if (rtn != 126 && rtn != 127)
+		ft_putstr_fd(err, STDERR_FILENO);
 	exit(rtn);
 }
 

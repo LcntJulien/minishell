@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/28 17:22:54 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:09:57 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char	*get_cmd(t_shell *mini)
 		free(pathcmd);
 		pathcmd = NULL;
 	}
+	if (mini->args[0][ft_strlen(mini->args[0]) - 1] == '/')
+		test_access(mini);
 	if (access(mini->args[0], X_OK) == 0)
 		return (mini->args[0]);
 	return (NULL);

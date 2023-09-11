@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/06 18:05:35 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/11 19:25:23 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void				b_cd(t_shell *mini, t_token *list);
 char				*folder2(t_shell *mini, t_token *list);
 char				*folder1(t_shell *mini);
 int					valid_path(t_shell *mini, char *tmp_path);
+void				test_access(t_shell *mini);
 
 /* b_cd_exce */
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);

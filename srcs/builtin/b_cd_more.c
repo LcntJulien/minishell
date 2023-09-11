@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/30 11:36:38 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:09:36 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,41 @@ int	valid_path(t_shell *mini, char *tmp_path)
 	}
 	else
 		return (1);
+}
+
+static void	print_error(t_shell *mini, char *tmp, int i)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(mini->args[0], STDERR_FILENO);
+	ft_putstr_fd(": Not a directory\n", STDERR_FILENO);
+	free_str(tmp);
+	exit(i);
+}
+
+void	test_access(t_shell *mini)
+{
+	char		*path;
+	char		*tmp;
+	char		*tmp2;
+	struct stat	info;
+
+	tmp = getcwd(NULL, 0);
+	if (tmp)
+	{
+		path = ft_strjoin(tmp, "/");
+		free_str(tmp);
+		tmp = ft_strdup(path);
+		free_str(path);
+		tmp2 = ft_strjoin(tmp, mini->args[0]);
+		free_str(tmp);
+		path = ft_substr(tmp2, 0, ft_strlen(tmp2) - 1);
+		free_str(tmp2);
+		if (stat(path, &info) == 0)
+		{
+			if (S_ISREG(info.st_mode))
+				print_error(mini, path, 126);
+		}
+		else
+			free_str(path);
+	}
 }

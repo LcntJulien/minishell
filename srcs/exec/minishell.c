@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/08 14:16:05 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/11 08:57:20 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	exec(t_shell *mini, t_token *tk, int i)
 		g_sig = 0;
 		b_process(mini);
 		reset_std(mini);
-		//exit(0);
 	}
 	else if (tk)
 	{
