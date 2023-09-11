@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/11 14:02:04 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/11 19:25:23 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # include <termios.h>
 # include <unistd.h>
 
-extern int					g_sig;
+int					g_sig;
 
 typedef struct s_token
 {

@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/11 08:41:25 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/11 19:25:50 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
  - env always send err_msg if folled by anything but a redir or a valid cmd: ls,
 	cat(+arg), ??? 
 */
-
-int	g_sig;
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)
