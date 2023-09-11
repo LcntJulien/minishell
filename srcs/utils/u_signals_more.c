@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 10:01:41 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/06 12:02:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/11 08:49:37 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	sigint_hrdc(int sig)
 {
 	(void)sig;
 	rl_replace_line("", 0);
-	exit(2);
+	exit(1);
 }
 
 void	sigquit_hrdc(int sig)
