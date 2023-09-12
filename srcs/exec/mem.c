@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/06 20:58:05 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/12 14:12:13 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	pipe_alloc(t_shell *mini)
 	int	i;
 
 	i = -1;
-	mini->tab = malloc(sizeof(int *) * mini->ncmd);
+	mini->tab = ft_calloc(sizeof(int *), mini->ncmd + 1);
 	if (!mini->tab)
 		err_manager(mini, NULL, 3);
 	while (++i < mini->ncmd)
 	{
-		mini->tab[i] = malloc(sizeof(int) * 2);
+		mini->tab[i] = ft_calloc(sizeof(int), 2);
 		if (!mini->tab[i])
 			err_manager(mini, NULL, 3);
 	}
@@ -53,7 +53,7 @@ void	pipe_alloc(t_shell *mini)
 	i = -1;
 	while (++i < mini->ncmd)
 		if (pipe(mini->tab[i]) < 0)
-			err_manager(mini, tk, 1);
+			err_manager(mini, NULL, 1);
 }
 
 void	close_output(t_token *tk, t_token *cur)
@@ -81,12 +81,17 @@ void	hrdc_close(t_shell *mini, int i, int sw)
 	int	j;
 
 	j = -1;
+	fprintf(stderr, "hrdc_close\n");
 	if (sw)
 	{
 		while (++j < nb_hrdc(mini))
 		{
-			if (j != i || i == 0)
+			if (j != i)
+			{
+				fprintf(stderr, "close(mini->htab[%d][0]);\n", j);
 				close(mini->htab[j][0]);
+			}
+			fprintf(stderr, "close(mini->htab[%d][1]);\n", j);
 			close(mini->htab[j][1]);
 		}
 	}
@@ -94,6 +99,8 @@ void	hrdc_close(t_shell *mini, int i, int sw)
 	{
 		while (++j < nb_hrdc(mini))
 		{
+			fprintf(stderr, "close(mini->htab[%d][0]);\n", j);
+			fprintf(stderr, "close(mini->htab[%d][1]);\n", j);
 			close(mini->htab[j][0]);
 			close(mini->htab[j][1]);
 		}
@@ -105,20 +112,34 @@ void	close_pipes(t_shell *mini, int i, int sw)
 	int	j;
 
 	j = -1;
+	fprintf(stderr, "close pipe\n");
 	if (sw)
 	{
 		while (++j < mini->ncmd)
 		{
-			if (j != i || i == 0)
+			if (j != i)
+			{
+				fprintf(stderr, "close(mini->tab[%d][0]);\n", j);
 				close(mini->tab[j][0]);
+			}
 			if (j != (i + 1))
+			{
+				fprintf(stderr, "close(mini->tab[%d][1]);\n", j);
 				close(mini->tab[j][1]);
+			}
+		}
+		if (i == 0)
+		{
+			fprintf(stderr, "close(mini->tab[%d][0]);\n", i);
+			close(mini->tab[i][0]);
 		}
 	}
 	else
 	{
 		while (++j < mini->ncmd)
 		{
+			fprintf(stderr, "close(mini->tab[%d][0]);\n", j);
+			fprintf(stderr, "close(mini->tab[%d][1]);\n", j);
 			close(mini->tab[j][0]);
 			close(mini->tab[j][1]);
 		}

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/06 21:00:01 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/12 11:07:58 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	hrdc_manager(t_shell *mini)
 	int		i;
 	int		h;
 
+	fprintf(stderr, "hrdc manager\n");
 	cp = mini->token;
 	i = -1;
 	h = 0;
