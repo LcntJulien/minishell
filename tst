@@ -1,2 +1,24 @@
-/home/jmathieu/42/minishell
-[?2004h[0;35m[1mminishell ▸ [0m[0;35m[1mminishell ▸ [0m[0;35m[1mminishell ▸ [0m[0;35m[1mminishell ▸ [0m[0;35m[1mminishell ▸ [0m[0;35m[1mminishell ▸ [0m[0;35m[1mminishell ▸ [0m[?2004l
+TERM_PROGRAM=Apple_Terminal
+SHELL=/bin/zsh
+TERM=xterm-256color
+TMPDIR=/var/folders/ms/hrrr3x9s0673gq55ww9wfp4m0000gn/T/
+TERM_PROGRAM_VERSION=447
+TERM_SESSION_ID=F718F609-DF93-425F-AF28-4FEDDA2225B3
+USER=julien
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.So6jY4MOId/Listeners
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/julien/Library/Python/3.9/bin/
+__CFBundleIdentifier=com.apple.Terminal
+PWD=/Users/julien/Documents/42/minishell
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+SHLVL=2
+HOME=/Users/julien
+LOGNAME=julien
+HOMEBREW_PREFIX=/opt/homebrew
+HOMEBREW_CELLAR=/opt/homebrew/Cellar
+HOMEBREW_REPOSITORY=/opt/homebrew
+MANPATH=/opt/homebrew/share/man::
+INFOPATH=/opt/homebrew/share/info:
+LANG=fr_FR.UTF-8
+_=/Users/julien/Documents/42/minishell/env
+[?2004h[0;35m[1mminishell ▸ [0m[?2004l

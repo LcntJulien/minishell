@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/11 08:57:20 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:18:33 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ t_token	*next_cmd(t_token *tk)
 
 void	exec(t_shell *mini, t_token *tk, int i)
 {
-	if (is_redir(tk, 0))
+	if (mini->ncmd == 1 && is_redir(tk, 0))
 		redir(mini, tk, i);
 	if (tk && tk->type == BUILTIN)
 	{
 		g_sig = 0;
 		b_process(mini);
 		reset_std(mini);
+		if (mini->ncmd > 1)
+			exit(0);
 	}
 	else if (tk)
 	{
@@ -39,28 +41,55 @@ void	exec(t_shell *mini, t_token *tk, int i)
 		mini->cmd = get_cmd(mini);
 		if (!mini->cmd)
 			err_manager(mini, tk, 0);
+		fprintf(stderr, "exec\n");
 		execve(mini->cmd, mini->args, mini->env);
 		exit(EXIT_FAILURE);
 	}
 }
 
+void	redir_close(t_shell *mini, t_token *tk, int i)
+{
+	fprintf(stderr, "redir close\n");
+	if (is_redir(tk, 0))
+	{
+		if (is_redir(tk, 1))
+			close(mini->tab[i][0]);
+		if (is_redir(tk, 2))
+			close(mini->tab[i + 1][1]);
+	}
+}
+
 void	child(t_shell *mini, t_token *tk, int i)
 {
-	if (i == 0)
+	fprintf(stderr, "child\n");
+	if (i == 0 && !is_redir(tk, 2))
 	{
+		fprintf(stderr, "dup2(mini->tab[%d + 1][1], STDOUT_FILENO);\n", i);
 		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
-		close(mini->tab[i][0]);
 	}
-	else if (i == mini->ncmd - 1)
-		dup2(mini->tab[i][0], STDIN_FILENO);
-	else
+	else if (i == mini->ncmd - 1 && !is_redir(tk, 1))
 	{
+		fprintf(stderr, "dup2(mini->tab[%d][0], STDIN_FILENO);\n", i);
 		dup2(mini->tab[i][0], STDIN_FILENO);
-		dup2(mini->tab[i + 1][1], STDOUT_FILENO);
+	}
+	else if (i != 0 && i != mini->ncmd - 1)
+	{
+		if (!is_redir(tk, 1))
+		{
+			fprintf(stderr, "dup2(mini->tab[%d][0], STDIN_FILENO);\n", i);
+			dup2(mini->tab[i][0], STDIN_FILENO);
+		}
+		if (!is_redir(tk, 2))
+		{
+			fprintf(stderr, "dup2(mini->tab[%d + 1][1], STDOUT_FILENO);\n", i);
+			dup2(mini->tab[i + 1][1], STDOUT_FILENO);
+		}
 	}
 	close_pipes(mini, i, 1);
+	if (is_redir(tk, 0))
+		redir(mini, tk, i);
+	redir_close(mini, tk, i);
 	exec(mini, tk, i);
-	exit(0);
 }
 
 void	minipipe(t_shell *mini, t_token *tk)
@@ -84,8 +113,8 @@ void	minipipe(t_shell *mini, t_token *tk)
 		i++;
 	}
 	i = -1;
-	close_pipes(mini, i, 0);
 	hrdc_close(mini, get_htab(mini, i), 0);
+	close_pipes(mini, i, 0);
 	while (++i < mini->ncmd)
 		waitpid(mini->pid[i], &mini->rtn, 0);
 	mini->rtn = WEXITSTATUS(mini->rtn);

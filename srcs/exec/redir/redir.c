@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/06 20:47:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/12 14:12:51 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,19 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 	if (cur && cur->prev->type == INPUT)
 	{
 		if (mini->in >= 0)
+		{
+			fprintf(stderr, "close(mini->in);\n");
 			close(mini->in);
+		}
 		mini->in = open(cur->s, O_RDONLY);
 		if (mini->in < 0)
 			fds_err(mini, cur->s);
 		if (mini->ncmd > 1)
+		{
+			fprintf(stderr, "close(mini->tab[%d][0]);\n", i);
 			close(mini->tab[i][0]);
+		}
+		fprintf(stderr, "dup2(mini->in, STDIN_FILENO);\n");
 		dup2(mini->in, STDIN_FILENO);
 	}
 	else if (cur && cur->prev->type == HEREDOC)
@@ -30,10 +37,14 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 		if (mini->ncmd == 1)
 		{
 			solo_hrdc(mini, cur);
+			fprintf(stderr, "dup2(mini->htab[0][0], STDIN_FILENO);\n");
 			dup2(mini->htab[0][0], STDIN_FILENO);
 		}
 		else
+		{
+			fprintf(stderr, "dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);\n");
 			dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);
+		}
 		hrdc_close(mini, get_htab(mini, i), 1);
 	}
 }
@@ -98,6 +109,7 @@ void	redirout(t_shell *mini, t_token *tk, int i)
 
 void	redir(t_shell *mini, t_token *tk, int i)
 {
+	fprintf(stderr, "redir\n");
 	if (is_redir(tk, 1))
 		redirin(mini, tk, i);
 	if (is_redir(tk, 2))
