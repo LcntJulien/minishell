@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/06 18:09:28 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:48:38 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,43 @@
 
 void	solo_hrdc(t_shell *mini, t_token *cur)
 {
-	int		status;
 	pid_t	pid;
 
-	status = 0;
-	alloc_htab(mini, 1);
 	pid = fork();
 	if (pid < 0)
-		err_manager(mini, cur, 2);
-	if (!pid)
-	{
-		g_sig = 2;
+		err_manager(mini, NULL, 2);
+	else if (!pid)
 		solo_hrdc_filler(mini, cur);
-		exit(0);
-	}
-	waitpid(pid, &status, 0);
+	waitpid(pid, &mini->rtn, 0);
+	mini->rtn = WEXITSTATUS(mini->rtn);
 	g_sig = 1;
-	if (status == 256)
-		mini->rtn = 1;
-	if (status != 0)
+	if (mini->rtn)
 		mini_free(mini);
 }
+
+// void	solo_hrdc(t_shell *mini, t_token *cur)
+// {
+// 	int		status;
+// 	pid_t	pid;
+
+// 	status = 0;
+// 	alloc_htab(mini, 1);
+// 	pid = fork();
+// 	if (pid < 0)
+// 		err_manager(mini, cur, 2);
+// 	if (!pid)
+// 	{
+// 		g_sig = 2;
+// 		solo_hrdc_filler(mini, cur);
+// 		exit(0);
+// 	}
+// 	waitpid(pid, &status, 0);
+// 	g_sig = 1;
+// 	if (status == 256)
+// 		mini->rtn = 1;
+// 	if (status != 0)
+// 		mini_free(mini);
+// }
 
 int	is_redir(t_token *tk, int mode)
 {

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/12 14:12:13 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:26:04 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,7 @@ void	hrdc_close(t_shell *mini, int i, int sw)
 		while (++j < nb_hrdc(mini))
 		{
 			if (j != i)
-			{
-				fprintf(stderr, "close(mini->htab[%d][0]);\n", j);
 				close(mini->htab[j][0]);
-			}
-			fprintf(stderr, "close(mini->htab[%d][1]);\n", j);
 			close(mini->htab[j][1]);
 		}
 	}
@@ -99,47 +95,31 @@ void	hrdc_close(t_shell *mini, int i, int sw)
 	{
 		while (++j < nb_hrdc(mini))
 		{
-			fprintf(stderr, "close(mini->htab[%d][0]);\n", j);
-			fprintf(stderr, "close(mini->htab[%d][1]);\n", j);
 			close(mini->htab[j][0]);
 			close(mini->htab[j][1]);
 		}
 	}
 }
 
-void	close_pipes(t_shell *mini, int i, int sw)
+void	close_pipes(t_shell *mini, t_token *tk, int i, int sw)
 {
 	int	j;
 
 	j = -1;
-	fprintf(stderr, "close pipe\n");
 	if (sw)
 	{
 		while (++j < mini->ncmd)
 		{
-			if (j != i)
-			{
-				fprintf(stderr, "close(mini->tab[%d][0]);\n", j);
+			if (j != i || i == 0 || (j == i && is_redir(tk, 1)))
 				close(mini->tab[j][0]);
-			}
 			if (j != (i + 1))
-			{
-				fprintf(stderr, "close(mini->tab[%d][1]);\n", j);
 				close(mini->tab[j][1]);
-			}
-		}
-		if (i == 0)
-		{
-			fprintf(stderr, "close(mini->tab[%d][0]);\n", i);
-			close(mini->tab[i][0]);
 		}
 	}
 	else
 	{
 		while (++j < mini->ncmd)
 		{
-			fprintf(stderr, "close(mini->tab[%d][0]);\n", j);
-			fprintf(stderr, "close(mini->tab[%d][1]);\n", j);
 			close(mini->tab[j][0]);
 			close(mini->tab[j][1]);
 		}

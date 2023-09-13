@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/06 20:45:23 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:35:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->rdr = 0;
 	mini->o_in = dup(STDIN_FILENO);
 	mini->o_out = dup(STDOUT_FILENO);
-	mini->in = 0;
-	mini->out = 0;
+	mini->in = -1;
+	mini->out = -1;
+	mini->fd[0] = -1;
+	mini->fd[1] = -1;
 	mini->cmd = NULL;
 	mini->tab = NULL;
 	mini->args = NULL;

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/12 11:07:58 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:00:04 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	solo_hrdc_filler(t_shell *mini, t_token *cur)
 	char	*tmp;
 
 	tmp = NULL;
+	g_sig = 2;
 	while (1)
 	{
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
@@ -52,8 +53,9 @@ int	solo_hrdc_filler(t_shell *mini, t_token *cur)
 			break ;
 		if (contain_var(tmp))
 			tmp = hrdc_convert(mini, tmp);
-		ft_putendl_fd(tmp, mini->htab[0][1]);
+		ft_putendl_fd(tmp, mini->fd[1]);
 	}
+	close(mini->fd[1]);
 	if (tmp)
 		free(tmp);
 	return (0);
