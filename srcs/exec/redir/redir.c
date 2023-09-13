@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/12 14:12:51 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:25:14 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,33 @@
 
 void	do_redirin(t_shell *mini, t_token *cur, int i)
 {
+	(void)i;
 	if (cur && cur->prev->type == INPUT)
 	{
-		if (mini->in >= 0)
-		{
-			fprintf(stderr, "close(mini->in);\n");
-			close(mini->in);
-		}
 		mini->in = open(cur->s, O_RDONLY);
 		if (mini->in < 0)
 			fds_err(mini, cur->s);
-		if (mini->ncmd > 1)
-		{
-			fprintf(stderr, "close(mini->tab[%d][0]);\n", i);
-			close(mini->tab[i][0]);
-		}
 		fprintf(stderr, "dup2(mini->in, STDIN_FILENO);\n");
 		dup2(mini->in, STDIN_FILENO);
 	}
 	else if (cur && cur->prev->type == HEREDOC)
 	{
-		if (mini->ncmd == 1)
-		{
-			solo_hrdc(mini, cur);
-			fprintf(stderr, "dup2(mini->htab[0][0], STDIN_FILENO);\n");
-			dup2(mini->htab[0][0], STDIN_FILENO);
-		}
-		else
-		{
-			fprintf(stderr, "dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);\n");
-			dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);
-		}
-		hrdc_close(mini, get_htab(mini, i), 1);
+		solo_hrdc(mini, cur);
+		fprintf(stderr, "dup2(mini->fd[0], STDIN_FILENO);\n");
+		dup2(mini->fd[0], STDIN_FILENO);
 	}
 }
 
 void	do_redirout(t_shell *mini, t_token *cur, int i)
 {
+	(void)i;
 	if (cur->prev->type == OUTPUT)
 		mini->out = open(cur->s, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	else if (cur->prev->type == APPEND)
 		mini->out = open(cur->s, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (mini->out < 0)
 		fds_err(mini, cur->s);
-	if (mini->ncmd > 1 && i < mini->ncmd - 1)
-		close(mini->tab[i + 1][1]);
+	fprintf(stderr, "dup2(mini->out, STDOUT_FILENO);\n");
 	dup2(mini->out, STDOUT_FILENO);
 }
 

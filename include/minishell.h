@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/11 19:25:23 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:27:26 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_shell
 	char			*home;
 	int				**tab;
 	int				**htab;
+	int				fd[2];	
 	int				o_in;
 	int				o_out;
 	int				in;
@@ -261,7 +262,7 @@ char				*get_cmd(t_shell *mini);
 int					nb_cmd(t_shell *mini);
 
 /* mem.c */
-void				close_pipes(t_shell *mini, int i, int sw);
+void				close_pipes(t_shell *mini, t_token *tk, int i, int sw);
 void				close_output(t_token *cp, t_token *cur);
 void				mini_free(t_shell *mini);
 void				pipe_alloc(t_shell *mini);

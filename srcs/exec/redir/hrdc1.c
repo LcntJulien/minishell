@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:08:10 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/30 18:58:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:49:19 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,8 @@ int	is_hrdc(t_token *tk)
 			cur = cp->next;
 		cp = cp->next;
 	}
-	if (cur->prev->type == HEREDOC)
-	{
-		tk = cur;
+	if (cur && cur->prev->type == HEREDOC)
 		return (1);
-	}
 	return (0);
 }
 

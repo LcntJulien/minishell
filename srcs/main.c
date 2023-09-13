@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/11 19:25:50 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:28:03 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->rdr = 0;
 	mini->o_in = dup(STDIN_FILENO);
 	mini->o_out = dup(STDOUT_FILENO);
-	mini->in = 0;
-	mini->out = 0;
+	mini->in = -1;
+	mini->out = -1;
+	mini->fd[0] = -1;
+	mini->fd[1] = -1;
 	mini->cmd = NULL;
 	mini->tab = NULL;
 	mini->args = NULL;
