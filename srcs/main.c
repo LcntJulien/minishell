@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/13 16:28:03 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/15 00:05:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 /* left to do */
 /*
- - si env avant autre fctn exec autre fctn ou display err
-	-> (behavior changes if pipe or no)
+ - add redir close to child_close() & check for heredoc
  - leaks check / norminette check
 */
 

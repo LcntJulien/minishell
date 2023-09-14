@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/13 16:25:14 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/14 23:53:32 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 		mini->in = open(cur->s, O_RDONLY);
 		if (mini->in < 0)
 			fds_err(mini, cur->s);
-		fprintf(stderr, "dup2(mini->in, STDIN_FILENO);\n");
 		dup2(mini->in, STDIN_FILENO);
 	}
 	else if (cur && cur->prev->type == HEREDOC)
 	{
 		solo_hrdc(mini, cur);
-		fprintf(stderr, "dup2(mini->fd[0], STDIN_FILENO);\n");
 		dup2(mini->fd[0], STDIN_FILENO);
 	}
 }
@@ -40,7 +38,6 @@ void	do_redirout(t_shell *mini, t_token *cur, int i)
 		mini->out = open(cur->s, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (mini->out < 0)
 		fds_err(mini, cur->s);
-	fprintf(stderr, "dup2(mini->out, STDOUT_FILENO);\n");
 	dup2(mini->out, STDOUT_FILENO);
 }
 
@@ -91,7 +88,6 @@ void	redirout(t_shell *mini, t_token *tk, int i)
 
 void	redir(t_shell *mini, t_token *tk, int i)
 {
-	fprintf(stderr, "redir\n");
 	if (is_redir(tk, 1))
 		redirin(mini, tk, i);
 	if (is_redir(tk, 2))

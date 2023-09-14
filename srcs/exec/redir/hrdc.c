@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/12 17:00:04 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/14 23:53:25 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	solo_hrdc_filler(t_shell *mini, t_token *cur)
 			tmp = hrdc_convert(mini, tmp);
 		ft_putendl_fd(tmp, mini->fd[1]);
 	}
+	close(mini->fd[0]);
 	close(mini->fd[1]);
 	if (tmp)
 		free(tmp);
@@ -114,7 +115,6 @@ int	hrdc_manager(t_shell *mini)
 	int		i;
 	int		h;
 
-	fprintf(stderr, "hrdc manager\n");
 	cp = mini->token;
 	i = -1;
 	h = 0;

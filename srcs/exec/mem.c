@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/13 16:27:33 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/14 23:53:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	pipe_alloc(t_shell *mini)
 	int	i;
 
 	i = -1;
-	mini->tab = ft_calloc(sizeof(int *), mini->ncmd + 1);
+	mini->tab = malloc(sizeof(int *) * mini->ncmd);
 	if (!mini->tab)
 		err_manager(mini, NULL, 3);
 	while (++i < mini->ncmd)
 	{
-		mini->tab[i] = ft_calloc(sizeof(int), 2);
+		mini->tab[i] = malloc(sizeof(int) * 2);
 		if (!mini->tab[i])
 			err_manager(mini, NULL, 3);
 	}
@@ -81,7 +81,6 @@ void	hrdc_close(t_shell *mini, int i, int sw)
 	int	j;
 
 	j = -1;
-	fprintf(stderr, "hrdc_close\n");
 	if (sw)
 	{
 		while (++j < nb_hrdc(mini))
