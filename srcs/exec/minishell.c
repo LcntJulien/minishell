@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 13:28:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:28:14 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 	int		i;
 
 	i = -1;
+	g_sig = 1;
 	piped_sig();
 	pipe_alloc(mini);
 	while (++i < mini->ncmd && g_sig <= 1)

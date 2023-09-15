@@ -15,6 +15,8 @@
 
 void	sigint_forked(void)
 {
+	printf("here int forked?\n");
+	printf("g_sig = %d\n", g_sig);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_redisplay();
 	g_sig = 130;
