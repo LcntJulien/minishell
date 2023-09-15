@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/13 16:27:26 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:55:10 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,16 +179,24 @@ void				free2(char *one, char *two);
 int					create_history(int *histo);
 void				add_histo(char *str, int histo);
 
-/* u_signal*/
+/* u_sig*/
 void				define_last(t_shell *mini);
 void				define_signals(void);
-void				define_signals_hrdc(void);
 
-/* u_signal_more*/
-void				sigint_0_handler(void);
-void				sigint_1_handler(void);
-void				sigint_hrdc(int sig);
+/* u_sig_forked */
+void				sigint_forked(void);
+void				sigquit_forked(void);
+void				sigint_piped(int sig);
+void				sigquit_piped(int sig);
+void				piped_sig(void);
+
+/* u_sig_hrdc */
 void				sigquit_hrdc(int sig);
+void				sigint_hrdc(int sig);
+void				signals_hrdc(void);
+void	sigquit_b_hrdc(int sig);
+void	sigint_b_hrdc(int sig);
+void	signals_b_hrdc(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);

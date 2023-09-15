@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_signals_more.c                                   :+:      :+:    :+:   */
+/*   u_sig.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 10:01:41 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/11 08:49:37 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/09/15 12:03:28 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/09/15 13:31:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	sigint_0_handler(void)
+void	define_last(t_shell *mini)
+{
+	if (g_sig == 131)
+		mini->rtn = 131;
+	else if (g_sig == 130)
+		mini->rtn = 130;
+	g_sig = 0;
+}
+
+static void	sigint_std(void)
 {
 	rl_redisplay();
 	rl_replace_line("", 0);
@@ -21,21 +30,24 @@ void	sigint_0_handler(void)
 	rl_redisplay();
 }
 
-void	sigint_1_handler(void)
-{
-	ft_putstr_fd("\n", STDERR_FILENO);
-	rl_redisplay();
-	g_sig = 130;
-}
-
-void	sigint_hrdc(int sig)
+static void	sigint(int sig)
 {
 	(void)sig;
-	rl_replace_line("", 0);
-	exit(1);
+	if (g_sig == 0)
+		sigint_std();
+	else if (g_sig == 1)
+		sigint_forked();
 }
 
-void	sigquit_hrdc(int sig)
+static void	sigquit(int sig)
 {
 	(void)sig;
+	if (g_sig == 1)
+		sigquit_forked();
+}
+
+void	define_signals(void)
+{
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, sigquit);
 }

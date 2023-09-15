@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   redir1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
 /*   Updated: 2023/09/15 17:17:38 by jlecorne         ###   ########.fr       */
@@ -16,6 +16,7 @@ void	solo_hrdc(t_shell *mini, t_token *cur)
 {
 	pid_t	pid;
 
+	signals_b_hrdc();
 	pid = fork();
 	if (pid < 0)
 		err_manager(mini, NULL, 2);
@@ -29,9 +30,9 @@ void	solo_hrdc(t_shell *mini, t_token *cur)
 	char *s = get_next_line(mini->fd[0]);
 	fprintf(stderr, "%s", s);
 	mini->rtn = WEXITSTATUS(mini->rtn);
-	g_sig = 1;
+	printf("mini->rtn = %d\n", mini->rtn);
 	if (mini->rtn)
-		mini_free(mini);
+		exit(mini->rtn);
 }
 
 // void	solo_hrdc(t_shell *mini, t_token *cur)
