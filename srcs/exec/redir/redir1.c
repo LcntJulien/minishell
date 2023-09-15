@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 15:59:54 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:17:38 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@ void	solo_hrdc(t_shell *mini, t_token *cur)
 	if (pid < 0)
 		err_manager(mini, NULL, 2);
 	else if (!pid)
+	{
 		solo_hrdc_filler(mini, cur);
+		exit(0);
+	}
 	waitpid(pid, &mini->rtn, 0);
+	fprintf(stderr, "retour solo_hrdc\n");
+	char *s = get_next_line(mini->fd[0]);
+	fprintf(stderr, "%s", s);
 	mini->rtn = WEXITSTATUS(mini->rtn);
 	printf("mini->rtn = %d\n", mini->rtn);
 	if (mini->rtn)

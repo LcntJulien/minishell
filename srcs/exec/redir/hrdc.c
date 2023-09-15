@@ -55,7 +55,6 @@ int	solo_hrdc_filler(t_shell *mini, t_token *cur)
 			tmp = hrdc_convert(mini, tmp);
 		ft_putendl_fd(tmp, mini->fd[1]);
 	}
-	close(mini->fd[0]);
 	close(mini->fd[1]);
 	if (tmp)
 		free(tmp);
