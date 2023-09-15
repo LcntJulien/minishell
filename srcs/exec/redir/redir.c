@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/14 23:53:32 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:03:02 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 	{
 		solo_hrdc(mini, cur);
 		dup2(mini->fd[0], STDIN_FILENO);
+		close(mini->fd[1]);
+		fprintf(stderr, "retour redirin\n");
 	}
 }
 
