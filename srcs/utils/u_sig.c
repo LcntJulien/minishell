@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_signals.c                                        :+:      :+:    :+:   */
+/*   u_sig.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 14:33:06 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/06 12:02:45 by jmathieu         ###   ########.fr       */
+/*   Created: 2023/09/15 12:03:28 by jmathieu          #+#    #+#             */
+/*   Updated: 2023/09/15 13:31:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,40 +21,33 @@ void	define_last(t_shell *mini)
 	g_sig = 0;
 }
 
-static void	sigint_chose_handler(int sig)
+static void	sigint_std(void)
+{
+	rl_redisplay();
+	rl_replace_line("", 0);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+static void	sigint(int sig)
 {
 	(void)sig;
 	if (g_sig == 0)
-		sigint_0_handler();
+		sigint_std();
 	else if (g_sig == 1)
-		sigint_1_handler();
-	else if (g_sig == 300)
-	{
-		ft_putstr_fd("\n", STDERR_FILENO);
-		rl_redisplay();
-		g_sig = 1;
-	}
+		sigint_forked();
 }
 
-static void	sigquit_handler(int sig)
+static void	sigquit(int sig)
 {
 	(void)sig;
 	if (g_sig == 1)
-	{
-		ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
-		rl_redisplay();
-		g_sig = 131;
-	}
+		sigquit_forked();
 }
 
 void	define_signals(void)
 {
-	signal(SIGINT, sigint_chose_handler);
-	signal(SIGQUIT, sigquit_handler);
-}
-
-void	define_signals_hrdc(void)
-{
-	signal(SIGINT, sigint_hrdc);
-	signal(SIGQUIT, sigquit_hrdc);
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, sigquit);
 }

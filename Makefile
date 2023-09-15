@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/09/07 17:09:09 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/09/15 12:02:20 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,8 +63,9 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXU)split/s_utils.c	\
 		$(PFXU)u_history.c		\
 		$(PFXU)u_free.c			\
-		$(PFXU)u_signals.c		\
-		$(PFXU)u_signals_more.c		
+		$(PFXU)u_sig.c			\
+		$(PFXU)u_sig_forked.c	\
+		$(PFXU)u_sig_hdrc.c		
 
 		
 NAME	= minishell
@@ -73,11 +74,11 @@ CC		= gcc
 
 LIBFT 	= -lft -L ./libft
 
-# HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
-HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
+HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+#HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
-# LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
-LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
+LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
+#LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
 
 CFLAGS	= -Wall -Wextra -Werror -ggdb3
 
