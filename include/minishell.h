@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 13:01:09 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:55:10 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,9 @@ void				piped_sig(void);
 void				sigquit_hrdc(int sig);
 void				sigint_hrdc(int sig);
 void				signals_hrdc(void);
+void	sigquit_b_hrdc(int sig);
+void	sigint_b_hrdc(int sig);
+void	signals_b_hrdc(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);

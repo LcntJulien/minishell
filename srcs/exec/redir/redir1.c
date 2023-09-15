@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 14:49:51 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:59:54 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ void	solo_hrdc(t_shell *mini, t_token *cur)
 {
 	pid_t	pid;
 
-	signals_hrdc();
-	if (mini->ncmd != 1)
-		g_sig = 2;
-	else
-		g_sig = 3;
+	signals_b_hrdc();
 	pid = fork();
 	if (pid < 0)
 		err_manager(mini, NULL, 2);
@@ -28,8 +24,9 @@ void	solo_hrdc(t_shell *mini, t_token *cur)
 		solo_hrdc_filler(mini, cur);
 	waitpid(pid, &mini->rtn, 0);
 	mini->rtn = WEXITSTATUS(mini->rtn);
+	printf("mini->rtn = %d\n", mini->rtn);
 	if (mini->rtn)
-		mini_free(mini);
+		exit(mini->rtn);
 }
 
 // void	solo_hrdc(t_shell *mini, t_token *cur)

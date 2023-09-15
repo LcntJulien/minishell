@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:03:34 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/15 14:50:50 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:59:22 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	sigint_hrdc(int sig)
 {
-	printf("here int hrdc?\n");
+	printf("sigint hrdc\n");
 	(void)sig;
-	g_sig = 4;
+	g_sig = 42;
 	exit(1);
 }
 
 void	sigquit_hrdc(int sig)
 {
-	printf("here quit hrdc?\n");
+	printf("sigquit hrdc\n");
 	(void)sig;
 }
 
@@ -30,4 +30,20 @@ void	signals_hrdc(void)
 {
 	signal(SIGINT, sigint_hrdc);
 	signal(SIGQUIT, sigquit_hrdc);
+}
+
+void	sigint_b_hrdc(int sig)
+{
+	(void)sig;
+}
+
+void	sigquit_b_hrdc(int sig)
+{
+	(void)sig;
+}
+
+void	signals_b_hrdc(void)
+{
+	signal(SIGINT, sigint_b_hrdc);
+	signal(SIGQUIT, sigquit_b_hrdc);
 }

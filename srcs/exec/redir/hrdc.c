@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 14:51:05 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:57:48 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ char	*hrdc_convert(t_shell *mini, char *s)
 
 int	solo_hrdc_filler(t_shell *mini, t_token *cur)
 {
-	char	*tmp;
+	char			*tmp;
 
 	tmp = NULL;
-	printf("g_sig = %d\n", g_sig);
-	while (1 && g_sig != 4)
+	signals_hrdc();
+	while (1 && g_sig != 42)
 	{
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
 		if (!tmp || (tmp && tmp[0] && ft_strncmp(tmp, cur->s,
@@ -59,8 +59,12 @@ int	solo_hrdc_filler(t_shell *mini, t_token *cur)
 	close(mini->fd[1]);
 	if (tmp)
 		free(tmp);
-	if (g_sig == 4 && mini->ncmd != 1)
-		exit(1);
+	if (g_sig == 42 && mini->ncmd != 1)
+	{
+		printf("here ?\n");
+		mini->rtn = 1;
+		exit(mini->rtn);
+	}
 	return (0);
 }
 

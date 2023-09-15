@@ -15,7 +15,7 @@
 
 void	sigint_forked(void)
 {
-	printf("here int forked?\n");
+	printf("sigint forked\n");
 	printf("g_sig = %d\n", g_sig);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_redisplay();
@@ -24,6 +24,7 @@ void	sigint_forked(void)
 
 void	sigquit_forked(void)
 {
+	printf("sigquit forked\n");
 	ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 	rl_redisplay();
 	g_sig = 131;
