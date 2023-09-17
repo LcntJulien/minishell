@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 15:55:10 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:35:26 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# ifndef LIBFT
-#  define LIBFT "../libft/include/libft.h"
-# endif
 
 # define CMD 0
 # define ARG 1
@@ -29,9 +25,7 @@
 # define APPEND 9
 # define HEREDOC 10
 
-# define HRDC ".heredoc"
-
-# include LIBFT
+# include "../libft/include/libft.h"
 # include <curses.h>
 # include <dirent.h>
 # include <errno.h>
@@ -63,24 +57,19 @@ typedef struct s_shell
 {
 	t_token			*token;
 	pid_t			*pid;
-	pid_t			ppid;
-	pid_t			cur_pid;
 	char			**env;
 	char			**paths;
 	char			**args;
 	char			*line;
 	char			*cmd;
-	char			*echo;
 	char			*home;
 	int				**tab;
 	int				**htab;
-	int				fd[2];	
 	int				o_in;
 	int				o_out;
 	int				in;
 	int				out;
 	int				ncmd;
-	int				rdr;
 	int				rtn;
 	int				exit;
 }					t_shell;
@@ -88,7 +77,6 @@ typedef struct s_shell
 /*
 BUILTIN
 */
-
 /* b_process */
 void				b_process(t_shell *mini);
 
@@ -155,7 +143,6 @@ void				b_unset(t_shell *mini, t_token *list);
 /*
 UTILS
 */
-
 /* u_create_env */
 int					get_shlvl(char *str);
 void				alloc_env(t_shell *mini, char **env);
@@ -205,31 +192,39 @@ char				*var_name(t_shell *mini, char *str);
 char				*return_var_name(t_shell *mini, char *var);
 int					existing_var(t_shell *mini, char *var);
 
-/* PARSING */
+/*
+PARSING
+*/
+/* split */
+char				**custom_split(const char *s, char c, int sw);
+char				**tabfree(char **p);
+int					scount(const char *s, char c, int q);
 
 /* input.c */
 void				parse_input(t_shell *mini);
 
 /* utils */
-void				display_tokens(t_token *token);
 char				*clean_s(char *s);
-int					quote_state(char *line, int idx);
 int					str_alloc(char *s, int *idx);
-int					is_sep(char *line, int i);
 int					is_dollar(t_token *tk);
+
+/* utils1 */
+void				display_tokens(t_token *token);
+int					quote_state(char *line, int idx);
+int					is_sep(char *line, int i);
 int					is_quote(char *s);
 
-/* var */
+/* var.c */
 void				convert_var(t_shell *mini, t_token *tk);
 char				*get_vname(char *s, int idx);
 int					contain_var(char *s);
 
-/* var1 */
+/* var1.c */
 char				*rewrite(t_shell *mini, char *s, char *vname, int idx);
 char				*get_nvar(t_shell *mini, char *vname);
 char				*get_ns(char *s, char *nvar, int idx, int vname_len);
 
-/* var2 */
+/* var2.c */
 char				*other_variable(t_shell *mini, t_token *tmp, int i);
 char				*get_other_var(char *vname);
 char				*rewrite2(char *s, char *iter, int idx);
@@ -249,18 +244,11 @@ int					parse_err(t_shell *mini, t_token *tk, int err);
 int					syntax_check(t_shell *mini);
 
 /*
-UTILS
+EXEC
 */
-/* cstm_split */
-char				**custom_split(const char *s, char c, int sw);
-char				**tabfree(char **p);
-int					scount(const char *s, char c, int q);
-
-/* EXEC */
-
 /* minishell.c */
-void				minishell(t_shell *mini);
 t_token				*next_cmd(t_token *tk);
+void				minishell(t_shell *mini);
 
 /* utils.c */
 void				get_args(t_shell *mini, t_token *tk);
@@ -268,6 +256,11 @@ void				get_paths(t_shell *mini);
 char				**args_alloc(t_token *tk);
 char				*get_cmd(t_shell *mini);
 int					nb_cmd(t_shell *mini);
+
+/* utils1.c */
+t_token				*next_cmd(t_token *tk);
+t_token				*prev_cmd(t_token *tk);
+void				reset_std(t_shell *mini);
 
 /* mem.c */
 void				close_pipes(t_shell *mini, t_token *tk, int i, int sw);
@@ -283,21 +276,18 @@ void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
 
 /* hrdc.c */
-int					solo_hrdc_filler(t_shell *mini, t_token *cur);
-int					hrdc_manager(t_shell *mini);
-
-/* hrdc1.c */
-t_token				*cur_hrdc(t_token *tk);
+void				hrdc(t_shell *mini, t_token *cur);
 void				alloc_htab(t_shell *mini, int nb);
-int					get_htab(t_shell *mini, int i);
+
+/* hrdc_u.c */
 int					nb_hrdc(t_shell *mini);
 int					is_hrdc(t_token *tk);
 
 /* redir.c */
 void				redir(t_shell *mini, t_token *tk, int i);
 
-/* redir1.c */
-void				solo_hrdc(t_shell *mini, t_token *cur);
+/* redir_u.c */
+void				redir_close(t_shell *mini, t_token *tk);
 void				args_redir(t_shell *mini, t_token *tk);
 int					is_redir(t_token *tk, int mode);
 
@@ -305,8 +295,5 @@ int					is_redir(t_token *tk, int mode);
 void				err_manager(t_shell *mini, t_token *tk, int err);
 void				clear_files(t_shell *mini, t_token *tk, char *s);
 void				fds_err(t_shell *mini, char *fname);
-
-void				reset_std(t_shell *mini);
-void				hrdc_close(t_shell *mini, int i, int sw);
 
 #endif

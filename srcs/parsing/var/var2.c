@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   var2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 13:56:10 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/11 08:38:06 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:32:38 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../../include/minishell.h"
 
@@ -22,8 +21,6 @@ char	*other_variable(t_shell *mini, t_token *tk, int i)
 		new_var = ft_itoa(getpid());
 	else if (tk->s[i])
 		new_var = ft_itoa(mini->rtn);
-	//else
-		//;
 	return (new_var);
 }
 

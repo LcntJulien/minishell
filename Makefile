@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/09/15 12:02:20 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/09/17 15:35:38 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,23 +21,26 @@ PFXP	= $(PFXS)parsing/
 PFXE	= $(PFXS)exec/
 
 SRCS	= $(PFXS)main.c			\
-		$(PFXP)input.c			\
+		$(PFXP)split/split.c	\
+		$(PFXP)split/split_u.c	\
 		$(PFXP)utils/utils.c	\
 		$(PFXP)utils/utils1.c	\
 		$(PFXP)var/var.c		\
 		$(PFXP)var/var1.c		\
 		$(PFXP)var/var2.c		\
+		$(PFXP)input.c			\
+		$(PFXP)error.c			\
 		$(PFXP)token.c			\
 		$(PFXP)type.c			\
-		$(PFXP)error.c			\
-		$(PFXE)utils.c			\
-		$(PFXE)redir/redir.c	\
-		$(PFXE)redir/redir1.c	\
+		$(PFXE)redir/hrdc_u.c	\
 		$(PFXE)redir/hrdc.c		\
-		$(PFXE)redir/hrdc1.c	\
-		$(PFXE)mem.c			\
-		$(PFXE)free.c			\
+		$(PFXE)redir/redir_u.c	\
+		$(PFXE)redir/redir.c	\
+		$(PFXE)utils/utils.c	\
+		$(PFXE)utils/utils1.c	\
 		$(PFXE)error.c			\
+		$(PFXE)free.c			\
+		$(PFXE)mem.c			\
 		$(PFXE)minishell.c		\
 		$(PFXB)b_process.c		\
 		$(PFXB)b_utils.c		\
@@ -59,8 +62,6 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXU)u_env_excepts.c	\
 		$(PFXU)u_utils.c		\
 		$(PFXU)u_exit.c			\
-		$(PFXU)split/split.c	\
-		$(PFXU)split/s_utils.c	\
 		$(PFXU)u_history.c		\
 		$(PFXU)u_free.c			\
 		$(PFXU)u_sig.c			\

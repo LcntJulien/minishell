@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   hrdc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 15:57:48 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:35:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+void	alloc_htab(t_shell *mini, int nb)
+{
+	int	i;
+
+	i = -1;
+	mini->htab = malloc(sizeof(int *) * nb);
+	if (!mini->htab)
+		err_manager(mini, NULL, 3);
+	while (++i < nb)
+	{
+		mini->htab[i] = malloc(sizeof(int) * 2);
+		if (!mini->htab[i])
+			err_manager(mini, NULL, 3);
+	}
+	i = -1;
+	while (++i < nb)
+		if (pipe(mini->htab[i]) < 0)
+			err_manager(mini, NULL, 1);
+}
 
 char	*hrdc_convert(t_shell *mini, char *s)
 {
@@ -25,7 +45,7 @@ char	*hrdc_convert(t_shell *mini, char *s)
 	i = -1;
 	while (s && s[++i])
 	{
-		if (s[i] == '$' && !(is_quote(s) && quote_state(s, i) == 1))
+		if (s[i] == '$')
 		{
 			cur = get_vname(s, i);
 			iter = get_nvar(mini, cur);
@@ -39,7 +59,7 @@ char	*hrdc_convert(t_shell *mini, char *s)
 	return (s);
 }
 
-int	solo_hrdc_filler(t_shell *mini, t_token *cur)
+void	hrdc_filler(t_shell *mini, t_token *cur)
 {
 	char			*tmp;
 
@@ -53,18 +73,30 @@ int	solo_hrdc_filler(t_shell *mini, t_token *cur)
 			break ;
 		if (contain_var(tmp))
 			tmp = hrdc_convert(mini, tmp);
-		ft_putendl_fd(tmp, mini->fd[1]);
+		ft_putendl_fd(tmp, mini->htab[0][1]);
 	}
-	close(mini->fd[1]);
 	if (tmp)
 		free(tmp);
-	if (g_sig == 42 && mini->ncmd != 1)
+	exit(0);
+}
+
+void	hrdc(t_shell *mini, t_token *cur)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+		err_manager(mini, NULL, 2);
+	else if (!pid)
 	{
-		printf("here ?\n");
-		mini->rtn = 1;
-		exit(mini->rtn);
+		hrdc_filler(mini, cur);
+		exit(0);
 	}
-	return (0);
+	waitpid(pid, &mini->rtn, 0);
+	mini->rtn = WEXITSTATUS(mini->rtn);
+	g_sig = 1;
+	if (mini->rtn)
+		mini_free(mini);
 }
 
 //int	hrdc_filler(t_shell *mini, char *cur, int h)

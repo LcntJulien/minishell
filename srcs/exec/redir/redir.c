@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 17:03:02 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:04:39 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 	}
 	else if (cur && cur->prev->type == HEREDOC)
 	{
-		solo_hrdc(mini, cur);
-		dup2(mini->fd[0], STDIN_FILENO);
-		close(mini->fd[1]);
-		fprintf(stderr, "retour redirin\n");
+		alloc_htab(mini, 1);
+		hrdc(mini, cur);
+		dup2(mini->htab[0][0], STDIN_FILENO);
+		close(mini->htab[0][1]);
 	}
 }
 
@@ -59,10 +59,7 @@ void	redirin(t_shell *mini, t_token *tk, int i)
 		cp = cp->next;
 	}
 	if (cur)
-	{
-		mini->rdr = 1;
 		do_redirin(mini, cur, i);
-	}
 }
 
 void	redirout(t_shell *mini, t_token *tk, int i)
@@ -82,7 +79,6 @@ void	redirout(t_shell *mini, t_token *tk, int i)
 	}
 	if (cur)
 	{
-		mini->rdr += 2;
 		do_redirout(mini, cur, i);
 		close_output(tk, cur);
 	}
