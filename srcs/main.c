@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/15 00:05:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:05:32 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /* left to do */
 /*
- - add redir close to child_close() & check for heredoc
  - leaks check / norminette check
 */
 
@@ -38,13 +37,8 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->exit = 0;
 	mini->pid = 0;
 	mini->ncmd = 0;
-	mini->rdr = 0;
-	mini->o_in = dup(STDIN_FILENO);
-	mini->o_out = dup(STDOUT_FILENO);
 	mini->in = -1;
 	mini->out = -1;
-	mini->fd[0] = -1;
-	mini->fd[1] = -1;
 	mini->cmd = NULL;
 	mini->tab = NULL;
 	mini->args = NULL;
@@ -53,6 +47,8 @@ static void	startshell(t_shell *mini, char **env, int *histo,
 	mini->tab = NULL;
 	mini->htab = NULL;
 	mini->token = NULL;
+	mini->o_in = dup(STDIN_FILENO);
+	mini->o_out = dup(STDOUT_FILENO);
 	alloc_env(mini, env);
 	mini->home = ft_strdup(getenv("HOME"));
 	if (!create_history(histo))

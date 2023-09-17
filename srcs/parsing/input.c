@@ -89,4 +89,5 @@ void	parse_input(t_shell *mini)
 		token = token->next;
 	}
 	free(line);
+	mini->ncmd = nb_cmd(mini);
 }

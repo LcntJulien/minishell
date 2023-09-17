@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:08:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 18:13:43 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:33:23 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ char	*get_vname(char *s, int idx)
 	return (var);
 }
 
-static char *env_var(t_shell *mini, t_token *tk, char **iter, int i)
+static char	*env_var(t_shell *mini, t_token *tk, char **iter, int i)
 {
 	char	*cur;
 	char	*tmp;
-	
+
 	cur = get_vname(tk->s, i);
 	*iter = get_nvar(mini, cur);
 	tmp = rewrite(mini, tk->s, cur, i);
@@ -43,7 +43,7 @@ static char *env_var(t_shell *mini, t_token *tk, char **iter, int i)
 	return (tmp);
 }
 
-static char *static_var(t_shell *mini, t_token *tk, char **iter, int i)
+static char	*static_var(t_shell *mini, t_token *tk, char **iter, int i)
 {
 	char	*cur;
 	char	*tmp;
@@ -66,8 +66,8 @@ void	convert_var(t_shell *mini, t_token *tk)
 	i = -1;
 	while (tk->s && tk->s[++i])
 	{
-		if (tk->s[i] == '$' && tk->s[i + 1] != ' '
-			&& !(is_quote(tk->s) && quote_state(tk->s, i) == 1))
+		if (tk->s[i] == '$' && tk->s[i + 1] != ' ' && !(is_quote(tk->s)
+				&& quote_state(tk->s, i) == 1))
 		{
 			if (tk->s[i + 1] != '$' && tk->s[i + 1] != '?')
 				tmp = env_var(mini, tk, &iter, i);
@@ -92,7 +92,7 @@ int	contain_var(char *s)
 				+ 1] != '_' && s[i + 1] != '?')
 			return (1);
 		else if (s[i] == '$' && s[i + 1] && (s[i + 1] == '$' || s[i + 1] == '_'
-			|| s[i + 1] == '?'))
+				|| s[i + 1] == '?'))
 			return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/14 23:53:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:38:13 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,30 +73,6 @@ void	close_output(t_token *tk, t_token *cur)
 			close(fd);
 		}
 		cp = cp->next;
-	}
-}
-
-void	hrdc_close(t_shell *mini, int i, int sw)
-{
-	int	j;
-
-	j = -1;
-	if (sw)
-	{
-		while (++j < nb_hrdc(mini))
-		{
-			if (j != i)
-				close(mini->htab[j][0]);
-			close(mini->htab[j][1]);
-		}
-	}
-	else
-	{
-		while (++j < nb_hrdc(mini))
-		{
-			close(mini->htab[j][0]);
-			close(mini->htab[j][1]);
-		}
 	}
 }
 
