@@ -13,26 +13,30 @@
 
 #include "../../include/minishell.h"
 
-void	sigint_forked(void)
+void	sigint_piped(int sig)
 {
+	(void)sig;
 	ft_putstr_fd("\n", STDERR_FILENO);
-	rl_redisplay();
-	g_sig = 130;
+	g_sig = 300;
 }
 
-void	sigquit_forked(void)
+void	sigquit_piped(int sig)
 {
+	(void)sig;
 	ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
-	rl_redisplay();
-	g_sig = 131;
+	g_sig = 301;
 }
 
-void	signal_forked(t_token *tk)
+void	piped_sig(t_token *tk)
 {
-	if (tk && tk->next && tk->next->type != HEREDOC)
+	if (tk->type != HEREDOC || (tk->next && tk->next->type != HEREDOC))
 	{
-		g_sig = 1;
+		signal(SIGINT, sigint_piped);
+		signal(SIGQUIT, sigquit_piped);
 	}
 	else
-		replace_sig();	
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
 }

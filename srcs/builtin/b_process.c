@@ -6,30 +6,27 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:53:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/08 17:45:29 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:21:43 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	b_process(t_shell *mini)
+void	b_process(t_shell *mini, t_token *tk)
 {
-	t_token	*list;
-
-	list = mini->token;
-	if (mini->token && !ft_strncmp(mini->token->s, "echo", 4))
-		b_echo(mini, list);
-	else if (mini->token && !ft_strncmp(mini->token->s, "cd", 2))
-		b_cd(mini, list);
-	else if (mini->token && !ft_strncmp(mini->token->s, "pwd", 3))
+	if (tk && !ft_strncmp(tk->s, "echo", 4))
+		b_echo(mini, tk);
+	else if (tk && !ft_strncmp(tk->s, "cd", 2))
+		b_cd(mini, tk);
+	else if (tk && !ft_strncmp(tk->s, "pwd", 3))
 		b_pwd(mini);
-	else if (mini->token && !ft_strncmp(mini->token->s, "export", 6))
-		b_export(mini, list);
-	else if (mini->token && !ft_strncmp(mini->token->s, "unset", 5))
-		b_unset(mini, list);
-	else if (mini->token && !ft_strncmp(mini->token->s, "env", 3))
-		b_env(mini);
-	else if (mini->token && !ft_strncmp(mini->token->s, "exit", 4))
-		b_exit(mini, list);
+	else if (tk && !ft_strncmp(tk->s, "export", 6))
+		b_export(mini, tk);
+	else if (tk && !ft_strncmp(tk->s, "unset", 5))
+		b_unset(mini, tk);
+	else if (tk && !ft_strncmp(tk->s, "env", 3))
+		b_env(mini, tk);
+	else if (tk && !ft_strncmp(tk->s, "exit", 4))
+		b_exit(mini, tk);
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/17 15:35:26 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/18 14:20:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ typedef struct s_shell
 BUILTIN
 */
 /* b_process */
-void				b_process(t_shell *mini);
+void				b_process(t_shell *mini, t_token *tk);
 
 /* b_utils */
 int					tab_lines(char **tab);
 int					is_there_an_equal(char *s);
 int					max_len(int s1, int s2);
-int					check_nb_args(t_shell *mini, int i);
+int					check_nb_args(t_token *tk, int i);
 
 /* b_cd */
 void				b_cd(t_shell *mini, t_token *list);
@@ -98,7 +98,7 @@ void				test_access(t_shell *mini);
 /* b_cd_exce */
 void				modify_pwd_and_tmp(t_shell *mini, char *tmp);
 void				modify_pwd(t_shell *mini, t_token *list);
-void				modify_oldpwd(t_shell *mini, char *tmp_pwd, char **tmp);
+char				*modify_oldpwd(t_shell *mini, char *tmp_pwd);
 void				check_var_status(t_shell *mini, t_token *list,
 						char *tmp_path, char *cur_dir);
 
@@ -110,7 +110,7 @@ int					check_opt(t_token *list, int nb_opt);
 
 /* b_env */
 char				**renew_env(t_shell *mini, int lines, t_token *tmp);
-void				b_env(t_shell *mini);
+void				b_env(t_shell *mini, t_token *list);
 
 /* b_exit */
 void				b_exit(t_shell *mini, t_token *list);
@@ -173,17 +173,16 @@ void				define_signals(void);
 /* u_sig_forked */
 void				sigint_forked(void);
 void				sigquit_forked(void);
+void				signal_forked(t_token *tk);
+
+/* u_sig_piped */
 void				sigint_piped(int sig);
 void				sigquit_piped(int sig);
-void				piped_sig(void);
+void				piped_sig(t_token *tk);
 
 /* u_sig_hrdc */
-void				sigquit_hrdc(int sig);
-void				sigint_hrdc(int sig);
 void				signals_hrdc(void);
-void	sigquit_b_hrdc(int sig);
-void	sigint_b_hrdc(int sig);
-void	signals_b_hrdc(void);
+void				replace_sig(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);

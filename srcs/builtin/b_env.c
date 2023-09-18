@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:48:25 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/08 14:09:22 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:20:57 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ static void	env_error(t_shell *mini)
 	mini->rtn = 127;
 }
 
-void	b_env(t_shell *mini)
+void	b_env(t_shell *mini, t_token *list)
 {
 	int		i;
-	t_token	*list;
 
-	list = mini->token;
 	if (!list->next || (list->next && (list->next->type == 6
 				|| list->next->type == 8 || list->next->type == 9)))
 	{

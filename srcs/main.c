@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/17 15:36:15 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:56:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,5 @@ int	main(int ac, char **av, char **env)
 		}
 		mini_free(&mini);
 	}
-	ft_exit_all(&mini, histo, 130);
+	ft_exit_all(&mini, histo, mini.rtn);
 }
