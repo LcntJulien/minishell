@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 11:56:27 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:59:59 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse_input(&mini);
+			t_token *tmp;
+			tmp = mini.token;
+			while (tmp)
+			{
+				printf("%s %d\n",tmp->s, tmp->type);
+				tmp = tmp->next;
+			}
 			minishell(&mini);
 		}
 		mini_free(&mini);
