@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hrdc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 12:56:58 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:40:34 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	hrdc_filler(t_shell *mini, t_token *cur)
 	char			*tmp;
 
 	tmp = NULL;
-	signals_hrdc();
+	if (mini->ncmd != 1)
+		signals_hrdc(0);
+	else
+		signals_hrdc(1);
 	while (1 && g_sig != 42)
 	{
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
