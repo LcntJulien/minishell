@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/17 15:35:26 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/18 14:26:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,9 +181,9 @@ void				piped_sig(void);
 void				sigquit_hrdc(int sig);
 void				sigint_hrdc(int sig);
 void				signals_hrdc(void);
-void	sigquit_b_hrdc(int sig);
-void	sigint_b_hrdc(int sig);
-void	signals_b_hrdc(void);
+void				sigquit_b_hrdc(int sig);
+void				sigint_b_hrdc(int sig);
+void				signals_b_hrdc(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);
@@ -247,7 +247,6 @@ int					syntax_check(t_shell *mini);
 EXEC
 */
 /* minishell.c */
-t_token				*next_cmd(t_token *tk);
 void				minishell(t_shell *mini);
 
 /* utils.c */
@@ -258,6 +257,7 @@ char				*get_cmd(t_shell *mini);
 int					nb_cmd(t_shell *mini);
 
 /* utils1.c */
+t_token				*find_cmd(t_token *tk);
 t_token				*next_cmd(t_token *tk);
 t_token				*prev_cmd(t_token *tk);
 void				reset_std(t_shell *mini);

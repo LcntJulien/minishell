@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/17 15:35:45 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:38:03 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	child(t_shell *mini, t_token *tk, int i)
 			dup2(mini->tab[i + 1][1], STDOUT_FILENO);
 	}
 	close_pipes(mini, tk, i, 0);
-	redir_close(mini, tk);
 	exec(mini, tk, i);
 }
 
@@ -114,7 +113,7 @@ void	minishell(t_shell *mini)
 	tk = mini->token;
 	get_paths(mini);
 	if (tk && tk->idx == 0 && tk->type != CMD && tk->type != BUILTIN)
-		tk = next_cmd(tk);
+		tk = find_cmd(tk);
 	if (mini->ncmd > 1)
 		minipipe(mini, tk);
 	else if (mini->ncmd == 1)
