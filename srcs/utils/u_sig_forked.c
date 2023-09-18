@@ -15,8 +15,6 @@
 
 void	sigint_forked(void)
 {
-	printf("sigint forked\n");
-	printf("g_sig = %d\n", g_sig);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_redisplay();
 	g_sig = 130;
@@ -24,28 +22,17 @@ void	sigint_forked(void)
 
 void	sigquit_forked(void)
 {
-	printf("sigquit forked\n");
 	ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 	rl_redisplay();
 	g_sig = 131;
 }
 
-void	sigint_piped(int sig)
+void	signal_forked(t_token *tk)
 {
-	(void)sig;
-	ft_putstr_fd("\n", STDERR_FILENO);
-	g_sig = 300;
-}
-
-void	sigquit_piped(int sig)
-{
-	(void)sig;
-	ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
-	g_sig = 301;
-}
-
-void	piped_sig(void)
-{
-	signal(SIGINT, sigint_piped);
-	signal(SIGQUIT, sigquit_piped);
+	if (tk && tk->next && tk->next->type != HEREDOC)
+	{
+		g_sig = 1;
+	}
+	else
+		replace_sig();	
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/09/17 15:35:38 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/09/18 13:00:09 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRCS	= $(PFXS)main.c			\
 		$(PFXU)u_free.c			\
 		$(PFXU)u_sig.c			\
 		$(PFXU)u_sig_forked.c	\
+		$(PFXU)u_sig_piped.c	\
 		$(PFXU)u_sig_hdrc.c		
 
 		

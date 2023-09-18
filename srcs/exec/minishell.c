@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/17 15:35:45 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:40:08 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	exec(t_shell *mini, t_token *tk, int i)
 	if (tk && tk->type == BUILTIN)
 	{
 		g_sig = 0;
-		b_process(mini);
+		b_process(mini, tk);
 		reset_std(mini);
 		if (mini->ncmd > 1)
 			exit(0);
@@ -84,7 +84,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 
 	i = -1;
 	g_sig = 1;
-	piped_sig();
+	piped_sig(tk);
 	pipe_alloc(mini);
 	while (++i < mini->ncmd && g_sig <= 1)
 	{
@@ -123,7 +123,7 @@ void	minishell(t_shell *mini)
 			exec(mini, tk, 0);
 		else
 		{
-			g_sig = 1;
+			signal_forked(tk);
 			pid = fork();
 			if (pid < 0)
 				err_manager(mini, tk, 2);
