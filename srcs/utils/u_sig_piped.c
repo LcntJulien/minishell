@@ -31,7 +31,6 @@ void	piped_sig(t_token *tk)
 {
 	if (is_hrdc(tk))
 	{
-		//signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else

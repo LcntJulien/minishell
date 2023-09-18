@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 17:07:55 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:47:24 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # include <termios.h>
 # include <unistd.h>
 
-extern int					g_sig;
+int					g_sig;
 
 typedef struct s_token
 {
@@ -181,10 +181,8 @@ void				sigquit_piped(int sig);
 void				piped_sig(t_token *tk);
 
 /* u_sig_hrdc */
-void				signals_hrdc(void);
+void				signals_hrdc(int i);
 void				replace_sig(void);
-void				sigquit_b_hrdc(int sig);
-void				sigint_b_hrdc(int sig);
 void				signals_b_hrdc(void);
 
 /* u_utils */
