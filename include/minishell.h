@@ -183,6 +183,9 @@ void				piped_sig(t_token *tk);
 /* u_sig_hrdc */
 void				signals_hrdc(void);
 void				replace_sig(void);
+void				sigquit_b_hrdc(int sig);
+void				sigint_b_hrdc(int sig);
+void				signals_b_hrdc(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);
@@ -246,7 +249,6 @@ int					syntax_check(t_shell *mini);
 EXEC
 */
 /* minishell.c */
-t_token				*next_cmd(t_token *tk);
 void				minishell(t_shell *mini);
 
 /* utils.c */
@@ -257,6 +259,7 @@ char				*get_cmd(t_shell *mini);
 int					nb_cmd(t_shell *mini);
 
 /* utils1.c */
+t_token				*find_cmd(t_token *tk);
 t_token				*next_cmd(t_token *tk);
 t_token				*prev_cmd(t_token *tk);
 void				reset_std(t_shell *mini);
