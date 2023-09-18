@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 15:59:59 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:10:38 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
  - env always send err_msg if folled by anything but a redir or a valid cmd: ls,
 	cat(+arg), ??? 
 */
+int g_sig;
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)
@@ -89,13 +90,6 @@ int	main(int ac, char **av, char **env)
 		{
 			add_histo(mini.line, histo);
 			parse_input(&mini);
-			t_token *tmp;
-			tmp = mini.token;
-			while (tmp)
-			{
-				printf("%s %d\n",tmp->s, tmp->type);
-				tmp = tmp->next;
-			}
 			minishell(&mini);
 		}
 		mini_free(&mini);
