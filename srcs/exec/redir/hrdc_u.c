@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hrdc_u.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:08:10 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/17 14:54:58 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:13:35 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	is_hrdc(t_token *tk)
 
 	cp = tk;
 	cur = NULL;
-	while (cp->prev && cp->prev->type != PIPE)
+	while (cp && cp->prev && cp->prev->type != PIPE)
 		cp = cp->prev;
-	while (cp->next && cp->type != PIPE)
+	while (cp && cp->next && cp->type != PIPE)
 	{
 		if (cp->next && (cp->type == INPUT || cp->type == HEREDOC))
 			cur = cp->next;

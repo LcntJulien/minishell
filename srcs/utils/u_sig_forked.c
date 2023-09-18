@@ -29,10 +29,8 @@ void	sigquit_forked(void)
 
 void	signal_forked(t_token *tk)
 {
-	if (tk && tk->next && tk->next->type != HEREDOC)
-	{
-		g_sig = 1;
-	}
+	if (is_hrdc(tk))
+		replace_sig();
 	else
-		replace_sig();	
+		g_sig = 1;
 }

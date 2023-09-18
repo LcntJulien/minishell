@@ -29,14 +29,14 @@ void	sigquit_piped(int sig)
 
 void	piped_sig(t_token *tk)
 {
-	if (tk->type != HEREDOC || (tk->next && tk->next->type != HEREDOC))
+	if (is_hrdc(tk))
 	{
-		signal(SIGINT, sigint_piped);
-		signal(SIGQUIT, sigquit_piped);
+		//signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, sigint_piped);
+		signal(SIGQUIT, sigquit_piped);
 	}
 }
