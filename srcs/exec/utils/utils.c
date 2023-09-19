@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/17 14:35:15 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:27:43 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	get_args(t_shell *mini, t_token *tk)
 	int		i;
 
 	cp = tk;
+	if (cp && cp->type == HEREDOC)
+		return ;
 	i = 0;
 	while (cp && cp->prev && cp->prev->type != PIPE)
 		cp = cp->prev;
