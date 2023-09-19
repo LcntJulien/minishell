@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/09/18 16:40:13 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/09/19 11:23:17 by jmathieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,50 +74,43 @@ NAME	= minishell
 
 CC		= gcc
 
-LIBFT 	= -lft -L ./libft
+LIBFT 	= libft/libft.a
 
-HEADERS = -I ./include -I "/Users/$$USER/.brew/opt/readline/include"
+HEADERS = -I include -I "/Users/$$USER/.brew/opt/readline/include"
 # HEADERS = -I ./include -I "/opt/homebrew/Cellar/readline/8.2.1/include"
 
-LIBS = $(LIBFT) -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
-# LIBS = $(LIBFT) -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
+LIBS = -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
+# LIBS = -lreadline -L "/opt/homebrew/Cellar/readline/8.2.1/lib"
 
-CFLAGS	= -Wall -Wextra -Werror -ggdb3
+CFLAGS	= -Wall -Wextra -Werror 
 
 OBJS	= $(SRCS:.c=.o)
 
 all		: $(NAME)
 
+$(LIBFT)	:
+	$(MAKE) -sC libft
+
+$(NAME)	: $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBS) -o $(NAME)
+	@echo "-- program created"
+	
 .c.o	:
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
 
-$(NAME)	: lib $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
-	@echo "-- program created"
-
-clean 	: clib
+clean 	:
+	@$(MAKE) clean -sC libft
 	@rm -f $(OBJS)
 	@echo "-- all objects deleted"
 
-fclean 	: fclib clean
+fclean 	: clean
+	@$(MAKE) fclean -sC libft
 	@rm -f $(NAME)
 	@echo "-- program deleted"
 
 re 		: fclean all
 
-debug 	: fclean lib $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) -fsanitize=address
+debug 	: fclean $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBS) -o $(NAME) -fsanitize=address
 
-lib		:
-	@$(MAKE) -sC libft
-
-clib	:
-	@$(MAKE) clean -sC libft
-
-fclib	:
-	@$(MAKE) fclean -sC libft
-
-rlib	:
-	@$(MAKE) re -sC libft
-
-.PHONY	: all, clean, fclean, re, debug, lib, clib, fclib, rlib
+.PHONY	: all, clean, fclean, re, debug 
