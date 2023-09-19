@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 17:29:00 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:06:24 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	minipipe(t_shell *mini, t_token *tk)
 	while (++i < mini->ncmd && g_sig <= 1)
 	{
 		piped_sig(tk);
-		pid = fork();
-		if (pid == -1)
+		mini->pid[i] = fork();
+		if (mini->pid[i] == -1)
 			err_manager(mini, NULL, 2);
 		else if (mini->pid[i] == 0)
 			child(mini, tk, i);
