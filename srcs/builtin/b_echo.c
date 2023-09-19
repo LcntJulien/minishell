@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/18 13:24:50 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:06:38 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static int	nb_option(t_token *list)
 
 static void	print_echo(t_token *list, int nb_args, int nb_opt)
 {
-	int nextline;
-	
+	int	nextline;
+
 	nextline = nb_opt;
 	while (nb_opt > 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 17:50:02 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:27:32 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	exec(t_shell *mini, t_token *tk, int i)
 	else if (tk)
 	{
 		get_args(mini, tk);
+		if (tk->type == HEREDOC)
+			exit(mini->rtn);
 		mini->cmd = get_cmd(mini);
 		if (!mini->cmd)
 			err_manager(mini, tk, 0);
