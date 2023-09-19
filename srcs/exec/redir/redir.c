@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 14:15:42 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:33:42 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	do_redirin(t_shell *mini, t_token *cur, int i)
 {
-	(void)i;
 	if (cur && cur->prev && cur->prev->type == INPUT)
 	{
 		mini->in = open(cur->s, O_RDONLY);
@@ -24,17 +23,15 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 	}
 	else if (cur && cur->prev && cur->prev->type == HEREDOC)
 	{
-		alloc_htab(mini, 1);
-		hrdc(mini, cur);
-		dup2(mini->htab[0][0], STDIN_FILENO);
-		close(mini->htab[0][1]);
-	}
-	else if (cur && cur->type == HEREDOC)
-	{
-		alloc_htab(mini, 1);
-		hrdc(mini, cur->next);
-		dup2(mini->htab[0][0], STDIN_FILENO);
-		close(mini->htab[0][1]);
+		if (mini->ncmd == 1)
+		{
+			alloc_htab(mini, 1);
+			hrdc(mini, cur);
+			dup2(mini->htab[0][0], STDIN_FILENO);
+			close(mini->htab[0][1]);
+		}
+		else
+			dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);
 	}
 }
 

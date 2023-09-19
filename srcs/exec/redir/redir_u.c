@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 14:30:30 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:49:21 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_token	*del_arg(t_token *tk)
 		tmp = tk->prev;
 		tmp->next = NULL;
 	}
+	else
+		tmp = NULL;
 	if (tk)
 		free(tk);
 	tk = NULL;
@@ -66,7 +68,7 @@ void	args_redir(t_shell *mini, t_token *tk)
 		while (cp->type == INPUT || cp->type == HEREDOC || cp->type == OUTPUT
 			|| cp->type == APPEND)
 			cp = del_redir(cp);
-		if (!cp->next)
+		if (!cp || !cp->next)
 			break ;
 		cp = cp->next;
 	}

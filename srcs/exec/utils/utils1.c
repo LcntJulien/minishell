@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 14:35:06 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 16:33:07 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:26:10 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,22 @@ t_token	*next_cmd(t_token *tk)
 		tk = find_cmd(tk);
 	}
 	return (tk);
+}
+
+int	get_htab(t_shell *mini, int i)
+{
+	t_token	*cp;
+	int		j;
+	int		r;
+
+	cp = mini->token;
+	j = -1;
+	r = 0;
+	while (++j < i)
+	{
+		if (is_redir(cp, 1) && is_hrdc(cp))
+			r++;
+		cp = next_cmd(cp);
+	}
+	return (r);
 }

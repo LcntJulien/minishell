@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 18:47:24 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:28:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,7 @@ t_token				*find_cmd(t_token *tk);
 t_token				*next_cmd(t_token *tk);
 t_token				*prev_cmd(t_token *tk);
 void				reset_std(t_shell *mini);
+int					get_htab(t_shell *mini, int i);
 
 /* mem.c */
 void				close_pipes(t_shell *mini, t_token *tk, int i, int sw);
@@ -276,11 +277,17 @@ void				free_args(t_shell *mini);
 void				free_pipe(t_shell *mini);
 
 /* hrdc.c */
+void				hrdc_filler(t_shell *mini, t_token *cur, int i);
+void				hrdc_manager(t_shell *mini);
 void				hrdc(t_shell *mini, t_token *cur);
 void				alloc_htab(t_shell *mini, int nb);
+char				*hrdc_convert(t_shell *mini, char *s);
 
 /* hrdc_u.c */
+t_token				*cur_hrdc(t_shell *mini, int i);
+void				close_hrdc(t_shell *mini, int cur, int sw);
 int					nb_hrdc(t_shell *mini);
+int					no_hrdc(t_shell *mini);
 int					is_hrdc(t_token *tk);
 
 /* redir.c */
