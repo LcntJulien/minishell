@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:03:34 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/19 16:07:44 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:20:52 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	sigquit_forked(void)
 
 void	signal_forked(t_token *tk)
 {
+	(void)tk;
 	if (is_hrdc(tk))
 		replace_sig();
 	else

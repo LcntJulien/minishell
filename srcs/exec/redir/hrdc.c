@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hrdc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 17:29:13 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:25:46 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 		signals_hrdc(0);
 	else
 		signals_hrdc(1);
-	while (1 && g_sig != 42)
+	while (1)
 	{
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
 		if (!tmp || (tmp && tmp[0] && ft_strncmp(tmp, cur->s,
@@ -87,7 +87,7 @@ void	hrdc(t_shell *mini, t_token *cur)
 {
 	pid_t	pid;
 
-	replace_sig();
+	signal(SIGINT, SIG_DFL);
 	pid = fork();
 	if (pid < 0)
 		err_manager(mini, NULL, 2);
