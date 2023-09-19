@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hrdc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/18 12:56:58 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:21:46 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ char	*hrdc_convert(t_shell *mini, char *s)
 	return (s);
 }
 
-void	hrdc_filler(t_shell *mini, t_token *cur)
+void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 {
-	char			*tmp;
+	char	*tmp;
 
 	tmp = NULL;
 	signals_hrdc();
@@ -73,7 +73,7 @@ void	hrdc_filler(t_shell *mini, t_token *cur)
 			break ;
 		if (contain_var(tmp))
 			tmp = hrdc_convert(mini, tmp);
-		ft_putendl_fd(tmp, mini->htab[0][1]);
+		ft_putendl_fd(tmp, mini->htab[i][1]);
 	}
 	if (tmp)
 		free(tmp);
@@ -90,10 +90,38 @@ void	hrdc(t_shell *mini, t_token *cur)
 		err_manager(mini, NULL, 2);
 	else if (!pid)
 	{
-		hrdc_filler(mini, cur);
+		hrdc_filler(mini, cur, 0);
 		exit(0);
 	}
 	waitpid(pid, &mini->rtn, 0);
 	mini->rtn = WEXITSTATUS(mini->rtn);
 	g_sig = 1;
+}
+
+void	hrdc_manager(t_shell *mini)
+{
+	pid_t	pid;
+	int		status;
+	int		i;
+
+	status = 0;
+	i = -1;
+	if (no_hrdc(mini))
+		return ;
+	alloc_htab(mini, nb_hrdc(mini));
+	while (++i < nb_hrdc(mini))
+	{
+		pid = fork();
+		if (pid == -1)
+			err_manager(mini, NULL, 2);
+		else if (pid == 0)
+		{
+			hrdc_filler(mini, cur_hrdc(mini, i), i);
+			exit(0);
+		}
+		waitpid(pid, &status, 0);
+		status = WEXITSTATUS(status);
+		if (status != 0)
+			break ;
+	}
 }
