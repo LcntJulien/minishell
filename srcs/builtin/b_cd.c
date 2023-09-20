@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/19 21:57:57 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:29:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ void	b_cd(t_shell *mini, t_token *list)
 	cur_dir = getcwd(NULL, 0);
 	if (!cur_dir)
 		ft_exit_plus(mini, "Not a directory\n", 1);
-	if (!list->next || (list->next
-		&& (list->next->type >= 6)))
+	if (!list->next || (list->next && list->next->type >= 6))
 	{
 		if (!args_before_cd(mini, list))
+		{
+			free_str(cur_dir);
 			return ;
+		}
 	}
 	else
 		list = list->next;
