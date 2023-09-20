@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 17:40:10 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:47:07 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void				signal_forked(t_token *tk);
 /* u_sig_piped */
 void				sigint_piped(int sig);
 void				sigquit_piped(int sig);
-void				piped_sig(t_token *tk);
+void				piped_sig(void);
 
 /* u_sig_hrdc */
 void				signals_hrdc(void);

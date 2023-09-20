@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:29:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/24 11:45:29 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:06:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_builtin(char *s)
 	i = 0;
 	while (i <= 6)
 	{
-		if (ft_strncmp(tab[i], s, ft_strlen(s)) == 0)
+		if (ft_strncmp(tab[i], s, ft_strlen(tab[i]) + 1) == 0)
 			return (1);
 		i++;
 	}
