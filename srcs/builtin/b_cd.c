@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/11 14:40:25 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:29:21 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,21 @@ void	next_cd_step(t_shell *mini, t_token *list, char *cur_dir)
 		check_var_status(mini, list, list->s, cur_dir);
 }
 
-static int	args_before_cd(t_shell *mini, t_token *list, char *cur_dir)
+static int	args_before_cd(t_shell *mini, t_token *list)
 {
-	if (!list->next)
+	if (existing_var(mini, "HOME=") == -1)
 	{
-		if (existing_var(mini, "HOME=") == -1)
-		{
-			mini->rtn = 1;
-			ft_putstr_fd("minishell: cd: HOME not set\n", STDOUT_FILENO);
-			return (1);
-		}
-		else
-		{
-			free(list->s);
-			list->s = NULL;
-			list->s = return_var_content(mini, "HOME=");
-			check_var_status(mini, list, list->s, cur_dir);
-			return (0);
-		}
+		mini->rtn = 1;
+		ft_putstr_fd("minishell: cd: HOME not set\n", STDOUT_FILENO);
+		return (0);
 	}
-	return (1);
+	else
+	{
+		free(list->s);
+		list->s = NULL;
+		list->s = return_var_content(mini, "HOME=");
+		return (1);
+	}
 }
 
 void	b_cd(t_shell *mini, t_token *list)
@@ -80,8 +75,15 @@ void	b_cd(t_shell *mini, t_token *list)
 	cur_dir = getcwd(NULL, 0);
 	if (!cur_dir)
 		ft_exit_plus(mini, "Not a directory\n", 1);
-	if (!args_before_cd(mini, list, cur_dir))
-		return ;
-	list = list->next;
+	if (!list->next || (list->next && list->next->type >= 6))
+	{
+		if (!args_before_cd(mini, list))
+		{
+			free_str(cur_dir);
+			return ;
+		}
+	}
+	else
+		list = list->next;
 	next_cd_step(mini, list, cur_dir);
 }

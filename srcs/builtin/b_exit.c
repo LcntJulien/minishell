@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/08/31 14:56:54 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:39:15 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,14 @@ static long long	ft_latoi(const char *str, t_shell *mini)
 	return ((long long)ul * sign);
 }
 
-static void	is_it_a_char(t_shell *mini)
+static void	is_it_a_char(t_shell *mini, t_token *tmp)
 {
 	int		i;
-	t_token	*tmp;
 
 	i = 0;
-	tmp = mini->token->next;
 	if (tmp)
 	{
-		if (tmp->s[i] && (tmp->s[i] == '-' || tmp->s[i] == '+'))
+		if (tmp->s[i] && (tmp->s[0] == '-' || tmp->s[0] == '+'))
 			i++;
 		while (tmp->s[i])
 		{
@@ -75,14 +73,21 @@ static void	is_it_a_char(t_shell *mini)
 void	b_exit(t_shell *mini, t_token *list)
 {
 	long long	nb;
+	t_token		*tmp;
 
-	ft_putstr_fd("exit\n", STDOUT_FILENO);
-	if (list->next)
+	tmp = list;
+	while (tmp->prev && !ft_strncmp(tmp->prev->s, "exit", 5))
+	{
+			tmp = tmp->prev;
+	}
+	if (!tmp->prev)
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+	if (list->next && list->next->type < 6)
 	{
 		list = list->next;
-		is_it_a_char(mini);
+		is_it_a_char(mini, list);
 		nb = ft_latoi(list->s, mini);
-		if (list->next)
+		if (list->next && list->next->type < 6)
 			ft_putstr_fd("minishell: exit: too many arguments\n",
 				STDERR_FILENO);
 		mini->rtn = nb % 256;
