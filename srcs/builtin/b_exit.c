@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/20 11:04:29 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:39:15 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	b_exit(t_shell *mini, t_token *list)
 	t_token		*tmp;
 
 	tmp = list;
-	while (tmp->prev && !ft_strncmp(tmp->prev->s, "exit", 5))	
+	while (tmp->prev && !ft_strncmp(tmp->prev->s, "exit", 5))
 	{
 			tmp = tmp->prev;
 	}
