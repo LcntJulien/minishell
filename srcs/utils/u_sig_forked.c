@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_sig_forked.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:03:34 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/19 18:20:52 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:32:26 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	sigquit_forked(void)
 void	signal_forked(t_token *tk)
 {
 	(void)tk;
+	g_sig = 1;
 	if (is_hrdc(tk))
 		replace_sig();
-	else
-		g_sig = 1;
 }

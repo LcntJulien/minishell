@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 13:41:45 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:12:33 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,9 @@ void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 	char	*tmp;
 
 	tmp = NULL;
+	// signals_hrdc(0);
 	if (cur && cur->type == HEREDOC && cur->next)
 		cur = cur->next;
-	if (mini->ncmd != 1)
-		signals_hrdc(0);
-	else
-		signals_hrdc(1);
 	while (1)
 	{
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
@@ -89,18 +86,20 @@ void	hrdc(t_shell *mini, t_token *cur)
 {
 	pid_t	pid;
 
-	signal(SIGINT, SIG_DFL);
+	// signal(SIGINT, SIG_DFL);
 	pid = fork();
 	if (pid < 0)
 		err_manager(mini, NULL, 2);
-	else if (!pid)
+	else if (pid == 0)
 	{
+		g_sig = 2;
 		hrdc_filler(mini, cur, 0);
-		exit(0);
 	}
 	waitpid(pid, &mini->rtn, 0);
 	mini->rtn = WEXITSTATUS(mini->rtn);
-	g_sig = 1;
+	fprintf(stderr, "ici\n");
+	if (mini->rtn == 1)
+		exit(1);
 }
 
 void	hrdc_manager(t_shell *mini)
@@ -122,10 +121,13 @@ void	hrdc_manager(t_shell *mini)
 			err_manager(mini, NULL, 2);
 		else if (pid == 0)
 		{
+			g_sig = 3;
 			hrdc_filler(mini, cp, i);
 			exit(0);
 		}
 		waitpid(pid, &mini->rtn, 0);
 		mini->rtn = WEXITSTATUS(mini->rtn);
+		if (mini->rtn == 1)
+			mini_free(mini);
 	}
 }

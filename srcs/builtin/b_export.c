@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/18 13:32:43 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:48:21 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	alpha_num_underscore(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[0] == '=')
 			return (0);
@@ -32,7 +32,7 @@ static int	alpha_num_underscore(char *s)
 		else
 			return (0);
 	}
-	if (s[i] == '=' || !s[i])
+	if (s && (s[i] == '=' || !s[i]))
 		return (1);
 	return (0);
 }

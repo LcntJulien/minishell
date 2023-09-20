@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 13:45:43 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:15:12 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	close_child(t_shell *mini, t_token *tk, int i)
 
 void	exec(t_shell *mini, t_token *tk, int i)
 {
+	g_sig = 1;
 	if (mini->ncmd == 1 && is_redir(tk, 0))
 		redir(mini, tk, i);
 	if (tk && tk->type == BUILTIN)
@@ -82,9 +83,9 @@ void	minipipe(t_shell *mini, t_token *tk)
 	int	i;
 
 	i = -1;
-	g_sig = 1;
 	pipe_alloc(mini);
 	hrdc_manager(mini);
+	g_sig = 1;
 	while (++i < mini->ncmd && g_sig <= 1)
 	{
 		piped_sig(tk);
@@ -106,35 +107,6 @@ void	minipipe(t_shell *mini, t_token *tk)
 	}
 }
 
-// void	minipipe(t_shell *mini, t_token *tk)
-// {
-// 	pid_t	pid;
-// 	int		i;
-
-// 	i = -1;
-// 	g_sig = 1;
-// 	piped_sig(tk);
-// 	pipe_alloc(mini);
-// 	while (++i < mini->ncmd && g_sig <= 1)
-// 	{
-// 		pid = fork();
-// 		if (pid == -1)
-// 			err_manager(mini, NULL, 2);
-// 		else if (!pid)
-// 			child(mini, tk, i);
-// 		close_child(mini, prev_cmd(tk), i - 1);
-// 		waitpid(pid, &mini->rtn, 0);
-// 		mini->rtn = WEXITSTATUS(mini->rtn);
-// 		if (mini->rtn != 0)
-// 			break ;
-// 		tk = next_cmd(tk);
-// 	}
-// 	if (g_sig == 300)
-// 		mini->rtn = 130;
-// 	if (g_sig == 301)
-// 		mini->rtn = 131;
-// }
-
 void	minishell(t_shell *mini)
 {
 	t_token	*tk;
@@ -152,7 +124,7 @@ void	minishell(t_shell *mini)
 			exec(mini, tk, 0);
 		else
 		{
-			signal_forked(tk);
+			// signal_forked(tk);
 			pid = fork();
 			if (pid < 0)
 				err_manager(mini, tk, 2);
