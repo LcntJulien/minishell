@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:26 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/20 19:28:58 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:42:15 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	b_exit(t_shell *mini, t_token *list)
 	t_token		*tmp;
 
 	tmp = list;
-	while (tmp->prev && !ft_strncmp(tmp->prev->s, "exit", 5 + 1))
-			tmp = tmp->prev;
+	while (tmp->prev && !ft_strncmp(tmp->prev->s, "exit", 5))
+		tmp = tmp->prev;
 	if (!tmp->prev)
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (list->next && list->next->type < 6)

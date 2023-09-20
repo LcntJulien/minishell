@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:11:25 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/28 13:16:07 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:32:00 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	syntax_check(t_shell *mini)
 		else if ((cp->type == PIPE && !cp->next) || ((cp->type == INPUT
 					|| cp->type == HEREDOC || cp->type == OUTPUT
 					|| cp->type == APPEND) && (!cp->next
-					|| cp->next->type != ARG)))
+					|| (cp->next->type >= 6 && cp->next->type <= 10))))
 			return (parse_err(mini, cp, 1));
 		cp = cp->next;
 	}

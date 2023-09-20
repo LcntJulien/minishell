@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hrdc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 19:11:28 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:42:37 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 	{
 		tmp = readline("\033[0;35m\033[1m▸ \033[0m");
 		if (!tmp || (tmp && tmp[0] && ft_strncmp(tmp, cur->s,
-					ft_strlen(tmp)) == 0))
+					ft_strlen(cur->s)) == 0))
 			break ;
 		if (contain_var(tmp))
 			tmp = hrdc_convert(mini, tmp);

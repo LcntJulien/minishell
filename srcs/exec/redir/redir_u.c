@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:52:52 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 11:49:21 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:11:22 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	args_redir(t_shell *mini, t_token *tk)
 	i = 0;
 	while (cp && cp->type != PIPE)
 	{
-		while (cp->type == INPUT || cp->type == HEREDOC || cp->type == OUTPUT
-			|| cp->type == APPEND)
+		while (cp && (cp->type == INPUT || cp->type == HEREDOC
+				|| cp->type == OUTPUT || cp->type == APPEND))
 			cp = del_redir(cp);
 		if (!cp || !cp->next)
 			break ;
@@ -80,7 +80,8 @@ void	args_redir(t_shell *mini, t_token *tk)
 		mini->args[i++] = cp->s;
 		cp = cp->next;
 	}
-	mini->args[i] = NULL;
+	if (mini->args)
+		mini->args[i] = NULL;
 }
 
 int	is_redir(t_token *tk, int mode)

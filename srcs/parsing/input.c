@@ -19,7 +19,7 @@ void	parse_var(t_shell *mini)
 	cp = mini->token;
 	while (cp)
 	{
-		if (contain_var(cp->s))
+		if (contain_var(cp->s) && cp->prev && cp->prev->type != HEREDOC)
 			convert_var(mini, cp);
 		cp = cp->next;
 	}
