@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 17:12:33 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:42:50 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 	char	*tmp;
 
 	tmp = NULL;
-	// signals_hrdc(0);
+	signals_hrdc();
 	if (cur && cur->type == HEREDOC && cur->next)
 		cur = cur->next;
 	while (1)
@@ -82,26 +82,6 @@ void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 	exit(0);
 }
 
-void	hrdc(t_shell *mini, t_token *cur)
-{
-	pid_t	pid;
-
-	// signal(SIGINT, SIG_DFL);
-	pid = fork();
-	if (pid < 0)
-		err_manager(mini, NULL, 2);
-	else if (pid == 0)
-	{
-		g_sig = 2;
-		hrdc_filler(mini, cur, 0);
-	}
-	waitpid(pid, &mini->rtn, 0);
-	mini->rtn = WEXITSTATUS(mini->rtn);
-	fprintf(stderr, "ici\n");
-	if (mini->rtn == 1)
-		exit(1);
-}
-
 void	hrdc_manager(t_shell *mini)
 {
 	t_token	*cp;
@@ -110,24 +90,47 @@ void	hrdc_manager(t_shell *mini)
 
 	cp = mini->token;
 	i = -1;
-	if (!nb_hrdc(mini))
-		return ;
+	replace_sig();
 	alloc_htab(mini, nb_hrdc(mini));
-	while (++i < nb_hrdc(mini))
+	while (nb_hrdc(mini) && ++i < nb_hrdc(mini))
 	{
 		cp = next_hrdc(cp, i);
 		pid = fork();
 		if (pid == -1)
 			err_manager(mini, NULL, 2);
 		else if (pid == 0)
-		{
-			g_sig = 3;
 			hrdc_filler(mini, cp, i);
-			exit(0);
-		}
 		waitpid(pid, &mini->rtn, 0);
 		mini->rtn = WEXITSTATUS(mini->rtn);
 		if (mini->rtn == 1)
 			mini_free(mini);
+	}
+	if (mini->ncmd == 1)
+		define_signals();
+}
+
+void	close_hrdc(t_shell *mini, int cur, int sw)
+{
+	int	i;
+
+	i = -1;
+	if (!nb_hrdc(mini))
+		return ;
+	if (sw)
+	{
+		while (++i < nb_hrdc(mini))
+		{
+			if (i != get_htab(mini, cur))
+				close(mini->htab[i][0]);
+			close(mini->htab[i][1]);
+		}
+	}
+	else
+	{
+		while (++i < nb_hrdc(mini))
+		{
+			close(mini->htab[i][0]);
+			close(mini->htab[i][1]);
+		}
 	}
 }

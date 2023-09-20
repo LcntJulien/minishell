@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/09/20 13:48:09 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/09/20 17:42:52 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,6 +111,6 @@ fclean 	: clean
 re 		: fclean all
 
 debug 	: fclean $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBS) -o $(NAME) -fsanitize=address
+	@$(CC) $(CFLAGS) -g3 $(OBJS) $(LIBFT) $(LIBS) -o $(NAME) -fsanitize=address
 
 .PHONY	: all, clean, fclean, re, debug 

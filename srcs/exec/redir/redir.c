@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 11:59:16 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:39:38 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,9 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 	}
 	else if (cur && is_hrdc(cur))
 	{
+		dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);
 		if (mini->ncmd == 1)
-		{
-			alloc_htab(mini, 1);
-			hrdc(mini, cur);
-			dup2(mini->htab[0][0], STDIN_FILENO);
 			close(mini->htab[0][1]);
-		}
-		else
-			dup2(mini->htab[get_htab(mini, i)][0], STDIN_FILENO);
 	}
 }
 

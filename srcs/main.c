@@ -6,29 +6,11 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:07:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 13:48:34 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:42:07 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/* left to do */
-/*
- - leaks check / norminette check
-*/
-
-/* pour les builtins */
-/*
- - cd must check if arg is an existing file/folder -> if file display file_err
-	-> if neither display both_err
- - pwd exec whatever
- - export works only if alone or with correct identifiers
-	-> some incorrects: `.`, `/`, `/:`
- - same as export for unset
- - exit needs digits to exit whithout err_msg but exit anyway
- - env always send err_msg if folled by anything but a redir or a valid cmd: ls,
-	cat(+arg), ??? 
-*/
 
 static void	startshell(t_shell *mini, char **env, int *histo,
 		struct termios *term)

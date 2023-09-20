@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 17:15:12 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:41:13 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	minipipe(t_shell *mini, t_token *tk)
 	i = -1;
 	pipe_alloc(mini);
 	hrdc_manager(mini);
-	g_sig = 1;
 	while (++i < mini->ncmd && g_sig <= 1)
 	{
 		piped_sig(tk);
@@ -113,23 +112,23 @@ void	minishell(t_shell *mini)
 	pid_t	pid;
 
 	tk = mini->token;
-	get_paths(mini);
-	if (tk && tk->idx == 0 && tk->type != CMD && tk->type != BUILTIN)
-		tk = find_cmd(tk);
+	tk = find_cmd(tk);
 	if (mini->ncmd > 1)
 		minipipe(mini, tk);
 	else if (mini->ncmd == 1)
 	{
+		hrdc_manager(mini);
 		if (tk && tk->type == BUILTIN)
 			exec(mini, tk, 0);
-		else
+		else if (mini->token)
 		{
-			// signal_forked(tk);
+			signal_forked(tk);
 			pid = fork();
 			if (pid < 0)
 				err_manager(mini, tk, 2);
 			else if (pid == 0)
 				exec(mini, tk, 0);
+			close_hrdc(mini, 0, 0);
 			waitpid(pid, &mini->rtn, 0);
 			mini->rtn = WEXITSTATUS(mini->rtn);
 		}

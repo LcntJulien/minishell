@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 13:47:59 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:40:10 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void				sigquit_piped(int sig);
 void				piped_sig(t_token *tk);
 
 /* u_sig_hrdc */
-void				signals_hrdc(int i);
+void				signals_hrdc(void);
 void				replace_sig(void);
 void				signals_b_hrdc(void);
 

@@ -90,4 +90,5 @@ void	parse_input(t_shell *mini)
 	}
 	free(line);
 	mini->ncmd = nb_cmd(mini);
+	get_paths(mini);
 }
