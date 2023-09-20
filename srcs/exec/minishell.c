@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 18:41:13 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:21:56 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 	hrdc_manager(mini);
 	while (++i < mini->ncmd && g_sig <= 1)
 	{
-		piped_sig(tk);
+		piped_sig();
 		mini->pid[i] = fork();
 		if (mini->pid[i] == -1)
 			err_manager(mini, NULL, 2);
