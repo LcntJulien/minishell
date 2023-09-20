@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 10:35:18 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:47:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ int					nb_cmd(t_shell *mini);
 t_token				*find_cmd(t_token *tk);
 t_token				*next_cmd(t_token *tk);
 t_token				*prev_cmd(t_token *tk);
-void				reset_std(t_shell *mini);
+t_token				*next_pipe(t_token *tk);
 int					get_htab(t_shell *mini, int i);
 
 /* mem.c */
@@ -284,7 +284,7 @@ void				alloc_htab(t_shell *mini, int nb);
 char				*hrdc_convert(t_shell *mini, char *s);
 
 /* hrdc_u.c */
-t_token				*cur_hrdc(t_shell *mini, int i);
+t_token				*next_hrdc(t_token *tk, int i);
 void				close_hrdc(t_shell *mini, int cur, int sw);
 int					nb_hrdc(t_shell *mini);
 int					no_hrdc(t_shell *mini);

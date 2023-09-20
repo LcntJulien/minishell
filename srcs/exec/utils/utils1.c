@@ -6,16 +6,21 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 14:35:06 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 17:26:10 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:59:00 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	reset_std(t_shell *mini)
+t_token	*next_pipe(t_token *tk)
 {
-	dup2(mini->o_in, STDIN_FILENO);
-	dup2(mini->o_out, STDOUT_FILENO);
+	while (tk && tk->next && tk->type != PIPE)
+		tk = tk->next;
+	if (!tk)
+		return (NULL);
+	else if (tk->type == PIPE)
+		tk = tk->next;
+	return (tk);
 }
 
 t_token	*prev_cmd(t_token *tk)

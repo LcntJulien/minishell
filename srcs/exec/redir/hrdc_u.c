@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:08:10 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 17:29:20 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:59:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void	close_hrdc(t_shell *mini, int cur, int sw)
 	int	i;
 
 	i = -1;
-	if (!mini->htab)
+	if (!nb_hrdc(mini))
 		return ;
 	if (sw)
 	{
-		while (mini->htab[++i])
+		while (++i < nb_hrdc(mini))
 		{
 			if (i != get_htab(mini, cur))
 				close(mini->htab[i][0]);
@@ -82,7 +82,7 @@ void	close_hrdc(t_shell *mini, int cur, int sw)
 	}
 	else
 	{
-		while (mini->htab[++i])
+		while (++i < nb_hrdc(mini))
 		{
 			close(mini->htab[i][0]);
 			close(mini->htab[i][1]);
@@ -90,26 +90,22 @@ void	close_hrdc(t_shell *mini, int cur, int sw)
 	}
 }
 
-t_token	*cur_hrdc(t_shell *mini, int i)
+t_token	*next_hrdc(t_token *tk, int i)
 {
 	t_token	*cp;
 	t_token	*cur;
-	int		j;
 
-	cp = mini->token;
+	cp = tk;
 	cur = NULL;
-	j = -1;
-	while (++j < i)
-		cp = next_cmd(cp);
-	while (cp->prev && cp->prev->type != PIPE)
-		cp = cp->prev;
-	while (cp->next && cp->type != PIPE)
+	if (i != 0)
+		cp = next_pipe(cp);
+	while (cp && !is_hrdc(cp))
+		cp = cp->next;
+	while (cp && cp->next && cp->type != PIPE)
 	{
-		if (cp->next && (cp->type == INPUT || cp->type == HEREDOC))
+		if (cp->next && cp->type == HEREDOC)
 			cur = cp->next;
 		cp = cp->next;
 	}
-	if (cur && cur->prev->type == HEREDOC)
-		return (cur);
-	return (NULL);
+	return (cur);
 }

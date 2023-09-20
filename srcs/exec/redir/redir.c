@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 17:33:42 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:59:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 			fds_err(mini, cur->s);
 		dup2(mini->in, STDIN_FILENO);
 	}
-	else if (cur && cur->prev && cur->prev->type == HEREDOC)
+	else if (cur && is_hrdc(cur))
 	{
 		if (mini->ncmd == 1)
 		{
