@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 18:41:13 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:10:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	exec(t_shell *mini, t_token *tk, int i)
 	else if (tk)
 	{
 		get_args(mini, tk);
-		if (tk->type == HEREDOC)
-			exit(mini->rtn);
+		if (!mini->args)
+			exit(0);
 		mini->cmd = get_cmd(mini);
 		if (!mini->cmd)
 			err_manager(mini, tk, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:20 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/19 16:06:38 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:32:32 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	print_echo(t_token *list, int nb_args, int nb_opt)
 	{
 		list = list->next;
 		nb_opt--;
-	}	
+	}
 	while (nb_args > 0)
 	{
 		ft_putstr_fd(list->s, STDOUT_FILENO);

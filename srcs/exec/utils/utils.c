@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 17:35:04 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:10:20 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ char	**args_alloc(t_token *tk)
 		i++;
 		cp = cp->next;
 	}
-	args = ft_calloc(sizeof(char *), (i + 1));
-	if (!args)
-		return (NULL);
+	if (i > 0)
+		args = ft_calloc(sizeof(char *), (i + 1));
 	return (args);
 }
 
@@ -76,8 +75,6 @@ void	get_args(t_shell *mini, t_token *tk)
 	int		i;
 
 	cp = tk;
-	if (cp && cp->type == HEREDOC)
-		return ;
 	i = 0;
 	while (cp && cp->prev && cp->prev->type != PIPE)
 		cp = cp->prev;
