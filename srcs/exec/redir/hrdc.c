@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hrdc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 18:25:46 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:59:32 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 	char	*tmp;
 
 	tmp = NULL;
+	if (!cur)
+		fprintf(stderr, "pb la\n");
+	fprintf(stderr, "%s\n", cur->s);
+	if (cur && cur->type == HEREDOC && cur->next)
+		cur = cur->next;
 	if (mini->ncmd != 1)
 		signals_hrdc(0);
 	else
@@ -103,23 +108,26 @@ void	hrdc(t_shell *mini, t_token *cur)
 
 void	hrdc_manager(t_shell *mini)
 {
+	t_token	*cp;
 	pid_t	pid;
 	int		status;
 	int		i;
 
+	cp = mini->token;
 	status = 0;
 	i = -1;
-	if (no_hrdc(mini))
+	if (!nb_hrdc(mini))
 		return ;
 	alloc_htab(mini, nb_hrdc(mini));
 	while (++i < nb_hrdc(mini))
 	{
+		cp = next_hrdc(cp, i);
 		pid = fork();
 		if (pid == -1)
 			err_manager(mini, NULL, 2);
 		else if (pid == 0)
 		{
-			hrdc_filler(mini, cur_hrdc(mini, i), i);
+			hrdc_filler(mini, cp, i);
 			exit(0);
 		}
 		waitpid(pid, &status, 0);

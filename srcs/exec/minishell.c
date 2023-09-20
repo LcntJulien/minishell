@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 18:50:13 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:40:47 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	exec(t_shell *mini, t_token *tk, int i)
 	{
 		g_sig = 0;
 		b_process(mini, tk);
-		reset_std(mini);
+		dup2(mini->o_in, STDIN_FILENO);
+		dup2(mini->o_out, STDOUT_FILENO);
 		if (mini->ncmd > 1)
 			exit(0);
 	}
