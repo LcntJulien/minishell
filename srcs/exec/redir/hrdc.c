@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 11:59:32 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:41:45 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,6 @@ void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 	char	*tmp;
 
 	tmp = NULL;
-	if (!cur)
-		fprintf(stderr, "pb la\n");
-	fprintf(stderr, "%s\n", cur->s);
 	if (cur && cur->type == HEREDOC && cur->next)
 		cur = cur->next;
 	if (mini->ncmd != 1)
@@ -110,11 +107,9 @@ void	hrdc_manager(t_shell *mini)
 {
 	t_token	*cp;
 	pid_t	pid;
-	int		status;
 	int		i;
 
 	cp = mini->token;
-	status = 0;
 	i = -1;
 	if (!nb_hrdc(mini))
 		return ;
@@ -130,9 +125,7 @@ void	hrdc_manager(t_shell *mini)
 			hrdc_filler(mini, cp, i);
 			exit(0);
 		}
-		waitpid(pid, &status, 0);
-		status = WEXITSTATUS(status);
-		if (status != 0)
-			break ;
+		waitpid(pid, &mini->rtn, 0);
+		mini->rtn = WEXITSTATUS(mini->rtn);
 	}
 }

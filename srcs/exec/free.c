@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:29 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/01 13:20:49 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:10:33 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_htab(t_shell *mini)
 	int	i;
 
 	i = 0;
-	if (mini->tab)
+	if (mini->htab)
 	{
 		while (i < nb_hrdc(mini))
 			free(mini->htab[i++]);

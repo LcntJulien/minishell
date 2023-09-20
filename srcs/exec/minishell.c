@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 11:40:47 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:45:43 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 	close_hrdc(mini, i, 0);
 	while (++i < mini->ncmd)
 	{
-		waitpid(mini->pid[i], &mini->rtn, 0);
+		waitpid(-1, &mini->rtn, 0);
 		mini->rtn = WEXITSTATUS(mini->rtn);
 	}
 }
