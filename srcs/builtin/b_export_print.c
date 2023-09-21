@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/18 13:32:29 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:53:23 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	copy_tab(t_shell *mini, char **exp)
 	i = 0;
 	while (mini->env[i])
 	{
-		exp[i] = mini->env[i];
+		exp[i] = strdup(mini->env[i]);
 		i++;
 	}
 }
@@ -105,8 +105,10 @@ static void	copy_tab(t_shell *mini, char **exp)
 void	print_listed_env(t_shell *mini)
 {
 	int		lines;
+	int		i;
 	char	**exp;
 
+	i = -1;
 	lines = tab_lines(mini->env);
 	exp = ft_calloc((lines + 1), sizeof(char *));
 	if (!exp)
@@ -114,5 +116,8 @@ void	print_listed_env(t_shell *mini)
 	copy_tab(mini, exp);
 	sort_in_tab(exp, lines);
 	print_export(mini, exp);
+	while (exp[++i])
+		free_str(exp[i]);
+	free(exp);
 	mini->rtn = 0;
 }
