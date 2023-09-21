@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:38:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 15:34:54 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:42:57 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,15 @@ char	*get_cmd(t_shell *mini)
 	pathcmd = NULL;
 	if (!mini->args)
 		return (NULL);
-	while ((mini->paths && mini->paths[++i]) || mini->args[0])
+	if (access(mini->args[0], X_OK) == 0)
+		return (mini->args[0]);
+	while (mini->paths && mini->paths[++i])
 	{
-		if (mini->paths && mini->paths[i])
-			pathcmd = ft_strjoin(mini->paths[i], mini->args[0]);
-		else
-			pathcmd = ft_strdup(mini->args[0]);
+		pathcmd = ft_strjoin(mini->paths[i], mini->args[0]);
 		if (access(pathcmd, X_OK) == 0)
 			return (pathcmd);
 		free(pathcmd);
 		pathcmd = NULL;
-		if (!mini->paths)
-			return (NULL);
 	}
 	if (mini->args[0][ft_strlen(mini->args[0]) - 1] == '/')
 		test_access(mini);

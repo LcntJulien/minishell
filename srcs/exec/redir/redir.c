@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:45:27 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 20:27:27 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:15:53 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ void	do_redirin(t_shell *mini, t_token *cur, int i)
 	}
 }
 
-void	do_redirout(t_shell *mini, t_token *cur, int i)
+void	do_redirout(t_shell *mini, t_token *cur)
 {
-	(void)i;
 	if (cur->prev->type == OUTPUT)
 		mini->out = open(cur->s, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	else if (cur->prev->type == APPEND)
@@ -48,11 +47,6 @@ void	redirin(t_shell *mini, t_token *tk, int i)
 
 	cp = tk;
 	cur = NULL;
-	if (cp && cp->type == HEREDOC)
-	{
-		do_redirin(mini, cp, i);
-		return ;
-	}
 	while (cp->prev && cp->prev->type != PIPE)
 		cp = cp->prev;
 	while (cp->next && cp->type != PIPE)
@@ -65,7 +59,7 @@ void	redirin(t_shell *mini, t_token *tk, int i)
 		do_redirin(mini, cur, i);
 }
 
-void	redirout(t_shell *mini, t_token *tk, int i)
+void	redirout(t_shell *mini, t_token *tk)
 {
 	t_token	*cp;
 	t_token	*cur;
@@ -82,7 +76,7 @@ void	redirout(t_shell *mini, t_token *tk, int i)
 	}
 	if (cur)
 	{
-		do_redirout(mini, cur, i);
+		do_redirout(mini, cur);
 		close_output(tk, cur);
 	}
 }
@@ -92,5 +86,5 @@ void	redir(t_shell *mini, t_token *tk, int i)
 	if (is_redir(tk, 1))
 		redirin(mini, tk, i);
 	if (is_redir(tk, 2))
-		redirout(mini, tk, i);
+		redirout(mini, tk);
 }

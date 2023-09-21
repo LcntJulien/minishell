@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 14:06:30 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:43:39 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,22 @@ void	pipe_alloc(t_shell *mini)
 	while (++i < mini->ncmd)
 		if (pipe(mini->tab[i]) < 0)
 			err_manager(mini, NULL, 1);
+}
+
+void	close_redir(t_shell *mini, t_token *tk, int sw)
+{
+	if (sw)
+	{
+		if (is_redir(tk, 1))
+			close(mini->in);
+		if (is_redir(tk, 2))
+			close(mini->out);
+	}
+	else
+	{
+		close(mini->in);
+		close(mini->out);
+	}
 }
 
 void	close_output(t_token *tk, t_token *cur)
