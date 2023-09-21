@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/01 18:21:37 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:50:15 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ static char	**delete_var(t_shell *mini, int i)
 	while (mini->env[++len])
 	{
 		if (len != i)
-			new_env[++j] = mini->env[len];
+			new_env[++j] = ft_strdup(mini->env[len]);
 	}
+	free_env(mini);
 	return (new_env);
 }
 
