@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:53:11 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/20 19:01:20 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:00:27 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	b_process(t_shell *mini, t_token *tk)
 {
+	g_sig = 0;
 	if (tk && !ft_strncmp(tk->s, "echo", 4))
 		b_echo(mini, tk);
 	else if (tk && !ft_strncmp(tk->s, "cd", 2))
