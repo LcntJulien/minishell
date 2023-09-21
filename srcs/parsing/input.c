@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:57:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 22:58:08 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:12:29 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char	*line_alloc(t_shell *mini)
 	sep = 0;
 	i = -1;
 	while (mini->line[++i])
-		if (is_sep(mini->line, i) && !is_sep(mini->line, i + 1))
+		if (is_sep(mini->line, i) && (!is_sep(mini->line, i + 1)
+				|| !mini->line[i + 1]))
 			sep++;
 	nl = ft_calloc(sizeof(char), (2 * sep + i + 1));
 	return (nl);
@@ -76,6 +77,7 @@ void	parse_input(t_shell *mini)
 		return ;
 	line = parse_line(mini);
 	mini->token = get_token(line);
+	free(line);
 	token_idx(mini);
 	parse_var(mini);
 	if (syntax_check(mini))
@@ -88,7 +90,6 @@ void	parse_input(t_shell *mini)
 			post_tk_type(token);
 		token = token->next;
 	}
-	free(line);
 	mini->ncmd = nb_cmd(mini);
 	get_paths(mini);
 }
