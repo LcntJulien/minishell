@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/20 11:29:21 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:01:18 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	next_cd_step(t_shell *mini, t_token *list, char *cur_dir)
 			return ;
 		}
 		check_var_status(mini, list, tmp_path, cur_dir);
-		free(tmp_path);
-		tmp_path = NULL;
+		free_str(tmp_path);
 	}
 	else
 		check_var_status(mini, list, list->s, cur_dir);
