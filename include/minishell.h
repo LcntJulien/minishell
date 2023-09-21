@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 13:59:17 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:44:06 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,7 @@ int					get_htab(t_shell *mini, int i);
 
 /* mem.c */
 void				close_pipes(t_shell *mini, t_token *tk, int i, int sw);
+void				close_redir(t_shell *mini, t_token *tk, int sw);
 void				close_output(t_token *cp, t_token *cur);
 void				mini_free(t_shell *mini);
 void				pipe_alloc(t_shell *mini);

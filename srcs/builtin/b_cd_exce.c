@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:39 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/18 14:26:35 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:11:25 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,13 @@ void	check_var_status(t_shell *mini, t_token *list, char *tmp_path,
 		}
 	}
 	else
+	{
 		if (!valid_path(mini, tmp_path))
+		{
+			free_str(cur_dir);
 			return ;
+		}
+	}
 	modify_env(mini, list, cur_dir);
 	if (cur_dir)
 		free_str(cur_dir);

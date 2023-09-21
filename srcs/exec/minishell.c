@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 14:07:10 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:13:59 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	child(t_shell *mini, t_token *tk, int i)
 	}
 	close_pipes(mini, tk, i, 1);
 	close_hrdc(mini, i, 1);
+	// close_redir(mini, tk, 0);
 	exec(mini, tk, i);
 }
 
@@ -101,6 +102,7 @@ void	minipipe(t_shell *mini, t_token *tk)
 	i = -1;
 	close_pipes(mini, tk, i, 0);
 	close_hrdc(mini, i, 0);
+	// close_redir(mini, NULL, 0);
 	while (++i < mini->ncmd)
 	{
 		waitpid(-1, &mini->rtn, 0);
