@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:28:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 22:42:27 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:35:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	minishell(t_shell *mini)
 	else if (mini->ncmd == 1)
 	{
 		hrdc_manager(mini);
-		if (tk && tk->type == BUILTIN)
+		if (mini->token && tk->type == BUILTIN)
 			exec(mini, tk, 0);
 		else if (mini->token)
 		{

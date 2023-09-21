@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 23:00:46 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:29:35 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	mini_free(t_shell *mini)
 {
 	if (g_sig != 0)
 		define_last(mini);
+	free_htab(mini);
 	free_pipe(mini);
 	free_paths(mini);
 	free_args(mini);
 	free_token(mini);
-	free_htab(mini);
 	if (mini->pid)
 		free(mini->pid);
 	mini->pid = NULL;

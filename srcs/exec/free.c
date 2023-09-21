@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:29 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 17:52:52 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:31:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	free_token(t_shell *mini)
 
 	cpy = mini->token;
 	tmp = NULL;
-	while (cpy && cpy != NULL)
+	while (cpy)
 	{
 		tmp = cpy->next;
-		if (cpy->s != NULL)
+		if (cpy->s)
 		{
 			free(cpy->s);
 			cpy->s = NULL;

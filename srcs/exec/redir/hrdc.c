@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/20 22:42:37 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:29:22 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	hrdc_manager(t_shell *mini)
 	cp = mini->token;
 	i = -1;
 	replace_sig();
-	alloc_htab(mini, nb_hrdc(mini));
+	if (nb_hrdc(mini))
+		alloc_htab(mini, nb_hrdc(mini));
 	while (nb_hrdc(mini) && ++i < nb_hrdc(mini))
 	{
 		cp = next_hrdc(cp, i);
