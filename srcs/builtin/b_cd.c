@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/21 16:01:18 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:10:14 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ void	b_cd(t_shell *mini, t_token *list)
 	char	*cur_dir;
 
 	cur_dir = getcwd(NULL, 0);
-	if (!cur_dir)
+	if (cur_dir == 0)
+	{
+		free_str(cur_dir);
 		ft_exit_plus(mini, "Not a directory\n", 1);
+	}
 	if (!list->next || (list->next && list->next->type >= 6))
 	{
 		if (!args_before_cd(mini, list))
