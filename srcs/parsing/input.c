@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:57:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 13:12:29 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:45:29 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ char	*parse_line(t_shell *mini)
 				nl[j++] = mini->line[i++];
 			nl[j++] = ' ';
 		}
-		else
-			nl[j++] = mini->line[i++];
+		else if (nl[j])
+			nl[j++] = mini->line[i];
+		i++;
 	}
 	return (nl);
 }
