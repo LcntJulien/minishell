@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 16:44:06 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:32:34 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void				b_echo(t_shell *mini, t_token *list);
 int					check_opt(t_token *list, int nb_opt);
 
 /* b_env */
-char				**renew_env(t_shell *mini, int lines, t_token *tmp);
 void				b_env(t_shell *mini, t_token *list);
 
 /* b_exit */
@@ -120,7 +119,6 @@ void				exit_until(t_shell *mini);
 void				exit_too_much(t_shell *mini);
 
 /*	b_export	*/
-int					check_existing_args(t_shell *mini, char *s);
 void				b_export_args(t_shell *mini, t_token *list, int nb_args);
 void				b_export(t_shell *mini, t_token *list);
 
@@ -183,7 +181,6 @@ void				piped_sig(void);
 /* u_sig_hrdc */
 void				signals_hrdc(void);
 void				replace_sig(void);
-void				signals_b_hrdc(void);
 
 /* u_utils */
 char				*var_content(t_shell *mini, char *str);
@@ -209,7 +206,6 @@ int					str_alloc(char *s, int *idx);
 int					is_dollar(t_token *tk);
 
 /* utils1 */
-void				display_tokens(t_token *token);
 int					quote_state(char *line, int idx);
 int					is_sep(char *line, int i);
 int					is_quote(char *s);
@@ -280,7 +276,6 @@ void				free_pipe(t_shell *mini);
 /* hrdc.c */
 void				hrdc_filler(t_shell *mini, t_token *cur, int i);
 void				hrdc_manager(t_shell *mini);
-void				hrdc(t_shell *mini, t_token *cur);
 void				alloc_htab(t_shell *mini, int nb);
 char				*hrdc_convert(t_shell *mini, char *s);
 
@@ -288,7 +283,6 @@ char				*hrdc_convert(t_shell *mini, char *s);
 t_token				*next_hrdc(t_token *tk, int i);
 void				close_hrdc(t_shell *mini, int cur, int sw);
 int					nb_hrdc(t_shell *mini);
-int					no_hrdc(t_shell *mini);
 int					is_hrdc(t_token *tk);
 
 /* redir.c */

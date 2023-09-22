@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:27:35 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/14 23:53:33 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:30:51 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,4 @@ int	quote_state(char *s, int idx)
 			quote = 0;
 	}
 	return (quote);
-}
-
-void	display_tokens(t_token *token)
-{
-	t_token	*cp;
-	char	*tab[11];
-
-	cp = token;
-	while (cp && cp->prev && cp->prev->type != PIPE)
-		cp = cp->prev;
-	tab[0] = "CMD";
-	tab[1] = "ARG";
-	tab[2] = "VAR";
-	tab[3] = "OPTION";
-	tab[4] = "BUILTIN";
-	tab[5] = "DECLAVAR";
-	tab[6] = "PIPE";
-	tab[7] = "INPUT";
-	tab[8] = "OUTPUT";
-	tab[9] = "APPEND";
-	tab[10] = "HEREDOC";
-	while (cp)
-	{
-		if (cp->s != NULL)
-			fprintf(stderr, "%s -> %s -> %d\n", cp->s, tab[cp->type], cp->idx);
-		else
-			fprintf(stderr, "|VIDE| -> %s\n", tab[cp->type]);
-		cp = cp->next;
-	}
 }
