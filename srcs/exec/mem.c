@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:49:24 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 16:43:39 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:45:19 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	close_redir(t_shell *mini, t_token *tk, int sw)
 {
 	if (sw)
 	{
-		if (is_redir(tk, 1))
+		if (!is_redir(tk, 1))
 			close(mini->in);
-		if (is_redir(tk, 2))
+		if (!is_redir(tk, 2))
 			close(mini->out);
 	}
 	else
@@ -84,7 +84,9 @@ void	close_output(t_token *tk, t_token *cur)
 		cp = cp->prev;
 	while (cp && cp->type != PIPE)
 	{
-		if (cp->next && cp->type == OUTPUT && cp->next->idx != cur->idx)
+		if (cp->next && cp->type == OUTPUT && (ft_strncmp(cp->next->s, cur->s,
+					ft_strlen(cur->s)) != 0
+				|| ft_strlen(cp->next->s) != ft_strlen(cur->s)))
 		{
 			fd = open(cp->next->s, O_CREAT | O_RDWR | O_TRUNC, 0644);
 			close(fd);
