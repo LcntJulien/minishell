@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:57:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/22 14:45:29 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:24:22 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ char	*line_alloc(t_shell *mini)
 	sep = 0;
 	i = -1;
 	while (mini->line[++i])
-		if (is_sep(mini->line, i) && (!is_sep(mini->line, i + 1)
-				|| !mini->line[i + 1]))
+		if ((is_sep(mini->line, i) && (!is_sep(mini->line, i + 1)
+					|| !mini->line[i + 1])) || (mini->line[i] == '|'
+				&& mini->line[i + 1] == '|'))
 			sep++;
 	nl = ft_calloc(sizeof(char), (2 * sep + i + 1));
 	return (nl);
@@ -62,9 +63,8 @@ char	*parse_line(t_shell *mini)
 				nl[j++] = mini->line[i++];
 			nl[j++] = ' ';
 		}
-		else if (nl[j])
-			nl[j++] = mini->line[i];
-		i++;
+		else
+			nl[j++] = mini->line[i++];
 	}
 	return (nl);
 }
@@ -77,6 +77,7 @@ void	parse_input(t_shell *mini)
 	if (!mini->line)
 		return ;
 	line = parse_line(mini);
+	fprintf(stderr, "%s\n", line);
 	mini->token = get_token(line);
 	free(line);
 	token_idx(mini);
