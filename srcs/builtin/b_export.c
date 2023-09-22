@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:33 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/20 14:48:21 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:47:16 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,10 @@ void	b_export_args(t_shell *mini, t_token *list, int nb_args)
 
 void	b_export(t_shell *mini, t_token *list)
 {
-	int		nb_args;
+	int	nb_args;
 
-	if (!list->next || (!check_nb_args(list, 1) && !check_nb_args(list, 2)))
+	if (!list->next || (!check_nb_args(list, 1) && !check_nb_args(list, 2))
+		|| (list->next && list->next->s == NULL))
 		print_listed_env(mini);
 	else
 	{

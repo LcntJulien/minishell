@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:16:40 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/21 14:52:43 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:46:37 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	b_unset(t_shell *mini, t_token *list)
 	else
 	{
 		tmp = mini->token->next;
-		if (tmp && tmp->type == 2)
+		if (tmp && tmp->type == 2 && tmp->s != NULL)
 		{
 			unset_error(mini, tmp);
 			return ;

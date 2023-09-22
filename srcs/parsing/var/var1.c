@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:15:41 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/08/31 15:14:33 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:45:41 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ char	*get_ns(char *s, char *nvar, int idx, int vname_len)
 	if (!nvar)
 		j++;
 	j += i;
-	while (s[++i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"' && s[i] != '$')
+	while (s[++i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"' && s[i] != '$'
+		&& s[i] != '=')
 		;
 	while (s[i])
 		ns[j++] = s[i++];
@@ -76,7 +77,8 @@ char	*rewrite(t_shell *mini, char *s, char *vname, int idx)
 	nvar = get_nvar(mini, vname);
 	ns = NULL;
 	i = idx;
-	while (s[++i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"' && s[i] != '$')
+	while (s[++i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"' && s[i] != '$'
+		&& s[i] != '=')
 		;
 	i -= idx;
 	ns = get_ns(s, nvar, idx, i);

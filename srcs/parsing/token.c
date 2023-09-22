@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/19 22:05:10 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:01:37 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ void	clean_tokens(t_token *tk)
 			free(cp->s);
 			cp->s = NULL;
 			cp->s = clean_s(s);
+			free(s);
 		}
 		cp = cp->next;
 	}
-	free(s);
-	free(cp);
 }
 
 t_token	*new_token(char *line, int *i, int j)

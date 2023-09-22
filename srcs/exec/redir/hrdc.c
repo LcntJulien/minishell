@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:57:43 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 14:07:28 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:27:54 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	hrdc_filler(t_shell *mini, t_token *cur, int i)
 		if (contain_var(tmp))
 			tmp = hrdc_convert(mini, tmp);
 		ft_putendl_fd(tmp, mini->htab[i][1]);
+		free(tmp);
+		tmp = NULL;
 	}
 	if (tmp)
 		free(tmp);
