@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:39:05 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/21 12:32:19 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:17:49 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	fds_err(t_shell	*mini, char	*fname)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(fname, 2);
-	ft_putendl_fd("; no such file or directory", 2);
+	ft_putendl_fd(": no such file or directory", 2);
 	mini->rtn = 1;
 	exit(1);
 }
