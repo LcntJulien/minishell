@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:57:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/25 16:48:46 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:22:45 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@ char	*line_alloc(t_shell *mini)
 	char	*nl;
 	int		sep;
 	int		i;
+	int		f;
 
 	nl = NULL;
 	sep = 0;
 	i = -1;
+	f = 0;
 	while (mini->line[++i])
 	{
-		if (is_sep(mini->line, i) && !mini->line[i - 1])
-			sep++;
-		else if (is_sep(mini->line, i) && !((mini->line[i] == '<'
-						|| mini->line[i] == '>')
-					&& mini->line[i] == mini->line[i + 1]))
+		if (quote_state(mini->line, i) == 0 && is_sep(mini->line, i))
 		{
-			fprintf(stderr, "%c -> sep\n", mini->line[i]);
-			sep++;
+			if (!((mini->line[i] == '>' || mini->line[i] == '<')
+					&& mini->line[i] == mini->line[i - 1] && f % 2 != 0))
+				sep++;
+			if ((mini->line[i] == '>' || mini->line[i] == '<')
+				&& (mini->line[i] == mini->line[i + 1]
+					|| mini->line[i] == mini->line[i - 1]))
+				f++;
 		}
-		else
-			fprintf(stderr, "%c\n", mini->line[i]);
 	}
-	fprintf(stderr, "%d\n", (2 * sep + i + 1));
 	nl = ft_calloc(sizeof(char), (2 * sep + i + 1));
 	return (nl);
 }
@@ -70,15 +70,12 @@ char	*parse_line(t_shell *mini)
 			nl[j++] = mini->line[i++];
 			if (quote_state(mini->line, i) == 0 && (mini->line[i] == '>'
 					|| mini->line[i] == '<') && mini->line[i] == mini->line[i
-				- 1])
+					- 1])
 				nl[j++] = mini->line[i++];
 			nl[j++] = ' ';
 		}
 		else
-		{
-			fprintf(stderr, "%c\n", mini->line[i]);
 			nl[j++] = mini->line[i++];
-		}
 	}
 	return (nl);
 }
@@ -91,8 +88,6 @@ void	parse_input(t_shell *mini)
 	if (!mini->line)
 		return ;
 	line = parse_line(mini);
-	fprintf(stderr, "%s\n", line);
-	fprintf(stderr, "%zu\n", ft_strlen(line));
 	mini->token = get_token(line);
 	free(line);
 	token_idx(mini);
