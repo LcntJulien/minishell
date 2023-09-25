@@ -6,7 +6,7 @@
 /*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:31:16 by jmathieu          #+#    #+#             */
-/*   Updated: 2023/09/21 16:10:14 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:08:04 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	next_cd_step(t_shell *mini, t_token *list, char *cur_dir)
 			ft_putstr_fd("minishell: cd: ", STDOUT_FILENO);
 			ft_putstr_fd(tmp_path, STDOUT_FILENO);
 			ft_putstr_fd(" not set\n", STDOUT_FILENO);
-			free(tmp_path);
-			tmp_path = NULL;
+			free_str(tmp_path);
+			free_str(cur_dir);
 			return ;
 		}
 		check_var_status(mini, list, tmp_path, cur_dir);
@@ -77,7 +77,7 @@ void	b_cd(t_shell *mini, t_token *list)
 		free_str(cur_dir);
 		ft_exit_plus(mini, "Not a directory\n", 1);
 	}
-	if (!list->next || (list->next && list->next->type >= 6))
+	else if (!list->next || (list->next && list->next->type >= 6))
 	{
 		if (!args_before_cd(mini, list))
 		{

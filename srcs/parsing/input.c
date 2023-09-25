@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:57:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/22 16:24:22 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:18:42 by jmathieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	parse_input(t_shell *mini)
 	if (!mini->line)
 		return ;
 	line = parse_line(mini);
-	fprintf(stderr, "%s\n", line);
 	mini->token = get_token(line);
 	free(line);
 	token_idx(mini);
