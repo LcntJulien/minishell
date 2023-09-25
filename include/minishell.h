@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:06:16 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/22 13:32:34 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:46:27 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ int					get_htab(t_shell *mini, int i);
 
 /* mem.c */
 void				close_pipes(t_shell *mini, t_token *tk, int i, int sw);
-void				close_redir(t_shell *mini, t_token *tk, int sw);
+void				close_redir(t_shell *mini, t_token *tk);
 void				close_output(t_token *cp, t_token *cur);
 void				mini_free(t_shell *mini);
 void				pipe_alloc(t_shell *mini);
@@ -295,7 +295,6 @@ int					is_redir(t_token *tk, int mode);
 
 /* error.c */
 void				err_manager(t_shell *mini, t_token *tk, int err);
-void				clear_files(t_shell *mini, t_token *tk, char *s);
 void				fds_err(t_shell *mini, char *fname);
 
 #endif
