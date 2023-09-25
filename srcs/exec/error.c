@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:39:05 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/25 13:17:49 by jmathieu         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:48:28 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	clear_files(t_shell *mini, t_token *tk, char *s)
-{
-	t_token	*cp;
-	int		fd;
-
-	cp = tk;
-	fd = 0;
-	while (cp->next && cp->next->type != PIPE)
-	{
-		if ((cp->type == OUTPUT || cp->type == APPEND)
-			&& (ft_strncmp(cp->next->s, s, ft_strlen(cp->next->s))))
-		{
-			fd = open(cp->next->s, O_WRONLY | O_TRUNC);
-			if (fd < 0)
-				fds_err(mini, cp->next->s);
-			close(fd);
-		}
-		cp = cp->next;
-	}
-}
 
 void	fds_err(t_shell	*mini, char	*fname)
 {
@@ -63,5 +42,5 @@ void	err_manager(t_shell *mini, t_token *tk, int err)
 	else if (err == 3)
 		ft_putendl_fd("failed to allocate space", 2);
 	mini->rtn = EXIT_FAILURE;
-	exit(EXIT_FAILURE);
+	ft_exit_all(mini, 0, EXIT_FAILURE);
 }

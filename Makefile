@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmathieu <jmathieu@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/09/25 13:01:11 by jmathieu         ###   ########.fr        #
+#    Updated: 2023/09/25 16:48:20 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
