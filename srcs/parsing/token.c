@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:46:14 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/22 12:01:37 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:20:47 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ t_token	*new_token(char *line, int *i, int j)
 	{
 		if (line[*i] == ' ' && quote_state(line, *i) == 0)
 			break ;
-		if (((line[*i] == '<' && line[*i + 2] == '<') || (line[*i] == '>'
-					&& line[*i + 2] == '>')) && (line[*i - 1] != '<' || line[*i
-					- 1] != '>'))
+		if (line[*i + 1] && line[*i + 2] && ((line[*i] == '<'
+					&& line[*i + 2] == '<') || (line[*i] == '>'
+					&& line[*i + 2] == '>'))
+			&& (line[*i - 1] != '<' || line[*i - 1] != '>'))
 		{
 			tk->s[j++] = line[*i + 2];
 			(*i)++;

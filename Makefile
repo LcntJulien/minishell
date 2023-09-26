@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/09/25 23:23:09 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/09/26 11:22:56 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ HEADERS = -I include -I "/Users/$$USER/.brew/opt/readline/include"
 
 LIBS = -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
 
-CFLAGS	= -Wall -Wextra -Werror -ggdb3
+CFLAGS	= -Wall -Wextra -Werror
 
 OBJS	= $(SRCS:.c=.o)
 

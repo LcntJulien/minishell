@@ -6,7 +6,7 @@
 /*   By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:57:47 by jlecorne          #+#    #+#             */
-/*   Updated: 2023/09/25 23:22:45 by jlecorne         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:19:39 by jlecorne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ char	*parse_line(t_shell *mini)
 			nl[j++] = ' ';
 			nl[j++] = mini->line[i++];
 			if (quote_state(mini->line, i) == 0 && (mini->line[i] == '>'
-					|| mini->line[i] == '<') && mini->line[i] == mini->line[i
-					- 1])
+					|| mini->line[i] == '<')
+				&& mini->line[i] == mini->line[i - 1])
 				nl[j++] = mini->line[i++];
 			nl[j++] = ' ';
 		}
