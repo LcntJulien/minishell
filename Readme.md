@@ -13,6 +13,11 @@ Minishell is a project from [42](https://www.42.fr/) that aims to create a basic
 ## Authors
 jlecorne, jmathieu
 
+## Usage
+```bash
+./minishell
+```
+
 ## Project Overview
 
 - **Aim:** Create a basic Unix shell.
@@ -38,6 +43,3 @@ jlecorne, jmathieu
 ## Important Note
 
 The Minishell project relies on the Readline library. Make sure to have it properly installed and linked, as specified in the provided Makefile.
-
-```bash
-./minishell
