@@ -6,7 +6,7 @@
 #    By: jlecorne <jlecorne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/29 13:00:26 by jlecorne          #+#    #+#              #
-#    Updated: 2023/10/18 18:39:01 by jlecorne         ###   ########.fr        #
+#    Updated: 2023/10/18 18:43:57 by jlecorne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ HEADERS = -I include -I "/Users/$$USER/.brew/opt/readline/include"
 
 LIBS = -lreadline -L"/Users/$$USER/.brew/opt/readline/lib"
 
-CFLAGS	= -Wall -Wextra -Werror # -ggdb3 -> use for valgrind
+CFLAGS	= -Wall -Wextra -Werror # `-ggdb3` -> use for valgrind
 
 OBJS	= $(SRCS:.c=.o)
 
