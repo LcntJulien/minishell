@@ -11,7 +11,7 @@
 Minishell is a project from [42](https://www.42.fr/) that aims to create a basic Unix shell, similar to the command line interface you use daily. In this project, you'll learn various essential skills in systems programming, including parsing, execution, and working with system calls.
 
 ## Authors
-jlecorne, jmathieu
+Jlec, JeyIsOnFire
 
 ## Usage
 ```bash
