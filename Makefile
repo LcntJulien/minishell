@@ -111,4 +111,4 @@ re 		: fclean all
 debug 	: fclean $(LIBFT) $(OBJS)
 	@$(CC) $(CFLAGS) -g3 $(OBJS) $(LIBFT) $(LIBS) -o $(NAME) -fsanitize=address
 
-.PHONY	: all, clean, fclean, re, debug 
+.PHONY	: all, clean, fclean, re, debug
